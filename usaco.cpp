@@ -1,6 +1,6 @@
 /*
 ID: remidin1
-TASK: palsquare
+TASK: transform
 LANG: C++11                 
 */
 
@@ -63,37 +63,48 @@ int cmp(double x, double y = 0, double tol = EPS) {
 const int MAX_N = 2234506;
 //int arr[MAX_N];
 
-int b;
+int n;
 
-char r(int x){
-    if(x<10) return '0'+x;
-    else return 'A'+(x-10);
-}
-
-string f(int x){
-    string s="";
-    while(x){
-        s.PB(r(x%b));
-        x/=b;
-    }
-    reverse(ALL(s));
-    return s;
-}
-
-bool ispal(string s){
-    int n=s.length();
-    REP(i,n) if(s[i]!=s[n-1-i]) return false;
+bool test(vvi &I,vvi &O){
+    REP(i,n) REP(j,n) if(I[i][j]!=O[i][j]) return false;
     return true;
 }
 
+vvi rotate(vvi &I){
+    vvi V(n,vi(n));
+    REP(i,n) REP(j,n) V[i][j]=I[n-1-j][i];
+    return V;
+}
+
+vvi reflect(vvi &I){
+    vvi V(n,vi(n));
+    REP(i,n) REP(j,n) V[i][j]=I[i][n-1-j];
+    return V;
+}
+
 int main(){
-    ofstream fout ("palsquare.out");
-    ifstream fin ("palsquare.in");
-    fin>>b;
-    int t;
-    REP1(i,300){
-        t=i*i;
-        if(ispal(f(t))) fout<<f(i)<<" "<<f(t)<<"\n";
-    }
+    ofstream fout ("transform.out");
+    ifstream fin ("transform.in");
+    fin>>n;
+    vvi I(n,vi(n)),O(n,vi(n)),T;
+    char c;
+    REP(i,n) REP(j,n){ fin>>c; I[i][j]=c-'a';}
+    REP(i,n) REP(j,n){ fin>>c; O[i][j]=c-'a';}
+    T=rotate(I);
+    if(test(O,T)){ fout<<"1"<<"\n"; return 0;}
+    T=rotate(T);
+    if(test(O,T)){ fout<<"2"<<"\n"; return 0;}
+    T=rotate(T);
+    if(test(O,T)){ fout<<"3"<<"\n"; return 0;}
+    if(test(I,O)){ fout<<"6"<<"\n"; return 0;}
+    T=reflect(I);
+    if(test(O,T)){ fout<<"4"<<"\n"; return 0;}
+    T=rotate(T);
+    if(test(O,T)){ fout<<"5"<<"\n"; return 0;}
+    T=rotate(T);
+    if(test(O,T)){ fout<<"5"<<"\n"; return 0;}
+    T=rotate(T);
+    if(test(O,T)){ fout<<"5"<<"\n"; return 0;}
+    fout<<7<<"\n";
 	return 0;
 }
