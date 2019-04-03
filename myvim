@@ -1,7 +1,11 @@
-set nocp et sw=4 ts=4 sts=4 si cindent hi=1000 nu ru noeb
+set nocp et sw=4 ts=4 sts=4 si cindent hi=1000 rnu nu ru noeb
 set showcmd showmode
 ""syn on | colorscheme slate
 " No error bells -- noeb, smart indent -- si, ruler -- ru
+" Number -- nu, Rel number -- rnu, nocompatible -- nocp
+" expandtab -- et, shiftwidth -- sw, tabstop -- ts
+" expandtab -- use spaces instead of tabs
+" softtabstop -- with <BS> pretend like tab is removed, even if spaces
 set vb t_vb=
 
 syntax enable
@@ -16,3 +20,7 @@ if &term =~ '256color'
   " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
     set t_ut=
 endif
+
+"autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
+
+nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
