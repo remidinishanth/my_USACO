@@ -13,6 +13,8 @@ set background=dark
 colorscheme gruvbox
 set mouse=a
 set cursorline
+set cursorcolumn
+set wildmenu
 
 if &term =~ '256color'
   " disable Background Color Erase (BCE) so that color schemes
@@ -24,3 +26,5 @@ endif
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
 
 nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
+
+nnoremap <F6> :!./a.out <CR>
