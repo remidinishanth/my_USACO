@@ -80,8 +80,8 @@ int cmp(double x, double y = 0, double tol = EPS) {
     return (x <= y + tol) ? (x + tol < y) ? -1 : 0 : 1;
 }
 
-template<class T> bool uin(T &a,T b) { return a > b ? (a=b, true) : false; }
-template<class T> bool uax(T &a,T b) { return a < b ? (a=b, true) : false; }
+template<class T> bool uin(T &a,T b) {return a > b ? (a=b, true):false;}
+template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
@@ -90,7 +90,5 @@ const int MAX_N = 5*1010*100;
 //int arr[MAXN][MAXN];
 
 int main(){
-    dsd2(n,k);
-    pd(k);
     return 0;
 }
