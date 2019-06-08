@@ -20,6 +20,7 @@ set mouse=a          " enable mouse in all modes
 set cursorline       " highlight current line
 set wildmenu         " visual autocomplete for command menu
 set background=dark  
+set nowrap           " disable soft wrap for lines
 
 syntax enable        " keep your current color settings
 colorscheme solarized8_flat
