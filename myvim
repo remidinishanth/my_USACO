@@ -1,13 +1,3 @@
-set nocp et sw=4 ts=4 sts=4 si cindent hi=1000 rnu nu ru noeb
-set showcmd showmode
-""syn on | colorscheme slate
-" No error bells -- noeb, smart indent -- si, ruler -- ru
-" Number -- nu, Rel number -- rnu, nocompatible -- nocp
-" expandtab -- et, shiftwidth -- sw, tabstop -- ts
-" expandtab -- use spaces instead of tabs
-" softtabstop -- with <BS> pretend like tab is removed, even if spaces
-set vb t_vb=
-
 " Try not to put settings you don’t understand in your .vimrc
 
 set nocompatible     " removes incompatibility with the original vi
@@ -33,17 +23,6 @@ set background=dark
 
 syntax enable        " keep your current color settings
 colorscheme solarized8_flat
-
-
-
-
-syntax enable
-set background=dark
-colorscheme gruvbox
-set mouse=a
-set cursorline
-set cursorcolumn
-set wildmenu
 
 if &term =~ '256color'
   " disable Background Color Erase (BCE) so that color schemes
