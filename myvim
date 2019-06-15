@@ -20,10 +20,26 @@ set mouse=a          " enable mouse in all modes
 set cursorline       " highlight current line
 set wildmenu         " visual autocomplete for command menu
 set background=dark  
-set nowrap           " disable soft wrap for lines
+set nowrap           " disable soft wrap for lines 
+set hlsearch         " highlight search results
+set incsearch        " incremental search
+set splitbelow       " split opens at bottom
+set splitright       " new vertical split opens right
 
 syntax enable        " keep your current color settings
 colorscheme solarized8_flat
+
+" Smart way to move between windows in split
+map <C-j> <C-W>j     
+map <C-k> <C-W>k     
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+inoremap jk <esc>    " jk is escape
+
+let mapleader = ","  " comma is leader
+
+nnoremap <leader><space> :noh<CR> " turn off search highlight
 
 if &term =~ '256color'
   " disable Background Color Erase (BCE) so that color schemes
