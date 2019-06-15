@@ -35,8 +35,6 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-inoremap jk <esc>    " jk is escape
-
 let mapleader = ","  " comma is leader
 
 nnoremap <leader><space> :noh<CR> " turn off search highlight
