@@ -64,6 +64,31 @@ typedef map<int, int> mii;
 #define PR1(a,n) { cout<<#a<<" = "; REP1(_,n) cout<<a[_]<<' '; cout<<"\n"; }
 #define _W(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
 
+#define sim template < class c
+#define ris return * this
+#define dor > debug & operator <<
+#define eni(x) sim > typename \
+  enable_if<sizeof dud<c>(0) x 1, debug&>::type operator<<(c i) {
+sim > struct rge { c b, e; };
+sim > rge<c> range(c i, c j) { return rge<c>{i, j}; }
+sim > auto dud(c* x) -> decltype(cerr << *x, 0);
+sim > char dud(...);
+struct debug {
+~debug() { cerr << endl; }
+eni(!=) cerr << boolalpha << i; ris; }
+eni(==) ris << range(begin(i), end(i)); }
+sim, class b dor(pair < b, c > d) {
+  ris << "(" << d.first << ", " << d.second << ")";
+}
+sim dor(rge<c> d) {
+  *this << "[";
+  for (auto it = d.b; it != d.e; ++it)
+    *this << ", " + 2 * (it == d.b) << *it;
+  ris << "]";
+}
+};
+#define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "	  
+
 inline int two(int n) { return 1 << n; }
 inline int test(int n, int b) { return (n>>b)&1; }
 inline void set_bit(int & n, int b) { n |= two(b); }
@@ -85,7 +110,7 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-const int MAX_N = 5*1010*100;
+const int MAX_N = 100*1001;
 //const int MAXN = 510;
 //int arr[MAXN][MAXN];
 
