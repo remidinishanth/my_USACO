@@ -17,7 +17,6 @@ typedef map<int, int> mii;
 #define INF 1000000000
 #define MOD 1000000007
 #define EPS 1e-9
-#define DEBUG(x) cout<< '>' << #x << ':' << x << "\n";
 #define ALL(x) (x).begin(), (x).end()
 #define RALL(x) (x).rbegin(), (x).rend()
 #define SORT(x) sort((x).begin(),(x).end())
@@ -54,15 +53,8 @@ typedef map<int, int> mii;
 #define dsll3(a,b,c) ll a,b,c; scanf("%lld%lld%lld",&a,&b,&c)
 #define pll(n) printf("%lld\n",n)	
 #define plls(n) printf("%lld ",n)	
-
-#define trace(x) cout << '>' << #x << ':' << x << "\n"
-#define trace2(x,y) cout<< '>' << #x << ':' << x << " | " << #y << ':' << y << "\n"
-#define trace3(a,b,c) cout<<#a<<"="<<(a)<<", "<<#b<<"="<<(b)<<", "<<#c<<"="<<(c)<<"\n"
-#define trace4(a,b,c,d) cout<<#a<<"="<<(a)<<", "<<#b<<"="<<(b)<<", "<<#c<<"="<<(c)<<", "<<#d<<"="<<(d)<<"\n"
-
-#define PR(a,n) { cout<<#a<<" = "; REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
-#define PR1(a,n) { cout<<#a<<" = "; REP1(_,n) cout<<a[_]<<' '; cout<<"\n"; }
-#define _W(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
+#define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
+#define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
 
 #define sim template < class c
 #define ris return * this
