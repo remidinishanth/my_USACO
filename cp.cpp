@@ -25,6 +25,7 @@ typedef map<int, int> mii;
 #define S second
 #define MP make_pair
 #define PB push_back
+#define EB emplace_back
 #define LB lower_bound
 #define UB upper_bound
 #define SZ(a) int((a).size())
