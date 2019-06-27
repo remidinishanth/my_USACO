@@ -55,7 +55,8 @@ typedef map<int, int> mii;
 #define pll(n) printf("%lld\n",n)	
 #define plls(n) printf("%lld ",n)	
 #define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
-#define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
+#define PR1(a,n) { REP1(_,n) cout<<a[_]<<' '; cout<<"\n"; }
+#define trace(x) cerr << " [" << #x << ": " << x << "]\n"
 
 #define sim template < class c
 #define ris return * this
@@ -103,7 +104,8 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-const int MAX_N = 100*1001;
+const int nax = 1e5+1;
+//const int MAX_N = 200*1001;
 //const int MAXN = 510;
 //int arr[MAXN][MAXN];
 
