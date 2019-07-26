@@ -46,14 +46,14 @@ typedef map<int, int> mii;
 #define dsd3(a,b,c) int a,b,c; scanf("%d%d%d",&a,&b,&c)
 #define pd(n) printf("%d\n",n)
 #define pds(n) printf("%d ",n)
-#define sll(n) scanf("%lld",&n)
-#define dsll(n) ll n; scanf("%lld",&n)
-#define sll2(a,b) scanf("%lld%lld",&a,&b)
-#define dsll2(a,b) ll a,b; scanf("%lld%lld",&a,&b)
-#define sll3(a,b,c) scanf("%lld%lld%lld",&a,&b,&c)
-#define dsll3(a,b,c) ll a,b,c; scanf("%lld%lld%lld",&a,&b,&c)
-#define pll(n) printf("%lld\n",n)	
-#define plls(n) printf("%lld ",n)	
+#define sl(n) scanf("%lld",&n)
+#define dsl(n) ll n; scanf("%lld",&n)
+#define sl2(a,b) scanf("%lld%lld",&a,&b)
+#define dsl2(a,b) ll a,b; scanf("%lld%lld",&a,&b)
+#define sl3(a,b,c) scanf("%lld%lld%lld",&a,&b,&c)
+#define dsl3(a,b,c) ll a,b,c; scanf("%lld%lld%lld",&a,&b,&c)
+#define pl(n) printf("%lld\n",n)	
+#define pls(n) printf("%lld ",n)	
 #define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
 #define trace(x) cerr << " [" << #x << ": " << x << "]\n"
 
@@ -103,7 +103,7 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-const int nax = 1e5+1;
+const int nax = 5e6+10;
 //const int MAX_N = 200*1001;
 //const int MAXN = 510;
 //int arr[MAXN][MAXN];
