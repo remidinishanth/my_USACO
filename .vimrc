@@ -19,19 +19,20 @@ set showmode         " show current mode at the bottom of window
 set mouse=a          " enable mouse in all modes
 set cursorline       " highlight current line
 set wildmenu         " visual autocomplete for command menu
-set background=dark  
-set nowrap           " disable soft wrap for lines 
+set nowrap           " disable soft wrap for lines
 set hlsearch         " highlight search results
 set incsearch        " incremental search
 set splitbelow       " split opens at bottom
 set splitright       " new vertical split opens right
 
 syntax enable        " keep your current color settings
-colorscheme solarized8_flat
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 " Smart way to move between windows in split
-map <C-j> <C-W>j     
-map <C-k> <C-W>k     
+map <C-j> <C-W>j
+map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
@@ -39,15 +40,8 @@ let mapleader = ","  " comma is leader
 
 nnoremap <leader><space> :noh<CR> " turn off search highlight
 
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-    set t_ut=
-endif
-
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
 
-nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
+nnoremap <F5> :w <bar> !g++ -DLOCAL -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
 
 nnoremap <F6> :!./a.out <CR>
