@@ -1,5 +1,57 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
+
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'valloric/youcompleteme'
+
+Plugin 'junegunn/fzf.vim'
+
+Plugin 'ReplaceWithRegister'
+
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-fugitive'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+
+
+
 " Try not to put settings you don’t understand in your .vimrc
 
+set clipboard=unnamed " copy vim clipboard to system clipboard
+set backspace=indent,eol,start "to make backspace work as expected
 set nocompatible     " removes incompatibility with the original vi
 set expandtab        " convert tabs to spaces
 set shiftwidth=4     " no of spaces inserted for indentation
@@ -19,7 +71,7 @@ set showmode         " show current mode at the bottom of window
 set mouse=a          " enable mouse in all modes
 set cursorline       " highlight current line
 set wildmenu         " visual autocomplete for command menu
-set nowrap           " disable soft wrap for lines
+set nowrap           " disable soft wrap for lines 
 set hlsearch         " highlight search results
 set incsearch        " incremental search
 set splitbelow       " split opens at bottom
@@ -45,3 +97,6 @@ nnoremap <leader><space> :noh<CR> " turn off search highlight
 nnoremap <F5> :w <bar> !g++ -DLOCAL -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
 
 nnoremap <F6> :!./a.out <CR>
+
+command! -bang -nargs=? -complete=dir Files
+        \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/bundle/fzf.vim/bin/preview.sh {}']}, <bang>0)
