@@ -79,7 +79,7 @@ This suggests that, for a index p, if we have (v * p) we can get the Sum(0..p) b
 2. a <= p <= b : (v*p) - (v*(a-1)), X = v*(a-1); slope = v and intercept = -v*(a-1)
 3. b <  p <  n : v = 0, X = - v*b + v*(a-1); slope = 0 and intercept =  v*b - v*(a-1)
  
-So, we need to maintain something else too, to get that extra X(intercept) factor and that should give 
+So, we need to maintain something else too, to get that extra X(-1*intercept) factor and that should give 
 0 for p < a, v*(a-1) for p in [a..b], -v*b+v(a-1) for p > b. 
 Does this ring something ;) ? hoho ! one more BIT for keeping this X factor.
  
