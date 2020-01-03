@@ -84,4 +84,7 @@ Does this ring something ;) ? hoho ! one more BIT for keeping this intercept.
 We need to maintain another BIT (say B2)
 - Add v to [a..b] --> Update(a,-v*(a-1)) and Update(b+1,v*b) on the BIT B2
 - Query(p) on B2 now gives the extra sum that should be subtracted from A[p]*p
+
+In other words, we implement a Fenwick tree with range updates via a normal (point-update) Fenwick tree 
+that stores linear functions instead of just values.
 */
