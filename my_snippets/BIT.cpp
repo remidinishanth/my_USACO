@@ -3,7 +3,7 @@ struct BIT {
     int n;
     vector<int> bit;
     // BIT can be thought of as having entries f[1], ..., f[n]
-    // with f[1]=0,...,f[n]=0 initially.
+    // with f[1]=0,...,f[n]=0 initially
     BIT(int n):n(n), bit(n+1) {}
     // returns f[1] + ... + f[idx-1]
     // precondition idx <= n+1
