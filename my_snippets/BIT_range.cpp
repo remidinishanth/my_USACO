@@ -68,13 +68,11 @@ one update, mostly it should work for multiple updates ;)
 Lets consider just one update : Add v to [a..b], rest all are 0
  
 Now, consider Sum(0..p) for all possible p
- 
 1. 0 <= p <  a : 0
 2. a <= p <= b : v * ( p - (a-1) )
 3. b <  p <  n : v * ( b - (a-1) )
  
 This suggests that, for a index p, if we have (v * p) we can get the Sum(0..p) by subtracting X from it
- 
 1. 0 <= p <  a : slope = 0 and intercept = 0
 2. a <= p <= b : slope = v and intercept = -v*(a-1)
 3. b <  p <  n : slope = 0 and intercept = v*b - v*(a-1)
