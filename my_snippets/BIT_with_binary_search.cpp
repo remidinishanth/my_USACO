@@ -56,3 +56,9 @@ struct BIT {
         return idx+2;
     }
 };
+
+/*
+Idea: Let idx be an index of BIT. Let r be the position in idx of its last non-zero digit in 
+binary notation, i.e., r is the position of the least significant non-zero bit of idx. 
+bit[idx] holds the sum of frequencies for indices (idx - 2^r + 1) through idx, inclusive
+*/
