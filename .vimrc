@@ -15,12 +15,15 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
+Plugin 'dense-analysis/ale'
+
+Plugin 'nvie/vim-flake8'
 
 Plugin 'valloric/youcompleteme'
 
 Plugin 'junegunn/fzf.vim'
+Plugin 'mileszs/ack.vim'
 
 Plugin 'ReplaceWithRegister'
 
@@ -91,6 +94,7 @@ map <C-l> <C-W>l
 let mapleader = ","  " comma is leader
 
 nnoremap <leader><space> :noh<CR> " turn off search highlight
+nmap <Leader>f :Files<CR>
 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
 
