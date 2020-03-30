@@ -1,65 +1,43 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/local/opt/fzf
 
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Use release branch (Recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'dense-analysis/ale'
+Plug 'w0rp/ale'
+Plug 'nvie/vim-flake8'
+Plug 'joshdick/onedark.vim'
 
-Plugin 'nvie/vim-flake8'
+Plug 'https://github.com/vim-scripts/ReplaceWithRegister'
 
-Plugin 'valloric/youcompleteme'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'junegunn/fzf.vim'
-Plugin 'mileszs/ack.vim'
+" Initialize plugin system
+call plug#end()
 
-Plugin 'ReplaceWithRegister'
-
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-fugitive'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-
-
-
 
 " Try not to put settings you don’t understand in your .vimrc
-
 set clipboard=unnamed " copy vim clipboard to system clipboard
 set backspace=indent,eol,start "to make backspace work as expected
 set nocompatible     " removes incompatibility with the original vi
 set expandtab        " convert tabs to spaces
 set shiftwidth=4     " no of spaces inserted for indentation
 set tabstop=4        " 1 tab = 4 spaces
-set softtabstop=4    " with <BS> pretend like tab is removed, even if spaces
+set softtabstop=4    " with BS pretend like tab is removed, even if spaces
 set smartindent      " does the right thing (mostly) in programs
 set autoindent       " copy the indentation from the previous line
 set cindent          " stricter rules for C programs
@@ -81,9 +59,9 @@ set splitbelow       " split opens at bottom
 set splitright       " new vertical split opens right
 
 syntax enable        " keep your current color settings
-set background=dark
+" set background=dark
 let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme onedark
 
 " Smart way to move between windows in split
 map <C-j> <C-W>j
@@ -92,15 +70,20 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 let mapleader = ","  " comma is leader
-
 nnoremap <leader><space> :noh<CR> " turn off search highlight
 nmap <Leader>f :Files<CR>
 
+" Competitive programming CPP 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
-
 nnoremap <F5> :w <bar> !g++ -DLOCAL -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
-
 nnoremap <F6> :!./a.out <CR>
 
-command! -bang -nargs=? -complete=dir Files
-        \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/bundle/fzf.vim/bin/preview.sh {}']}, <bang>0)
+" coc.vim
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
