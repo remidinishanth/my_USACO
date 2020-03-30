@@ -1,5 +1,23 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <ctime>
+#include <cassert>
+#include <complex>
+#include <string>
+#include <cstring>
+#include <chrono>
+#include <random>
+#include <queue>
+#include <bitset>
 using namespace std;
 
 typedef long long ll;
@@ -8,8 +26,9 @@ typedef pair<int,int> ii;
 typedef pair<ll,ll> pll;
 typedef vector<ii> vii;
 typedef vector<int> vi;
-typedef vector<ll> vll;
+typedef vector<ll> vl;
 typedef vector< vector<int> > vvi;
+typedef vector< vector<ll> > vvl;
 typedef set<int> si;
 typedef map<string, int> msi;
 typedef map<int, int> mii;
@@ -31,6 +50,8 @@ typedef map<int, int> mii;
 #define SZ(a) int((a).size())
 #define CLR(a) memset(a,0,sizeof(a))
 #define SET(a,b) memset(a,b,sizeof(a))
+#define POSL(x,v) (lower_bound(x.begin(),x.end(),v)-x.begin())
+#define POSU(x,v) (upper_bound(x.begin(),x.end(),v)-x.begin())
 
 #define FOR(i,a,b) for (int i = int(a); i < int(b); i++)
 #define FORD(i,a,b) for(int i=int(b)-1; i>=int(a); i--)
@@ -55,6 +76,7 @@ typedef map<int, int> mii;
 #define pl(n) printf("%lld\n",n)	
 #define pls(n) printf("%lld ",n)	
 #define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
+#define PR1(a,n) { REP1(_,n) cout<<a[_]<<' '; cout<<"\n"; }
 #define trace(x) cerr << " [" << #x << ": " << x << "]\n"
 
 #define sim template < class c
@@ -67,6 +89,7 @@ sim > rge<c> range(c i, c j) { return rge<c>{i, j}; }
 sim > auto dud(c* x) -> decltype(cerr << *x, 0);
 sim > char dud(...);
 struct debug {
+#ifdef LOCAL
 ~debug() { cerr << endl; }
 eni(!=) cerr << boolalpha << i; ris; }
 eni(==) ris << range(begin(i), end(i)); }
@@ -79,8 +102,11 @@ sim dor(rge<c> d) {
     *this << ", " + 2 * (it == d.b) << *it;
   ris << "]";
 }
+#else
+sim dor(const c&) { ris; }
+#endif
 };
-#define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "	  
+#define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 
 inline int two(int n) { return 1 << n; }
 inline int test(int n, int b) { return (n>>b)&1; }
@@ -92,7 +118,7 @@ inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; }
 #define LSOne(S) (S&(-S))
 
 const double pi = acos(-1);
-const int oo = 0x3f3f3f3f;
+//const int oo = 0x3f3f3f3f;
 
 int cmp(double x, double y = 0, double tol = EPS) {
     return (x <= y + tol) ? (x + tol < y) ? -1 : 0 : 1;
@@ -103,11 +129,10 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-const int nax = 5e6+10;
-//const int MAX_N = 200*1001;
-//const int MAXN = 510;
-//int arr[MAXN][MAXN];
+// const int nax = 5e6+10;
 
 int main(){
     return 0;
 }
+
+// Do something instead of nothing, stay organised, stay ahead!
