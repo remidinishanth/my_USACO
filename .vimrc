@@ -2,22 +2,27 @@
 set rtp+=/usr/local/opt/fzf
 
 call plug#begin('~/.vim/plugged')
-" Plugin outside ~/.vim/plugged with post-update hook
+
+" Fuzzy finding and searching
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 
+" Themes
+Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
 
-" Use release branch (Recommend)
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
+" Use release branch (Recommend), autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Lint checkers
 Plug 'w0rp/ale'
 Plug 'nvie/vim-flake8'
-Plug 'joshdick/onedark.vim'
 
+" griw, replace inner word, useful when you copy & replace
 Plug 'https://github.com/vim-scripts/ReplaceWithRegister'
 
 Plug 'tpope/vim-commentary'
@@ -25,7 +30,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 
-" Initialize plugin system
 call plug#end()
 
 filetype plugin indent on    " required
@@ -40,7 +44,6 @@ set tabstop=4        " 1 tab = 4 spaces
 set softtabstop=4    " with BS pretend like tab is removed, even if spaces
 set smartindent      " does the right thing (mostly) in programs
 set autoindent       " copy the indentation from the previous line
-set cindent          " stricter rules for C programs
 set history=1000     " command history options
 set number           " turn absolute line numbers on
 set relativenumber   " turn relative line numbers on
@@ -57,11 +60,17 @@ set hlsearch         " highlight search results
 set incsearch        " incremental search
 set splitbelow       " split opens at bottom
 set splitright       " new vertical split opens right
+set display+=lastline " long last line will be displayed as much as possible instead of @
 
 syntax enable        " keep your current color settings
-" set background=dark
-let g:solarized_termcolors=256
+
+set background=dark
+" let g:solarized_termcolors=256
 colorscheme onedark
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
 
 " Smart way to move between windows in split
 map <C-j> <C-W>j
@@ -72,6 +81,8 @@ map <C-l> <C-W>l
 let mapleader = ","  " comma is leader
 nnoremap <leader><space> :noh<CR> " turn off search highlight
 nmap <Leader>f :Files<CR>
+nmap <Leader>n :NERDTreeToggle<CR>
+
 
 " Competitive programming CPP 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
