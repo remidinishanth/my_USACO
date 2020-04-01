@@ -9,7 +9,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 
 " Themes
-Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -65,8 +65,9 @@ set display+=lastline " long last line will be displayed as much as possible ins
 syntax enable        " keep your current color settings
 
 set background=dark
-" let g:solarized_termcolors=256
-colorscheme onedark
+let g:gruvbox_italic=0
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
@@ -98,3 +99,8 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
