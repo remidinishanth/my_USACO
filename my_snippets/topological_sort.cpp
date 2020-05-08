@@ -117,3 +117,5 @@ vector<int> find_topsort(const digraph<T> &g) {
   }
   return x;
 }
+
+// Usage: digraph<int> g(n); edge g.add(x, y); vector<int> order = find_topsort(g);
