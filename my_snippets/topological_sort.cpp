@@ -41,6 +41,16 @@ for (int i = 0; i < V; i++) // this part is the same as finding CCs
 if (dfs_num[i] == UNVISITED)
 dfs2(i);
 reverse(ts.begin(), ts.end());
+// We can check like this
+for (int i = 0; i < n; ++i) {
+  in_order[ts[i]] = i;
+}
+for (auto [u, v] : edges) {
+  if (in_order[u] > in_order[v]) {
+    cout << "-1\n";
+    return 0;
+  }
+}
 
 // source tourist: https://codeforces.com/contest/1344/submission/79163314
 template <typename T>
