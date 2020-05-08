@@ -1,4 +1,4 @@
-Kahn’s algorithm
+Kahn’s algorithm - It looks like a ‘modified BFS’. 
 
 enqueue vertices with zero incoming degree into a (priority) queue Q;
 while (Q is not empty) {
