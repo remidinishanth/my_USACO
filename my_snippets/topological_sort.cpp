@@ -1,3 +1,13 @@
+Kahn’s algorithm
+
+enqueue vertices with zero incoming degree into a (priority) queue Q;
+while (Q is not empty) {
+vertex u = Q.dequeue(); put vertex u into a topological sort list;
+remove this vertex u and all outgoing edges from this vertex;
+if such removal causes vertex v to have zero incoming degree
+Q.enqueue(v); }
+
+
 /**
  * Description: sorts vertices such that if there exists an edge x->y, then x goes before y
  * Source: KACTL
