@@ -3,6 +3,8 @@
  * Source: KACTL
  * Verification: https://open.kattis.com/problems/quantumsuperposition
  */
+
+// source Benq: https://codeforces.com/contest/1344/submission/79163958
  
 template<int SZ> struct TopoSort {
 	int N, in[SZ];
@@ -18,7 +20,9 @@ template<int SZ> struct TopoSort {
 		return sz(res) == N;
 	}
 };
-
+// Usage
+TopoSort<MX> T;
+F0R(i,m) { T.ae(j,k); }
 if (!T.sort(n)) { return -1; }
 
 // Source: CP3
