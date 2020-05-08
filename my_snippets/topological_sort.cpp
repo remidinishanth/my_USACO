@@ -19,6 +19,7 @@ template<int SZ> struct TopoSort {
 	}
 };
 
+if (!T.sort(n)) { return -1; }
 
 // Source: CP3
 
