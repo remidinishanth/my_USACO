@@ -236,3 +236,15 @@ struct LCA {
         return query(1, 0, euler.size() - 1, left, right);
     }
 };
+
+// Tarjan's off-line lowest common ancestors algorithm based on the union-find data structure.
+// N = number of nodes and Q = number of queries => in approximately O(N + Q) time.
+
+// The basic idea is every times the algorithm visit a node x, the ancestor of all its descendants will be that node x.
+
+// So to find a Least common ancestor (LCA) r of two nodes (u,v), there will be two cases:
+// Node u is a child of node v (vice versa), this case is obvious.
+// Node u is ith branch and v is the jth branch (i < j) of node r, so after visit node u, 
+// the algorithm backtrack to node r, which is the ancestor of the two nodes, 
+// mark the ancestor of node u as r and go to visit node v. 
+// At the moment it visit node v, as u is already marked as visited (black), so the answer will be r. 
