@@ -43,12 +43,19 @@ void lower_bound(){
 // (see "binary search" recipe). (The property P(x) we are working with is the following one: f(x) > f(x+1).)
 
 // For reals, use the following algorithm, known as ternary search:
+
 double l = a, r = b;
  
 for(int i=0; i<200; i++) {
   double l1 = (l*2+r)/3;
   double l2 = (l+2*r)/3;
   if(f(l1) > f(l2)) r = l2; else l = l1;
-  }
+}
  
 x = l;
+
+// Discussion:
+// This works because after each step the interval [a,b] is reduced to 2/3 of its previous size. 
+// After 200 steps, we will know the answer up to an error of at most (2/3)^200 of the original interval
+
+// source: https://apps.topcoder.com/forums/?module=Thread&threadID=670169&start=0
