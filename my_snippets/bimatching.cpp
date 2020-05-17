@@ -24,6 +24,9 @@ for(int v=0;v<n;v++){
     MCBM+=Aug(v);
 }
 
+// This algorithm will keep doing this process of finding augmenting paths and eliminating
+// them until there is no more augmenting path.
+
 // This algo tries to find and then eliminate augmenting paths
 // starting from free vertices on the left set
 
