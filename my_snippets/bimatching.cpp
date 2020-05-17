@@ -238,3 +238,10 @@ public:
 		return res;
 	}
 };
+
+// Usage:
+// if you use Kuhn algorithm
+KuhnImplementation obj;
+// or if you use max flow algorithm
+// MaxFlowImplementation obj
+return obj.find_max_matching(g, n, k).size();
