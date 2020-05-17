@@ -74,6 +74,7 @@ if ((tmp & 0xF0F0F0F0) != 0) low += 4;
 if ((tmp & 0xFF00FF00) != 0) low += 8;
 if ((tmp & 0xFFFF0000) != 0) low += 16;
 
+/*
 Discussion:
 
 Most of the set operations are straight-forward, but the operations on the smallest element are more interesting. 
@@ -121,6 +122,7 @@ The code examples above are for 32-bit integers. In most cases, the only change 
 is to ensure that constants are forced to be the appropriate size (e.g., by writing 1 as 1L in Java or 1ULL in C++). 
 The GCC builtin functions also require a ll suffix when using 64-bit integers (to indicate that they take a long long). For 
 the portable alternatives to builtin functions, the patterns need to be extended to an extra iteration and 64-bit constants.
+*/
 
 inline int two(int n) { return 1 << n; }
 inline int test(int n, int b) { return (n>>b)&1; }
