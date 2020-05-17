@@ -327,3 +327,39 @@ KuhnImplementation obj;
 // or if you use max flow algorithm
 // MaxFlowImplementation obj
 return obj.find_max_matching(g, n, k).size();
+
+// I believe that "improved version" is not a good idea of acceleration. 
+// There is an easy approach which works better than simply precalculating greedy matching.
+
+// Do not clear used marks after you find one path. Instead of it run a series of DFS-es over all vertices in a single phase.
+// One such phase takes strictly O(V+E) time (graph full traversal) and can find more than one increasing path at once. 
+// Moreover, the first phase will behave precisely as greedy algorithm, so it supersedes you improvement. 
+// After running each phase you should clear used marks and run the next phase. 
+// Terminate when no path is found during one phase.
+
+To apply this improvement to your simple implementation do the following:
+1. Store pairs for vertices of left part too.
+Add declaration: vector<int> pair2;
+Add initialization: pair2 = vector<int> (n, -1);
+Do not forget to set it in DFS:
+pairs [to] = v;
+pair2 [v] = to; //added line
+return true;
+2. Replace your DFS(kuhn) calls code in find_max_matching with this:
+    int phases = 0;
+		
+    bool haschanged;
+    do {
+      fill(used.begin(), used.end(), false);
+      haschanged = false;
+      //remember to start only from free vertices which are not visited yet
+      for (int i = 0; i < n; ++i)
+        if (pair2[i] < 0 && !used[i])
+          haschanged |= kuhn (i);
+      phases++;
+    } while (haschanged);
+
+
+// The full working time is O(P(N + M)) where P is number of phases. It is clear that it won't exceed min(n, k)<=V.
+// This acceleration is also applicable to maxflow problem with unit capacities. Run DFS series in a single phase 
+// without clearing used in between. And do not use "used" mark for source/sink.
