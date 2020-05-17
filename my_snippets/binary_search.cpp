@@ -31,3 +31,24 @@ void lower_bound(){
 			L=mid+1
 	return ans
 }
+
+
+// Problem:
+// You have a function f in an interval [a,b] of real numbers, and you want to find the x for which 
+// f(x) is maximized. You know that the function f is unimodal: it is strictly increasing in the 
+// interval [a,x], and strictly decreasing in the interval [x,b].
+
+// Solution:
+// If we are working with an interval of integers, not an interval of reals, simply use binary search 
+// (see "binary search" recipe). (The property P(x) we are working with is the following one: f(x) > f(x+1).)
+
+// For reals, use the following algorithm, known as ternary search:
+double l = a, r = b;
+ 
+for(int i=0; i<200; i++) {
+  double l1 = (l*2+r)/3;
+  double l2 = (l+2*r)/3;
+  if(f(l1) > f(l2)) r = l2; else l = l1;
+  }
+ 
+x = l;
