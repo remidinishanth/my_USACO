@@ -109,3 +109,5 @@ x = l;
 // After 200 steps, we will know the answer up to an error of at most (2/3)^200 of the original interval
 
 // source: https://apps.topcoder.com/forums/?module=Thread&threadID=670169&start=0
+
+// Also go thru https://www.topcoder.com/community/competitive-programming/tutorials/binary-search/
