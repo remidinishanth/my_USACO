@@ -33,7 +33,7 @@ void lower_bound(){
 }
 
 
-// Problem:
+// Problem: Unimodal functions
 // You have a function f in an interval [a,b] of real numbers, and you want to find the x for which 
 // f(x) is maximized. You know that the function f is unimodal: it is strictly increasing in the 
 // interval [a,x], and strictly decreasing in the interval [x,b].
