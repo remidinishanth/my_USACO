@@ -56,7 +56,7 @@ bipartite graph. Alternating chain (in a bipartite graph, with respect to some m
 edges alternately belong / not belong to the matching. The increasing chain (in a bipartite graph, with respect 
 to a matching) is an alternating chain, whose initial and final vertices (as well as edges) do not belong to matching.
 
-Berja’s theorem:
+Berja’s theorem(Berge's lemma): 
 Matching is maximal if and only if there are no increasing chains with respect to it.
 
 So, let’s notice that if we find an increasing chain, we can increase our matching by one. 
