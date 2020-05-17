@@ -31,4 +31,4 @@ for(int v=0;v<n;v++){
 
 // source: CP3 Augmenting Path Algorithm for Max Cardinality Bipartite Matching
 
-// Hopcroft Karp’s algorithm that can solve the MCBM problem in O(√V E)
+// Hopcroft Karp’s algorithm can solve the MCBM problem in O(√V E)
