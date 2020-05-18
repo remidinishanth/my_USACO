@@ -114,6 +114,7 @@ typedef tree<
     rb_tree_tag,
     tree_order_statistics_node_update> ordered_set;
 
-// drawback of using less_equal instead of less is that lower_bound works as upper_bound and vice-versa.
+// Works fine for inserts and order_of_key, find_by_order query
+// Drawback of using less_equal instead of less is that lower_bound works as upper_bound and vice-versa.
 // By definition of lower_bound function (according to cplusplus.com) it finds the first element not compared true 
 // for less<int> comparision function
