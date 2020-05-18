@@ -13,7 +13,7 @@ C++ STL: Policy based data structures
 
 // The tree-based container has the following declaration:
 
-    template<
+    	  template<
 	  typename Key, // Key type
 	  typename Mapped, // Mapped-policy
 	  typename Cmp_Fn = std::less<Key>, // Key comparison functor
@@ -79,3 +79,31 @@ ordered_set;
     cout<<X.order_of_key(3)<<endl;   // 2
     cout<<X.order_of_key(4)<<endl;   // 2
     cout<<X.order_of_key(400)<<endl; // 5
+
+// Usage: 
+
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+
+// After this, we can define a data structure indexed_set that is like set but can be
+// indexed like an array. The definition for int values is as follows:
+
+typedef tree<int,null_type,less<int>,rb_tree_tag,
+tree_order_statistics_node_update> indexed_set;
+
+// Now we can create a set as follows:
+indexed_set s;
+s.insert(2);
+s.insert(3);
+s.insert(7);
+s.insert(9);
+
+auto x = s.find_by_order(2);
+cout << *x << "\n"; // 7
+
+cout << s.order_of_key(7) << "\n"; // 2
+
+// If the element does not appear in the set, we get the position that the element would have in the set:
+cout << s.order_of_key(6) << "\n"; // 2
+cout << s.order_of_key(8) << "\n"; // 3
+// Both the functions work in logarithmic time.
