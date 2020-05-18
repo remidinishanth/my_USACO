@@ -113,3 +113,7 @@ typedef tree<
     less_equal<int>,
     rb_tree_tag,
     tree_order_statistics_node_update> ordered_set;
+
+// drawback of using less_equal instead of less is that lower_bound works as upper_bound and vice-versa.
+// By definition of lower_bound function (according to cplusplus.com) it finds the first element not compared true 
+// for less<int> comparision function
