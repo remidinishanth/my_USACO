@@ -13,19 +13,17 @@ C++ STL: Policy based data structures
 
 // The tree-based container has the following declaration:
 
-    	  template<
-	  typename Key, // Key type
-	  typename Mapped, // Mapped-policy
-	  typename Cmp_Fn = std::less<Key>, // Key comparison functor
-	  typename Tag = rb_tree_tag, // Specifies which underlying data structure to use
-	  template<
-	  typename Const_Node_Iterator,
-	  typename Node_Iterator,
-	  typename Cmp_Fn_,
-	  typename Allocator_>
-	  class Node_Update = null_node_update, // A policy for updating node invariants
-	  typename Allocator = std::allocator<char> > // An allocator type
-	  class tree;
+template <typename Key,                      // Key type
+          typename Mapped,                   // Mapped-policy
+          typename Cmp_Fn = std::less<Key>,  // Key comparison functor
+          typename Tag =
+              rb_tree_tag,  // Specifies which underlying data structure to use
+          template <typename Const_Node_Iterator, typename Node_Iterator,
+                    typename Cmp_Fn_,
+                    typename Allocator_> class Node_Update =
+              null_node_update,  // A policy for updating node invariants
+          typename Allocator = std::allocator<char> >  // An allocator type
+class tree;
     
 /*
 Experienced participants may have already noticed that if initialize the template only the first two types, 
