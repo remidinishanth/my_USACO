@@ -107,3 +107,13 @@ cout << s.order_of_key(7) << "\n"; // 2
 cout << s.order_of_key(6) << "\n"; // 2
 cout << s.order_of_key(8) << "\n"; // 3
 // Both the functions work in logarithmic time.
+
+// For multiset:
+// You need to change the comparison function from less to less_equal asn in the following:
+
+typedef tree<
+    int,
+    null_type,
+    less_equal<int>,
+    rb_tree_tag,
+    tree_order_statistics_node_update> ordered_set;
