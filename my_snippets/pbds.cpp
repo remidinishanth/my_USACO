@@ -44,13 +44,11 @@ tree_order_statistics_node_update, which, in fact, carries the necessary operati
 
 // Most likely, the best way to set the tree is as follows:
 
-typedef tree<
-int,
-null_type,
-less<int>,
-rb_tree_tag,
-tree_order_statistics_node_update>
-ordered_set;
+typedef tree<int,
+             null_type,
+             less<int>,
+             rb_tree_tag,
+             tree_order_statistics_node_update> ordered_set;
 
 // If we want to get map but not the set, as the second argument type must be used mapped type. 
 // Apparently, the tree supports the same operations as the set (at least I haven't any problems with them before), 
