@@ -1,3 +1,4 @@
+// source: Benq https://codeforces.com/contest/1211/submission/60224051
 // kotlin tips b/c I'm bad
  
 /** useful links
@@ -92,3 +93,12 @@ val out = StringBuilder()
  
 fun YN(b: Boolean) : String { return if (b) "YES" else "NO"  }
  
+// source: tourist https://codeforces.com/contest/1211/submission/60223650
+private fun readLn() = readLine()!! // string line
+private fun readInt() = readLn().toInt() // single int
+private fun readLong() = readLn().toLong() // single long
+private fun readDouble() = readLn().toDouble() // single double
+private fun readStrings() = readLn().split(" ") // list of strings
+private fun readInts() = readStrings().map { it.toInt() } // list of ints
+private fun readLongs() = readStrings().map { it.toLong() } // list of longs
+private fun readDoubles() = readStrings().map { it.toDouble() } // list of doubles
