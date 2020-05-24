@@ -220,6 +220,10 @@ numbers.get(2) // Third element = three
 numbers[3] // Fourth element = four
 numbers.indexOf("two") // Index of element "two" = 1
 
+// Returns an empty read-only list.
+val list = listOf<String>()
+val other: List<Int> = emptyList() 
+
 // MutableList is a List with list-specific write operations, 
 // for example, to add or remove an element at a specific position.
 val numbers = mutableListOf(1, 2, 3, 4)
