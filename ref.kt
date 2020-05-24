@@ -148,3 +148,5 @@ i = 3; j = 1
 i = 3; j = 2
 i = 4; j = 1
 i = 4; j = 2
+
+// Similarly we have kotlin labelled continue, continue@label
