@@ -100,3 +100,51 @@ val result = if (number > 0) {
 println(result) // Negative number
 
 val result = if (number > 0) "Positive number" else "Negative number"
+
+while (testExpression) {
+    // codes inside body of while loop
+}
+
+do {
+   // codes inside body of do while loop
+} while (testExpression)
+
+for (item in collection) {
+    // body of loop
+}
+
+for (i in 1..5) print(i) // 12345
+for (i in 5..1) print(i) // prints nothing 
+for (i in 5 downTo 1) print(i) // 54321
+for (i in 1..4 step 2) print(i) // 135
+for (i in 4 downTo 1 step 2) print(i) // 531
+
+var language = arrayOf("Ruby", "Koltin", "Python" "Java")
+for (item in language)
+for (item in language.indices)
+for (letter in text) // var text= "Kotlin"
+
+// There are 3 structural jump expressions in Kotlin: break, continue and return
+
+// Kotlin Labeled break
+first@ for (i in 1..4) {
+    second@ for (j in 1..2) {
+        println("i = $i; j = $j")
+        if (i == 2)
+            break@first // terminates the loop marked with label first@
+    }
+}
+// Output
+i = 1; j = 1
+i = 1; j = 2
+i = 2; j = 1
+
+if (i == 2) break@second
+// Output
+i = 1; j = 1
+i = 1; j = 2
+i = 2; j = 1
+i = 3; j = 1
+i = 3; j = 2
+i = 4; j = 1
+i = 4; j = 2
