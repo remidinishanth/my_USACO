@@ -98,3 +98,5 @@ val result = if (number > 0) {
     "Negative number"
 }
 println(result) // Negative number
+
+val result = if (number > 0) "Positive number" else "Negative number"
