@@ -227,7 +227,8 @@ numbers.add(5)
 numbers.removeAt(1)
 numbers[0] = 0
 numbers.shuffle()
-val sortedNumbers = numbers.sorted()
+val sortedNumbers = numbers.sorted() // creates a new collection that contains the same elements in the sorted order.
+numbers.sort() // sorts a mutable collection in-place, so its state changes
 println(numbers)
 
 // Set
