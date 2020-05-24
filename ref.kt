@@ -24,6 +24,9 @@ language = "French"
 val distance = 100L // distance value of type Long
 val distance = 19.5F // distance is of type Float
 
+import java.math.BigInteger
+val second = BigInteger("1")
+
 // If you are not sure what number value a variable will be 
 // assigned in the program, you can specify it as Number type. 
 
