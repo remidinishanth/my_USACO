@@ -227,6 +227,7 @@ numbers.add(5)
 numbers.removeAt(1)
 numbers[0] = 0
 numbers.shuffle()
+val sortedNumbers = numbers.sorted()
 println(numbers)
 
 // Set
