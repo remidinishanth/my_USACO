@@ -88,3 +88,5 @@ println("score") // score
 println("$score") // 12.3
 println("score = $score") // score = 12.3
 println("${score + score}") // 24.6
+String.format("%.8g%n", d), String.format("%.8f", 5.25) // print d to 8 decimal places
+println("${l+1} and $r") // printing variables
