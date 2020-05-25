@@ -31,6 +31,9 @@ var x = 5 // `Int` type is inferred
 
 val distance = 100L // distance value of type Long
 val distance = 19.5F // distance is of type Float
+val pi = 3.14 // Double
+val e = 2.7182818284 // Double
+val eFloat = 2.7182818284f // Float, actual value is 2.7182817
 
 import java.math.BigInteger
 val second = BigInteger("1")
