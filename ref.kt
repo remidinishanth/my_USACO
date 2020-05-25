@@ -345,3 +345,8 @@ println(list.distinctBy { it.toUpperCase() }) // [a, b]
 val numbers = listOf(5, 2, 10, 4)
 val sum = numbers.reduce { sum, element -> sum + element } // 21
 val sumDoubled = numbers.fold(0) { sum, element -> sum + element * 2 } // 42
+
+
+val hashMap:HashMap<Int,String> = HashMap<Int,String>()
+open fun put(key: K, value: V) // hashMap.put(1,"Ajay")
+hashMap[key], hashMap.keys, hashMap.replace(1,"Ashu"), containsKey(1), containsValue("Ajay"), clear()
