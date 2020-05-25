@@ -350,3 +350,11 @@ fun example() {
 it does use the unfortunately hack-vulnerable quicksort. 
 Better to use Array<Int> or MutableList<Int> for sortings. (Same goes for LongArray and DoubleArray.) 
 Kotlin also supports List<T>.sorted() for read-only lists, which will return a new list with the sorting applied. */
+
+// Type Alias
+typealias PII = Pair<Int, Int>
+typealias PPII = Pair<Int, PII>
+
+// Imports
+import kotlin.arrayOf as Arr
+import kotlin.intArrayOf as Iarr
