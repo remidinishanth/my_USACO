@@ -6,7 +6,7 @@
  * https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html
  * https://kotlinlang.org/docs/reference/ranges.html
  */
- 
+
 /** valid ways to sort (avoid quicksort ...)
  * 1
     val a = nextLongs().sorted() // a is mutable list
@@ -345,3 +345,8 @@ fun example() {
     list.add(actualInsertPoint, 'd') // [a,b,c,d,e]
     list.removeAt(1) // remove at index -> [a,c,d,e]
 }
+
+/* IntArray maps to Java's int[], and IntArray.sort() maps to Java's Array.sort(), so yes, 
+it does use the unfortunately hack-vulnerable quicksort. 
+Better to use Array<Int> or MutableList<Int> for sortings. (Same goes for LongArray and DoubleArray.) 
+Kotlin also supports List<T>.sorted() for read-only lists, which will return a new list with the sorting applied. */
