@@ -324,3 +324,8 @@ for (element in collection) { println(element) }
 // When using Kotlin functional features you can do something like:
 collection.forEach { println(it)}
 val strings = someArray.map { it.toString() }
+
+// distinctBy
+val list = listOf('a', 'A', 'b', 'B', 'A', 'a')
+println(list.distinct()) // [a, A, b, B]
+println(list.distinctBy { it.toUpperCase() }) // [a, b]
