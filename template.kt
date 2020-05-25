@@ -85,6 +85,7 @@ fun nextInt() = next().toInt()
 fun nextLong() = next().toLong()
 fun nextInts() = next().split(" ").map { it.toInt() }
 fun nextLongs() = next().split(" ").map { it.toLong() }
+// Note the use of Kotlin's null-assertion operator !! after the readLine() function call. 
  
 val xd = arrayOf(1,0,-1,0)
 val yd = arrayOf(0,1,0,-1)
@@ -358,3 +359,8 @@ typealias PPII = Pair<Int, PII>
 // Imports
 import kotlin.arrayOf as Arr
 import kotlin.intArrayOf as Iarr
+
+/* By default, Kotlin runs on JVM and gives direct access to a rich and efficient collections library 
+with general-purpose collections and data-structures like dynamically-sized arrays (ArrayList), 
+hash-based maps and sets (HashMap/HashSet), tree-based ordered maps and sets (TreeMap/TreeSet), etc. */
+val reached = HashSet<Int>() // a mutable hash set 
