@@ -249,6 +249,10 @@ val sortedNumbers = numbers.sorted() // creates a new collection that contains t
 numbers.sort() // sorts a mutable collection in-place, so its state changes
 println(numbers)
 
+for ((index, value) in names.withIndex()) {
+    println("$index: $value")
+}
+
 // Set
 // Set<T> stores unique elements; their order is generally undefined. null elements are unique as well
 val numbers = setOf(1, 2, 3, 4)
@@ -281,6 +285,16 @@ map == anotherMap // true
 val numbersMap = mutableMapOf("one" to 1, "two" to 2)
 numbersMap.put("three", 3)
 numbersMap["one"] = 11
+
+// Iterate over the entries as objects that contain the key and the value as properties
+for (entry in map) {
+    println("${entry.key}: ${entry.value}")
+}
+
+// Iterate over the entries as separate key and value objects
+for ((key, value) in map) {
+    println("$key: $value")
+}
 
 // Arrays
 // Arrays in Kotlin are represented by the Array class
