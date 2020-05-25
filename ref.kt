@@ -30,7 +30,7 @@ var x = 5 // `Int` type is inferred
 // Arrays
 
 val distance = 100L // distance value of type Long
-val distance = 19.5F // distance is of type Float
+val distance = 19.5F // distance is of type Float, Floats are tagged by f or F
 val pi = 3.14 // Double
 val e = 2.7182818284 // Double
 val eFloat = 2.7182818284f // Float, actual value is 2.7182817
