@@ -191,6 +191,9 @@ i = 4; j = 2
 // List is an ordered collection with access to elements by indices.
 // Set is a collection of unique elements. 
 // Map (or dictionary) is a set of key-value pairs. Keys are unique.
+val strings = listOf("Anne", "Karen", "Peter") // List<String>
+val map = mapOf("a" to 1, "b" to 2, "c" to 3)  // Map<String, Int>
+val set = setOf("a", "b", "c")                 // Set<String>
 
 // A pair of interfaces represent each collection type:
 // A read-only interface that provides operations for accessing collection elements.
