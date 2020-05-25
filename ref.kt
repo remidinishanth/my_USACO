@@ -340,3 +340,8 @@ val strings = someArray.map { it.toString() }
 val list = listOf('a', 'A', 'b', 'B', 'A', 'a')
 println(list.distinct()) // [a, A, b, B]
 println(list.distinctBy { it.toUpperCase() }) // [a, b]
+
+
+val numbers = listOf(5, 2, 10, 4)
+val sum = numbers.reduce { sum, element -> sum + element } // 21
+val sumDoubled = numbers.fold(0) { sum, element -> sum + element * 2 } // 42
