@@ -362,3 +362,9 @@ cnd.sortBy { it.first }
 
 val opts = ArrayList<Triple<Int, Int, Int>>()
 opts.sortBy { it.third }
+
+data class // basically custom tuples. Allows convenient destructuring declarations too.
+data class User(val name: String, val age: Int)
+val jack = User(name = "Jack", age = 1)
+val jane = User("Jane", 35) 
+val (name, age) = jane // Destructuring Declarations
