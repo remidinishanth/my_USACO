@@ -368,3 +368,8 @@ data class User(val name: String, val age: Int)
 val jack = User(name = "Jack", age = 1)
 val jane = User("Jane", 35) 
 val (name, age) = jane // Destructuring Declarations
+
+// Properties Declared in the Class Body
+data class Person(val name: String) {
+    var age: Int = 0
+}
