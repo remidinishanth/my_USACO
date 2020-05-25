@@ -370,3 +370,5 @@ val reached = HashSet<Int>() // a mutable hash set
 
 /* Arrays in Kotlin have a constant length, so one normally uses lists, which are similar to the ones in Python. 
 What's called a dict in Python is called a map in Kotlin (not to be confused with the function map()). */
+
+println(a.joinToString("\n")) // each element of array/list of a separate line
