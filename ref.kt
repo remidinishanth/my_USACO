@@ -288,3 +288,6 @@ var arr = IntArray(5) { it * 1 } // [0, 1, 2, 3, 4] (values initialised to their
 
 // Creates an Array<String> with values ["0", "1", "4", "9", "16"]
 val asc = Array(5) { i -> (i * i).toString() }
+
+/* Arrays in Kotlin have a constant length, so one normally uses lists, which are similar to the ones in Python. 
+What's called a dict in Python is called a map in Kotlin (not to be confused with the function map()). */
