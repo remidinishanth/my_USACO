@@ -368,6 +368,7 @@ data class User(val name: String, val age: Int)
 val jack = User(name = "Jack", age = 1)
 val jane = User("Jane", 35) 
 val (name, age) = jane // Destructuring Declarations
+val olderJack = jack.copy(age = 2) // copy an object altering some of its properties
 
 // Properties Declared in the Class Body
 data class Person(val name: String) {
