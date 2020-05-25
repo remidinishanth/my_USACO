@@ -87,7 +87,9 @@ fun nextInts() = next().split(" ").map { it.toInt() }
 fun nextLongs() = next().split(" ").map { it.toLong() }
 // Note the use of Kotlin's null-assertion operator !! after the readLine() function call. 
 // It asserts that the input string is present and throws an exception otherwise
- 
+
+val (n, k) = readInts()
+
 val xd = arrayOf(1,0,-1,0)
 val yd = arrayOf(0,1,0,-1)
  
