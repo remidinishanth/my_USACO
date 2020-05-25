@@ -219,6 +219,7 @@ numbers.size // Number of elements = 4
 numbers.get(2) // Third element = three
 numbers[3] // Fourth element = four
 numbers.indexOf("two") // Index of element "two" = 1
+numbers.isEmpty() // false
 
 // Returns an empty read-only list.
 val list = listOf<String>()
