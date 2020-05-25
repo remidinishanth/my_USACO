@@ -373,3 +373,4 @@ val (name, age) = jane // Destructuring Declarations
 data class Person(val name: String) {
     var age: Int = 0
 }
+val person1 = Person("John"); person1.age = 10
