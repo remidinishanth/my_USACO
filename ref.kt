@@ -259,6 +259,10 @@ if ("key2" in numbersMap) // true
 if (1 in numbersMap.values) // true
 numbersMap.containsValue(1) // true
 
+val map = emptyMap<String, Int>()
+val anotherMap = mapOf<String, Int>()
+map == anotherMap // true
+
 // MutableMap is a Map with map write operations
 // The default implementation of Map – LinkedHashMap
 val numbersMap = mutableMapOf("one" to 1, "two" to 2)
