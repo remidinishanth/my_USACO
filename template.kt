@@ -372,3 +372,10 @@ val reached = HashSet<Int>() // a mutable hash set
 What's called a dict in Python is called a map in Kotlin (not to be confused with the function map()). */
 
 println(a.joinToString("\n")) // each element of array/list of a separate line
+
+// withIndex results in IndexedValue(index, value)
+val r = readLine()!!.split(" ").map { it.toInt() }
+        .withIndex()
+        .distinctBy { it.value }
+        .sortedBy { it.value }
+        .map { it.index + 1 }
