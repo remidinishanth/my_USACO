@@ -1,3 +1,12 @@
+private fun readLn() = readLine()!! // string line
+private fun readInt() = readLn().toInt() // single int
+private fun readLong() = readLn().toLong() // single long
+private fun readDouble() = readLn().toDouble() // single double
+private fun readStrings() = readLn().split(" ") // list of strings
+private fun readInts() = readStrings().map { it.toInt() } // list of ints
+private fun readLongs() = readStrings().map { it.toLong() } // list of longs
+private fun readDoubles() = readStrings().map { it.toDouble() } // list of doubles
+
 // Kotlin Variables and Basic Types
 
 var language = "French"
@@ -274,3 +283,25 @@ map == anotherMap // true
 val numbersMap = mutableMapOf("one" to 1, "two" to 2)
 numbersMap.put("three", 3)
 numbersMap["one"] = 11
+
+// Arrays
+// Arrays in Kotlin are represented by the Array class
+val x: IntArray = intArrayOf(1, 2, 3)
+val arr = IntArray(5) // // Array of int of size 5 with values [0, 0, 0, 0, 0]
+
+// e.g. initialise the values in the array with a constant
+val arr = IntArray(5) { 42 } // Array of int of size 5 with values [42, 42, 42, 42, 42]
+
+// e.g. initialise the values in the array using a lambda
+var arr = IntArray(5) { it * 1 } // [0, 1, 2, 3, 4] (values initialised to their index value)
+
+// Creates an Array<String> with values ["0", "1", "4", "9", "16"]
+val asc = Array(5) { i -> (i * i).toString() }
+
+valid ways to sort (avoid quicksort ...)
+ * 1
+    val a = nextLongs().sorted() // a is mutable list
+ * 2
+    val a = arrayListOf<Long>() // or ArrayList<Long>()
+    a.addAll(nextLongs())
+    a.sort()
