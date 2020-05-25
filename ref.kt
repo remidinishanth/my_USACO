@@ -313,3 +313,14 @@ val asc = Array(5) { i -> (i * i).toString() }
 // Kotlin features as local functions and the elvis operator ?: that allow to express idioms like 
 // "take the value if it is positive or else use length" with a concise and readable expressions like 
 .takeIf { it >= 0 } ?: s.length
+
+it // implicit name of a single parameter
+// It's very common that a lambda expression has only one parameter.
+// Whenever you have a function literal with exactly one parameter you don’t have to define the parameter explicitly 
+// but you can just use it. Makes a lot of the language constructs map, filter.
+
+// In conventional programming when you loop through a collection you might do:
+for (element in collection) { println(element) }
+// When using Kotlin functional features you can do something like:
+collection.forEach { println(it)}
+val strings = someArray.map { it.toString() }
