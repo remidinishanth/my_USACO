@@ -233,6 +233,17 @@ numbers.get(2) // Third element = three
 numbers[3] // Fourth element = four
 numbers.indexOf("two") // Index of element "two" = 1
 numbers.isEmpty() // false
+val longestString = strings.maxWith(compareBy { it.length }) // three
+
+val numbers = listOf(6, 42, 10, 4)
+numbers.count() // 4
+numbers.max() // 42
+numbers.min() // 4
+numbers.average() // 15.5
+numbers.sum() // 62
+
+val numbers = listOf(5, 42, 10, 4)
+val min3Remainder = numbers.minBy { it % 3 } // 42
 
 // Returns an empty read-only list.
 val list = listOf<String>()
