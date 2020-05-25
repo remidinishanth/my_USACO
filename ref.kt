@@ -29,7 +29,10 @@ var x = 5 // `Int` type is inferred
 // Booleans - Boolean, either true or false
 // Arrays
 
+val oneMillion = 1_000_000 // Underscores in numeric literals (since 1.1)
+val creditCardNumber = 1234_5678_9012_3456L
 val distance = 100L // distance value of type Long
+
 val distance = 19.5F // distance is of type Float, Floats are tagged by f or F
 val pi = 3.14 // Double
 val e = 2.7182818284 // Double
