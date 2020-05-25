@@ -365,3 +365,6 @@ import kotlin.intArrayOf as Iarr
 with general-purpose collections and data-structures like dynamically-sized arrays (ArrayList), 
 hash-based maps and sets (HashMap/HashSet), tree-based ordered maps and sets (TreeMap/TreeSet), etc. */
 val reached = HashSet<Int>() // a mutable hash set 
+
+/* Arrays in Kotlin have a constant length, so one normally uses lists, which are similar to the ones in Python. 
+What's called a dict in Python is called a map in Kotlin (not to be confused with the function map()). */
