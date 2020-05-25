@@ -1,12 +1,3 @@
-private fun readLn() = readLine()!! // string line
-private fun readInt() = readLn().toInt() // single int
-private fun readLong() = readLn().toLong() // single long
-private fun readDouble() = readLn().toDouble() // single double
-private fun readStrings() = readLn().split(" ") // list of strings
-private fun readInts() = readStrings().map { it.toInt() } // list of ints
-private fun readLongs() = readStrings().map { it.toLong() } // list of longs
-private fun readDoubles() = readStrings().map { it.toDouble() } // list of doubles
-
 // Kotlin Variables and Basic Types
 
 var language = "French"
@@ -297,11 +288,3 @@ var arr = IntArray(5) { it * 1 } // [0, 1, 2, 3, 4] (values initialised to their
 
 // Creates an Array<String> with values ["0", "1", "4", "9", "16"]
 val asc = Array(5) { i -> (i * i).toString() }
-
-valid ways to sort (avoid quicksort ...)
- * 1
-    val a = nextLongs().sorted() // a is mutable list
- * 2
-    val a = arrayListOf<Long>() // or ArrayList<Long>()
-    a.addAll(nextLongs())
-    a.sort()
