@@ -309,3 +309,7 @@ var arr = IntArray(5) { it * 1 } // [0, 1, 2, 3, 4] (values initialised to their
 
 // Creates an Array<String> with values ["0", "1", "4", "9", "16"]
 val asc = Array(5) { i -> (i * i).toString() }
+
+// Kotlin features as local functions and the elvis operator ?: that allow to express idioms like 
+// "take the value if it is positive or else use length" with a concise and readable expressions like 
+.takeIf { it >= 0 } ?: s.length
