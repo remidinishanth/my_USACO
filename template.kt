@@ -379,3 +379,7 @@ val r = readLine()!!.split(" ").map { it.toInt() }
         .distinctBy { it.value }
         .sortedBy { it.value }
         .map { it.index + 1 }
+
+fun  maxOf(a: T, b: T, comparator: Comparator): T
+maxOf(val1, val2)
+maxOf(student1, student2, compareBy { it.age } // data class Student(val age: Int)
