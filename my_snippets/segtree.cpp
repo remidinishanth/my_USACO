@@ -229,7 +229,7 @@ int get(int v, int tl, int tr, int pos) {
 //Adding on segments, querying for maximum
 //Range update and Range query
 
-void push(int v) {
+void push(int v) { // This push works because we are querying for maximum, see get() below
     t[v*2] += lazy[v];
     lazy[v*2] += lazy[v];
     t[v*2+1] += lazy[v];
