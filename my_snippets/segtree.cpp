@@ -172,7 +172,7 @@ void update(int v, int tl, int tr, int l, int r, int color) {
     if (l == tl && tr == r)
         t[v] = color;
     else {
-        push(v);
+        push(v);  // Lazy propogation, updating only when we require
         int tm = (tl + tr) / 2;
         update(v * 2, tl, tm, l, min(r, tm), color);
         update(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r, color);
@@ -261,4 +261,42 @@ int query(int v, int tl, int tr, int l, int r) {
     int tm = (tl + tr) / 2;
     return max(query(v*2, tl, tm, l, min(r, tm)), 
                query(v*2+1, tm+1, tr, max(tl, tm+1), tr));
+}
+
+
+// update: add v to all elements a[x], a[x+1]...a[y]a[x],a[x+1]...a[y]
+// query: a[x]+a[x+1]+...+a[y]a[x]+a[x+1]+...+a[y]
+// Range Update Range Sum Query
+
+void push(int v, int tl, int tr){
+    t[v] += (tr - tl + 1)*lazy[v];
+    lazy[v*2] += lazy[v];
+    lazy[v*2+1] += lazy[v];
+    lazy[v]=0;
+}
+
+void update(int v, int tl, int tr, int l, int r, int value){
+    if (l > r) 
+        return;
+    if(l == tl && tr == r)
+        lazy[v] += value;
+    else{
+	push(v, tl, tr);
+        int tm=(tl+tr)/2;
+	update(2*v, tl, tm, l, min(r, tm), value);
+	update(2*v+1, tm+1, tr, max(tl, tm+1), tr, value);
+	t[v] = t[2*v] + t[2*v+1];
+    }
+}
+
+int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r)
+        return 0;
+    if (l == tl && r == tr) {
+        return t[v];
+    }
+    push(v, tl, tr);
+    int tm = (tl + tr) / 2;
+    return sum(v * 2, tl, tm, l, min(r, tm)) +
+        sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
