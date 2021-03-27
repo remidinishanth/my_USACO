@@ -5,42 +5,41 @@ int n, t[4*MAXN];
 int a[MAXN];
 
 // call this function with parameters v = 1, tl = 0, tr = n-1
-void build (int v=1, int tl=0, int tr=n-1) {
-	if (tl == tr)
-		t[v] = a[tl];
-	else {
-		int tm = (tl + tr) / 2;
-		build (v*2, tl, tm);
-		build (v*2+1, tm+1, tr);
-		t[v] = t[v*2] + t[v*2+1];
-	}
+void build(int v = 1, int tl = 0, int tr = n - 1) {
+    if (tl == tr)
+        t[v] = a[tl];
+    else {
+        int tm = (tl + tr) / 2;
+        build(v * 2, tl, tm);
+        build(v * 2 + 1, tm + 1, tr);
+        t[v] = t[v * 2] + t[v * 2 + 1];
+    }
 }
 
 //main program should pass v=1, t1=0,tr=n-1 in addtion to l and r
-int sum (int v, int tl, int tr, int l, int r) {
-	if (l > r)
-		return 0;
-	if (l == tl && r == tr)
-		return t[v];
-	int tm = (tl + tr) / 2;
-	return sum (v*2, tl, tm, l, min(r,tm))
-		+ sum (v*2+1, tm+1, tr, max(l,tm+1), r);
+int sum(int v, int tl, int tr, int l, int r) {
+    if (l > r)
+        return 0;
+    if (l == tl && r == tr)
+        return t[v];
+    int tm = (tl + tr) / 2;
+    return sum(v * 2, tl, tm, l, min(r, tm)) +
+        sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
 
 //Point Update
-void update (int v, int tl, int tr, int pos, int new_val) {
-	if (tl == tr)
-		t[v] = new_val;
-	else {
-		int tm = (tl + tr) / 2;
-		if (pos <= tm)
-			update (v*2, tl, tm, pos, new_val);
-		else
-			update (v*2+1, tm+1, tr, pos, new_val);
-		t[v] = t[v*2] + t[v*2+1];
-	}
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr)
+        t[v] = new_val;
+    else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v * 2, tl, tm, pos, new_val);
+        else
+            update(v * 2 + 1, tm + 1, tr, pos, new_val);
+        t[v] = t[v * 2] + t[v * 2 + 1];
+    }
 }
-
 
 
 
@@ -160,36 +159,36 @@ int get ( int v, int tl, int tr, int pos ) {
 
 //Version 1
 
- void push ( int v ) {
-	if ( t [ v ] ! = - 1 ) {
-		t [ v * 2 ] = t [ v * 2 + 1 ] = t [ v ] ;
-		t [ v ] = - 1 ;
-	}
+void push(int v) {
+    if (t[v] ! = -1) {
+        t[v * 2] = t[v * 2 + 1] = t[v];
+        t[v] = -1;
+    }
+}
+
+void update(int v, int tl, int tr, int l, int r, int color) {
+    if (l > r)
+        return;
+    if (l == tl && tr == r)
+        t[v] = color;
+    else {
+        push(v);
+        int tm = (tl + tr) / 2;
+        update(v * 2, tl, tm, l, min(r, tm), color);
+        update(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r, color);
+    }
 }
  
-void update ( int v, int tl, int tr, int l, int r, int color ) {
-	if ( l > r )
-		return ;
-	if ( l == tl && tr == r )
-		t [ v ] = color ;
-	else {
-		push ( v ) ;
-		int tm = ( tl + tr ) / 2 ;
-		update ( v * 2 , tl, tm , l, min ( r, tm ) , color ) ;
-		update ( v * 2 + 1 , tm + 1 , tr, max ( l, tm + 1 ) , r, color ) ;
-	}
+int get(int v, int tl, int tr, int pos) {
+    if (tl == tr)
+        return t[v];
+    push(v); // Lazy propogation, updating only when we require
+    int tm = (tl + tr) / 2;
+    if (pos <= tm)
+        return get(v * 2, tl, tm, pos);
+    else
+        return get(v * 2 + 1, tm + 1, tr, pos);
 }
- 
-int get ( int v, int tl, int tr, int pos ) {
-	if ( tl == tr )
-		return t [ v ] ;
-	push ( v ) ; // Lazy propogation, updating only when we require
-	int tm = ( tl + tr ) / 2 ;
-	if ( pos <= tm )
-		return get ( v * 2 , tl, tm , pos ) ;
-	else
-		return get ( v * 2 + 1 , tm + 1 , tr, pos ) ;
-} 
 
 //Version 2 emaxx english
 void push(int v) {
