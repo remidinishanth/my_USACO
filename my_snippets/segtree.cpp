@@ -46,7 +46,7 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 
 //In case of search of max/min and no. of times it occurs
 
-pair<int,int> t[4*MAXN];
+pair<int,int> t[4*MAXN]; //pair<maximum, number of times it occurs in the subtree>
  
 pair<int,int> combine (pair<int,int> a, pair<int,int> b) {
 	if (a.first > b.first)
@@ -115,9 +115,8 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 //Searching for an array prefix with a given amount
 
 
-
-//Addition on segment without lazy
 //Range update and point Query
+//Addition on segment without lazy propogation
 
  void build (int v, int tl, int tr ) {
 	if ( tl == tr )
@@ -128,7 +127,9 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 		build (v * 2 + 1 , tm + 1 , tr ) ;
 	}
 }
- 
+
+// To make the addition query efficient, we store at each vertex in the Segment Tree how much
+// we should add to all numbers in the corresponding segment
 void update ( int v, int tl, int tr, int l, int r, int add ) {
 	if ( l > r )
 		return ;
@@ -153,9 +154,9 @@ int get ( int v, int tl, int tr, int pos ) {
 
 
 
-//Assignment on a segment
-//Painting a segment
-//Range update Point Query
+//Assignment on segments
+//Painting a segment - Changing all elements in a segment to some value
+//Range Update Point Query
 
 //Version 1
 
@@ -182,7 +183,7 @@ void update ( int v, int tl, int tr, int l, int r, int color ) {
 int get ( int v, int tl, int tr, int pos ) {
 	if ( tl == tr )
 		return t [ v ] ;
-	push ( v ) ;
+	push ( v ) ; // Lazy propogation, updating only when we require
 	int tm = ( tl + tr ) / 2 ;
 	if ( pos <= tm )
 		return get ( v * 2 , tl, tm , pos ) ;
