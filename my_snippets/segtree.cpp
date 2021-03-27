@@ -1,4 +1,6 @@
 //e-maxx
+
+//Point Update Range Sum
 int n, t[4*MAXN];
 int a[MAXN];
 
@@ -25,6 +27,7 @@ int sum (int v, int tl, int tr, int l, int r) {
 		+ sum (v*2+1, tm+1, tr, max(l,tm+1), r);
 }
 
+//Point Update
 void update (int v, int tl, int tr, int pos, int new_val) {
 	if (tl == tr)
 		t[v] = new_val;
