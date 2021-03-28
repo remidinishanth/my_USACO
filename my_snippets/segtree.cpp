@@ -268,34 +268,45 @@ int query(int v, int tl, int tr, int l, int r) {
 // query: a[x]+a[x+1]+...+a[y]a[x]+a[x+1]+...+a[y]
 // Range Update Range Sum Query
 
-void push(int v, int tl, int tr){
-    t[v] += (tr - tl + 1)*lazy[v];
-    lazy[v*2] += lazy[v];
-    lazy[v*2+1] += lazy[v];
+void push(int v, int l, int r){
+    t[v] += (r - l + 1)*lazy[v];
+    if(l!=r){ // if the node has children we propagate the lazy
+    	lazy[v*2] += lazy[v];
+    	lazy[v*2+1] += lazy[v];
+    }
     lazy[v]=0;
 }
 
 void update(int v, int tl, int tr, int l, int r, int value){
     if (l > r) 
         return;
-    if(l == tl && tr == r)
+    /*
+    if(r < tl || l > tr) return; // out of range => exit
+    If we use this then we can simply use 
+    update(2*v, tl, tm, l, r, value); in the below instead of
+    update(2*v, tl, tm, l, min(r,tm), value); but then we should use
+    if(l <= tl && tr <= r) then we have to do node update
+    */ 
+    push(v, tl, tr);
+    if(l == tl && tr == r){
         lazy[v] += value;
+        push(v, tl, tr);
+    }
     else{
-	push(v, tl, tr);
         int tm=(tl+tr)/2;
 	update(2*v, tl, tm, l, min(r, tm), value);
 	update(2*v+1, tm+1, tr, max(tl, tm+1), tr, value);
-	t[v] = t[2*v] + t[2*v+1];
+	t[v] = t[2*v] + t[2*v+1]; // children are up to date because we always push
     }
 }
 
 int sum(int v, int tl, int tr, int l, int r) {
     if (l > r)
         return 0;
+    push(v, tl, tr);
     if (l == tl && r == tr) {
         return t[v];
     }
-    push(v, tl, tr);
     int tm = (tl + tr) / 2;
     return sum(v * 2, tl, tm, l, min(r, tm)) +
         sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
