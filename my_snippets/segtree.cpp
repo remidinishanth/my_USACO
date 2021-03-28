@@ -278,6 +278,7 @@ void push(int v, int l, int r){
 }
 
 void update(int v, int tl, int tr, int l, int r, int value){
+    push(v, tl, tr);
     if (l > r) 
         return;
     /*
@@ -287,7 +288,6 @@ void update(int v, int tl, int tr, int l, int r, int value){
     update(2*v, tl, tm, l, min(r,tm), value); but then we should use
     if(l <= tl && tr <= r) then we have to do node update
     */ 
-    push(v, tl, tr);
     if(l == tl && tr == r){
         lazy[v] += value;
         push(v, tl, tr);
