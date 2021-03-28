@@ -44,7 +44,7 @@ inline int inv(int a) {
   return u;
 }
 
-#Um_nik from https://codeforces.com/contest/1336/submission/76831744
+//Um_nik from https://codeforces.com/contest/1336/submission/76831744
 const ll MOD = 998244353;
 ll add(ll x, ll y) {
 	x += y;
