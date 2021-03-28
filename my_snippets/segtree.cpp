@@ -312,3 +312,4 @@ ll sum(int v, int tl, int tr, int l, int r) {
         sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
 
+// Tested with SPOJ HORRIBLE - Horrible Queries
