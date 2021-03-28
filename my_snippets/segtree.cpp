@@ -290,17 +290,17 @@ void update(int v, int tl, int tr, int l, int r, int value){
     */ 
     if(l == tl && tr == r){
         lazy[v] += value;
-        push(v, tl, tr);
+        push(v,l,r);
     }
     else{
         int tm=(tl+tr)/2;
-	update(2*v, tl, tm, l, min(r, tm), value);
-	update(2*v+1, tm+1, tr, max(tl, tm+1), tr, value);
-	t[v] = t[2*v] + t[2*v+1]; // children are up to date because we always push
+        update(2*v, tl, tm, l, min(r, tm), value);
+        update(2*v+1, tm+1, tr, max(l, tm+1), r, value);
+        t[v] = t[2*v] + t[2*v+1]; // children are up to date because we always push
     }
 }
 
-int sum(int v, int tl, int tr, int l, int r) {
+ll sum(int v, int tl, int tr, int l, int r) {
     if (l > r)
         return 0;
     push(v, tl, tr);
@@ -311,3 +311,4 @@ int sum(int v, int tl, int tr, int l, int r) {
     return sum(v * 2, tl, tm, l, min(r, tm)) +
         sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
+
