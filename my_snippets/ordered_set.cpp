@@ -18,3 +18,5 @@ int main(){
 	cout << s.order_of_key(60) << endl; // count elements smaller than 60
 	cout << *s.find_by_order(1) << endl; // element with index 1
 }
+
+// source: https://github.com/Errichto/youtube/blob/master/templates/ordered_set.cpp
