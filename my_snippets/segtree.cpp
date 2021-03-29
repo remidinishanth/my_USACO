@@ -281,6 +281,7 @@ void update(int v, int tl, int tr, int l, int r, int value){
     push(v, tl, tr); // This is crucial, Don't push without later merging your two children.
     // If we put this after if(l>r) then child will have lazy tag but we update t[v] = t[2*v] + t[2*v+1] and hence our code will fail
     // Once we push, we have to update our parent node with the updated value, so if child is marked lazy, we have to update it and then only update parent.
+    // Otherwise use something like #define GET(node), incase of lazy, in case the node is lazy we apply the function and then get value, see segtree_struct
     if (l > r) 
         return;
     /*
