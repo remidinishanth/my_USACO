@@ -10,15 +10,13 @@ Each state has declared a number of meteor samples it intends to gather before t
 
 ### Input
 
-The first line of the standard input gives two integers, *n* and *m* (1 <=n,m <=300000), separated by a single space, that denote, respectively, the number of BIU member states and the number of sectors the orbit has been partitioned into.
+The first line of the standard input gives two integers, *n* and *m* (1 ≤ n,m ≤ 300000), separated by a single space, that denote, respectively, the number of BIU member states and the number of sectors the orbit has been partitioned into.
 
-In the second line there are *m* integers  *o*<sub>i</sub>(1 <= o<sub>i</sub> <=*n*), separated by single spaces, that denote the states owning stations in successive sectors.
+In the second line there are *m* integers  *o*<sub>i</sub>(1 ≤ o<sub>i</sub> ≤ *n*), separated by single spaces, that denote the states owning stations in successive sectors.
 
-In the third line there are *n* integers *p*<sub>i</sub> (1 <= p<sub>i</sub> <=10<sup>9</sup>), separated by single spaces, that denote the numbers of meteor samples that the successive states intend to gather.
+In the third line there are *n* integers *p*<sub>i</sub> (1 ≤ p<sub>i</sub> ≤ 10<sup>9</sup>), separated by single spaces, that denote the numbers of meteor samples that the successive states intend to gather.
 
-In the fourth line there is a single integer *k* (1 <= *k* <= 300000) that denotes the number of meteor showers predictions. The following *k* lines specify the (predicted) meteor showers chronologically. The *i*-th of these lines holds three integers l<sub>i</sub>, r<sub>i</sub>, a<sub>i</sub> (separated by single spaces), which denote that a meteor shower is expected in sectors l<sub>i</sub>, l<sub>i+1</sub>,...,r<sub>i</sub> (if l<sub>i</sub> <= r<sub>i</sub>) or sectors l<sub>i</sub>, l<sub>i+1</sub>,...,*m*,1,..., r<sub>i</sub>  (if l<sub>i</sub> > r<sub>i</sub>), which should provide each station in those sectors with  meteor samples (1 <= a<sub>i</sub> <= 10<sup>9</sup>).
-
-In tests worth at least 20% of the points it additionally holds that *n*,*m*,*k* <= 1000.
+In the fourth line there is a single integer *k* (1 ≤ *k* ≤ 300000) that denotes the number of meteor showers predictions. The following *k* lines specify the (predicted) meteor showers chronologically. The *i*-th of these lines holds three integers l<sub>i</sub>, r<sub>i</sub>, a<sub>i</sub> (separated by single spaces), which denote that a meteor shower is expected in sectors l<sub>i</sub>, l<sub>i+1</sub>,...,r<sub>i</sub> (if l<sub>i</sub> ≤ r<sub>i</sub>) or sectors l<sub>i</sub>, l<sub>i+1</sub>,...,*m*,1,..., r<sub>i</sub>  (if l<sub>i</sub> > r<sub>i</sub>), which should provide each station in those sectors with  meteor samples (1 ≤ a<sub>i</sub> ≤ 10<sup>9</sup>).
 
 ### Ouput
 
@@ -47,9 +45,13 @@ NIE
 
 Task authors: Paweł Mechlinski and Jakub Pachocki.
 
-Source: [szkopul.edu]([https://szkopul.edu.pl/problemset/problem/7JrCYZ7LhEK4nBR5zbAXpcmM/site/?key=statement)
+Source: [Szkopul](https://szkopul.edu.pl/problemset/problem/7JrCYZ7LhEK4nBR5zbAXpcmM/site/?key=statement)
 
 ## Solution
+
+There are  𝑀  sectors and each sector is owned by one of  𝑁  companies  𝑂𝑖 . Each company plans to gather certain amount of meteors  𝑃𝑖 . There will be  𝐾  meteor showers in chronological order, covering segments of sectors  [𝐿𝑖;𝑅𝑖]  and providing each of these sectors  𝐴𝑖  meteor samples. For each company  𝑖  you have to find number of first meteor shower after which it will gather  ≥𝑃𝑖  meteors, or output NIE if even after all meteor showers there are insufficient number of meteors.
+
+1 ≤ 𝑁,𝑀,𝐾 ≤ 300000
 
 Prerequisites for solution
 
@@ -69,13 +71,13 @@ Now, we know that for each company answer will be between  [1;𝐾+1] , inclusiv
 
 And now we will make  O(𝑙𝑜𝑔(𝐾)) iterations of parallel binary search.
 
-For  𝑖'th company we want to efficiently check whether first  𝑀𝑖=(𝐿𝑖+𝑅𝑖)/2  showers will provide  ≥𝑃𝑖  meteors. We will group same  𝑀𝑖 's together and then do the following process:
+For  𝑖'th company we want to efficiently check whether first  𝑀𝑖=(𝐿𝑖+𝑅𝑖)/2  showers will provide  ≥ 𝑃𝑖  meteors. We will group same  𝑀𝑖 's together and then do the following process:
 
 1. Initialize segment tree with  𝑀  leafs with  0 , where  𝑖 'th leaf will denote number of meteors  𝑖 'th sector currently has.
 
 2. Start making showers in chronological order. It is essentially just making an addition on segment.
 
-3. Suppose we just processed the shower number  𝑄 . If some  𝑀𝑖=𝑄 , then we can - in  O(𝑛𝑢𝑚𝑂𝑓𝑃𝑜𝑠𝑖𝑡𝑖𝑜𝑛𝑠𝑖)  time - if there is sufficient number of meteors already and move its  𝐿𝑖  or  𝑅𝑖 . Total number of iterations will be  O(∑𝑁𝑖=1𝑛𝑢𝑚𝑂𝑓𝑃𝑜𝑠𝑖𝑡𝑖𝑜𝑛𝑠𝑖)  which is just  O(𝑀) .
+3. Suppose we just processed the shower number  𝑄 . If some  𝑀𝑖=𝑄 , then we can - in  O(𝑛𝑢𝑚𝑂𝑓𝑃𝑜𝑠𝑖𝑡𝑖𝑜𝑛𝑠<sub>𝑖</sub>)  time - if there is sufficient number of meteors already and move its  𝐿𝑖  or  𝑅𝑖 . Total number of iterations will be  O(∑<sub>𝑖=1</sub> <sup>N</sup> 𝑛𝑢𝑚𝑂𝑓𝑃𝑜𝑠𝑖𝑡𝑖𝑜𝑛𝑠<sub>𝑖</sub>)  which is just  O(𝑀) .
 After, just output answers, and if for some company answer is  𝐾+1 , then output NIE.
 
 Result
