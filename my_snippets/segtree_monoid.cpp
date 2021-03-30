@@ -212,3 +212,95 @@ template< typename Monoid, typename F >
 SegmentTree< Monoid, F > get_segment_tree(int N, const F& f, const Monoid& M1) {
   return {N, f, M1};
 }
+
+
+// Usage
+// https://atcoder.jp/contests/abc186/submissions/18884010
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+template <class T> using vec = vector<T>;
+template <class T> using vvec = vector<vec<T>>;
+template<class T> bool chmin(T& a,T b){if(a>b) {a = b; return true;} return false;}
+template<class T> bool chmax(T& a,T b){if(a<b) {a = b; return true;} return false;}
+#define rep(i,n) for(int i=0;i<(n);i++)
+#define drep(i,n) for(int i=(n)-1;i>=0;i--)
+#define all(x) (x).begin(),(x).end()
+#define debug(x)  cerr << #x << " = " << (x) << endl;
+ 
+template<typename Monoid,typename F>
+class SegmentTree{
+private:
+    int sz;
+    vector<Monoid> seg;
+    const F op;
+    const Monoid e;
+public:
+    SegmentTree(int n,const F op,const Monoid &e):op(op),e(e){
+        sz = 1;
+        while(sz<=n) sz <<= 1;
+        seg.assign(2*sz,e);
+    }
+    void set(int k, const Monoid &x){
+        seg[k+sz] = x;
+    }
+    void build(){
+        for(int i=sz-1;i>0;i--){
+            seg[i] = op(seg[2*i],seg[2*i+1]);
+        }
+    }
+    void update(int k,const Monoid &x){
+        k += sz;
+        seg[k] = x;
+        while(k>>=1){
+            seg[k] = op(seg[2*k],seg[2*k+1]);
+        }
+    }
+    Monoid query(int l,int r){
+        Monoid L = e,R = e;
+        for(l+=sz,r+=sz;l<r;l>>=1,r>>=1){
+            if(l&1) L = op(L,seg[l++]);
+            if(r&1) R = op(seg[--r],R);
+        }
+        return op(L,R);
+    }
+    Monoid operator[](const int &k)const{
+        return seg[k+sz];
+    }
+};
+ 
+int main(){
+    cin.tie(0);
+    ios::sync_with_stdio(false);
+    ll H,W,M;
+    cin >> H >> W >> M;
+    vec<ll> X(M),Y(M);
+    vvec<ll> posx(H);
+    ll h = H,w = W;
+    rep(i,M){
+        cin >> X[i] >> Y[i];
+        X[i]--,Y[i]--;
+        posx[X[i]].push_back(Y[i]);
+        if(Y[i]==0) chmin(h,X[i]);
+        if(X[i]==0) chmin(w,Y[i]);
+    }
+    rep(i,H){
+        posx[i].push_back(W);
+        if(i>=h) posx[i].push_back(0);
+        sort(all(posx[i]));
+        posx[i].erase(unique(all(posx[i])),posx[i].end());
+    }
+    ll ans = H*W;
+    SegmentTree seg(W,[](ll a,ll b){return a+b;},0LL);
+    for(int j=w;j<W;j++) seg.set(j,1);
+    seg.build();
+    rep(i,H){
+        int n = posx[i].size();
+        rep(j,n-1){
+            ans--;
+            ans -= seg.query(posx[i][j]+1,posx[i][j+1]);
+            seg.update(posx[i][j],1);
+        }
+    }
+    cout << ans << "\n";
+}
