@@ -46,7 +46,7 @@ inv(a) ≡ a<sup>p−2</sup> (mod p).
 
 Let a = bq + r, where a, b, q, and r are integers. Then gcd(a, b) = gcd(b, r).
 
-Proof: So suppose that d divides both a and b. Then it follows that d also divides a − bq = r
+Proof: Suppose that d divides both a and b. Then it follows that d also divides a − bq = r
 
 Likewise, suppose that d divides both b and r. Then d also divides bq + r = a. Hence, any
 common divisor of b and r is also a common divisor of a and b.
@@ -83,6 +83,9 @@ the sum of two primes is now called Goldbach’s conjecture
 
 Sometimes, the denominator 𝑘!(𝑛−𝑘)! is very large, but we can't modulo it since modulo operations can't be done independently on the denominator. 
 
+C(n, 0) = C(n, n) = 1 // base cases.
+C(n, k) = C(n − 1, k − 1) + C(n − 1, k) // take or ignore an item, n > k > 0.
+
 ## Modular multiplicative inverse
 
 Getting back to the formula for combination, we can rearrange so that
@@ -114,6 +117,28 @@ As r<sub>i+1</sub> = r<sub>i-1</sub> - r<sub>i</sub>q<sub>i</sub>, the gcd is sa
 As a = r<sub>0</sub> and b = r<sub>1</sub>, we have as<sub>i</sub> + bt<sub>i</sub> = r<sub>i</sub> for i = 0 and 1. The relation follows by induction for all i > 1:
 
 ![Extended Euclid](images/extended_euclid_3.svg)
+
+Alternate Proof:
+
+As seen above, x and y are results for inputs a and b,
+   a.x + b.y = gcd                      ----(1)  
+
+And x1 and y1 are results for inputs b%a and a
+   (b%a).x1 + a.y1 = gcd
+
+When we put b%a = (b - (⌊b/a⌋).a) in above, 
+we get following. Note that ⌊b/a⌋ is floor(b/a)
+
+   (b - (⌊b/a⌋).a).x1 + a.y1  = gcd
+
+Above equation can also be written as below
+   b.x1 + a.(y1 - (⌊b/a⌋).x1) = gcd      ---(2)
+
+After comparing coefficients of 'a' and 'b' in (1) and (2), we get following
+   x = y1 - ⌊b/a⌋ * x1
+   y = x1
+
+The extended Euclidean algorithm is particularly useful when a and b are coprime (or gcd is 1). Since x is the modular multiplicative inverse of “a modulo b”, and y is the modular multiplicative inverse of “b modulo a”.
 
 ## Modulo inverse for every modulo m
 
