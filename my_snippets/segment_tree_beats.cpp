@@ -6,7 +6,7 @@ using namespace std;
 // maxc - count of first maximum
 // Tree starts at 0, iterative implementation
 // left child l = i * 2 + 1; right child r = i * 2 + 2;
-// Range sum is for [l,r)
+// Range sum is for [l,r), // 0-based, [l, r)
 
 const long long INF = 1000000000000000000;
 template <typename T>
@@ -140,7 +140,7 @@ struct segment_tree_beats{
 		range_chmin(L, R, x, i * 2 + 2, m, r);
 		update(i);
 	}
-	void range_chmin(int L, int R, T x){
+	void range_chmin(int L, int R, T x){  // 0-based, [l, r)
 		range_chmin(L, R, x, 0, 0, N);
 	}
 	void range_chmax(int L, int R, T x, int i, int l, int r){
@@ -156,7 +156,7 @@ struct segment_tree_beats{
 		range_chmax(L, R, x, i * 2 + 2, m, r);
 		update(i);
 	}
-	void range_chmax(int L, int R, T x){
+	void range_chmax(int L, int R, T x){  // 0-based, [l, r)
 		range_chmax(L, R, x, 0, 0, N);
 	}
 	void range_add(int L, int R, T x, int i, int l, int r){
@@ -172,7 +172,7 @@ struct segment_tree_beats{
 		range_add(L, R, x, i * 2 + 2, m, r);
 		update(i);
 	}
-	void range_add(int L, int R, T x){
+	void range_add(int L, int R, T x){  // 0-based, [l, r)
 		range_add(L, R, x, 0, 0, N);
 	}
 	T range_sum(int L, int R, int i, int l, int r){
@@ -185,7 +185,7 @@ struct segment_tree_beats{
 		int m = (l + r) / 2;
 		return range_sum(L, R, i * 2 + 1, l, m) + range_sum(L, R, i * 2 + 2, m, r);
 	}
-	T range_sum(int L, int R){
+	T range_sum(int L, int R){  // 0-based, [l, r)
 		return range_sum(L, R, 0, 0, N);
 	}
 };
