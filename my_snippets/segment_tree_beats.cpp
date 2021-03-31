@@ -4,6 +4,8 @@ using namespace std;
 // max1 - first maximum
 // max2 - second maximum
 // maxc - count of first maximum
+// Tree starts at 0
+// left child l = i * 2 + 1; right child r = i * 2 + 2;
 
 const long long INF = 1000000000000000000;
 template <typename T>
