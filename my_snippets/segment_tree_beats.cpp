@@ -4,8 +4,9 @@ using namespace std;
 // max1 - first maximum
 // max2 - second maximum
 // maxc - count of first maximum
-// Tree starts at 0
+// Tree starts at 0, iterative implementation
 // left child l = i * 2 + 1; right child r = i * 2 + 2;
+// Range sum is for [l,r)
 
 const long long INF = 1000000000000000000;
 template <typename T>
