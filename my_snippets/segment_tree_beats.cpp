@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+// max1 - first maximum
+// max2 - second maximum
+// maxc - count of first maximum
+
 const long long INF = 1000000000000000000;
 template <typename T>
 struct segment_tree_beats{
