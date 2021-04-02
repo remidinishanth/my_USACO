@@ -252,3 +252,116 @@ On the right the product of the two DFTs we mean the pairwise product of the vec
 ## FFT
 
 ![FFT](images/fft_5.png)
+
+## Recursive Implementation
+
+```cpp
+poly FFT(poly P){
+    if (degree(P) == 1)
+        return P[0]; // a0 * (cos(0) + i * sin(0)) = a0
+    P0 = split_even(P); // a0, a2, a4, ...
+    P1 = split_odd(P); // a1, a3, a5, ...
+    S0 = FFT(P0);
+    S1 = FFT(P1);
+    
+    step = cos(2*PI/degree(P)) + i * sin(2*PI/degree(P));
+    w = 1;
+    
+    for (k = 0; k < degree(P) / 2; k++) {
+        answer[k] = S0[k] + w * S1[k];
+        answer[k + degree(P) / 2] = S0[k] - w * S1[k];
+        w = w*step; 
+    }
+    return answer;
+}
+```
+
+## Iterative Implementation
+
+To increase the efficiency we will switch from the recursive implementation to an iterative one. In the above recursive implementation we explicitly separated the vector a into two vectors - the element on the even positions got assigned to one temporary vector, and the elements on odd positions to another. However if we reorder the elements in a certain way, we don't need to create these temporary vectors (i.e. all the calculations can be done "in-place", right in the vector A itself).
+
+For example the recursion for n=8 has the form:
+
+    a = {[a_0, a_2, a_4, a_6], [a_1, a_3, a_5, a_7]}
+    a = {[(a_0, a_4), (a_2, a_6)], [(a_1, a_5), (a_3, a_7)]}
+
+In which order elements are are used?
+
+    000, 100, 010, 110, 001, 101, 011, 111 - Binary representation
+
+As we see, in the **bit-reversal permutation** this corresponds to simply dividing the vector into two halves: the first n/2 elements and the last n/2 elements.
+
+The order of recursion is the following
+
+    0, 1, ..., 2^{k-1}, 2^{k-1}+1,..., 2^k -1
+    [0, 2, ..., 2^k -2], [1, 3, ..., 2^k -1]
+    [(0, 4, ..., 2^k-4), (2, 6, ..., 2^k-2)], [(), ()]
+    ...
+    [(0, 2^k - 2^{k-1})], ...
+
+After k level recursion we'll have (2^k - 2^{k-1}) = 2^{k-1}
+
+    id                  binary              reversed binary
+    0               <‐‐ 00000000000     <‐‐ 00000000000
+    2^{k‐1}         <‐‐ 10000000000     <‐‐ 00000000001
+    2^{k‐2}         <‐‐ 01000000000     <‐‐ 00000000010
+    2^{k‐1}+2^{k‐2} <‐‐ 11000000000     <‐‐ 00000000011
+
+Thus, after applying the bit-reversal permutation, we can compute the DFT in-place, without any additional memory.
+
+```cpp
+poly Permute(poly P){
+    for (i = 0; i < degree(P); i++)
+        anwer[ reverse_bits(i) ] = P[i];
+    return answer;
+}
+
+poly FFT(poly P){
+    P = Permute(P);
+    for (len = 1; 2 * len <= degree(P); len <<= 1) {
+        step = cos(PI/len) + i * sin(PI/len);
+        
+        for (i = 0; i < degree(P); i += 2 * len) {
+            w = 1;
+            
+            for (j = 0; j < len; j++) {
+                u = P[i + j];
+                v = P[i + len + j];
+                P[i + j] = u + w * v;
+                P[i + len + j] = u - w * v;
+                w = w * step;
+            }
+        }
+    }
+    
+    return P;
+}
+```
+
+### Reverse bits quickly
+
+```python
+rev[0] = 0
+for i in 1 .. N‐1:
+    rev[i] = (rev[i >> 1] >> 1) + ((i & 1) << (logN ‐ 1))
+```
+
+## Non-recursive realization
+
+Now, let's write code that will run all calculations of fft ‐tree from bottom to top
+
+```python
+fft(a, f): # calculate results of A and store in F
+    # reversed order
+    for i in 0 .. N‐1:
+        f[i] = a[rev[i]]
+
+    for (k = 1; k < N; k = k * 2):
+        for (i = 0; i < N; i = i + 2 * k):
+            for j in 0 .. k‐1:
+                z = root(2*PI*j/(2*k)) * f[i + j + k]
+                f[i + j + k] = f[i + j] ‐ z
+                f[i + j] = f[i + j] + z
+```
+
+fft became much shorter
