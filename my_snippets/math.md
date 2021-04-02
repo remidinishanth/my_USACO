@@ -176,5 +176,4 @@ max(min(𝛼,𝛽),min(𝛼,𝛾)) = max(𝛼,min(𝛼,min(𝛽,𝛾)))
 = max(𝛼,min(𝛼,𝛽,𝛾)) = 𝛼 = min(𝛼,max(𝛽,𝛾))
 ```
 
-
 ![Min Max](images/minimum_maximum_1.png)
