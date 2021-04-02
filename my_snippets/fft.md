@@ -101,10 +101,14 @@ and *their* squares are: 1
 The "w" we are using is called the "primitive eighth root of unity"
 (since w^8 = 1 and w^k != 1 for 0 < k < 8).
 
+An nth root of unity is said to be primitive if it is not a mth root of unity for some smaller m, that is if
+
+    z^n = 1 and z^m != 1 for m = 1, 2, 3, ..., n-1
+
 In general, the mth primitive root of unity is the vector
 w = cos(2*pi/m) + i*sin(2*pi/m)
 
-## Alternatively, we can use MODULAR ARITHMETIC
+### Alternatively, we can use MODULAR ARITHMETIC
 
 E.g., 2 is a primitive 8th root of unity mod 17.
 {2^0,2^1,2^2,...,2^7} = {1,2,4,8 16,15,13, 9}
@@ -177,7 +181,7 @@ Claim:  F^{-1} = (1/m) * \bar{F}.  I.e., 1/m * \bar{F} * F = identity.
 
 Proof:  What is the i,j entry of \bar{F} * F?  It is:
 
-	1 + w^{j-i} + w^{2j-2i} + w^{3j-3i} + ... + w^{(m-1)j - (m-1)i}
+    1 + w^{j-i} + w^{2j-2i} + w^{3j-3i} + ... + w^{(m-1)j - (m-1)i}
 
    If i=j, then these are all = 1, so the sum is m.  Then when we
    divide by m we get 1.
@@ -185,7 +189,7 @@ Proof:  What is the i,j entry of \bar{F} * F?  It is:
    If i!=j, then the claim is these all cancel out and we get zero.
    Maybe easier to see if we let z = w^{j-i}, so then the sum is:
 
-	1 + z + z^2 + z^3 + z^4 + ... + z^{m-1}.
+    1 + z + z^2 + z^3 + z^4 + ... + z^{m-1}.
 
    Then can see these cancel by picture.  For instance, try z = w, z = w^2.
 
@@ -200,3 +204,51 @@ So, the final algorithm is:
     For i=1 to m, let F_C[i] = F_A[i]*F_B[i]      // time O(n)
     Output C = 1/m * FFT(F_C, m, w^{-1}).         // time O(n log n)
 ```
+
+## Applications
+
+FFT allows us to do a convolution of two vectors of length n in time O(n log n).
+
+Def of convolution of A and B is vector C such that 
+
+    C[i] = A[0]*B[i] + A[1]*B[i-1] + ... + A[i]*B[0].
+
+E.g., if A and B are the vectors of coefficients of polynomials A(x) and B(x), then C gives the coefficients for the polynomial A(x)*B(x).
+
+Uses: Consider the following problem.  You are given a string P of 1's and *'s (the 'pattern'), and a string T of 0's and 1's (the 'text').
+
+You want to find all places where the pattern P appears in text T, where a star can match either a 0 or a 1.  For instance, if P = 11*1 and T = 10111101, then P appears twice in T: once starting at the 3rd position in T and once starting at the 5th position in T.
+
+Say P has length n and T has length m, where m>n. There is a simple O(mn)-time algorithm to solve this problem: try all O(m) possible starting positions, and for each one, check in time O(n) to see if $P$ matches there.  
+
+We can use the FFT to do this faster.  All we need to do is reverse P, change the *'s to zeroes (so in the above example, this would give us 1011), and then do a convolution with T.  We can then scan the result to see the positions where the value of C[i] equals the number of 1s in P.
+
+## DFT
+
+![DFT](images/fft_2.png)
+
+The discrete Fourier transform a sequence of N complex numbers into another sequence of complex numbers.
+
+![DFT](images/fft_3.png)
+![DFT](images/fft_4.png)
+
+The Fast Fourier Transform is an efficient algorithm for computing the Discrete Fourier Transform. More specifically, FFT is the name for any efficient algorithm that can compute the DFT in about Θ(𝑛log𝑛) time, instead of Θ(𝑛2) time. There are several FFT algorithms.
+
+    DFT(a_0, a_1, ..., a_{n-1}) = (y_0, y_1, ..., y_{n-1})
+
+
+    InverseDFT(y_0, y_1, ..., y_{n-1}) = (a_0, a_1, ..., a_{n-1})
+
+    (A.B)(x) = A(x).B(x)
+
+This means that if we multiply the vectors DFT(A) and DFT(B) - by multiplying each element of one vector by the corresponding element of the other vector - then we get nothing other than the DFT of the polynomial DFT(A⋅B):
+
+    DFT(A.B) = DFT(A).DFT(B)
+
+    A.B = InverseDFT(DFT(A).DFT(B))
+
+On the right the product of the two DFTs we mean the pairwise product of the vector elements. This can be computed in O(n) time. If we can compute the DFT and the inverse DFT in O(nlogn), then we can compute the product of the two polynomials (and consequently also two long numbers) with the same time complexity.
+
+## FFT
+
+![FFT](images/fft_5.png)
