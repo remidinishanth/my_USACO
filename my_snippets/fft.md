@@ -365,3 +365,35 @@ fft(a, f): # calculate results of A and store in F
 ```
 
 fft became much shorter
+
+## Number Theoretic Transform
+
+The number theoretic transform is based on generalizing the Nth primitive root of unity to a 'quotient ring' instead of the usual field of complex numbers.
+
+In a number theoretic transform, w is a integer which satisfies `w^n = 1 (mod p)` where p is a prime integer.
+
+From number theory, for each prime number p there exists atleast one primitive root r such that r^n (mod p) visits all of the numbers 1 through p-1 in some order, as n goes from 1 to p-1.
+
+Since m^{p-1} = 1 (mod p) for all integers m (Fermat's little theorem), r is also a Nth root of unity, where N = p-1 is the transform size. (More generally, N can be any integer divisor L of p-1, in which case we use w = r^L as the generator of the numbers participating in the transform.)
+
+The objective of NTT is to multiply 2 polynomials such that the coefficient of the resultant polynomials are calculated under a particular modulo. The benefit of NTT is that there are no precision errors as all the calculations are done in integers.
+A major drawback of NTT is that generally we are only able to do NTT with a prime modulo of the form `2^k.c + 1`, where k and c are arbitrary constants. So for doing it for a random mod we need to use CRT(Chinese Remainder Theorem).
+
+### Algorithm
+
+Firstly, nth roots of unity under a primitive field, i.e mod P are defined as z^n = 1 mod P, where P is only considered as prime for simplicity.
+
+Assume that P = 2^k.c + 1, where c, k are positive integers and P is prime.
+
+So we first find a r such that r^x (mod P) goes through all the numbers from 1 to P - 1 when x goes from 1 to P - 1.
+
+r^{P-1} = 1 mod P implies that the (2^k)th root of unity under modulo field of P will be r^c, because `(r^c)^{2^k} = r^{2^k.c} = r^{P-1} = 1`
+
+The powers will be as (r^c)^0 = 1 mod P, (r^c)^1 mod P, (r^c)^2 mod P, ..., (r^c)^{2^k-1} mod P
+
+Lemma 1 => (r^c)^x != 1 mod P when 1 <= x <= 2^k because r is primitive root of unity.
+
+Lemma 2 => Let `(r^c)^x = (r^c)^y mod P` where x!=y and both both lie between [0, 2^k) then r^{c.x} = r^{c.y} mod P, then
+(r^c)^{x}.r^c = (r^c)^{y}.r^c, similarly (r^c)^{x+q} = (r^c)^{y+q} where q is an integer. We know (r^c)^(2^k) = 1 mod P, so if we use q = 2^k - x, we get (r^c)^{x+q} = (r^c)^{2^k} = 1 = (r^c)^{y+q} mod P, where y+q != 2^k because x != y, this is a contradiction. So, r^c is now primitive root under mod P.
+
+Now the only difference between NTT and FFT will be that the nth root of unity changes from w to r^c, where r is found by hit and trial method.
