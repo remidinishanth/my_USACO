@@ -15,9 +15,14 @@ E.g., multiply (x^2 + 2x + 3)(2x^2 + 5) =
 
 MODEL: view each individual small multiplication as a unit cost operation.
 
+Karatsuba method: We do three multiplication operations instead of four
+
+    A.B = a_0b_0 + (a_0b_1+a_1b_0)x + a_1b_1x^2
+        = a_0b_0 + [(a_0+b_0)(a_1+b_1) - a_0b_0 - a_1b_1]x + a_1b+1x^2
+
 Straightforward computation is O(n^2) time.  Karatuba is n^{1.58..}
 
-More generally, given 
+More generally, given
 
     A(x) = a_0 + a_1 x + ... + a_{n-1}x^{n-1},  
     B(x) = b_0 + b_1 x + ... + b_{n-1}x^{n-1}
@@ -53,7 +58,6 @@ Let's first develop it through an example.  Say m=8 so we have a polynomial
 
     A(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4 + a_5 x^5 + a_6x^6 + a_7x^7.
     (as a vector, A = [a_0, a_1, ..., a_7])
-
 
 And we want to evaluate at eight points of our choosing.  Here is an idea.  
 
@@ -372,7 +376,7 @@ The number theoretic transform is based on generalizing the Nth primitive root o
 
 In a number theoretic transform, w is a integer which satisfies `w^n = 1 (mod p)` where p is a prime integer.
 
-From number theory, for each prime number p there exists atleast one primitive root r such that r^n (mod p) visits all of the numbers 1 through p-1 in some order, as n goes from 1 to p-1.
+From number theory, for each prime number p there exists atleast one primitive root r such that r^n (mod p) visits all of the numbers 1 through p-1 in some order, as n goes from 1 to p-1. It is known that in each such field there is generating element g such that set of its powers equals set of field elements except zero.
 
 Since m^{p-1} = 1 (mod p) for all integers m (Fermat's little theorem), r is also a Nth root of unity, where N = p-1 is the transform size. (More generally, N can be any integer divisor L of p-1, in which case we use w = r^L as the generator of the numbers participating in the transform.)
 
@@ -397,3 +401,7 @@ Lemma 2 => Let `(r^c)^x = (r^c)^y mod P` where x!=y and both both lie between [0
 (r^c)^{x}.r^c = (r^c)^{y}.r^c, similarly (r^c)^{x+q} = (r^c)^{y+q} where q is an integer. We know (r^c)^(2^k) = 1 mod P, so if we use q = 2^k - x, we get (r^c)^{x+q} = (r^c)^{2^k} = 1 = (r^c)^{y+q} mod P, where y+q != 2^k because x != y, this is a contradiction. So, r^c is now primitive root under mod P.
 
 Now the only difference between NTT and FFT will be that the nth root of unity changes from w to r^c, where r is found by hit and trial method.
+
+## String matching using FFT
+
+![String matching using FFT](images/fft_6.png)
