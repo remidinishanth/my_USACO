@@ -19,7 +19,7 @@
 
 #define rsz resize
 #define sz(x) int(x.size())
-
+#define all(x) x.begin(), x.end()
 
 template<class T> void fft(V<T>& A, bool inv = 0) { // NTT
 	int n = sz(A); assert((T::mod-1)%n == 0); V<T> B(n);
