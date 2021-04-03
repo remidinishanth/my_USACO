@@ -33,6 +33,8 @@ typedef set<int> si;
 typedef map<string, int> msi;
 typedef map<int, int> mii;
 
+using str = string; // yay python!
+
 #define INF 1000000000
 #define MOD 1000000007
 #define EPS 1e-9
@@ -58,6 +60,11 @@ typedef map<int, int> mii;
 #define REP(i, n) for (int i = 0; i < int(n); i++)
 #define REP1(i,n) for (int i = 1; i <= int(n); i++)
 #define REV(i, n) for (int i = int(n)-1; i >=0 ; i--)
+
+#define rep(i, begin, end) for (__typeof(end) i = (begin) — ((begin) > (end)); i != (end) — ((begin) > (end)); i += 1 — 2 * ((begin) > (end)))
+// rep(i, 1, 10) 1,2,..,9
+// rep(i, 10, 1) 9, 8,...,2, 1
+// It works with vector as well, rep(i, begin(v), end(v)), rep(i, end(v), begin(v)) use *i
 
 #define sd(n) scanf("%d",&n)
 #define dsd(n) int n; scanf("%d",&n)
@@ -129,10 +136,9 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-// const int nax = 5e6+10;
+/* const int nax = 2e5+10; */
 
 int main(){
     return 0;
 }
-
-// Do something instead of nothing, stay organised, stay ahead!
+// Do something instead of nothing, stay organised, stay ahead!, WRITE STUFF DOWN
