@@ -17,6 +17,10 @@
 #include "ModInt.h"
 // const int MOD = 998244353;
 
+#define rsz resize
+#define sz(x) int(x.size())
+
+
 template<class T> void fft(V<T>& A, bool inv = 0) { // NTT
 	int n = sz(A); assert((T::mod-1)%n == 0); V<T> B(n);
 	for(int b = n/2; b; b /= 2, swap(A,B)) {
