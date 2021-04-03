@@ -24,6 +24,10 @@
 #define FOR(i,a,b) for (int i = (a); i < (b); ++i)
 #define F0R(i,a) FOR(i,0,a)
 
+#define tcT template<class T
+#define tcTU tcT, class U
+tcT> using V = vector<T>;
+
 template<class T> void fft(V<T>& A, bool inv = 0) { // NTT
 	int n = sz(A); assert((T::mod-1)%n == 0); V<T> B(n);
 	for(int b = n/2; b; b /= 2, swap(A,B)) {
