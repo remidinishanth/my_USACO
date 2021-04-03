@@ -17,6 +17,12 @@
 #include "ModInt.h"
 // const int MOD = 998244353;
 
+using str = string; // yay python!
+const int MOD = (119 << 23) + 1, root = 3; // = 998244353
+
+#define tcT template<class T
+tcT> using V = vector<T>;
+
 #define rsz resize
 #define sz(x) int(x.size())
 #define all(x) x.begin(), x.end()
@@ -24,10 +30,17 @@
 #define FOR(i,a,b) for (int i = (a); i < (b); ++i)
 #define F0R(i,a) FOR(i,0,a)
 
-using str = string; // yay python!
+// INPUT
+#define tcTUU tcT, class ...U
+tcT> void re(T& x) { cin >> x; }
+tcTUU> void re(T& t, U&... u) { re(t); re(u...); }
+tcT> void re(V<T>& x) { each(a,x) re(a); }
 
-#define tcT template<class T
-tcT> using V = vector<T>;
+// Add mod int code here
+// Usage
+// typedef mint<MOD,3> mi; // 5 is primitive root for both common mods
+// typedef vector<mi> vmi;
+
 
 template<class T> void fft(V<T>& A, bool inv = 0) { // NTT
 	int n = sz(A); assert((T::mod-1)%n == 0); V<T> B(n);
@@ -72,3 +85,6 @@ template<class T> V<T> MUL(const V<T>& A, const V<T>& B) { // arbitrary moduli
 const int MOD = (119 << 23) + 1, root = 3; // = 998244353
 // For p < 2^30 there is also e.g. (5 << 25, 3), (7 << 26, 3),
 // (479 << 21, 3) and (483 << 21, 5). The last two are > 10^9.
+
+
+// Usage: https://atcoder.jp/contests/abc196/submissions/21481557
