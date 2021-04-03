@@ -24,8 +24,9 @@
 #define FOR(i,a,b) for (int i = (a); i < (b); ++i)
 #define F0R(i,a) FOR(i,0,a)
 
+using str = string; // yay python!
+
 #define tcT template<class T
-#define tcTU tcT, class U
 tcT> using V = vector<T>;
 
 template<class T> void fft(V<T>& A, bool inv = 0) { // NTT
