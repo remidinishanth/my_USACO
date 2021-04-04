@@ -502,3 +502,7 @@ Why might we expect RSA to be secure?  Here is one fact: given N and
 e, finding the decryption key d is as hard as factoring.  (Though this
 doesn't say there might not be some other way of decrypting a message
 that people haven't thought of).
+
+## Summations
+
+![Summations](images/summation_1.png)
