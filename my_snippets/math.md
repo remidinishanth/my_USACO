@@ -163,33 +163,18 @@ inv[i]=−⌊m / i⌋ ⋅ inv[m mod i] mod m
 
 ## Bit operations
 
-XOR any numerical input
+XOR any numerical input.  `a + b - ab(1 + a + b - ab)`
 
-```math
-   a + b - ab(1 + a + b - ab)
-```
 
-XOR binary input
+XOR binary input.  `a + b - 2ab or (a-b)²`
 
-```math
-   a + b - 2ab or (a-b)²
-```
 
 ### Derivation
 
-Basic Logical Operators
+Basic Logical Operators  `NOT = (1-x),  AND = x*y`
 
-```math
-   NOT = (1-x)
+From those operators we can get `OR = (1-(1-a)(1-b)) = a + b - ab`
 
-   AND = x*y
-```
-
-From those operators we can get...
-
-```math
-   OR = (1-(1-a)(1-b)) = a + b - ab
-```
 
 Note: If a and b are mutually exclusive then their and condition will always be zero - from a Venn diagram perspective, this means there is no overlap. In that case, we could write `OR = a + b`, since `a*b = 0` for all values of a & b.
 
@@ -212,5 +197,5 @@ AND these conditions together to get...
 ### Addition
 
 ```math
-a + b = ((a and b) << 1) + (a xor b)
+a + b = ((a AND b) << 1) + (a XOR b)
 ```
