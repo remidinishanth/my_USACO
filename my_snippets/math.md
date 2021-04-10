@@ -159,3 +159,58 @@ i<sup>−1</sup> ≡ −⌊m / i⌋⋅(m mod i)<sup>−1</sup> mod m
 We denote by inv[i] the modular inverse of i. Then for i>1 the following equation is valid:
 
 inv[i]=−⌊m / i⌋ ⋅ inv[m mod i] mod m
+
+
+## Bit operations
+
+XOR any numerical input
+
+```math
+   a + b - ab(1 + a + b - ab)
+```
+
+XOR binary input
+
+```math
+   a + b - 2ab or (a-b)²
+```
+
+### Derivation
+
+Basic Logical Operators
+
+```math
+   NOT = (1-x)
+
+   AND = x*y
+```
+
+From those operators we can get...
+
+```math
+   OR = (1-(1-a)(1-b)) = a + b - ab
+```
+
+Note: If a and b are mutually exclusive then their and condition will always be zero - from a Venn diagram perspective, this means there is no overlap. In that case, we could write `OR = a + b`, since `a*b = 0` for all values of a & b.
+
+2-Factor XOR
+
+```math
+Defining XOR as (a OR B) AND (NOT (a AND b)):
+
+(a OR B) --> (a + b - ab)
+
+(NOT (a AND b)) --> (1 - ab)
+```
+
+AND these conditions together to get...
+
+```math
+(a + b - ab)(1 - ab) = a + b - ab(1 + a + b - ab)
+```
+
+### Addition
+
+```math
+a + b = ((a and b) << 1) + (a xor b)
+```
