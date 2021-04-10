@@ -178,21 +178,9 @@ From those operators we can get `OR = (1-(1-a)(1-b)) = a + b - ab`
 
 Note: If a and b are mutually exclusive then their and condition will always be zero - from a Venn diagram perspective, this means there is no overlap. In that case, we could write `OR = a + b`, since `a*b = 0` for all values of a & b.
 
-2-Factor XOR
+### 2-Factor XOR
 
-```math
-Defining XOR as (a OR B) AND (NOT (a AND b)):
-
-(a OR B) --> (a + b - ab)
-
-(NOT (a AND b)) --> (1 - ab)
-```
-
-AND these conditions together to get...
-
-```math
-(a + b - ab)(1 - ab) = a + b - ab(1 + a + b - ab)
-```
+Defining XOR as `(a OR B) AND (NOT (a AND b))` where (a OR B) --> `(a + b - ab)` and (NOT (a AND b)) --> `(1 - ab)` then these conditions together to get `(a + b - ab)(1 - ab) = a + b - ab(1 + a + b - ab)`
 
 ### Addition
 
