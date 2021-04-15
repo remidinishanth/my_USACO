@@ -42,6 +42,16 @@ a ⋅ inv(a) ≡ a<sup>p−1</sup> (mod 𝑝)
 
 inv(a) ≡ a<sup>p−2</sup> (mod p).
 
+## Wilson’s theorem 
+
+Wilson's theorem states that a natural number p > 1 is a prime number if and only if
+
+```
+    (p - 1) ! ≡  -1   mod p 
+OR  (p - 1) ! ≡  (p-1) mod p
+```
+ 
+
 ## The Euclidean Algorithm
 
 Let a = bq + r, where a, b, q, and r are integers. Then gcd(a, b) = gcd(b, r).
