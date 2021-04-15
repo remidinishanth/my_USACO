@@ -64,6 +64,52 @@ def BinarySearch(x):
 
 source: <https://codeforces.com/blog/entry/9901?#comment-153756>
 
+## Codeforces
+
+So far, every single time I used (integer) binary search, I could formulate the problem in one of two ways:
+
+(1) Given a range of integers R = {l, l + 1, ..., r - 1, r} and a monotonically increasing predicate P, find the smallest x in R for which P(x) holds true. I then use the following code:
+
+```cpp
+while (l < r) {
+  int mid = (l + r) / 2;
+  if (P(mid)) r = mid;
+  else l = mid + 1;
+} // after the loop, l = r = x
+```
+
+This might not work if P(r) = 0 (in this case the algorithm will return x = r), but you can easily extend your search range to r + 1 and artificially set P(r + 1) = 1 or you can just precheck for that situation.
+
+(2) Given a range of integers R = {l, l + 1, ..., r - 1, r} and a monotonically decreasing predicate P, find the largest  for which P(x) holds true. If we set Q(x) = !P(x), then Q is increasing and we can use (1) to find x + 1. We can also just use the following slightly modified variant:
+
+```cpp
+while (l < r) {
+  int mid = (l + r + 1) / 2;
+  if (P(mid)) l = mid;
+  else r = mid - 1;
+} // after the loop, l = r = x
+```
+
+I find this approach so intuitive that I haven't done a single mistake while implementing binary search since.
+
+In the case of finding the occurence of an element k in a sorted array, I would use variant (1) to find the first element i >= k and then check whether i = k. Note that in the case where k > x[n - 1] the algorithm still works because of the equality check at the end.
+
+```cpp
+bool search(int x[], int n, int k) {
+  int l = 0, r = n - 1;
+  while (l < r) {
+    int mid = (l + r) / 2;
+    if (x[mid] >= k) r = mid; 
+    else l = mid + 1;
+  }
+  return x[l] == k;
+}
+```
+
+So, to summarize, you don't need to use this particular method, but you should have realized that there is really only one type of problem that can be solved with binary search and stick to only one particular implementation to solve this problem. You won't make a single mistake with binary search from there on.
+
+source: <https://codeforces.com/blog/entry/9901?#comment-153761>
+
 ## Topcoder
 
 source: <https://apps.topcoder.com/forums/?module=Thread&threadID=670168&start=0>
