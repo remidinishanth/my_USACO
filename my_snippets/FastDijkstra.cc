@@ -66,3 +66,9 @@ Expected:
 5
 4 2 3 0
 */
+
+
+In a directed graph, if we apply Dijkstra’s algorithm from vertex i, we can obtain the distance from vertex i to each vertex j. 
+	
+Also, if we reverse all the directions of edges and similarly apply Dijkstra’s algorithm from vertex i, we can find the minimum distance from each 
+vertex j to vertex i in the original graph.
