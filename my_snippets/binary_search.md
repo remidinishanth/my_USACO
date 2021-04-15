@@ -141,12 +141,12 @@ In case of float: `for (double k = MAX_N; k > EPS; k /= 2)`
 
 source: <https://codeforces.com/blog/entry/84150?#comment-716582>
 
-
+### Motivation
 
 Binary search is a very familiar algorithm to most people here. A typical implementation looks like this:
 
 ```cpp
-// x = array of numbers
+// x = sorted array of numbers
 // n = length of the array
 // k = search key
 // returns "true" if the key is found, "false" otherwise
