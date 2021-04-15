@@ -5,7 +5,7 @@ first True or the first False
 Look at the middle answer, if it is satisfied go to a possible better
 answer, otherwise go to a half containing answer.
 
-```
+```cpp
 void binary_search(){
 	L=0, R=N-1;
 	while L <=R :
