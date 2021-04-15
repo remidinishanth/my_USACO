@@ -201,7 +201,7 @@ Here is an alternative binary search implementation that is shorter and should b
 bool search(int x[], int n, int k) {
     int p = 0;
     for (int a = n; a >= 1; a /= 2) {
-        while (p+a < n && x[p+a] <= k) p += a;
+        while (p+a < n && x[p+a] <= k) p += a;  // while is needed, because the steps are not always powers of 2.
     }
     return x[p] == k;
 }
