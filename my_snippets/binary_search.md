@@ -34,6 +34,38 @@ void lower_bound(){
 }
 ```
 
+Well, imagine you an array [0..n - 1] and let us have an invariant: some function F which returns True for every a[i] as an argument for any i from [0..k] and False for every a[j] for j from [k + 1..n - 1]. Then my binary search which actually finds the border between these two parts of the array looks the following way:
+
+```python
+l, r = -1, n
+while r-l > 1:
+    m = (l+r)//2
+    if F(a[m]):
+        l = m
+    else:
+        r = m
+```
+
+You can easily prove that l = k and r = k + 1 by the end of the while loop. In this case no worries about whether to increase m by 1 or not.
+
+As an example this is the code which determines whether an element x exists in the sorted array [0..n-1]:
+
+```python
+def BinarySearch(x):
+    l, r = -1, n
+    while r-l > 1:
+        m = (l+r)//2
+        if a[m] < x:
+            l = m
+        else:
+            r = m
+    return r != n and a[r] == x
+```
+
+source: <https://codeforces.com/blog/entry/9901?#comment-153756>
+
+## Topcoder
+
 source: <https://apps.topcoder.com/forums/?module=Thread&threadID=670168&start=0>
 
 Problem:
