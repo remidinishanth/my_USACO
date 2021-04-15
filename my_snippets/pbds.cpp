@@ -343,3 +343,58 @@ int main()
         }
     }
 }
+
+// One thing we can immediately add is the GNU policy data structures for hashing and ordered sets, 
+// since this allows us to use absolutely all of the resources provided to us under the g++ compiler and 
+// these DS are frequently helpful gold and above (there is also ext/rope with the namespace __gnu_cxx, 
+// but it is almost never useful and thus not included):
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T, class U = null_type, class chash = hash<T>> using hset = 
+gp_hash_table<T,U,chash>;
+template<class T, class U = null_type, class cmp = less<T>> using oset = 
+tree<T,U,cmp,rb_tree_tag,tree_order_statistics_node_update>;
+
+// Errichto's hash function
+// https://github.com/Errichto/youtube/blob/master/templates/gp_hash_table.cpp
+
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+struct my_hash {
+    const uint64_t RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+    size_t operator()(uint64_t x) const {
+        return splitmix64(x + RANDOM);
+    }
+};
+// gp_hash_table<int,int,my_hash> m;
+
+// Ordered Set
+// https://github.com/Errichto/youtube/blob/master/templates/ordered_set.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+#include<bits/extc++.h>
+template <typename K, typename V, typename Comp = std::less<K>>
+using ordered_map = __gnu_pbds::tree<
+	K, V, Comp,
+	__gnu_pbds::rb_tree_tag,
+	__gnu_pbds::tree_order_statistics_node_update
+>; // from ecnerwala's library
+template <typename K, typename Comp = std::less<K>>
+using ordered_set = ordered_map<K, __gnu_pbds::null_type, Comp>;
+
+int main(){ 
+	ordered_set<int> s;
+	s.insert(20);
+	s.insert(50);
+	cout << s.order_of_key(60) << endl; // count elements smaller than 60
+	cout << *s.find_by_order(1) << endl; // element with index 1
+}

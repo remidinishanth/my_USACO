@@ -160,6 +160,7 @@ We denote by inv[i] the modular inverse of i. Then for i>1 the following equatio
 
 inv[i]=−⌊m / i⌋ ⋅ inv[m mod i] mod m
 
+
 ## Minimum and Maximum
 
 ```math
@@ -506,3 +507,31 @@ that people haven't thought of).
 ## Summations
 
 ![Summations](images/summation_1.png)
+=======
+
+## Bit operations
+
+XOR any numerical input.  `a + b - ab(1 + a + b - ab)`
+
+
+XOR binary input.  `a + b - 2ab or (a-b)²`
+
+
+### Derivation
+
+Basic Logical Operators  `NOT = (1-x),  AND = x*y`
+
+From those operators we can get `OR = (1-(1-a)(1-b)) = a + b - ab`
+
+
+Note: If a and b are mutually exclusive then their and condition will always be zero - from a Venn diagram perspective, this means there is no overlap. In that case, we could write `OR = a + b`, since `a*b = 0` for all values of a & b.
+
+### 2-Factor XOR
+
+Defining XOR as `(a OR B) AND (NOT (a AND b))` where (a OR B) --> `(a + b - ab)` and (NOT (a AND b)) --> `(1 - ab)` then these conditions together to get `(a + b - ab)(1 - ab) = a + b - ab(1 + a + b - ab)`
+
+### Addition
+
+```math
+a + b = ((a AND b) << 1) + (a XOR b)
+```

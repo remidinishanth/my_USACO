@@ -33,6 +33,8 @@ typedef set<int> si;
 typedef map<string, int> msi;
 typedef map<int, int> mii;
 
+using str = string; // yay python!
+
 #define INF 1000000000
 #define MOD 1000000007
 #define EPS 1e-9
@@ -129,10 +131,9 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-// const int nax = 5e6+10;
+/* const int nax = 2e5+10; */
 
 int main(){
     return 0;
 }
-
-// Do something instead of nothing, stay organised, stay ahead!
+// Do something instead of nothing, stay organised, stay ahead!, WRITE STUFF DOWN

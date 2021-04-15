@@ -19,3 +19,10 @@ for(int i = 0; i < n; i++)
     if(color[i] == 0) dfs(i, -1); // IF NODE IS WHITE, START NEW DFS
     
 //  Tarjan's strongly connected components algorithm
+
+
+An ‘Articulation Point’ is defined as a vertex in a graph G whose removal (all edges
+incident to this vertex are also removed) disconnects G. A graph without any articulation
+point is called ‘Biconnected’. Similarly, a ‘Bridge’ is defined as an edge in a graph G whose
+removal disconnects G. These two problems are usually defined for undirected graphs
+

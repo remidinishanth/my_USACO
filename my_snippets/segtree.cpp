@@ -278,6 +278,10 @@ void push(int v, int l, int r){
 }
 
 void update(int v, int tl, int tr, int l, int r, int value){
+    push(v, tl, tr); // This is crucial, Don't push without later merging your two children.
+    // If we put this after if(l>r) then child will have lazy tag but we update t[v] = t[2*v] + t[2*v+1] and hence our code will fail
+    // Once we push, we have to update our parent node with the updated value, so if child is marked lazy, we have to update it and then only update parent.
+    // Otherwise use something like #define GET(node), incase of lazy, in case the node is lazy we apply the function and then get value, see segtree_struct
     if (l > r) 
         return;
     /*
@@ -287,20 +291,19 @@ void update(int v, int tl, int tr, int l, int r, int value){
     update(2*v, tl, tm, l, min(r,tm), value); but then we should use
     if(l <= tl && tr <= r) then we have to do node update
     */ 
-    push(v, tl, tr);
     if(l == tl && tr == r){
         lazy[v] += value;
-        push(v, tl, tr);
+        push(v,l,r);
     }
     else{
         int tm=(tl+tr)/2;
-	update(2*v, tl, tm, l, min(r, tm), value);
-	update(2*v+1, tm+1, tr, max(tl, tm+1), tr, value);
-	t[v] = t[2*v] + t[2*v+1]; // children are up to date because we always push
+        update(2*v, tl, tm, l, min(r, tm), value);
+        update(2*v+1, tm+1, tr, max(l, tm+1), r, value);
+        t[v] = t[2*v] + t[2*v+1]; // children are up to date because we always push
     }
 }
 
-int sum(int v, int tl, int tr, int l, int r) {
+ll sum(int v, int tl, int tr, int l, int r) {
     if (l > r)
         return 0;
     push(v, tl, tr);
@@ -311,3 +314,5 @@ int sum(int v, int tl, int tr, int l, int r) {
     return sum(v * 2, tl, tm, l, min(r, tm)) +
         sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
+
+// Tested with SPOJ HORRIBLE - Horrible Queries
