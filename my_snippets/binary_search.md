@@ -120,6 +120,8 @@ source: <https://apps.topcoder.com/forums/?module=Thread&threadID=670169&start=0
 
 Also go thru <https://www.topcoder.com/community/competitive-programming/tutorials/binary-search/>
 
+## Iterative
+
 I'm sure there have been tutorials etc about this trick but since people are talking about binary search, I want to add this. I like to use iterative binary search that looks like this:
 
 ```cpp
