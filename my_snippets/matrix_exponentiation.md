@@ -254,6 +254,37 @@ source: <https://zobayer.blogspot.com/2010/11/matrix-exponentiation.html>
 
 source: <https://codeforces.com/blog/entry/67776>
 
+We can use the same efficient exponentiation technique shown above to perform square matrix exponentiation in O(n3 log p). Each matrix multiplication is O(n3). In case of 2×2 Fibonacci matrix,
+this is just 8 multiplications, thus we can compute fib(p) in O(log p). The iterative implementation
+(for comparison with the recursive implementation shown earlier) is shown below:
+
+```cpp
+#define MAX_N 105 // increase this if needed
+
+struct Matrix { int mat[MAX_N][MAX_N]; }; // so that we can return a 2D array
+
+Matrix matMul(Matrix a, Matrix b) { // O(n^3)
+        Matrix ans; int i, j, k;
+        for (i = 0; i < MAX_N; i++)
+        for (j = 0; j < MAX_N; j++)
+        for (ans.mat[i][j] = k = 0; k < MAX_N; k++) // if necessary,
+        ans.mat[i][j] += a.mat[i][k] * b.mat[k][j]; // do modulo arithmetic here
+        return ans; 
+}
+
+Matrix matPow(Matrix base, int p) { // O(n^3 log p)
+        Matrix ans; int i, j;
+        for (i = 0; i < MAX_N; i++) for (j = 0; j < MAX_N; j++)
+                ans.mat[i][j] = (i == j); // prepare identity matrix
+        while (p) { // iterative version of Divide & Conquer exponentiation
+                if (p & 1) ans = matMul(ans, base); // check if p is odd (last bit is on)
+                base = matMul(base, base); // square the base
+                p >>= 1; // divide p by 2
+        }
+        return ans;
+}
+```
+
 ## Generating functions
 
 ![Generating functions](images/matrix_exponent_3.png)
