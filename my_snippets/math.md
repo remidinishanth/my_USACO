@@ -535,3 +535,5 @@ Defining XOR as `(a OR B) AND (NOT (a AND b))` where (a OR B) --> `(a + b - ab)`
 ```math
 a + b = ((a AND b) << 1) + (a XOR b)
 ```
+
+Sum-Xor property: `𝑎+𝑏=𝑎⊕𝑏+2(𝑎&𝑏)`. Extended Version with two equations: `𝑎+𝑏=𝑎|𝑏+𝑎&𝑏` AND `𝑎⊕𝑏=𝑎|𝑏−𝑎&𝑏`
