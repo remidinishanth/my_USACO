@@ -239,4 +239,25 @@ UVa 10754 : Fantastic Sequence
 UVa 11551 : Experienced Endeavour
 Regards, Zobayer Hasan.
 
-source: https://zobayer.blogspot.com/2010/11/matrix-exponentiation.html
+source: <https://zobayer.blogspot.com/2010/11/matrix-exponentiation.html>
+
+## Summary
+
+    [First Matrix] = [Second matrix] * [Third Matrix]
+    | F(n)   |     =   Matrix 'C'    *  | F(n-1) |
+    | F(n-1) |                          | F(n-2) |
+    | F(n-2) |                          | F(n-3) |
+
+![Matrix_expo](images/matrix_exponent_1.png)
+
+![Matrix_expo](images/matrix_exponent_2.png)
+
+source: <https://codeforces.com/blog/entry/67776>
+
+## Generating functions
+
+![Generating functions](images/matrix_exponent_3.png)
+
+Given a generating function, by looking at the denominator, we can find the coefficients of the recurrence relation.
+
+For example consider the `G.f.: (3*x^6+x^5+x^4+1)/((1-x^4)*(1-x^3)^2*(1-x^2)^2*(1-x))` from <https://oeis.org/A054473>, the denominator simplifies to `x^{15}-x^{14}-2x^{13}+2x^{11}+4x^{10}-x^9-3x^8-3x^7-x^6+4x^5+2x^4-2x^2-x+1` and the reccurence relation is `𝑓𝑛 = 𝑓𝑛−1 + 2𝑓𝑛−2 − 2𝑓𝑛−4 − 4𝑓𝑛−5 + 𝑓𝑛−6 + 3𝑓𝑛−7 + 3𝑓𝑛−8 + 𝑓𝑛−9 − 4𝑓𝑛−10 − 2𝑓𝑛−11 + 2𝑓𝑛−13 + 𝑓𝑛−14 − 𝑓𝑛−15`
