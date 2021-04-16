@@ -56,6 +56,16 @@ a ⋅ inv(a) ≡ a<sup>p−1</sup> (mod 𝑝)
 
 inv(a) ≡ a<sup>p−2</sup> (mod p).
 
+## Wilson’s theorem 
+
+Wilson's theorem states that a natural number p > 1 is a prime number if and only if
+
+```
+    (p - 1) ! ≡  -1   mod p 
+OR  (p - 1) ! ≡  (p-1) mod p
+```
+ 
+
 ## The Euclidean Algorithm
 
 Let a = bq + r, where a, b, q, and r are integers. Then gcd(a, b) = gcd(b, r).
@@ -570,6 +580,7 @@ Defining XOR as `(a OR B) AND (NOT (a AND b))` where (a OR B) --> `(a + b - ab)`
 a + b = ((a AND b) << 1) + (a XOR b)
 ```
 
+
 ## Sum of powers
 
 <img src="https://latex.codecogs.com/gif.latex? \sum_{k=1}^n k^2 = \frac{1}{6} n(n+1)(2n+1)"/>
@@ -613,3 +624,5 @@ double pow(double a, int n) {
 ◮ Compute the determinant of a matrix
 
 ◮ All of the above can be done with Gaussian elimination
+=======
+Sum-Xor property: ` a + b = a ⊕ b + 2(a & b )`. Extended Version with two equations: `a + b = a | b + a & b` AND `a ⊕ b = a | b − a & b`
