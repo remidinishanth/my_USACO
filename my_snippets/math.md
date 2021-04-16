@@ -19,6 +19,20 @@ If p is a prime that divides ab, then p divides a or p divides b.
 
 Proof: Suppose p is a prime that divides ab but does not divide a. We must show that p divides b. Since p does not divide a, there are integers s and t such that as + pt = 1. Then abs + pbt = b, and since p divides the left-hand side of this equation, p also divides b.
 
+Some facts:
+
+- gcd(a, b) = gcd(a, b − a)
+- gcd(a, 0) = a
+- gcd(a, b) is the smallest positive number in {ax + by | x, y ∈ Z}
+
+### Proof gcd(𝑎,𝑏) = gcd(𝑎+𝑏,𝑏)
+
+Let gcd(𝑎,𝑏)=𝑑 with 𝑑 ∈ N. We have 𝑎=𝑑𝑎<sub>1</sub>,𝑏=𝑑𝑏<sub>1</sub> with 𝑎<sub>1</sub>,𝑏<sub>1</sub> ∈ ℕ and gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1.
+
+We have 𝑎+𝑏=𝑑(𝑎<sub>1</sub>+𝑏<sub>1</sub>) and 𝑏=𝑑𝑏<sub>1</sub>. Since gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1 then gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=1. Therefore gcd(𝑑(𝑎<sub>1</sub>+𝑏<sub>1</sub>),𝑑𝑏<sub>1</sub>)=𝑑 or gcd(𝑎+𝑏,𝑏)=𝑑=gcd(𝑎,𝑏).
+
+REMARK. To prove gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=1 with gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1. You assume that if gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=𝑚 > 1. Then 𝑚|𝑏<sub>1</sub> and 𝑚|(𝑎<sub>1</sub>+𝑏<sub>1</sub>)−𝑏<sub>1</sub> or 𝑚|𝑎<sub>1</sub>, a contradiction since gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1. Thus, gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏1<sub>1</sub>)=1.
+
 ## Fermat's little theorem
 
 FERMAT’S LITTLE THEOREM: If p is prime and a is an integer not divisible by p,
@@ -51,6 +65,13 @@ Proof: Suppose that d divides both a and b. Then it follows that d also divides 
 Likewise, suppose that d divides both b and r. Then d also divides bq + r = a. Hence, any
 common divisor of b and r is also a common divisor of a and b.
 Consequently, gcd(a, b) = gcd(b, r).
+
+```cpp
+int gcd(int a, int b) {
+  while(b){int r = a % b; a = b; b = r;}
+return a;
+}
+```
 
 ## Important Modulo property
 
@@ -160,6 +181,19 @@ We denote by inv[i] the modular inverse of i. Then for i>1 the following equatio
 
 inv[i]=−⌊m / i⌋ ⋅ inv[m mod i] mod m
 
+## Chinese Remainder Theorem
+
+◮ Given a, b, m, n with gcd(m, n) = 1
+
+◮ Find x with x ≡ a (mod m) and x ≡ b (mod n)
+
+◮ Solution:
+
+- Let n<sup>−1</sup> be the inverse of n modulo m
+- Let m<sup>−1</sup> be the inverse of m modulo n
+- Set x = ann<sup>−1</sup> + bmm<sup>−1</sup>
+
+◮ Extension: solving for more simultaneous equations
 
 ## Minimum and Maximum
 
@@ -535,3 +569,47 @@ Defining XOR as `(a OR B) AND (NOT (a AND b))` where (a OR B) --> `(a + b - ab)`
 ```math
 a + b = ((a AND b) << 1) + (a XOR b)
 ```
+
+## Sum of powers
+
+<img src="https://latex.codecogs.com/gif.latex? \sum_{k=1}^n k^2 = \frac{1}{6} n(n+1)(2n+1)"/>
+
+Pretty useful in many random situations
+
+<img src="https://latex.codecogs.com/gif.latex? \sum k^3 = (\sum k)^2 =  (\frac{1}{2} n(n+1))^2"/>
+
+## Fast Exponentiation
+
+```cpp
+double pow(double a, int n) {
+  if(n == 0) return 1;
+  if(n == 1) return a;
+  double t = pow(a, n/2);
+  return t * t * pow(a, n%2);
+}
+```
+
+### Iterative implementation
+
+```cpp
+double pow(double a, int n) {
+  double ret = 1;
+  while(n) {
+    if(n%2 == 1) ret *= a;
+    a *= a; n /= 2;
+  }
+  return ret;
+}
+```
+
+## Linear Algebra
+
+◮ Solve a system of linear equations
+
+◮ Invert a matrix
+
+◮ Find the rank of a matrix
+
+◮ Compute the determinant of a matrix
+
+◮ All of the above can be done with Gaussian elimination
