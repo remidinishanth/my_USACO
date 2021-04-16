@@ -177,6 +177,18 @@ After comparing coefficients of 'a' and 'b' in (1) and (2), we get following
 
 The extended Euclidean algorithm is particularly useful when a and b are coprime (or gcd is 1). Since x is the modular multiplicative inverse of “a modulo b”, and y is the modular multiplicative inverse of “b modulo a”.
 
+```
+// store x, y, and d as global variables
+void extendedEuclid(int a, int b) {
+if (b == 0) { x = 1; y = 0; d = a; return; } // base case
+extendedEuclid(b, a % b); // similar as the original gcd
+int x1 = y;
+int y1 = x - (a / b) * y;
+x = x1;
+y = y1;
+}
+```
+
 ## Modulo inverse for every modulo m
 
 m mod i = m − ⌊m / i⌋ ⋅ i
