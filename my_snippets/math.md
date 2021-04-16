@@ -33,6 +33,23 @@ We have 𝑎+𝑏=𝑑(𝑎<sub>1</sub>+𝑏<sub>1</sub>) and 𝑏=𝑑𝑏<sub>
 
 REMARK. To prove gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=1 with gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1. You assume that if gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=𝑚 > 1. Then 𝑚|𝑏<sub>1</sub> and 𝑚|(𝑎<sub>1</sub>+𝑏<sub>1</sub>)−𝑏<sub>1</sub> or 𝑚|𝑎<sub>1</sub>, a contradiction since gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1. Thus, gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏1<sub>1</sub>)=1.
 
+## The Euclidean Algorithm
+
+Let a = bq + r, where a, b, q, and r are integers. Then gcd(a, b) = gcd(b, r).
+
+Proof: Suppose that d divides both a and b. Then it follows that d also divides a − bq = r
+
+Likewise, suppose that d divides both b and r. Then d also divides bq + r = a. Hence, any
+common divisor of b and r is also a common divisor of a and b.
+Consequently, gcd(a, b) = gcd(b, r).
+
+```cpp
+int gcd(int a, int b) {
+  while(b){int r = a % b; a = b; b = r;}
+return a;
+}
+```
+
 ## Fermat's little theorem
 
 FERMAT’S LITTLE THEOREM: If p is prime and a is an integer not divisible by p,
@@ -66,22 +83,7 @@ OR  (p - 1) ! ≡  (p-1) mod p
 ```
  
 
-## The Euclidean Algorithm
 
-Let a = bq + r, where a, b, q, and r are integers. Then gcd(a, b) = gcd(b, r).
-
-Proof: Suppose that d divides both a and b. Then it follows that d also divides a − bq = r
-
-Likewise, suppose that d divides both b and r. Then d also divides bq + r = a. Hence, any
-common divisor of b and r is also a common divisor of a and b.
-Consequently, gcd(a, b) = gcd(b, r).
-
-```cpp
-int gcd(int a, int b) {
-  while(b){int r = a % b; a = b; b = r;}
-return a;
-}
-```
 
 ## Important Modulo property
 
