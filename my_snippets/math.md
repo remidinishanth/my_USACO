@@ -583,11 +583,11 @@ a + b = ((a AND b) << 1) + (a XOR b)
 
 ## Sum of powers
 
-<img src="https://latex.codecogs.com/gif.latex? \sum_{k=1}^n k^2 = \frac{1}{6} n(n+1)(2n+1)"/>
+<img src="https://render.githubusercontent.com/render/math?math=\sum_{k=1}^n k^2 = \frac{1}{6} n(n%2B1)(2n%2B1)"/>
 
 Pretty useful in many random situations
 
-<img src="https://latex.codecogs.com/gif.latex? \sum k^3 = (\sum k)^2 =  (\frac{1}{2} n(n+1))^2"/>
+<img src="https://render.githubusercontent.com/render/math?math=\sum k^3 = (\sum k)^2 =  (\frac{1}{2} n(n %2B 1))^2">
 
 ## Fast Exponentiation
 
