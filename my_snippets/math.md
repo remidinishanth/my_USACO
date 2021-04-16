@@ -153,23 +153,27 @@ As a = r<sub>0</sub> and b = r<sub>1</sub>, we have as<sub>i</sub> + bt<sub>i</s
 
 Alternate Proof:
 
-As seen above, x and y are results for inputs a and b,
-   a.x + b.y = gcd                      ----(1)  
+Let x and y are results for inputs a and b,
+
+	a.x + b.y = gcd                      ----(1)  
+ 
 
 And x1 and y1 are results for inputs b%a and a
-   (b%a).x1 + a.y1 = gcd
 
-When we put b%a = (b - (⌊b/a⌋).a) in above, 
-we get following. Note that ⌊b/a⌋ is floor(b/a)
+	(b%a).x1 + a.y1 = gcd
 
-   (b - (⌊b/a⌋).a).x1 + a.y1  = gcd
+When we put `b%a = (b - (⌊b/a⌋).a)` in above, we get following. Note that ⌊b/a⌋ is floor(b/a)
+
+	(b - (⌊b/a⌋).a).x1 + a.y1  = gcd
 
 Above equation can also be written as below
-   b.x1 + a.(y1 - (⌊b/a⌋).x1) = gcd      ---(2)
+
+	b.x1 + a.(y1 - (⌊b/a⌋).x1) = gcd      ---(2)
 
 After comparing coefficients of 'a' and 'b' in (1) and (2), we get following
-   x = y1 - ⌊b/a⌋ * x1
-   y = x1
+
+	x = y1 - ⌊b/a⌋ * x1
+	y = x1
 
 The extended Euclidean algorithm is particularly useful when a and b are coprime (or gcd is 1). Since x is the modular multiplicative inverse of “a modulo b”, and y is the modular multiplicative inverse of “b modulo a”.
 
