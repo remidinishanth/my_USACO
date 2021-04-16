@@ -579,7 +579,8 @@ Defining XOR as `(a OR B) AND (NOT (a AND b))` where (a OR B) --> `(a + b - ab)`
 ```math
 a + b = ((a AND b) << 1) + (a XOR b)
 ```
-
+=======
+Sum-Xor property: ` a + b = a ⊕ b + 2(a & b )`. Extended Version with two equations: `a + b = a | b + a & b` AND `a ⊕ b = a | b − a & b`
 
 ## Sum of powers
 
@@ -624,5 +625,3 @@ double pow(double a, int n) {
 ◮ Compute the determinant of a matrix
 
 ◮ All of the above can be done with Gaussian elimination
-=======
-Sum-Xor property: ` a + b = a ⊕ b + 2(a & b )`. Extended Version with two equations: `a + b = a | b + a & b` AND `a ⊕ b = a | b − a & b`
