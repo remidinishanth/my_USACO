@@ -189,6 +189,53 @@ void extendedEuclid(int a, int b) {
 }
 ```
 
+source: <https://github.com/stevenhalim/cpbook-code/blob/master/ch9/heliocentric.cpp>
+
+```cpp
+// Heliocentric
+
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+
+int mod(ll a, int m) {                           // returns a (mod m)
+  return ((a%m) + m) % m;                        // ensure positive answer
+}
+
+int extEuclid(int a, int b, int &x, int &y) {    // pass x and y by ref
+  int xx = y = 0;
+  int yy = x = 1;
+  while (b) {                                    // repeats until b == 0
+    int q = a/b;
+    int t = b; b = a%b; a = t;
+    t = xx; xx = x-q*xx; x = t;
+    t = yy; yy = y-q*yy; y = t;
+  }
+  return a;                                      // returns gcd(a, b)
+}
+
+int modInverse(int b, int m) {                   // returns b^(-1) (mod m)
+  int x, y;
+  int d = extEuclid(b, m, x, y);                 // to get b*x + m*y == d
+  if (d != 1) return -1;                         // to indicate failure
+  // b*x + m*y == 1, now apply (mod m) to get b*x == 1 (mod m)
+  return mod(x, m);
+}
+
+int crt(vi r, vi m) {
+  // m_t = m_0*m_1*...*m_{n-1}
+  int mt = accumulate(m.begin(), m.end(), 1, multiplies<int>());
+  int x = 0;
+  for (int i = 0; i < (int)m.size(); ++i) {
+    int a = mod((ll)r[i] * modInverse(mt/m[i], m[i]), m[i]);
+    x = mod(x + (ll)a * (mt/m[i]), mt);
+  }
+  return x;
+}
+```
+
 ## Modulo inverse for every modulo m
 
 m mod i = m − ⌊m / i⌋ ⋅ i
