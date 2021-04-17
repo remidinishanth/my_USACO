@@ -135,3 +135,27 @@ inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; }
 
 // iterate over all the subsets of the mask
 for(int i = mask; i > 0; i = (i-1) & mask)
+
+// Given a bitmask m, you want to efficiently iterate through all of its submasks, that is, masks s in which only bits that were included in mask m are set.
+
+//Consider the implementation of this algorithm, based on tricks with bit operations:
+
+int s = m;
+while (s > 0) {
+ ... you can use s ...
+ s = (s-1) & m;
+}
+
+// or, using a more compact for statement:
+
+for (int s=m; s; s=(s-1)&m)
+ ... you can use s ...
+
+// In both variants of the code, the submask equal to zero will not be processed. We can either process it outside the loop, or use a less elegant design, 
+
+// for example:
+
+for (int s=m; ; s=(s-1)&m) {
+ ... you can use s ...
+ if (s==0)  break;
+}
