@@ -176,3 +176,6 @@ struct fenwick_tree {
         return prefix;
     }
 };
+
+// The inversion number of a sequence A = [ a0 , a1 , a2 , … , aN − 1 ] is the number of pairs of indices (i ,j) such that i < j and ai > aj .
+// The inversion number can be calculated in an O(NlogN) with a method like Fenwick Tree by adding 1 in place of ai and for aj, counting till (n-sum(aj))
