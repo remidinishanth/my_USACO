@@ -159,3 +159,13 @@ for (int s=m; ; s=(s-1)&m) {
  ... you can use s ...
  if (s==0)  break;
 }
+
+// Let us examine why the above code visits all submasks of m, without repetition, and in descending order.
+
+// Suppose we have a current bitmask s, and we want to move on to the next bitmask. By subtracting from the mask s one unit, 
+// we will remove the rightmost set bit and all bits to the right of it will become 1. 
+// Then we remove all the "extra" one bits that are not included in the mask m and therefore can't be a part of a submask. 
+// We do this removal by using the bitwise operation (s-1) & m. As a result, we "cut" mask s−1 to determine the highest value that it can take, that is, 
+// the next submask after s in descending order.
+
+// Thus, this algorithm generates all submasks of this mask in descending order, performing only two operations per iteration.
