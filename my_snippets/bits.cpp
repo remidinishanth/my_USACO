@@ -174,3 +174,5 @@ for (int s=m; ; s=(s-1)&m) {
 0b111, 0b110, 0b101, 0b100, 0b11, 0b10 and 0b1
 // if mask = 6, then iteration happens in
 0b110, 0b100, 0b10
+
+// source: https://cp-algorithms.com/algebra/all-submasks.html
