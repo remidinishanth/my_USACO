@@ -132,3 +132,6 @@ inline int last_bit(int n) { return n & (-n); }
 inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; }
 
 #define LSOne(S) (S&(-S))
+
+// iterate over all the subsets of the mask
+for(int i = mask; i > 0; i = (i-1) & mask)
