@@ -29,5 +29,7 @@ the current item to be considered and remW is the remaining weight left in the k
 2. val(n, remW) = 0 // if id = n, we have considered all items
 3. if W[id] > remW, we have no choice but to ignore this item
 val(id, remW) = val(id + 1, remW)
-4. if W[id] ≤ remW, we have two choices: ignore or take this item; we take the maximum `
-val(id, remW) = max(val(id + 1, remW), V[id] + val(id + 1, remW - W[id]))`
+4. if W[id] ≤ remW, we have two choices: ignore or take this item; we take the maximum 
+`val(id, remW) = max(val(id + 1, remW), V[id] + val(id + 1, remW - W[id]))`
+
+The answer can be found by calling value(0, S).
