@@ -1,3 +1,5 @@
+You are given 𝑁 ≤ 1000 items, each with some weight 𝑤𝑖. Is there a subset of items with total weight exactly 𝑊 ≤ 10<sup>6</sup>?
+
 Standard knapsack with boolean array would be 𝑂(𝑁⋅𝑊), too slow.
 
 ```cpp
