@@ -8,6 +8,8 @@ In such a case, for all histograms X with index > i + 1 when traversing left for
 
 Then, whats the next entry we would want to look at? We would want to look at the first histogram left of H[i+1] with height less than H[i+1].
 
+We traverse all histograms from left to right, maintain a stack of histograms. Every histogram is pushed to stack once. A histogram is popped from stack when a histogram of smaller height is seen. When a histogram is popped, we calculate the area with the popped histogram as smallest histogram. How do we get left and right indexes of the popped histogram – the current index tells us the ‘right index’ R and index of previous item in stack is the ‘left index’ L. Following is a rough
+
 ### Linear search using a stack of incomplete subproblems
 
 We process the elements in left-to-right order and maintain a stack of information about started but yet unfinished subhistograms. 
