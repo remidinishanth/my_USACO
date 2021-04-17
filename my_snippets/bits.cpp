@@ -176,3 +176,30 @@ for (int s=m; ; s=(s-1)&m) {
 0b110, 0b100, 0b10
 
 // source: https://cp-algorithms.com/algebra/all-submasks.html
+
+ 
+// GCC has inbuilt functions to evaluate some bit manipulations on constant time. 
+For example, __builtin_popcount count total set bits on a given integer (use __builtin_popcountll for long long).
+
+#define count_ones __builtin_popcountl 
+// count_ones(9) is equal to 2 
+ 
+There are also __builtin_clz and __builtin_ctz (and their long long versions) for counting the number of leading or trailing zeros in a positive number. 
+ Read more <https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html> .
+
+Now, try to solve these two simple tasks in 𝑂(1):
+
+* Compute the biggest power of 2 that is a divisor of x. Example: f(12) = 4
+Solution: 1 << __builtin_ctz(x)
+ 
+* Compute the smallest power of 2 that is not smaller than x. Example: f(12) = 16
+Solution: 1 << (32 - __builtin_clz (x - 1))
+
+but this is UB (undefined behavior) for 𝑥≤1 so you'll often need an if for 𝑥==1.
+ 
+ 
+bool isPowerOfTwo(int x)
+{
+    // x will check if x == 0 and !(x & (x - 1)) will check if x is a power of 2 or not
+    return (x && !(x & (x - 1)));
+}
