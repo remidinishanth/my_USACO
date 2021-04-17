@@ -169,3 +169,8 @@ for (int s=m; ; s=(s-1)&m) {
 // the next submask after s in descending order.
 
 // Thus, this algorithm generates all submasks of this mask in descending order, performing only two operations per iteration.
+
+// For example if mask = 7, the iteration happens in the following way
+0b111, 0b110, 0b101, 0b100, 0b11, 0b10 and 0b1
+// if mask = 6, then iteration happens in
+0b110, 0b100, 0b10
