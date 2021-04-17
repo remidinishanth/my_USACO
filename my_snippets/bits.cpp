@@ -230,3 +230,4 @@ x = 10 = (1010)2 n = 2
 1 << n = (0100)2
 x | (1 << n) = (1010)2 | (0100)2 = (1110)2
 
+// source: https://www.hackerearth.com/practice/notes/bit-manipulation/
