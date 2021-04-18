@@ -236,13 +236,78 @@ int crt(vi r, vi m) {
 }
 ```
 
+### Recursive GCD
+
+```cpp
+int gcd(int x, int y)
+{
+    if (x == 0) return y;
+    else return gcd(y%x, x);
+}
+```
+
+Also, although we have written this algorithm recursively, we can also write it iteratively, since it is tail recursive:
+
+```cpp
+while (x > 0)
+{
+    y %= x;
+    swap(x, y);
+}
+/* y now contains the GCD of original (x, y) */
+```
+
+### Extended Euclidean algorithm
+
+The extended Euclidean algorithm is the name given to the well-known procedure used to find integer solutions to the equation ax + by = 1, where a and b are given with `gcd(a,b) = 1`. For example, we can use it to solve the equation 13x + 17y = 1 for x and y (one possible solution is x = 4, y = -3.
+
+This equation only has solutions when `gcd(a,b) = 1`, because if `gcd(a,b) = d > 1`, then ax + by will always be divisible by d, and hence can never be 1. However, in this case `gcd(a/d, b/d) = 1`, so we can find solutions to the equation `(a/d)x + (b/d)y = 1`, that is, ax + by = d. So in general we can always solve `ax + by = gcd(a,b)` in integers.
+
+The reason why this is known as the extended Euclidean algorithm is that it is based on reducing a and b as in the Euclidean algorithm, recursively, until they become small enough so that the equation is easy to solve; then reconstructing the solution to the original equation using the results.
+
+In particular, when we take the remainder of b modulo a and obtain r, this tells us that b = ka + r for some integer k. So each step of the Euclidean algorithm expresses the fact that `gcd(a, b) = gcd(a, ka+r) = gcd(a, r) = gcd(r,a)`.
+
+Now suppose we can find integers x', y' such that x'r + y'a = d. Then, recall that r = b - ka; therefore, x'(b - ka) + y'a = d. Expanding in terms of a and b, we obtain (y' - x'k)a + x'b = d. So set x = y' - x'k, y = x', and we now have a solution to ax + by = d.
+
+This suggests that, in general, to solve ax + by = d, we first compute quotient k and remainder r when b is divided by a; and then (recursively) find some solution to rx' + ay' = d; and finally obtain x = y' - kx', y = x'.
+
+This gives the following implementation, where we assume that a and b are positive:
+
+```cpp
+/* Returns the GCD. */
+int gcd_extended(int a, int b, int* x, int* y)
+{
+    if (a == 0)
+    {
+        *x = 0, *y = 1; /* 0(0) + 1(b) = b = gcd(a,b) */
+        return b;
+    }
+    else
+    {
+        int k = b/a;
+        int r = b%a;
+        int _x, _y;
+        int d = gcd_extended(r, a, &_x, &_y);
+        *x = _y - k*_x;
+        *y = _x;
+        return d;
+    }
+}
+```
+
+One specific application of the extended Euclidean algorithm is that of computing modular inverses. That is, given some integer p and some modulus m, we wish to find another integer q such that `pq = 1 mod{m}`. For example, if p = 4 and m = 21, then q = -5 works, since `pq = -20 = 1 mod{21}`.
+
+All we need to do to solve this is to note that the statement that pq \equiv 1 \pmod{m} is equivalent to pq = km + 1 for some integer k, or pq + (-m)k = 1, to be solved for integers q, k (even though we might not care what k is). We then use the extended Euclidean algorithm. Note that this suggests that a solution exists only when `gcd(p,m) = 1`, which is indeed the case.
+
+source: <http://wcipeg.com/wiki/Greatest_common_divisor#Binary_GCD_algorithm>
+
 ## Modulo inverse for every modulo m
 
-m mod i = m − ⌊m / i⌋ ⋅ i
+	m mod i = m − ⌊m / i⌋ ⋅ i
 
 Taking both sides modulo m yields:
 
-m mod i ≡ − ⌊m / i⌋ ⋅ i (mod m)
+	m mod i ≡ − ⌊m / i⌋ ⋅ i (mod m)
 
 Multiply both sides by i<sup>−1</sup>⋅(m mod i)<sup>−1</sup> yields
 
@@ -254,7 +319,7 @@ i<sup>−1</sup> ≡ −⌊m / i⌋⋅(m mod i)<sup>−1</sup> mod m
 
 We denote by inv[i] the modular inverse of i. Then for i>1 the following equation is valid:
 
-inv[i]=−⌊m / i⌋ ⋅ inv[m mod i] mod m
+	inv[i] = −⌊m / i⌋ ⋅ inv[m mod i] mod m
 
 ## Chinese Remainder Theorem
 
