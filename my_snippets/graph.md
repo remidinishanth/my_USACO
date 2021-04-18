@@ -54,3 +54,4 @@ if the given graph is a weighted tree, the problem becomes simpler. We only need
 The length of the unique path along x to y is the diameter of that tree.
 
 source: CP3 Chapter 4. Graph
+Proof: <https://cs.stackexchange.com/questions/22855/algorithm-to-find-diameter-of-a-tree-using-bfs-dfs-why-does-it-work>
