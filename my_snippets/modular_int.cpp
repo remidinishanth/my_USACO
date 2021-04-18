@@ -68,6 +68,8 @@ ll rev(ll x) {
 	return bin_pow(x, MOD - 2);
 }
 
+/////////////////////////
+
 const ll MOD = (ll)1e9 + 7;
 ll add(ll x, ll y) {
 	x += y;
