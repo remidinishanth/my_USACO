@@ -99,6 +99,8 @@ void articulationPointAndBridge(int u) {
 The process to find bridges is similar. When `dfs_low(v) > dfs_num(u)`, then edge u-v is
 a bridge (notice that we remove the equality test ‘=’ for finding bridges). 
 
+source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
+
 ## Single Source Shortest Paths on Weighted Tree
 
 Generally we use Dijkstra's O((V+E)logV) and Bellman-Ford's O(VE) algorithms for solving SSP problem on weighted graph. But if the 
