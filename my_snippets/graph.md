@@ -22,6 +22,13 @@ void dfs(int u){
 for(int i = 0; i < n; i++)
     if(color[i] == 0) dfs(i, -1); // IF NODE IS WHITE, START NEW DFS
 ```
+
+## Def
+Let G = (V; E) be a connected, undirected graph. An articulation point of G is
+a vertex whose removal disconnects G. A bridge of G is an edge whose removal
+disconnects G. A biconnected component of G is a maximal set of edges such
+that any two edges in the set lie on a common simple cycle, We can determine articulation points, bridges, and biconnected
+components using DFS.
     
 ## Articulation Points
 
