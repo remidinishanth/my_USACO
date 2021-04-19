@@ -81,8 +81,6 @@ OR  (p - 1) ! ≡  (p-1) mod p
 ```
  
 
-
-
 ## Important Modulo property
 
 Let r = x mod p
@@ -114,8 +112,9 @@ the sum of two primes is now called Goldbach’s conjecture
 
 Sometimes, the denominator 𝑘!(𝑛−𝑘)! is very large, but we can't modulo it since modulo operations can't be done independently on the denominator. 
 
-C(n, 0) = C(n, n) = 1 // base cases.
-C(n, k) = C(n − 1, k − 1) + C(n − 1, k) // take or ignore an item, n > k > 0.
+	C(n, 0) = C(n, n) = 1 // base cases.
+
+	C(n, k) = C(n − 1, k − 1) + C(n − 1, k) // take or ignore nth item, n > k > 0.
 
 ## Modular multiplicative inverse
 
