@@ -12,6 +12,11 @@ ll comb(ll N_, ll C_) {
 	if(C_<0 || C_>N_) return 0;
 	return factr[C_]*fact[N_]%mo*factr[N_-C_]%mo;
 }
+
+// Something noteworthy is you have to calculate binomial coefficients modulo 3, 
+// but you can't do it naively since n! = 0 mod3, ∀ n ≥ 3. 
+// To get around this, keep track of the power of 3 in 𝑛! (say 𝑝) and the value of 𝑛! without any powers of 3.
+// Or use Lucas theorem
  
 ll modpow(ll a, ll n) {
 	ll r=1;
