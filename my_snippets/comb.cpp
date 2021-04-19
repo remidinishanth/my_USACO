@@ -1,4 +1,5 @@
 // from kmjp
+// source: https://kmjp.hatenablog.jp/entry/2021/03/29/0900
 
 ll mo=1000000007;
 ll comb(ll N_, ll C_) {
