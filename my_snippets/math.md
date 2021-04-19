@@ -52,9 +52,7 @@ return a;
 
 ## Fermat's little theorem
 
-FERMAT’S LITTLE THEOREM: If p is prime and a is an integer not divisible by p,
-then
-a<sup>p−1</sup> ≡ 1 (mod p).
+FERMAT’S LITTLE THEOREM: If p is prime and a is an integer not divisible by p, then **a<sup>p−1</sup> ≡ 1 (mod p).**
 
 Furthermore, for every integer a we have
 a<sup>p</sup> ≡ a (mod p).
