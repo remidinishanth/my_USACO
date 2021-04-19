@@ -18,7 +18,32 @@ ll comb(ll N_, ll C_) {
 // but you can't do it naively since n! = 0 mod3, ∀ n ≥ 3. 
 // To get around this, keep track of the power of 3 in 𝑛! (say 𝑝) and the value of 𝑛! without any powers of 3.
 // Or use Lucas theorem
- 
+
+// Lucas theorem for mod = 3
+int C[3][3];
+
+int getC(int n, int k) {
+	if (k < 0 || k > n) return 0;
+	int ans = 1;
+	while(n > 0) {
+		int x = n % 3;
+		int y = k % 3;
+		n /= 3;
+		k /= 3;
+		ans = (ans * C[x][y]) % 3;
+	}
+	return ans;
+}
+
+// inside main
+    for (int i = 0; i < 3; i++)
+		C[i][0] = C[i][i] = 1;
+	for (int i = 1; i < 3; i++)
+		for (int j = 1; j < i; j++)
+			C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % 3;
+
+
+// binary exponentiation
 ll modpow(ll a, ll n) {
 	ll r=1;
 	while(n) r=r*((n%2)?a:1)%mo,a=a*a%mo,n>>=1;
