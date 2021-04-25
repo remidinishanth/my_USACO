@@ -100,7 +100,7 @@ while True:
   if x==y:
     # u and v belong to same heavy chain
     res += sum(u,v) # sum is code to segment tree
-
+    break
   if d[x] > d[y]: # d[x] is depth from the root
     res += sum(u,x)
     u = x.parent
