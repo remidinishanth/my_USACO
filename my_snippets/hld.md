@@ -115,6 +115,8 @@ while True:
   <summary>CPP implementation</summary>
   
 ```cpp
+// root[v] = top[v] the node with lowest depth in the heavy chain containing v
+
 template <class T, int V>
 class HeavyLight {
   int parent[V], heavy[V], depth[V];
@@ -140,7 +142,7 @@ class HeavyLight {
       if (depth[root[u]] > depth[root[v]]) swap(u, v);
       op(treePos[root[v]], treePos[v] + 1);
     }
-    if (depth[u] > depth[v]) swap(u, v);
+    if (depth[u] > depth[v]) swap(u, v); // root[u] == root[v], same chain, query in Segtree
     op(treePos[u], treePos[v] + 1);
   }
 
