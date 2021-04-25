@@ -153,7 +153,9 @@ public:
     fill_n(heavy, n, -1);
     parent[0] = -1;
     depth[0] = 0;
+    // find heavy chains
     dfs(graph, 0);
+    // update top[v]
     for (int i = 0, currentPos = 0; i < n; ++i)
       if (parent[i] == -1 || heavy[parent[i]] != i)
         for (int j = i; j != -1; j = heavy[j]) {
