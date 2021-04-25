@@ -181,6 +181,7 @@ public:
 };
 
 // source: https://codeforces.com/blog/entry/22072
+// https://codeforces.com/contest/484/submission/24715608
 ```
 </details>
 
