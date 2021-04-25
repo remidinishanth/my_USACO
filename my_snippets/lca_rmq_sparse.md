@@ -109,3 +109,31 @@ template<class T> struct RMQ { // floor(log_2(x))
 ```
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RMQ%20(9.1).h>
+
+```cpp
+#define REP(i,n) for(int i=0;i<(n);++i)
+#define FOR(i,a,n) for(int i=(a);i<(n);++i)
+#define FORE(i,c) for(__typeof((c).begin())i=(c).begin();i!=(c).end();++i)
+
+pii sparse[LOGN][N];
+int log[2*N];  // binary logarithm
+
+void init_rmq() {
+  REP(i,T) { sparse[0][i] = euler[i]; }
+  int logT = 0;
+  while ((1<<logT) < T) { ++logT; }
+  REP(f,logT) REP(i,T - (1<<f)) {
+    sparse[f+1][i] = min(sparse[f][i], sparse[f][i + (1<<f)]);
+  }
+  log[0] = -1;
+  FOR(i,1,T) { log[i] = 1 + log[i>>1]; }
+}
+
+pii query_rmq(int a, int b) {
+  // query range [a, b)
+  int f = log[b-a];
+  return min(sparse[f][a], sparse[f][b - (1<<f)]);
+}
+```
+
+source: <https://codeforces.com/blog/entry/67138>, <https://codeforces.com/contest/986/submission/38947175>
