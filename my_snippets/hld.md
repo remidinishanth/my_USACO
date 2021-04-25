@@ -219,6 +219,11 @@ source: https://codeforces.com/blog/entry/53170
 ### Benq's complete implementation
 
 ```cpp
+#define FOR(i,a,b) for (int i = (a); i < (b); ++i)
+#define F0R(i,a) FOR(i,0,a)
+#define ROF(i,a,b) for (int i = (b)-1; i >= (a); --i)
+#define R0F(i,a) ROF(i,0,a)
+
 /**
  * Description: 1D range increment and sum query.
  * Source: USACO Counting Haybales
