@@ -212,6 +212,10 @@ void dfs_hld(int v = 0) {
 }
 ```
 
+Then you will have array such that subtree of `v` correspond to segment `[in_v; out_v)` and the path from `v` to the last vertex in ascending heavy path from `v` (which is `nxt_v`) will be `[in_nxt_v; in_v]` subsegment which gives you the opportunity to process queries on pathes and subtrees simultaneously in the same segment tree.
+
+source: https://codeforces.com/blog/entry/53170
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
