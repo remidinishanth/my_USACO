@@ -66,6 +66,29 @@ def go(x):
       heavy[x] = y
   return sz
 ```
+### Psuedo code for segment trees on chains
+
+Instead of using many small segments trees(one for each chain), we can just use one segment tree.
+
+We first recursively build for the heavy node and then for all other subtrees.
+
+```python
+def go2(x):
+  p.append(x)
+  if not children[x].empty():
+    go2(heavy[x])
+    for y in children[x]:
+      if y!=heavy[x]:
+        go2(x)
+```
+
+![image](https://user-images.githubusercontent.com/19663316/115999338-f11b9d00-a608-11eb-9c6c-148742a297aa.png)
+
+If you look at array p, it can be breaked into heavy chains segments
+
+![image](https://user-images.githubusercontent.com/19663316/115999408-363fcf00-a609-11eb-8412-3e89d89d4288.png)
+
+
 
 ## REF
 
