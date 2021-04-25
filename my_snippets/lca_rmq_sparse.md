@@ -110,11 +110,41 @@ template<class T> struct RMQ { // floor(log_2(x))
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RMQ%20(9.1).h>
 
+### CF blog
+
+One of standard ways to implement constant-time LCA queries on a tree is to preprocess it by doing an Eulerian tour which creates an array of pairs (depth, index) for subsequent vertices visited on the tour, and then reduce an LCA query to RMQ query on a certain fragment of this array:
+
 ```cpp
 #define REP(i,n) for(int i=0;i<(n);++i)
 #define FOR(i,a,n) for(int i=(a);i<(n);++i)
 #define FORE(i,c) for(__typeof((c).begin())i=(c).begin();i!=(c).end();++i)
 
+const int N = 1<<LOGN;
+typedef pair<int,int> pii;
+int n, T;
+vector<int> adj[N];  // adjacency lists
+pii euler[2*N];  // Eulerian tour of pairs (depth, index)
+int tin[N];  // visit times for vertices
+
+void dfs(int v, int par, int depth) {
+  tin[v] = T;
+  euler[T++] = make_pair(depth, v);
+  FORE(i,adj[v]) if (*i != par) {
+    dfs(*i, v, depth+1);
+    euler[T++] = make_pair(depth, v);
+  }
+}
+
+dfs(0, -1, 0);
+
+int lca(int u, int v) {
+  return query_rmq(min(tin[u], tin[v]), max(tin[u], tin[v]) + 1).second;
+}
+```
+
+The RMQ problem can be solved with a sparse table, which after 𝑂(𝑛log𝑛) preprocessing allows to answer RMQ queries in constant time:
+
+```cpp
 pii sparse[LOGN][N];
 int log[2*N];  // binary logarithm
 
