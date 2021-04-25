@@ -450,12 +450,12 @@ void dfs(int v, int pr = 0){
 
 // dfs to compute decompostion
 void hld(int v, int pr = -1){
-  chain[v] = cnt - 1;
-  num[v] = all++;
+  chain[v] = cnt - 1; // chain v belong to (cnt-1)th chain
+  num[v] = all++; // position in segement tree
   if(!csz[cnt - 1]){
-    top[cnt - 1] = v;
+    top[cnt - 1] = v; // top of (cnt-1)th chain
   }
-  ++csz[cnt - 1];
+  ++csz[cnt - 1]; // size of (cnt-1)th chain
   if(nxt[v] != -1){
     hld(nxt[v], v);
   }
