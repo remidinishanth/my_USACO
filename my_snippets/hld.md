@@ -45,7 +45,13 @@ Based on the subtree sizes, mark the edges as heavy, breaking ties arbitrarily.
 
 Consider some node, if you choose heavy edge and go down, we will have heavy paths. Using these, our tree nodes can be split into heavy paths, along with some single leaf nodes(these can be thought of as paths of size 1).
 
+Now the key idea about this setup is that any path on the tree will pass through at most 𝑂(log n) light edges. By extension, each path also passes through at most 𝑂(log n) vertical chains.
 
+### Proof
+
+One useful idea for the proof of this claim is that you can break any path 𝑢 -> 𝑣 on a tree into two (possibly non-existent) components: the path from 𝑢 up to 𝑙𝑐𝑎(𝑢,𝑣) and the path from 𝑣 up to 𝑙𝑐𝑎(𝑢,𝑣), where 𝑙𝑐𝑎(𝑢,𝑣) is the lowest common ancestor of 𝑢 and 𝑣. Because 𝑙𝑐𝑎(𝑢,𝑣) is an ancestor of both 𝑢 and 𝑣, both of these separate paths will also be vertical chains themselves. So now let's prove that both of these vertical chains only pass through 𝑂(log n) light edges.
+
+Consider some vertex `v` in some vertical chain. Let the size of its subtree be `x` and its parent be `p`. If the edge from `v` to `p` is light, then there must be some other child `u` of `p` with subtree size `y`, where `y ≥ x`. Then when we move up to `p`, the size of `p`'s subtree is at least `x+y ≥ 2x`. So whenever we move up a light edge, the size of our current subtree is at least doubled. Because the size of a subtree can't be more than `n`, we end up moving up a light edge at most 𝑂(log n) times.
 
 ### Psuedo code to calculate heavy edges
 
