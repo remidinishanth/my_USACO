@@ -19,6 +19,18 @@ The heavy-light decomposition of a tree T=(V,E) is a coloring of the tree's edge
 
 In the first case, we'll have many heavy edges and hence our code will run faster, in second case we might have not any heavy edges for some trees.
 
+![image](https://user-images.githubusercontent.com/19663316/115996539-5073b000-a5fd-11eb-8ae5-227867e73081.png)
+
+Based on the subtree sizes, mark the edges as heavy, breaking ties arbitrarily.
+
+![image](https://user-images.githubusercontent.com/19663316/115996547-5b2e4500-a5fd-11eb-8457-634b8ec755be.png)
+
+Consider some node, if you choose heavy edge and go down, we will have heavy paths. Using these, our tree can be split into heavy paths, along with some single leaf nodes(these can be thought of as paths of size 1).
+
+![image](https://user-images.githubusercontent.com/19663316/115996575-78631380-a5fd-11eb-934f-7f1b9e63a5cf.png)
+
+
+
 ### Psuedo code to calculate heavy edges
 
 ```python
