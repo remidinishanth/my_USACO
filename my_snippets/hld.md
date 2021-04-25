@@ -25,7 +25,7 @@ Based on the subtree sizes, mark the edges as heavy, breaking ties arbitrarily.
 
 ![image](https://user-images.githubusercontent.com/19663316/115996547-5b2e4500-a5fd-11eb-8457-634b8ec755be.png)
 
-Consider some node, if you choose heavy edge and go down, we will have heavy paths. Using these, our tree can be split into heavy paths, along with some single leaf nodes(these can be thought of as paths of size 1).
+Consider some node, if you choose heavy edge and go down, we will have heavy paths. Using these, our tree nodes can be split into heavy paths, along with some single leaf nodes(these can be thought of as paths of size 1).
 
 ![image](https://user-images.githubusercontent.com/19663316/115996575-78631380-a5fd-11eb-934f-7f1b9e63a5cf.png)
 
