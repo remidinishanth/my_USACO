@@ -18,3 +18,17 @@ The heavy-light decomposition of a tree T=(V,E) is a coloring of the tree's edge
 ![image](https://user-images.githubusercontent.com/19663316/115995981-24efc600-a5fb-11eb-8722-7233db484cfc.png)
 
 In the first case, we'll have many heavy edges and hence our code will run faster, in second case we might have not any heavy edges for some trees.
+
+### Psuedo code to calculate heavy edges
+
+```python
+def go(x):
+  sz = 1
+  for y in children(x):
+    y_sz = go(y)
+    sz += y_sz
+    if y_sz > max:
+      max = y_sz
+      heavy(x) = y
+  return sz
+```
