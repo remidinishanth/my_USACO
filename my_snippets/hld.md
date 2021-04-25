@@ -6,6 +6,12 @@ asymptotic time bounds for certain problems involving trees.
 
 The heavy-light decomposition of a tree T=(V,E) is a coloring of the tree's edges. Each edge is either heavy or light. 
 
+## Motivation
+
+Suppose we are given a tree where each node is having some value, we want to answer queries like sum of values on nodes on the path from u to v.
+
+We can calculate LCA and find the answer, Calc(u,v) = Calc(u, root) + Calc(v, root) - 2 Calc(root, LCA(u,v))
+
 ## Two school of thoughts
 
 * For each vertex that isn’t a leaf, find the edge that leads to the child with the largest subtree (breaking ties arbitrarily) and call it heavy.
@@ -19,15 +25,13 @@ The heavy-light decomposition of a tree T=(V,E) is a coloring of the tree's edge
 
 In the first case, we'll have many heavy edges and hence our code will run faster, in second case we might have not any heavy edges for some trees.
 
-![image](https://user-images.githubusercontent.com/19663316/115996539-5073b000-a5fd-11eb-8ae5-227867e73081.png)
+![image](https://user-images.githubusercontent.com/19663316/115997083-6e421480-a5ff-11eb-93f1-42cd4a97a50c.png)
 
 Based on the subtree sizes, mark the edges as heavy, breaking ties arbitrarily.
 
-![image](https://user-images.githubusercontent.com/19663316/115996547-5b2e4500-a5fd-11eb-8457-634b8ec755be.png)
+![image](https://user-images.githubusercontent.com/19663316/115997107-7bf79a00-a5ff-11eb-8fcc-3d46478b2954.png)
 
 Consider some node, if you choose heavy edge and go down, we will have heavy paths. Using these, our tree nodes can be split into heavy paths, along with some single leaf nodes(these can be thought of as paths of size 1).
-
-![image](https://user-images.githubusercontent.com/19663316/115996575-78631380-a5fd-11eb-934f-7f1b9e63a5cf.png)
 
 
 
