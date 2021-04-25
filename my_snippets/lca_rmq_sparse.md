@@ -178,6 +178,8 @@ int query(int N, int P[MAXN][LOGMAXN], int T[MAXN],
 }
 ```
 
+Now, we can see that this function makes at most 2 * log(H) operations, where H is the height of the tree. In the worst case H = N, so the overall complexity of this algorithm is <O(N logN), O(logN)>. This solution is easy to code too, and it’s faster than the previous one.
+
 ### CF blog
 
 One of standard ways to implement constant-time LCA queries on a tree is to preprocess it by doing an Eulerian tour which creates an array of pairs (depth, index) for subsequent vertices visited on the tour, and then reduce an LCA query to RMQ query on a certain fragment of this array:
