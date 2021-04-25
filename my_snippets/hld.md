@@ -89,10 +89,25 @@ If you look at array p, it can be breaked into heavy chains segments. For two no
 ![image](https://user-images.githubusercontent.com/19663316/115999408-363fcf00-a609-11eb-8412-3e89d89d4288.png)
 
 
-We don't need any special code to calculate LCA, we can leverage HLD code to do it. From each node let's have a pointer to the top node in the heavy path.
+We don't need any special code to calculate LCA, we can leverage HLD code to do it. From each node let's have a pointer to the top node in the heavy path. For node u let's call this top node of chain as top[u]
 
 ![image](https://user-images.githubusercontent.com/19663316/115999560-e6153c80-a609-11eb-8a08-f9b03b66f407.png)
 
+```python
+while True:
+  x = top[u]
+  y = top[v]
+  if x==y:
+    # u and v belong to same heavy chain
+    res += sum(u,v) # sum is code to segment tree
+
+  if d[x] > d[y]: # d[x] is depth from the root
+    res += sum(u,x)
+    u = x.parent
+  else:
+    res += sum(y,v)
+    v = y.parent
+```
 
 ## REF
 
