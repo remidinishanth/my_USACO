@@ -147,3 +147,6 @@ ll modinv(ll a, ll m) {
 	if (a == 1) return 1;
 	return m - modinv(m, a) * m / a;
 }
+
+
+// Nice blog https://discuss.codechef.com/t/guide-to-modular-arithmetic-plus-tricks-codechef-edition-there-is-no-other-edition/67424
