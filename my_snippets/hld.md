@@ -84,10 +84,14 @@ def go2(x):
 
 ![image](https://user-images.githubusercontent.com/19663316/115999338-f11b9d00-a608-11eb-9c6c-148742a297aa.png)
 
-If you look at array p, it can be breaked into heavy chains segments
+If you look at array p, it can be breaked into heavy chains segments. For two nodes within a chain, we can directly query segment tree to find the result.
 
 ![image](https://user-images.githubusercontent.com/19663316/115999408-363fcf00-a609-11eb-8412-3e89d89d4288.png)
 
+
+We don't need any special code to calculate LCA, we can leverage HLD code to do it. From each node let's have a pointer to the top node in the heavy path.
+
+![image](https://user-images.githubusercontent.com/19663316/115999560-e6153c80-a609-11eb-8a08-f9b03b66f407.png)
 
 
 ## REF
