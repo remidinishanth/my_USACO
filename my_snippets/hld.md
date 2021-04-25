@@ -181,9 +181,6 @@ public:
 </details>
 
 
-
-
-
 *Extra care must be taken in processPath if the binary operation isn't commutative, you'll need two segment trees, one for downward sums and one for upward sums.*
 
 ## REF
