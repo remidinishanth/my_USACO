@@ -158,11 +158,11 @@ int query(int N, int P[MAXN][LOGMAXN], int T[MAXN],
 
   //we compute the value of [log(L[p)]
   for (log = 1; 1 << log <= L[p]; log++);
-  log–;
+  log–-;
 
   //we find the ancestor of node p situated on the same level
   //with q using the values in P
-  for (i = log; i >= 0; i–)
+  for (i = log; i >= 0; i–-)
     if (L[p] - (1 << i) >= L[q])
       p = P[p][i];
 
