@@ -10,7 +10,19 @@ The heavy-light decomposition of a tree T=(V,E) is a coloring of the tree's edge
 
 Suppose we are given a tree where each node is having some value, we want to answer queries like sum of values on nodes on the path from u to v.
 
-We can calculate LCA and find the answer, Calc(u,v) = Calc(u, root) + Calc(v, root) - 2 Calc(root, LCA(u,v))
+We can calculate LCA and find the answer by breaking path(u,v) into path(u, lca) and path(lca, v), now Calc(u,v) = Calc(u, root) + Calc(v, root) - 2 Calc(root, LCA(u,v)).
+
+But say we also have an update query set(v,x) where we are given node v and value x, and we need to update the value of node v to x. Now we can use LCA to answer efficiently.
+
+Say instead of a tree, we just have a chain(set of nodes connected one after another), we can support both calc(u,v) and set(v,x) by using BIT/Segment tree.
+
+![image](https://user-images.githubusercontent.com/19663316/115997295-42735e80-a600-11eb-9d0c-84b492d83964.png)
+
+## Basic idea
+
+We will divide the tree into vertex-disjoint chains (meaning no two chains has a node in common) in such a way that to move from any node in the tree to the root node, we will have to change at most log N chains. To put it in another words, if the path from any node to root can be broken into pieces such that the each piece belongs to only one chain, then we will have no more than log N pieces.
+
+We already know that queries in each chain can be answered with O(log N) complexity and there are at most log N chains we need to consider per path. So on the whole we have O( log^2 N ) complexity solution.
 
 ## Two school of thoughts
 
