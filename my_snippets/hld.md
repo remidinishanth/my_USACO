@@ -201,7 +201,7 @@ public:
 
 *Extra care must be taken in processPath if the binary operation isn't commutative, you'll need two segment trees, one for downward sums and one for upward sums.*
 
-### Adamant's implementation
+### Adamant's implementation trick
 
 ```cpp
 void dfs_sz(int v = 0) {
