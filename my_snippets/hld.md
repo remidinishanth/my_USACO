@@ -1,14 +1,14 @@
 # Heavy-light decomposition
 
-The heavy-light (H-L) decomposition of a rooted tree is a method of partitioning of the vertices of the tree into 
+The heavy-light (H-L) decomposition of a rooted tree is a method of partitioning the vertices of the tree into 
 disjoint paths (all vertices have degree two, except the endpoints of a path, with degree one) that gives important 
 asymptotic time bounds for certain problems involving trees.
 
-The heavy-light decomposition of a tree T=(V,E) is a coloring of the tree's edges. Each edge is either heavy or light. 
+The heavy-light decomposition of a tree T=(V, E) is a coloring of the tree's edges. Each edge is either heavy or light. 
 
 ## Motivation
 
-Suppose we are given a tree where each node is having some value, we want to answer queries like sum of values on nodes on the path from u to v.
+Suppose we are given a tree where each node is having some value, we want to answer queries like the sum of values on nodes on the path from u to v.
 
 We can calculate LCA and find the answer by breaking path(u,v) into path(u, lca) and path(lca, v), now Calc(u,v) = Calc(u, root) + Calc(v, root) - 2 Calc(root, LCA(u,v)).
 
@@ -20,7 +20,7 @@ Say instead of a tree, we just have a chain(set of nodes connected one after ano
 
 ## Basic idea
 
-We will divide the tree into vertex-disjoint chains (meaning no two chains has a node in common) in such a way that to move from any node in the tree to the root node, we will have to change at most log N chains. To put it in another words, if the path from any node to root can be broken into pieces such that the each piece belongs to only one chain, then we will have no more than log N pieces.
+We will divide the tree into vertex-disjoint chains (meaning no two chains has a node in common) in such a way that to move from any node in the tree to the root node, we will have to change at most log N chains. To put it in other words, if the path from any node to root can be broken into pieces such that each piece belongs to only one chain, then we will have no more than log N pieces.
 
 We already know that queries in each chain can be answered with O(log N) complexity and there are at most log N chains we need to consider per path. So on the whole we have O( log^2 N ) complexity solution.
 
@@ -35,7 +35,7 @@ We already know that queries in each chain can be answered with O(log N) complex
 
 ![image](https://user-images.githubusercontent.com/19663316/115995981-24efc600-a5fb-11eb-8722-7233db484cfc.png)
 
-In the first case, we'll have many heavy edges and hence our code will run faster, in second case we might have not any heavy edges for some trees.
+In the first case, we'll have many heavy edges and hence our code will run faster, in the second case we might have not any heavy edges for some trees.
 
 ![image](https://user-images.githubusercontent.com/19663316/115997083-6e421480-a5ff-11eb-93f1-42cd4a97a50c.png)
 
@@ -66,3 +66,10 @@ def go(x):
       heavy[x] = y
   return sz
 ```
+
+## REF
+
+* <https://blog.anudeep2011.com/heavy-light-decomposition/>
+* <https://codeforces.com/blog/entry/81317>
+* <https://codeforces.com/blog/entry/22072>
+* <https://apps.topcoder.com/forums/?module=Thread&threadID=796128&start=0&mc=8>
