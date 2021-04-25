@@ -33,7 +33,9 @@ Once we have these values preprocessed, let’s show how we can use them to calc
 
 ![image](https://user-images.githubusercontent.com/19663316/115985212-65821c00-a5c8-11eb-9535-c8186fd8d481.png)
 
-So, the overall complexity of the algorithm is <Preprocessing, Query> = <O(N logN), O(1)>.
+Each algorithm has complexities  < O(f(n)), O(g(n)) > , it means that this algorithm's preprocess is O(f(n)) and answering a query is O(g(n)) .
+
+So, the overall complexity of the algorithm is <Preprocessing, Query> = <O(N logN), O(1)>. 
 
 source: <https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%20Lowest%20Common%20Ancestor>
 
