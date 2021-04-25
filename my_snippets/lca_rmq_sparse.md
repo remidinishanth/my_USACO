@@ -262,6 +262,6 @@ The drawback of the solution above is long preprocessing. We can reduce it to �
 
 Queries for infixes of blocks are preprocessed brutally: since the RMQ problem obtained from LCA has a property that differences between consecutive depths in the array are either +1 or -1, we can represent each block as the first element plus a binary string of length 𝑚−1 encoding the changes in depths. Thus there are 2^(𝑚−1) different bitmasks and for each of them we have 𝑂(𝑚^2) infixes. For each infix we want to calculate the minimum value relative to the first element. It's easy to show how to preprocess them in 𝑂(2^𝑚.𝑚^2) time and memory, and if we take 𝑚=(log𝑛)/2, this is actually 𝑂(𝑛).
 
-Conceptually this idea is quite easy, but in terms of implementation it could be rather lengthy (see e-maxx implementation). Now I will present my alternative approach to this problem, which results in a slightly shorter code.
+Conceptually this idea is quite easy, but in terms of implementation it could be rather lengthy ([see e-maxx implementation](https://cp-algorithms.com/graph/lca_farachcoltonbender.html)). Now I will present my alternative approach to this problem, which results in a slightly shorter code.
 
 source: <https://codeforces.com/blog/entry/67138>, <https://codeforces.com/contest/986/submission/38947175>
