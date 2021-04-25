@@ -401,6 +401,7 @@ int val[100005];
 int nxt[100005], size[100005], p[100005], chain[100005], num[100005], csz[100005], top[100005], all, cnt = 1, depth[100005];
 ll t[400005], mx[400005];
 
+// segment tree update
 void upd(int v, int tl, int tr, int pos, int d){
   if(tl == tr){
     t[v] += d;
@@ -412,6 +413,7 @@ void upd(int v, int tl, int tr, int pos, int d){
   t[v] = max(t[v + v], t[v + v + 1]);
 }
 
+// segment tree get
 ll go(int v, int tl, int tr, int l, int r){
   if(l > tr || r < tl){
     return 0;
@@ -423,6 +425,7 @@ ll go(int v, int tl, int tr, int l, int r){
   return max(go(v + v, tl, tm, l, r), go(v + v + 1, tm + 1, tr, l, r));
 }
 
+// dfs to computer heavy chains using size
 void dfs(int v, int pr = 0){
   p[v] = pr;
   size[v] = 1;
@@ -440,6 +443,7 @@ void dfs(int v, int pr = 0){
   }
 }
 
+// dfs to compute decompostion
 void hld(int v, int pr = -1){
   chain[v] = cnt - 1;
   num[v] = all++;
@@ -460,6 +464,7 @@ void hld(int v, int pr = -1){
   }
 }
 
+// computing result on some path
 ll go(int a, int b){
   ll res = 0;
   while(chain[a] != chain[b]){
