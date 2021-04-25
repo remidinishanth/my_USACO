@@ -233,6 +233,9 @@ source: https://codeforces.com/blog/entry/53170
 
 ### Benq's complete implementation
 
+<details>
+	<summary> Benq's cpp implementation </summary>
+	
 ```cpp
 // loops
 #define FOR(i,a,b) for (int i = (a); i < (b); ++i)
@@ -336,6 +339,8 @@ template<int SZ, bool VALS_IN_EDGES> struct HLD {
 ```
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Trees%20(10)/HLD%20(10.3).h>, <https://usaco.guide/plat/hld?lang=cpp>
+
+</details>
 
 <details>
 	<summary> Problem: 1553. Caves and Tunnels </summary>
