@@ -24,11 +24,11 @@ In the first case, we'll have many heavy edges and hence our code will run faste
 ```python
 def go(x):
   sz = 1
-  for y in children(x):
+  for y in children[x]:
     y_sz = go(y)
     sz += y_sz
     if y_sz > max:
       max = y_sz
-      heavy(x) = y
+      heavy[x] = y
   return sz
 ```
