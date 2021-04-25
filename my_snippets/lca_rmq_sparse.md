@@ -37,6 +37,45 @@ So, the overall complexity of the algorithm is <Preprocessing, Query> = <O(N log
 
 source: <https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%20Lowest%20Common%20Ancestor>
 
+### Implementation
+
+```cpp
+const int N = int(1e5)+10;
+const int LOGN = 20;
+int A[N],msb[N],DP[LOGN][N];
+LL dp[N],dp2[N];
+int MX(int l,int r){
+	int d = msb[r-l+1];
+	int L = DP[d][l];
+	int R = DP[d][r-(1<<d)+1];
+	int mx = (A[L]>A[R]?L:R);
+  return mx;
+}
+
+{	// inside main
+	//RMQ PRE-PROCESSING
+	for(int i=1;i<=n;i++)
+		DP[0][i]=i;
+	for(int i=1;i<LOGN;i++)
+		for(int j=1;j<=n;j++)
+		{
+			int l = DP[i-1][j], r=DP[i-1][min(n,j+(1<<(i-1)))];
+			if(A[l]>A[r])
+				DP[i][j] = l;
+			else
+				DP[i][j] = r;
+		}
+	// calculating most significant bit
+	for(int i=1,x=0;i<N;i++)
+		if((1<<(x+1)<=i))
+			msb[i]=(++x);
+		else
+			msb[i]=x;
+}
+```
+
+source: Baba <https://codeforces.com/contest/675/submission/17946839>
+
 Description: 1D range minimum query. Can also do queries for any associative operation in $O(1)$ with D\&C
 Source: KACTL
  * Verification: 
