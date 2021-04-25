@@ -258,4 +258,10 @@ pii query_rmq(int a, int b) {
 }
 ```
 
+The drawback of the solution above is long preprocessing. We can reduce it to 𝑂(𝑛) by using clever trick: we split the array into blocks of length 𝑚 and produce sparse table for array of size 𝑂(𝑛/𝑚) created by taking minimum from each block. Then every query range either is an infix of some block or consists of several consecutive full blocks (which are handled by the new sparse table in constant time) and some prefix and some suffix of a block (which are also infixes).
+
+Queries for infixes of blocks are preprocessed brutally: since the RMQ problem obtained from LCA has a property that differences between consecutive depths in the array are either +1 or -1, we can represent each block as the first element plus a binary string of length 𝑚−1 encoding the changes in depths. Thus there are 2^(𝑚−1) different bitmasks and for each of them we have 𝑂(𝑚^2) infixes. For each infix we want to calculate the minimum value relative to the first element. It's easy to show how to preprocess them in 𝑂(2^𝑚.𝑚^2) time and memory, and if we take 𝑚=(log𝑛)/2, this is actually 𝑂(𝑛).
+
+Conceptually this idea is quite easy, but in terms of implementation it could be rather lengthy (see e-maxx implementation). Now I will present my alternative approach to this problem, which results in a slightly shorter code.
+
 source: <https://codeforces.com/blog/entry/67138>, <https://codeforces.com/contest/986/submission/38947175>
