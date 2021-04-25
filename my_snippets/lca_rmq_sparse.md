@@ -110,6 +110,74 @@ template<class T> struct RMQ { // floor(log_2(x))
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RMQ%20(9.1).h>
 
+## Lowest Common Ancestor
+
+Given a rooted tree T and two nodes u and v, find the furthest node from the root that is an ancestor for both u and v. Here is an example (the root of the tree will be node 1 for all examples in this editorial):
+
+![image](https://user-images.githubusercontent.com/19663316/115987367-628c2900-a5d2-11eb-8816-e66d0710ec19.png)
+
+### DP solution
+
+First, let’s compute a table P[1,N][1,logN] where P[i][j] is the 2j-th ancestor of i. For computing this value we may use the following recursion:
+
+![image](https://user-images.githubusercontent.com/19663316/115987414-abdc7880-a5d2-11eb-94ef-dee27711f953.png)
+
+The preprocessing function should look like this:
+
+```cpp
+void process3(int N, int T[MAXN], int P[MAXN][LOGMAXN]) {
+   int i, j;
+
+   //we initialize every element in P with -1
+   for (i = 0; i < N; i++)
+     for (j = 0; 1 << j < N; j++)
+       P[i][j] = -1;
+
+   //the first ancestor of every node i is T[i]
+   for (i = 0; i < N; i++)
+     P[i][0] = T[i];
+
+   //bottom up dynamic programing
+   for (j = 1; 1 << j < N; j++)
+     for (i = 0; i < N; i++)
+       if (P[i][j - 1] != -1)
+         P[i][j] = P[P[i][j - 1]][j - 1];
+ }
+ ```
+ 
+This takes O(N logN) time and space. Now let’s see how we can make queries. Let L[i] be the level of node i in the tree. We must observe that if p and q are on the same level in the tree we can compute LCA(p, q) using a meta-binary search. So, for every power j of 2 (between log(L[p]) and 0, in descending order), if P[p][j] != P[q][j] then we know that LCA(p, q) is on a higher level and we will continue searching for LCA(p = P[p][j], q = P[q][j]). At the end, both p and q will have the same father, so return T[p]. Let’s see what happens if L[p] != L[q]. Assume, without loss of generality, that L[p] < L[q]. We can use the same meta-binary search for finding the ancestor of p situated on the same level with q, and then we can compute the LCA as described below. Here is how the query function should look:
+
+```cpp
+int query(int N, int P[MAXN][LOGMAXN], int T[MAXN],
+  int L[MAXN], int p, int q) {
+  int tmp, log, i;
+
+  //if p is situated on a higher level than q then we swap them
+  if (L[p] < L[q])
+    tmp = p, p = q, q = tmp;
+
+  //we compute the value of [log(L[p)]
+  for (log = 1; 1 << log <= L[p]; log++);
+  log–;
+
+  //we find the ancestor of node p situated on the same level
+  //with q using the values in P
+  for (i = log; i >= 0; i–)
+    if (L[p] - (1 << i) >= L[q])
+      p = P[p][i];
+
+  if (p == q)
+    return p;
+
+  //we compute LCA(p, q) using the values in P
+  for (i = log; i >= 0; i–)
+    if (P[p][i] != -1 && P[p][i] != P[q][i])
+      p = P[p][i], q = P[q][i];
+
+  return T[p];
+}
+```
+
 ### CF blog
 
 One of standard ways to implement constant-time LCA queries on a tree is to preprocess it by doing an Eulerian tour which creates an array of pairs (depth, index) for subsequent vertices visited on the tour, and then reduce an LCA query to RMQ query on a certain fragment of this array:
