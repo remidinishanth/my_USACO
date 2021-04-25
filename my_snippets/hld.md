@@ -523,6 +523,8 @@ int main(void) {
 ```
 </details>
 
+Also check out https://cp-algorithms.com/graph/hld.html for simple implementation
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
