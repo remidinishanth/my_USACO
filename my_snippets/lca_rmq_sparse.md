@@ -159,6 +159,20 @@ int lca(vector<vi>& tbl, vi& depth, int a, int b) {
 	}
 	return tbl[0][a];
 }
+
+
+// Usage
+void getPars(vector<vi> &tree, int cur, int p, int d, vector<int> &par, vector<int> &depth) {
+    par[cur] = p;
+    depth[cur] = d;
+    for(auto i: tree[cur]) if (i != p) {
+        getPars(tree, i, cur, d+1, par, depth);
+    }
+}
+ 	vector<int> par(n), depth(n);
+        getPars(tree, 0, 0, 0, par, depth);
+        vector<vi> tbl = treeJump(par);
+	int binLca = lca(tbl, depth, a, b);
 ```
 
 ## Lowest Common Ancestor
