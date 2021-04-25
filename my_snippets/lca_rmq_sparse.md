@@ -151,7 +151,7 @@ int jmp(vector<vi>& tbl, int nod, int steps){
 
 int lca(vector<vi>& tbl, vi& depth, int a, int b) {
 	if (depth[a] < depth[b]) swap(a, b);
-	a = jmp(tbl, a, depth[a] - depth[b]);
+	a = jmp(tbl, a, depth[a] - depth[b]); // find ancestor of a which is at same depth as b
 	if (a == b) return a;
 	for (int i = sz(tbl); i--;) {
 		int c = tbl[i][a], d = tbl[i][b];
