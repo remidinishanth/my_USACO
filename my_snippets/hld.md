@@ -101,7 +101,7 @@ while True:
   y = top[v]
   if x==y:
     # u and v belong to same heavy chain
-    res += sum(u,v) # sum is code to segment tree
+    res += sum(u,v) # sum is call to segment tree
     break
   if d[x] > d[y]: # d[x] is depth from the root
     res += sum(u,x)
@@ -213,6 +213,8 @@ void dfs_hld(int v = 0) {
 ```
 
 Then you will have array such that subtree of `v` correspond to segment `[in_v; out_v)` and the path from `v` to the last vertex in ascending heavy path from `v` (which is `nxt_v`) will be `[in_nxt_v; in_v]` subsegment which gives you the opportunity to process queries on pathes and subtrees simultaneously in the same segment tree.
+
+With the above implementation we can solve the following problem: given a tree on n vertices and q queries of form 1) add x to all numbers in the subtree 2) add x to all numbers on the path 3) find maximum number in the subtree 4) find maximum number on the path, answer all queries in O((n + q)log^2n) because batch updates may be performed over subtrees and arbitrary paths across the tree simultaneously using the single segment tree built across the traversal of the tree.
 
 source: https://codeforces.com/blog/entry/53170
 
