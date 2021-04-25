@@ -18,6 +18,8 @@ Say instead of a tree, we just have a chain(set of nodes connected one after ano
 
 ![image](https://user-images.githubusercontent.com/19663316/115997295-42735e80-a600-11eb-9d0c-84b492d83964.png)
 
+Key: HLD supports updating the tree unlike the LCA sparse array approach.
+
 ## Basic idea
 
 We will divide the tree into vertex-disjoint chains (meaning no two chains has a node in common) in such a way that to move from any node in the tree to the root node, we will have to change at most log N chains. To put it in other words, if the path from any node to root can be broken into pieces such that each piece belongs to only one chain, then we will have no more than log N pieces.
