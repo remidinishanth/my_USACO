@@ -265,3 +265,5 @@ Queries for infixes of blocks are preprocessed brutally: since the RMQ problem o
 Conceptually this idea is quite easy, but in terms of implementation it could be rather lengthy ([see e-maxx implementation](https://cp-algorithms.com/graph/lca_farachcoltonbender.html)). Now I will present my alternative approach to this problem, which results in a slightly shorter code.
 
 source: <https://codeforces.com/blog/entry/67138>, <https://codeforces.com/contest/986/submission/38947175>
+
+KACTL: <https://codeforces.com/contest/1304/submission/71134293> , <https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/LCA.h>
