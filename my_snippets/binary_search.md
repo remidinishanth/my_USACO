@@ -269,3 +269,67 @@ int count(int x[], int n, int k) {
 ```
 
 source: <https://codeforces.com/blog/entry/9901>
+
+## Median of two Sorted arrays
+
+Let's call the arrays A and B. If we combine these 2 arrays, then median divide the array into 2 parts: left and right whose length are the "same". The left part consists of `(part of  A) + (part of B)`, so we can divide both A and B to 2 smaller parts, Let's break the array A at index `i` and array B at index `j`.
+
+```
+      left_part          |        right_part
+A[0], A[1], ..., A[i-1]  |  A[i], A[i+1], ..., A[m-1]
+B[0], B[1], ..., B[j-1]  |  B[j], B[j+1], ..., B[n-1]
+```
+
+If we can ensure that `len(left_part) == len(right_part)` and `max(left_part) <= min(right_part)` then median will be `median = (max(left_part) + min(right_part))/2 (when m + n is even)` or `max(A[i-1], B[j-1]) (when m + n is odd)`
+
+We will need,
+
+* If m+n is even, `i + j = (m - i) + (n - j) => j = (m + n)/2 - i`
+
+* If m+n is odd, let's assume median in left part, then `i + j = (m - i) + (n - j) + 1 => j = (m + n + 1)/2 - i`
+
+These two cases can be clubbed into `j = (m + n + 1)/2 - i`
+
+Hence we will need to have 
+```
+(1) i + j == m - i + n - j (or: m - i + n - j + 1)
+    if n >= m, we just need to set: i = 0 ~ m, j = (m + n + 1)/2 - i
+(2) B[j-1] <= A[i] and A[i-1] <= B[j]
+```
+
+We have `j = (m + n + 1)/2 - i`, since `0 <= i <= m`, `(m + n + 1)/2 - m <= j <= (m + n + 1)/2` which can be simplified to `(n - m + 1)/2 <= j <= (m + n + 1)/2`. For the left side: `(n - m + 1)/2 <= j` => `n - m >= 0`. Therefore We need `n>=m` otherwise `j` might be negative, hence if `A.size() > B.size()` we will swap them.
+
+```python
+ def median(A, B):
+    m, n = len(A), len(B)
+    if m > n:
+        A, B, m, n = B, A, n, m
+    if n == 0:
+        raise ValueError
+
+    imin, imax, half_len = 0, m, (m + n + 1) / 2
+    while imin <= imax:
+        i = (imin + imax) / 2
+        j = half_len - i
+        if i < m and B[j-1] > A[i]:
+            # i is too small, must increase it
+            imin = i + 1
+        elif i > 0 and A[i-1] > B[j]:
+            # i is too big, must decrease it
+            imax = i - 1
+        else:
+            # i is perfect
+
+            if i == 0: max_of_left = B[j-1]
+            elif j == 0: max_of_left = A[i-1]
+            else: max_of_left = max(A[i-1], B[j-1])
+
+            if (m + n) % 2 == 1:
+                return max_of_left
+
+            if i == m: min_of_right = B[j]
+            elif j == n: min_of_right = A[i]
+            else: min_of_right = min(A[i], B[j])
+
+            return (max_of_left + min_of_right) / 2.0
+```
