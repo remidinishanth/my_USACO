@@ -1,11 +1,19 @@
-Kahn’s algorithm - It looks like a ‘modified BFS’. 
+// Kahn’s algorithm - It looks like a ‘modified BFS’. 
+	
+// For implementing topsort, We use an algorithm called Kahn's Algorithm. 
+// The algorithm is implemented by selecting a node with in-degree equal to 0, 
+// pushing the node into the topological order and removing all edges attached to it. 
+// (In-degree is the number of edges that come into a node). 
+// The process is repeated until all nodes are added into the topological order. 
+// If the process terminates before all nodes are added then it means there is a cycle in the graph.
 
 enqueue vertices with zero incoming degree into a (priority) queue Q;
 while (Q is not empty) {
-vertex u = Q.dequeue(); put vertex u into a topological sort list;
-remove this vertex u and all outgoing edges from this vertex;
-if such removal causes vertex v to have zero incoming degree
-Q.enqueue(v); }
+	vertex u = Q.dequeue(); put vertex u into a topological sort list;
+	remove this vertex u and all outgoing edges from this vertex;
+	if such removal causes vertex v to have zero incoming degree
+		Q.enqueue(v); 
+}
 
 
 /**
