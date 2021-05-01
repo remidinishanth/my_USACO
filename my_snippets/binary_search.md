@@ -270,6 +270,10 @@ int count(int x[], int n, int k) {
 
 source: <https://codeforces.com/blog/entry/9901>
 
+## Problems
+
+* Problems of the form of “maximum value of minimum value” can sometimes be solved easily by boiling it down to a yes-no problem of “can the answer be more than x ?” and do binary search for the answer.
+
 ## Median of two Sorted arrays
 
 Let's call the arrays A and B. If we combine these 2 arrays, then median divide the array into 2 parts: left and right whose length are the "same". The left part consists of `(part of  A) + (part of B)`, so we can divide both A and B to 2 smaller parts, Let's break the array A at index `i` and array B at index `j`.
