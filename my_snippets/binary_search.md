@@ -274,6 +274,56 @@ source: <https://codeforces.com/blog/entry/9901>
 
 * Problems of the form of “maximum value of minimum value” can sometimes be solved easily by boiling it down to a yes-no problem of “can the answer be more than x ?” and do binary search for the answer.
 
+You want to choose three persons from N candidates to form a team. Each candidate has five parameters: power, speed, technique, knowledge, and inventiveness. The power, speed, technique, knowledge, and the inventiveness of the i -th candidate are Ai , Bi , Ci , Di , and Ei , respectively. Let us define your team's power as the maximum of the members' powers. The team's speed, technique, knowledge, and inventiveness are defined similarly. Then, let us define your team's total strength as the minimum of the team's power, speed, technique, knowledge, and inventiveness. Find the maximum possible value of your team's total strength.
+
+3 ≤ N ≤ 3000
+
+![image](https://user-images.githubusercontent.com/19663316/116787942-abf1e200-aac4-11eb-8df7-8b52c4f9febf.png)
+
+![image](https://user-images.githubusercontent.com/19663316/116787963-c330cf80-aac4-11eb-8596-7651e80ac33f.png)
+
+<details>
+	
+<summary>CPP solution</summary>
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <array>
+#include <set>
+using namespace std;
+
+int main(){
+    int N;
+    cin >> N;
+    vector A(N, array<int, 5>{});
+    for(auto& a : A) for(int& i : a) cin >> i;
+    int ok = 0, ng = 1000000001;
+    auto check = [&](int x) -> bool {
+        set<int> s;
+        for(auto& a : A){
+            int bit = 0;
+            for(int& i : a){
+                bit <<= 1;
+                bit |= i >= x;
+            }
+            s.insert(bit);
+        }
+        for(int x : s) for(int y : s) for(int z : s){
+            if((x | y | z) == 31) return 1;
+        }
+        return 0;
+    };
+    while(abs(ok - ng) > 1){
+        int cen = (ok + ng) / 2;
+        (check(cen) ? ok : ng) = cen;
+    }
+    cout << ok << endl;
+}
+```
+</details>
+
+
 ## Median of two Sorted arrays
 
 Let's call the arrays A and B. If we combine these 2 arrays, then median divide the array into 2 parts: left and right whose length are the "same". The left part consists of `(part of  A) + (part of B)`, so we can divide both A and B to 2 smaller parts, Let's break the array A at index `i` and array B at index `j`.
