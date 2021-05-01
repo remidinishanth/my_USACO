@@ -37,3 +37,33 @@ template<int um> class UF {
 };
 UF<500000> uf;
 // can directly use uf[y]==uf[x] to check whether both are in same union and uf(y,x); to combine both of them
+
+	   
+struct UnionFind{
+  int num;
+  vector<int> rs,ps;
+  UnionFind(int n):num(n),rs(n,1),ps(n,0){
+    iota(ps.begin(),ps.end(),0);
+  }
+  int find(int x){
+    return (x==ps[x]?x:ps[x]=find(ps[x]));
+  }
+  bool same(int x,int y){
+    return find(x)==find(y);
+  }
+  void unite(int x,int y){
+    x=find(x);y=find(y);
+    if(x==y) return;
+    if(rs[x]<rs[y]) swap(x,y);
+    rs[x]+=rs[y];
+    ps[y]=x;
+    num--;
+  }
+  int size(int x){
+    return rs[find(x)];
+  }
+  int count() const{
+    return num;
+  }
+};
+// source: User:beet https://atcoder.jp/contests/zone2021/submissions/22207964
