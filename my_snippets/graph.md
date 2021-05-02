@@ -103,7 +103,7 @@ source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_d
 
 ## Tarjan's strongly connected components algorithm
 
-Strong Connectivity applies only to directed graphs. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex.
+Strong Connectivity applies only to directed graphs. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex. There are at least two known algorithms to find SCCs: Kosaraju’s algorithm and Tarjan’s algorithm.  In this section, we adopt Tarjan’s version, as it extends naturally from our previous discussion of finding Articulation Points and Bridges.
 
 ```cpp
 vi S, visited;                                    // additional global variables
