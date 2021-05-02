@@ -23,6 +23,8 @@ for(int i = 0; i < n; i++)
     if(color[i] == 0) dfs(i, -1); // IF NODE IS WHITE, START NEW DFS
 ```
 
+Strong Connectivity applies only to directed graphs. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex.
+
 ## Def
 Let G = (V; E) be a connected, undirected graph. An articulation point of G is
 a vertex whose removal disconnects G. A bridge of G is an edge whose removal
