@@ -140,6 +140,43 @@ void tarjanSCC(int u) {
 4. return DFS trees;
 
 ```cpp
+void Kosaraju(int u, int pass) {      // pass = 1 (original), 2 (transpose)
+  dfs_num[u] = 1;
+  vii neighbor;
+  if (pass == 1) neighbor = AdjList[u]; else neighbor = AdjListT[u];
+  for (int j = 0; j < (int)neighbor.size(); j++) {
+    ii v = neighbor[j];
+    if (dfs_num[v.first] == DFS_WHITE)
+      Kosaraju(v.first, pass);
+  }
+  S.push_back(u);       // as in finding topological order in Section 4.2.5
+}
+
+// inside main
+AdjList.assign(N, vii());
+AdjListT.assign(N, vii()); // the transposed graph
+    
+AdjList[V].push_back(ii(W, 1)); // always
+AdjListT[W].push_back(ii(V, 1));
+    
+// run Kosaraju's SCC code here
+S.clear();  // first pass is to record the `post-order' of original graph
+dfs_num.assign(N, DFS_WHITE);
+for (i = 0; i < N; i++)
+  if (dfs_num[i] == DFS_WHITE)
+    Kosaraju(i, 1);
+
+numSCC = 0;   // second pass: explore the SCCs based on first pass result
+dfs_num.assign(N, DFS_WHITE);
+for (i = N-1; i >= 0; i--)
+  if (dfs_num[S[i]] == DFS_WHITE) {
+    numSCC++;
+    Kosaraju(S[i], 2);
+  }
+
+```
+
+```cpp
 struct SCC {
     int V, group_cnt;
     vector<vector<int> > adj, radj;
