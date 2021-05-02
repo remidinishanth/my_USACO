@@ -1,8 +1,8 @@
 ## Finding cycle in (directed) graph
 
 ### Tarjan's strongly connected components algorithm
-// Use colors, for example, white, grey and black.
-// You can even find the edges in the cycle.
+Use colors, for example, white, grey and black.
+You can even find the edges in the cycle. All the grey edges correspond to the cycle.
 
 ```cpp
 vector<vector<int>> Adj;
