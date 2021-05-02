@@ -11,6 +11,8 @@ If we make a choice that seems like the best at the moment and proceed to solve 
 remaining subproblem, we reach the optimal solution. We will never have to reconsider
 our previous choices
 
+**Greedy-choice property** A locally optimal choice is globally optimal.
+
 # Problems
 
 ## Coin change problem
