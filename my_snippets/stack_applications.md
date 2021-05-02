@@ -51,3 +51,41 @@ class Solution:
             stack.append(i)
         return rect_area
 ```
+
+https://stackoverflow.com/questions/9493853/given-an-array-find-out-the-next-smaller-element-for-each-element/9495815#9495815
+
+## Given an array, find out the next smaller element for each element. 
+
+Given an array find the next smaller element in array for each element without changing the original order of the elements.
+
+For example, suppose the given array is 4,2,1,5,3.
+
+The resultant array would be 2,1,-1,3,-1.
+
+### Solution
+
+![image](https://user-images.githubusercontent.com/19663316/116826635-aa9ee300-abb2-11eb-9df8-53804f4fc703.png)
+
+```python
+def find_next_smaller_elements(xs):
+    ys=[-1 for x in xs]
+    stack=[]
+    for i,x in enumerate(xs):
+        while len(stack)>0 and x<xs[stack[-1]]:
+           ys[stack.pop()]=x
+        stack.append(i)
+    return ys
+
+>>> find_next_smaller_elements([4,2,1,5,3])
+[2, 1, -1, 3, -1]
+>>> find_next_smaller_elements([1,2,3,4,5])
+[-1, -1, -1, -1, -1]
+>>> find_next_smaller_elements([5,4,3,2,1])
+[4, 3, 2, 1, -1]
+>>> find_next_smaller_elements([1,3,5,4,2])
+[-1, 2, 4, 2, -1]
+>>> find_next_smaller_elements([6,4,2])
+[4, 2, -1]
+```
+
+Iterate over each element in the input array:
