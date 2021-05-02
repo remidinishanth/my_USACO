@@ -141,15 +141,6 @@ The first DFS is done on the original directed graph and record the ‘post-orde
 3. Perform a DFS on rG starting the search from the highest numbered vertex according to the decreasing order of finish time
 4. return DFS trees;
 
-DFS on original graph
-
-![image](https://user-images.githubusercontent.com/19663316/116800502-4e3eb380-ab1f-11eb-9f52-fbc0e96daf9d.png)
-
-DFS on Transposed graph
-
-![image](https://user-images.githubusercontent.com/19663316/116800518-81814280-ab1f-11eb-882e-1092e2f72181.png)
-
-
 ```cpp
 void Kosaraju(int u, int pass) {      // pass = 1 (original), 2 (transpose)
   dfs_num[u] = 1;
