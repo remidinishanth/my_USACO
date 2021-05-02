@@ -143,6 +143,11 @@ The first DFS is done on the original directed graph and record the ‘post-orde
 
 ![image](https://user-images.githubusercontent.com/19663316/116800904-be9b0400-ab22-11eb-9344-eb435e6cdcf1.png)
 
+First DFS -> [c, g, f, h, d, b, e, a]
+
+Nodes are traversed in [c, g, f, f', g, h, h', g', c, d, d', c', b, e, a, a', e', b'], where x denotes when x is visited and x' denotes end of vertex x.
+
+Second DFS on transposed graph -> [b, a, e, c, d, g, f, h]
 
 ```cpp
 void Kosaraju(int u, int pass) {      // pass = 1 (original), 2 (transpose)
