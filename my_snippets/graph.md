@@ -134,10 +134,13 @@ void tarjanSCC(int u) {
 
 ## Kosaraju's Algorithm for SCC
 
+The first DFS is done on the original directed graph and record the ‘post-order’ traversal of the vertices as in finding topological sort. The second DFS is done on the transpose of the original directed graph using the ‘post-order’ ordering found by the first DFS. This two passes of DFS is enough to find the SCCs of the directed graph.
+
 1. Perform a DFS of G and number the vertices in order of completion of the recursive calls
 2. Construct a new directed graph rG by reversing the direction of every edge in G
 3. Perform a DFS on rG starting the search from the highest numbered vertex according to the decreasing order of finish time
 4. return DFS trees;
+
 
 ```cpp
 void Kosaraju(int u, int pass) {      // pass = 1 (original), 2 (transpose)
