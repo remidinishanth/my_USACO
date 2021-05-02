@@ -11,9 +11,30 @@ If we make a choice that seems like the best at the moment and proceed to solve 
 remaining subproblem, we reach the optimal solution. We will never have to reconsider
 our previous choices
 
-## Problems
+# Problems
 
+## Coin change problem
 
+Given a target amount V cents and a list of denominations of n coins,
+i.e. we have coinValue[i] (in cents) for coin types i ∈ [0..n-1], what is the minimum
+number of coins that we must use to represent amount V ? 
+
+Example: If n = 4, coinValue = {25, 10, 5, 1} cents6, and
+we want to represent V = 42 cents, we can use this Greedy algorithm: Select the largest
+coin denomination which is not greater than the remaining amount, i.e. 42-25 = 17 → 17-10
+= 7 → 7-5 = 2 → 2-1 = 1 → 1-1 = 0, a total of 5 coins. This is optimal.
+
+However, this greedy algorithm does not work for all sets of coin denominations. Take for
+example {4, 3, 1} cents. To make 6 cents with that set, a greedy algorithm would choose 3
+coins {4, 1, 1} instead of the optimal solution that uses 2 coins {3, 3}.
+
+### Solution
+
+For the so-called canonical coin systems, a greedy algorithm of picking the largest denomination of coin which is not greater than the remaining amount to be made will produce the optimal result.
+
+In order to decide whether the coin system `𝑐1=1 < 𝑐2 < 𝑐3 < …` is canonical, it suffices to check only for each 𝑚 whether the greedy solution for ⌈𝑐𝑚+1/𝑐𝑚⌉𝑐𝑚 is optimal. source: [Stackoverflow](https://math.stackexchange.com/questions/3121896/what-property-of-a-coin-system-makes-it-canonical)
+
+## Courses [duration, lastDay]
 There are n different online courses numbered from 1 to n. You are given an array courses where `courses[i] = [duration_i, lastDay_i]` indicate that the ith 
 course should be taken continuously for duration_i days and must be finished before or on lastDay_i.
 
