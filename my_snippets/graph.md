@@ -1,6 +1,5 @@
 ## Finding cycle in (directed) graph
 
-### Tarjan's strongly connected components algorithm
 Use colors, for example, white, grey and black.
 You can even find the edges in the cycle. All the grey edges correspond to the cycle.
 
@@ -21,35 +20,6 @@ void dfs(int u){
 
 for(int i = 0; i < n; i++)
     if(color[i] == 0) dfs(i, -1); // IF NODE IS WHITE, START NEW DFS
-```
-
-Strong Connectivity applies only to directed graphs. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex.
-
-```cpp
-vi S, visited;                                    // additional global variables
-int numSCC;
-
-void tarjanSCC(int u) {
-  dfs_low[u] = dfs_num[u] = dfsNumberCounter++;      // dfs_low[u] <= dfs_num[u]
-  S.push_back(u);           // stores u in a vector based on order of visitation
-  visited[u] = 1;
-  for (int j = 0; j < (int)AdjList[u].size(); j++) {
-    ii v = AdjList[u][j];
-    if (dfs_num[v.first] == DFS_WHITE)
-      tarjanSCC(v.first);
-    if (visited[v.first])                                // condition for update
-      dfs_low[u] = min(dfs_low[u], dfs_low[v.first]);
-  }
-
-  if (dfs_low[u] == dfs_num[u]) {         // if this is a root (start) of an SCC
-    printf("SCC %d:", ++numSCC);            // this part is done after recursion
-    while (1) {
-      int v = S.back(); S.pop_back(); visited[v] = 0;
-      printf(" %d", v);
-      if (u == v) break;
-    }
-    printf("\n");
-} }
 ```
 
 ## Def
@@ -129,6 +99,38 @@ The process to find bridges is similar. When `dfs_low(v) > dfs_num(u)`, then edg
 a bridge (notice that we remove the equality test ‘=’ for finding bridges). 
 
 source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
+
+
+## Tarjan's strongly connected components algorithm
+
+Strong Connectivity applies only to directed graphs. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex.
+
+```cpp
+vi S, visited;                                    // additional global variables
+int numSCC;
+
+void tarjanSCC(int u) {
+  dfs_low[u] = dfs_num[u] = dfsNumberCounter++;      // dfs_low[u] <= dfs_num[u]
+  S.push_back(u);           // stores u in a vector based on order of visitation
+  visited[u] = 1;
+  for (int j = 0; j < (int)AdjList[u].size(); j++) {
+    ii v = AdjList[u][j];
+    if (dfs_num[v.first] == DFS_WHITE)
+      tarjanSCC(v.first);
+    if (visited[v.first])                                // condition for update
+      dfs_low[u] = min(dfs_low[u], dfs_low[v.first]);
+  }
+
+  if (dfs_low[u] == dfs_num[u]) {         // if this is a root (start) of an SCC
+    printf("SCC %d:", ++numSCC);            // this part is done after recursion
+    while (1) {
+      int v = S.back(); S.pop_back(); visited[v] = 0;
+      printf(" %d", v);
+      if (u == v) break;
+    }
+    printf("\n");
+} }
+```
 
 ## Single Source Shortest Paths on Weighted Tree
 
