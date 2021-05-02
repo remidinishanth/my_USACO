@@ -32,7 +32,7 @@ coins {4, 1, 1} instead of the optimal solution that uses 2 coins {3, 3}.
 
 For the so-called canonical coin systems, a greedy algorithm of picking the largest denomination of coin which is not greater than the remaining amount to be made will produce the optimal result.
 
-In order to decide whether the coin system `𝑐1=1 < 𝑐2 < 𝑐3 < …` is canonical, it suffices to check only for each 𝑚 whether the greedy solution for ⌈𝑐𝑚+1/𝑐𝑚⌉𝑐𝑚 is optimal. source: [Stackoverflow](https://math.stackexchange.com/questions/3121896/what-property-of-a-coin-system-makes-it-canonical)
+In order to decide whether the coin system `𝑐1=1 < 𝑐2 < 𝑐3 < …` is canonical, it suffices to check only for each 𝑚 whether the greedy solution for ⌈𝑐{𝑚+1}/𝑐𝑚⌉𝑐𝑚 is optimal. source: [Stackoverflow](https://math.stackexchange.com/questions/3121896/what-property-of-a-coin-system-makes-it-canonical)
 
 ## Courses [duration, lastDay]
 There are n different online courses numbered from 1 to n. You are given an array courses where `courses[i] = [duration_i, lastDay_i]` indicate that the ith 
