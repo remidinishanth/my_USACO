@@ -25,6 +25,33 @@ for(int i = 0; i < n; i++)
 
 Strong Connectivity applies only to directed graphs. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex.
 
+```cpp
+vi S, visited;                                    // additional global variables
+int numSCC;
+
+void tarjanSCC(int u) {
+  dfs_low[u] = dfs_num[u] = dfsNumberCounter++;      // dfs_low[u] <= dfs_num[u]
+  S.push_back(u);           // stores u in a vector based on order of visitation
+  visited[u] = 1;
+  for (int j = 0; j < (int)AdjList[u].size(); j++) {
+    ii v = AdjList[u][j];
+    if (dfs_num[v.first] == DFS_WHITE)
+      tarjanSCC(v.first);
+    if (visited[v.first])                                // condition for update
+      dfs_low[u] = min(dfs_low[u], dfs_low[v.first]);
+  }
+
+  if (dfs_low[u] == dfs_num[u]) {         // if this is a root (start) of an SCC
+    printf("SCC %d:", ++numSCC);            // this part is done after recursion
+    while (1) {
+      int v = S.back(); S.pop_back(); visited[v] = 0;
+      printf(" %d", v);
+      if (u == v) break;
+    }
+    printf("\n");
+} }
+```
+
 ## Def
 Let G = (V; E) be a connected, undirected graph. An articulation point of G is
 a vertex whose removal disconnects G. A bridge of G is an edge whose removal
