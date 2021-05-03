@@ -102,6 +102,13 @@ Example: In the first sample line of the psychos transforms as follows: [10 9 7 
 ### Solution
 
 ```cpp
+const int MAX_N = 100010;
+const int INF = 1000000;
+ 
+int n;
+int values[MAX_N], life[MAX_N];
+stack<int> killers;
+
 int main() {
   scanf("%d ", &n);
   for (int i = 1; i <= n; ++i) {
