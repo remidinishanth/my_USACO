@@ -88,5 +88,47 @@ def find_next_smaller_elements(xs):
 [4, 2, -1]
 ```
 
-Iterate over each element in the input array:
+## Psychos in a Line
+
+There are n psychos standing in a line. Each psycho is assigned a unique integer from 1 to n. At each step every psycho who has an id greater than the psycho to his right (if exists) kills his right neighbor in the line. Note that a psycho might kill and get killed at the same step.
+
+You're given the initial arrangement of the psychos in the line. Calculate how many steps are needed to the moment of time such, that nobody kills his neighbor after that moment. Look notes to understand the statement more precise.
+
+Input:
+The first line of input contains integer n denoting the number of psychos, (1 ≤ n ≤ 10^5). In the second line there will be a list of n space separated distinct integers each in range 1 to n, inclusive — ids of the psychos in the line from left to right.
+
+Example: In the first sample line of the psychos transforms as follows: [10 9 7 8 6 5 3 4 2 1]  →  [10 8 4]  →  [10]. So, there are two steps.
+
+### Solution
+
+```cpp
+int main() {
+  scanf("%d ", &n);
+  for (int i = 1; i <= n; ++i) {
+    scanf("%d ", &values[i]);
+  }
+ 
+  life[0] = INF;
+  killers.push(0);
+  for (int i = 1; i <= n; ++i) {
+    life[i] = 1;
+    while (killers.size() && values[i] > values[killers.top()]) {
+      life[i] = max(life[i], life[killers.top()] + 1);
+      killers.pop();
+    }
+    killers.push(i);
+  }
+ 
+  int sol = 0;
+  for (int i = 1; i <= n; ++i) {
+    if (life[i] < INF) {
+      sol = max(sol, life[i]);
+    }
+  }
+ 
+  printf("%d\n", sol);
+ 
+  return 0;
+}
+```
 
