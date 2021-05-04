@@ -56,7 +56,8 @@ We can precalculate all rectangles, in O(N^2M^2) with using consecutive sums for
 
 Part 1
 
-![image](https://user-images.githubusercontent.com/19663316/117044469-1a84a900-ad2c-11eb-9d90-c54b69b36979.png)
+![image](https://user-images.githubusercontent.com/19663316/117049582-ea400900-ad31-11eb-8256-53855a5f24df.png)
+
 
 Part 2
 
