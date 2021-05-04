@@ -78,7 +78,7 @@ int main() {
           cnt[xa][ya][xb][yb] = (sum == 0);
         }
   
-  // Add subRectangles with sides as (xb, ya) and (xb, yb) to rectangle with diagonal (xa-1,ya) and (xb,yb) and so on
+  // Add subRectangles with side as (xb, ya) and (xb, yb) to rectangle with diagonal (xa-1,ya) and (xb,yb) and so on
   for (int xa = n; xa >= 2; xa--) // Compute backwards
     for (int ya = 1; ya <= m; ya++)
       for (int xb = xa; xb <= n; xb++)
