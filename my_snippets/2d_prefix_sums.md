@@ -49,6 +49,12 @@ Output
 * For the third query, there are 7 good rectangles, four 1 × 1, two 2 × 1, and one 3 × 1.
 
 Solution
+
+Part 1
+
+![image](https://user-images.githubusercontent.com/19663316/117044469-1a84a900-ad2c-11eb-9d90-c54b69b36979.png)
+
+
 ```cpp
 int cnt[44][44][44][44];
 int a[44][44], f[44][44];
@@ -78,6 +84,7 @@ int main() {
           cnt[xa][ya][xb][yb] = (sum == 0);
         }
   
+  // Part 1
   // Add subRectangles with side as (xb, ya) and (xb, yb) to rectangle with diagonal (xa-1,ya) and (xb,yb) and so on
   for (int xa = n; xa >= 2; xa--) // Compute backwards
     for (int ya = 1; ya <= m; ya++)
