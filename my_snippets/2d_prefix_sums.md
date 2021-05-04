@@ -48,11 +48,24 @@ Output
 * For the second query, there is only one 1 × 1 good rectangle.
 * For the third query, there are 7 good rectangles, four 1 × 1, two 2 × 1, and one 3 × 1.
 
+source: <https://codeforces.com/problemset/problem/372/B>
+
 Solution
+
+We can precalculate all rectangles, in O(N^2M^2) with using consecutive sums for 2D. And then we use 4D consecutive sums, we can answer the queries.
 
 Part 1
 
 ![image](https://user-images.githubusercontent.com/19663316/117044469-1a84a900-ad2c-11eb-9d90-c54b69b36979.png)
+
+Part 2
+
+![image](https://user-images.githubusercontent.com/19663316/117047932-0c388c00-ad30-11eb-9faa-663280cff73b.png)
+
+Part 3 & 4
+
+![image](https://user-images.githubusercontent.com/19663316/117048971-376fab00-ad31-11eb-82e7-2752e3959736.png)
+
 
 
 ```cpp
@@ -91,16 +104,21 @@ int main() {
       for (int xb = xa; xb <= n; xb++)
         for (int yb = ya; yb <= m; yb++) cnt[xa - 1][ya][xb][yb] += cnt[xa][ya][xb][yb];
   
+  // Part 2
   for (int xa = 1; xa <= n; xa++)
     for (int ya = m; ya >= 2; ya--)
       for (int xb = xa; xb <= n; xb++)
         for (int yb = ya; yb <= m; yb++) cnt[xa][ya - 1][xb][yb] += cnt[xa][ya][xb][yb];
-  
+        
+  // Part 3
+  // Add subrectanges of (xa, ya) (xb, yb) to (xa,ya) (xb+1, yb)
   for (int xa = 1; xa <= n; xa++)
     for (int ya = 1; ya <= m; ya++)
       for (int xb = xa; xb <= n; xb++)
         for (int yb = ya; yb <= m; yb++) cnt[xa][ya][xb + 1][yb] += cnt[xa][ya][xb][yb];
   
+  // Part 4
+  // Add subrectanges of (xa, ya) (xb, yb) to (xa,ya) (xb, yb+1)
   for (int xa = 1; xa <= n; xa++)
     for (int ya = 1; ya <= m; ya++)
       for (int xb = xa; xb <= n; xb++)
@@ -114,3 +132,5 @@ int main() {
   return 0;
 }
 ```
+
+source: tourist <https://codeforces.com/contest/372/submission/5421838>
