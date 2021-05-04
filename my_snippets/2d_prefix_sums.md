@@ -65,6 +65,8 @@ Part 2
 
 Part 3 & 4
 
+Add the subrectangles with (xa, ya); (xb-1,yb) and (xa,ya); (xb, yb-1) to (xa, ya); (xb,yb)
+
 ![image](https://user-images.githubusercontent.com/19663316/117048971-376fab00-ad31-11eb-82e7-2752e3959736.png)
 
 
