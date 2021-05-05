@@ -273,6 +273,12 @@ weight than the ‘shorter’ path found by BFS. To solve the SSSP problem on we
 algorithm. 
 
 ```cpp
+ AdjList.assign(V, vii()); // assign blank vectors of pair<int, int>s to AdjList
+  for (int i = 0; i < E; i++) {
+    scanf("%d %d %d", &u, &v, &w);
+    AdjList[u].push_back(ii(v, w));                              // directed graph
+  }
+
 // Dijkstra routine
   vi dist(V, INF); dist[s] = 0;                    // INF = 1B to avoid overflow
   priority_queue< ii, vector<ii>, greater<ii> > pq; pq.push(ii(0, s));
