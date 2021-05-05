@@ -279,6 +279,21 @@ Proof: <https://cs.stackexchange.com/questions/22855/algorithm-to-find-diameter-
 
 ![image](https://user-images.githubusercontent.com/19663316/117145780-24141c80-add1-11eb-82fc-e6351cef5cf8.png)
 
+The basic idea behind Floyd Warshall’s is to gradually allow the usage of *intermediate vertices* (vertex [0..k]) to form the shortest paths.
+
+![image](https://user-images.githubusercontent.com/19663316/117146699-18752580-add2-11eb-834f-252db6aa2b7b.png)
+
+This DP formulation must be filled layer by layer (by increasing k). To fill out an entry in
+the table k, we make use of the entries in the table k-1. 
+
+The naive implementation is to use a 3-dimensional matrix
+D[k][i][j] of size O(V^3). 
+
+However, since to compute layer k we only need to know the
+values from layer k-1, we can drop dimension k and compute D[i][j] ‘on-the-fly’ (the space
+saving trick). Thus, Floyd Warshall’s algorithm just need O(V^2)
+space although it still runs in O(V^3).
+
 ```cpp
 // inside int main()
 // precondition: AdjMat[i][j] contains the weight of edge (i, j)
@@ -288,4 +303,33 @@ for (int k = 0; k < V; k++) // remember that loop order is k->i->j
     for (int i = 0; i < V; i++)
         for (int j = 0; j < V; j++)
             AdjMat[i][j] = min(AdjMat[i][j], AdjMat[i][k] + AdjMat[k][j]);
+```
+
+## Printing Shortest Paths
+
+A common issue encountered by programmers who use the four-liner Floyd Warshall’s without understanding how it works is when they are asked to print the shortest paths too. In BFS/Dijkstra’s/Bellman Ford’s algorithms, we just need to remember the shortest paths
+spanning tree by using a 1D `vector<int> p` to store the parent information for each vertex. In Floyd
+Warshall’s, we need to store a 2D parent matrix. The modified code is shown below.
+
+```cpp
+// inside int main()
+// let p be a 2D parent matrix, where p[i][j] is the last vertex before j
+// on a shortest path from i to j, i.e. i -> ... -> p[i][j] -> j
+for (int i = 0; i < V; i++)
+    for (int j = 0; j < V; j++)
+        p[i][j] = i; // initialize the parent matrix
+
+for (int k = 0; k < V; k++)
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++) // this time, we need to use if statement
+            if (AdjMat[i][k] + AdjMat[k][j] < AdjMat[i][j]) {
+                AdjMat[i][j] = AdjMat[i][k] + AdjMat[k][j];
+                p[i][j] = p[k][j]; // update the parent matrix
+            }
+//-------------------------------------------------------------------------
+// when we need to print the shortest paths, we can call the method below:
+void printPath(int i, int j) {
+    if (i != j) printPath(i, p[i][j]);
+    printf(" %d", j);
+}
 ```
