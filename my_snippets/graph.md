@@ -311,7 +311,32 @@ A common issue encountered by programmers who use the four-liner Floyd Warshall�
 spanning tree by using a 1D `vector<int> p` to store the parent information for each vertex. In Floyd
 Warshall’s, we need to store a 2D parent matrix. The modified code is shown below.
 
-```pascal
+```cpp
+// inside int main()
+// let p be a 2D parent matrix, where p[i][j] is the last vertex before j
+// on a shortest path from i to j, i.e. i -> ... -> p[i][j] -> j
+for (int i = 0; i < V; i++)
+    for (int j = 0; j < V; j++)
+        p[i][j] = i; // initialize the parent matrix
+
+for (int k = 0; k < V; k++)
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++) // this time, we need to use if statement
+            if (AdjMat[i][k] + AdjMat[k][j] < AdjMat[i][j]) {
+                AdjMat[i][j] = AdjMat[i][k] + AdjMat[k][j];
+                p[i][j] = p[k][j]; // update the parent matrix
+            }
+//-------------------------------------------------------------------------
+// when we need to print the shortest paths, we can call the method below:
+void printPath(int i, int j) {
+    if (i != j) printPath(i, p[i][j]);
+    printf(" %d", j);
+}
+```
+
+Source: Wiki
+
+```
 let dist be a VxV array of minimum distances initialized to infinity.
 let next be a VxV array of vertex indices initialized to null
 
@@ -336,27 +361,4 @@ procedure Path(u, v)
         u ← next[u][v]
         path.append(u)
     return path
-```
-
-```cpp
-// inside int main()
-// let p be a 2D parent matrix, where p[i][j] is the last vertex before j
-// on a shortest path from i to j, i.e. i -> ... -> p[i][j] -> j
-for (int i = 0; i < V; i++)
-    for (int j = 0; j < V; j++)
-        p[i][j] = i; // initialize the parent matrix
-
-for (int k = 0; k < V; k++)
-    for (int i = 0; i < V; i++)
-        for (int j = 0; j < V; j++) // this time, we need to use if statement
-            if (AdjMat[i][k] + AdjMat[k][j] < AdjMat[i][j]) {
-                AdjMat[i][j] = AdjMat[i][k] + AdjMat[k][j];
-                p[i][j] = p[k][j]; // update the parent matrix
-            }
-//-------------------------------------------------------------------------
-// when we need to print the shortest paths, we can call the method below:
-void printPath(int i, int j) {
-    if (i != j) printPath(i, p[i][j]);
-    printf(" %d", j);
-}
 ```
