@@ -351,6 +351,15 @@ BFS and Dijsktra’s code:
       printf("SSSP(%d, %d) = %d\n", s, i, dist[i]);
 ```
 
+### Why does Bellman Ford Work?
+* A shortest path can have at most n − 1 edges
+* At the kth iteration, all shortest paths using k or less edges
+are computed
+* After n − 1 iterations, all distances must be final; for every
+edge u → v of cost c, dv ≤ du + c holds
+    * Unless there is a negative-weight cycle
+    * This is how the negative-weight cycle detection works
+
 ## Floyd Warshall All pairs shortest Path
 
 ### Dynamic Programming I
