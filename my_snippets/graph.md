@@ -311,6 +311,33 @@ A common issue encountered by programmers who use the four-liner Floyd Warshall�
 spanning tree by using a 1D `vector<int> p` to store the parent information for each vertex. In Floyd
 Warshall’s, we need to store a 2D parent matrix. The modified code is shown below.
 
+```pascal
+let dist be a VxV array of minimum distances initialized to infinity.
+let next be a VxV array of vertex indices initialized to null
+
+procedure FloydWarshallWithPathReconstruction() is
+    for each edge (u, v) do
+        dist[u][v] ← w(u, v)  // The weight of the edge (u, v)
+        next[u][v] ← v
+    for each vertex v do
+        dist[v][v] ← 0
+        next[v][v] ← v
+    for k from 1 to |V| do // standard Floyd-Warshall implementation
+        for i from 1 to |V|
+            for j from 1 to |V|
+                if dist[i][j] > dist[i][k] + dist[k][j] then
+                    dist[i][j] ← dist[i][k] + dist[k][j]
+                    next[i][j] ← next[i][k]
+procedure Path(u, v)
+    if next[u][v] = null then
+        return []
+    path = [u]
+    while u ≠ v
+        u ← next[u][v]
+        path.append(u)
+    return path
+```
+
 ```cpp
 // inside int main()
 // let p be a 2D parent matrix, where p[i][j] is the last vertex before j
