@@ -305,6 +305,8 @@ for (int k = 0; k < V; k++) // remember that loop order is k->i->j
             AdjMat[i][j] = min(AdjMat[i][j], AdjMat[i][k] + AdjMat[k][j]);
 ```
 
+If `dij + dji < 0` for some i and j, then the graph has a negative weight cycle
+
 ## Printing Shortest Paths
 
 A common issue encountered by programmers who use the four-liner Floyd Warshall’s without understanding how it works is when they are asked to print the shortest paths too. In BFS/Dijkstra’s/Bellman Ford’s algorithms, we just need to remember the shortest paths
