@@ -243,15 +243,6 @@ struct SCC {
 
 source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
 
-## Single Source Shortest Paths on Weighted Tree
-
-Generally we use Dijkstra's O((V+E)logV) and Bellman-Ford's O(VE) algorithms for solving SSP problem on weighted graph. But if the 
-given graph is a weighted tree, the SSSP problem becomes simpler: Any O(V) graph traversal algorithm, i.e BFS or DFS can be used to solve
-this problem. There is only one unique path between any two vertices in a tree, so we simply traverse the tree to find the unique path connecting 
-the two vertices. The shortest path weight between these two vertices is basically the sum of edge weights of this unique path.
-
-![image](https://user-images.githubusercontent.com/19663316/117138431-a51ae600-adc8-11eb-8f19-78851e93f58c.png)
-
 ## Diameter of Weighted Tree
 
 For general graph, we need O(V^3) Floyd Warshall's algorithm plus O(V^2) all-pairs check to compute the diameter. However,
@@ -264,6 +255,43 @@ The length of the unique path along x to y is the diameter of that tree.
 source: CP3 Chapter 4. Graph
 
 Proof: <https://cs.stackexchange.com/questions/22855/algorithm-to-find-diameter-of-a-tree-using-bfs-dfs-why-does-it-work>
+
+## Single Source Shortest Paths on Weighted Tree
+
+Generally we use Dijkstra's O((V+E)logV) and Bellman-Ford's O(VE) algorithms for solving SSP problem on weighted graph. But if the 
+given graph is a weighted tree, the SSSP problem becomes simpler: Any O(V) graph traversal algorithm, i.e BFS or DFS can be used to solve
+this problem. There is only one unique path between any two vertices in a tree, so we simply traverse the tree to find the unique path connecting 
+the two vertices. The shortest path weight between these two vertices is basically the sum of edge weights of this unique path.
+
+![image](https://user-images.githubusercontent.com/19663316/117138431-a51ae600-adc8-11eb-8f19-78851e93f58c.png)
+
+## SSSP on Weighted Graph
+
+If the given graph is weighted, BFS does not work. This is because there can be ‘longer’
+path(s) (in terms of number of vertices and edges involved in the path) but has smaller total
+weight than the ‘shorter’ path found by BFS. To solve the SSSP problem on weighted graph, we use a greedy Edsger Wybe Dijkstra’s
+algorithm. 
+
+```cpp
+// Dijkstra routine
+  vi dist(V, INF); dist[s] = 0;                    // INF = 1B to avoid overflow
+  priority_queue< ii, vector<ii>, greater<ii> > pq; pq.push(ii(0, s));
+                             // ^to sort the pairs by increasing distance from s
+  while (!pq.empty()) {                                             // main loop
+    ii front = pq.top(); pq.pop();     // greedy: pick shortest unvisited vertex
+    int d = front.first, u = front.second;
+    if (d > dist[u]) continue;   // this check is important, see the explanation
+    for (int j = 0; j < (int)AdjList[u].size(); j++) {
+      ii v = AdjList[u][j];                       // all outgoing edges from u
+      if (dist[u] + v.second < dist[v.first]) {
+        dist[v.first] = dist[u] + v.second;                 // relax operation
+        pq.push(ii(dist[v.first], v.first));
+  } } }  // note: this variant can cause duplicate items in the priority queue
+```
+
+## SSSP on Graph with Negative Weight Cycle
+
+If the input graph has negative edge weight, typical Dijkstra’s implementation can produces wrong answer.
 
 ## Floyd Warshall All pairs shortest Path
 
