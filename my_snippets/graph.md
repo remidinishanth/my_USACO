@@ -262,3 +262,16 @@ The length of the unique path along x to y is the diameter of that tree.
 source: CP3 Chapter 4. Graph
 
 Proof: <https://cs.stackexchange.com/questions/22855/algorithm-to-find-diameter-of-a-tree-using-bfs-dfs-why-does-it-work>
+
+## Floyd Warshall All pairs shortest Path
+
+```cpp
+// inside int main()
+// precondition: AdjMat[i][j] contains the weight of edge (i, j)
+// or INF (1B) if there is no such edge
+// AdjMat is a 32-bit signed integer array
+for (int k = 0; k < V; k++) // remember that loop order is k->i->j
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++)
+            AdjMat[i][j] = min(AdjMat[i][j], AdjMat[i][k] + AdjMat[k][j]);
+```
