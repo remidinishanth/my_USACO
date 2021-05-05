@@ -272,6 +272,15 @@ path(s) (in terms of number of vertices and edges involved in the path) but has 
 weight than the ‘shorter’ path found by BFS. To solve the SSSP problem on weighted graph, we use a greedy Edsger Wybe Dijkstra’s
 algorithm. 
 
+When this algorithm process u, it tries to relax all neighbors v of u. Every time it
+relaxes an edge u → v, it will enqueue a pair (newer/shorter distance to v from source, v)
+into pq and leave the inferior pair (older/longer distance to v from source, v) inside pq. This
+is called ‘Lazy Deletion’ and it causes more than one copy of the same vertex in pq with
+different distances from source. That is why we have the check earlier to process only the
+first dequeued vertex information pair which has the correct/shorter distance (other copies
+will have the outdated/longer distance). The code is shown below and it looks very similar
+to BFS and Prim’s code 
+
 ```cpp
  AdjList.assign(V, vii()); // assign blank vectors of pair<int, int>s to AdjList
   for (int i = 0; i < E; i++) {
