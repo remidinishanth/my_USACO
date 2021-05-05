@@ -250,6 +250,8 @@ given graph is a weighted tree, the SSSP problem becomes simpler: Any O(V) graph
 this problem. There is only one unique path between any two vertices in a tree, so we simply traverse the tree to find the unique path connecting 
 the two vertices. The shortest path weight between these two vertices is basically the sum of edge weights of this unique path.
 
+![image](https://user-images.githubusercontent.com/19663316/117138431-a51ae600-adc8-11eb-8f19-78851e93f58c.png)
+
 ## Diameter of Weighted Tree
 
 For general graph, we need O(V^3) Floyd Warshall's algorithm plus O(V^2) all-pairs check to compute the diameter. However,
