@@ -459,3 +459,16 @@ procedure Path(u, v)
         path.append(u)
     return path
 ```
+
+## System of Difference Constraints
+
+* Given m inequalities of the form xi − xj ≤ c
+* Want to find real numbers x1, . . . , xn that satisfy all the given inequalities
+* Seemingly this has nothing to do with shortest paths
+    – But it can be solved using Bellman-Ford
+    
+![image](https://user-images.githubusercontent.com/19663316/117266809-4199c280-ae73-11eb-96ba-c73246120b84.png)
+
+![image](https://user-images.githubusercontent.com/19663316/117266847-4c545780-ae73-11eb-8b05-ef62ac4807c2.png)
+
+It turns out that our solution minimizes the span of the variables: max xi − min xi
