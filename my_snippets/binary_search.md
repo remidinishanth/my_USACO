@@ -137,7 +137,7 @@ if (lo == hi && p(lo)) {
 }
 ```
 
-![image](https://user-images.githubusercontent.com/19663316/117264577-fbdbfa80-ae70-11eb-9e33-e87fbd3d724e.png)
+![image](https://user-images.githubusercontent.com/19663316/117265078-7c9af680-ae71-11eb-8c8d-50ad67411f24.png)
 
 ```cpp
 double EPS = 1e-10, lo = -1000.0, hi = 1000.0;
