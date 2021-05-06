@@ -474,3 +474,53 @@ procedure Path(u, v)
 It turns out that our solution minimizes the span of the variables: max xi − min xi
 
 source: Stanford CS 97SI: Introduction to Programming Contests
+
+
+## Minimum Spanning Tree
+
+We have an undirected weighted graph. 
+
+The vertices along with a subset of the edges in the graph is called a
+spanning tree if
+* it forms a tree (i.e. does not contain a cycle) and
+* the tree spans all vertices (all vertices can reach all other vertices)
+
+The weight of a spanning tree is the sum of the weights of the edges
+in the subset, We want to find a minimum spanning tree
+
+```cpp
+struct edge {
+    int u, v;
+    int weight;
+
+    edge(int _u, int _v, int _w) {
+        u = _u;
+        v = _v;
+        weight = _w;
+    }
+};
+
+vector<edge> adj[N];
+
+bool edge_cmp(const edge &a, const edge &b) {
+    return a.weight < b.weight;
+}
+
+vector<edge> mst(int n, vector<edge> edges) {
+    union_find uf(n);
+    sort(edges.begin(), edges.end(), edge_cmp);
+
+    vector<edge> res;
+    for (int i = 0; i < edges.size(); i++) {
+        int u = edges[i].u,
+            v = edges[i].v;
+
+        if (uf.find(u) != uf.find(v)) {
+            uf.unite(u, v);
+            res.push_back(edges[i]);
+        }
+    }
+
+    return res;
+}
+```
