@@ -114,6 +114,29 @@ So, to summarize, you don't need to use this particular method, but you should h
 
 source: <https://codeforces.com/blog/entry/9901?#comment-153761>
 
+## Algo.is
+
+![image](https://user-images.githubusercontent.com/19663316/117264199-a0aa0800-ae70-11eb-8aa0-7d53fddadf9c.png)
+
+```cpp
+int lo = 0,
+hi = n - 1;
+while (lo < hi) {
+	int m = (lo + hi) / 2;
+	if (p(m)) {
+		hi = m;
+	} else {
+		lo = m + 1;
+	}
+}
+
+if (lo == hi && p(lo)) {
+	printf("lowest index is %d\n", lo);
+} else {
+	printf("no such index\n");
+}
+```
+
 ## Topcoder
 
 source: <https://apps.topcoder.com/forums/?module=Thread&threadID=670168&start=0>
