@@ -137,6 +137,22 @@ if (lo == hi && p(lo)) {
 }
 ```
 
+![image](https://user-images.githubusercontent.com/19663316/117264577-fbdbfa80-ae70-11eb-9e33-e87fbd3d724e.png)
+
+```cpp
+double EPS = 1e-10, lo = -1000.0, hi = 1000.0;
+
+while (hi - lo > EPS) {
+	double mid = (lo + hi) / 2.0;
+	if (p(mid)) {
+		hi = mid;
+	} else {
+		lo = mid;
+	}
+}
+printf("%0.10lf\n", lo);
+```
+
 ## Topcoder
 
 source: <https://apps.topcoder.com/forums/?module=Thread&threadID=670168&start=0>
