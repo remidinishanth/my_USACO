@@ -472,3 +472,5 @@ procedure Path(u, v)
 ![image](https://user-images.githubusercontent.com/19663316/117266847-4c545780-ae73-11eb-8b05-ef62ac4807c2.png)
 
 It turns out that our solution minimizes the span of the variables: max xi − min xi
+
+source: Stanford CS 97SI: Introduction to Programming Contests
