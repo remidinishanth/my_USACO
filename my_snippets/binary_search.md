@@ -85,6 +85,8 @@ This might not work if P(r) = 0 (in this case the algorithm will return x 
 (2) Given a range of integers R = {l, l + 1, ..., r - 1, r} and a monotonically decreasing predicate P, find the largest x in R for which P(x) holds true. If we set Q(x) = !P(x), then Q is increasing and we can use (1) to find x + 1. We can also just use the following slightly modified variant:
 
 ```cpp
+// T T T T T F F F F
+//         ^
 while (l < r) {
   int mid = (l + r + 1) / 2;
   if (P(mid)) l = mid;
