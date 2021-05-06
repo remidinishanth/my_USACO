@@ -114,7 +114,7 @@ So, to summarize, you don't need to use this particular method, but you should h
 
 source: <https://codeforces.com/blog/entry/9901?#comment-153761>
 
-In the above code to figure out `mid = (l+r)/2` or `mid = (l+r+1)/2`, you can think what happens when `r = l+1` and adjust the values.
+In the above code to figure out `mid = (l+r)/2` or `mid = (l+r+1)/2`, you can think what happens when `r = l+1` and adjust the values, so that you will eventually break out of the loop, that is `l==r`
 
 ## Algo.is
 
