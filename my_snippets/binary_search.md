@@ -71,6 +71,8 @@ So far, every single time I used (integer) binary search, I could formulate the 
 (1) Given a range of integers R = {l, l + 1, ..., r - 1, r} and a monotonically increasing predicate P, find the smallest x in R for which P(x) holds true. I then use the following code:
 
 ```cpp
+// F F F F T T T T T
+//         ^
 while (l < r) {
   int mid = (l + r) / 2;
   if (P(mid)) r = mid;
