@@ -488,6 +488,15 @@ spanning tree if
 The weight of a spanning tree is the sum of the weights of the edges
 in the subset, We want to find a minimum spanning tree
 
+### Algorithm
+
+Several greedy algorithms work
+* Go through the edges in the graph in increasing order of weight
+* Greedily pick an edge if it doesn't form a cycle (Union-Find can be used to keep track of when we would get a cycle)
+* When we've gone through all edges, we have a minimum spanning tree
+    * This is Kruskal's algorithm
+    * Time complexity is E.log(E)
+
 ```cpp
 struct edge {
     int u, v;
