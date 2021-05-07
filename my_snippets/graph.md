@@ -256,6 +256,106 @@ source: CP3 Chapter 4. Graph
 
 Proof: <https://cs.stackexchange.com/questions/22855/algorithm-to-find-diameter-of-a-tree-using-bfs-dfs-why-does-it-work>
 
+Since it is a tree, DFS/BFS doesn't matter
+
+<details>
+    
+    <summary>Breaking tree recursively based on diameters</summary>
+```cpp
+vector<set<int>> Adj;
+
+int n;
+vi D, P; // Depth, Parent
+
+vvi dd; // vector of diameter chains
+
+vii Ans1, Ans2; // cuts and links
+
+void dfs(int x, int p, int &far, int &last){
+    P[x] = p;
+    for(int y:Adj[x]){
+        if(y!=p){
+            D[y] = D[x] + 1;
+            if(D[y]>far){
+                far = D[y];
+                last = y;
+            }
+            dfs(y,x, far, last);
+        }
+    }
+}
+
+void solve(int start=0){
+    if(Adj[start].size()==0){
+        dd.PB({start});
+        return;
+    }
+
+    int far = 0; int t = 0;
+    D[start] = 0;
+    dfs(start, -1, far, t);
+
+    far = 0; int last=t;
+    D[t] = 0;
+    dfs(t, -1, far, last);
+
+    set<int> Diamater;
+    vi dia;
+
+    while(P[last]!=-1){
+        dia.push_back(last);
+        Diamater.insert(last);
+        Diamater.insert(P[last]);
+        last = P[last];
+    }
+    dia.push_back(last);
+
+    dd.PB(dia);
+
+    for(int x:dia){
+        for(int y:Adj[x]){
+            if(Diamater.find(y)==Diamater.end()){
+                Ans1.PB({x,y});
+                Adj[y].erase(x);
+                solve(y);
+            }
+        }
+    }
+}
+
+int main(){
+    dsd(TC);
+    while(TC--){
+        Ans1.clear();
+        Ans2.clear();
+        dd.clear();
+        Adj.clear();
+        sd(n); D = vi(n); P = vi(n);
+        Adj = vector<si>(n, set<int>());
+        REP(i,n-1){
+            dsd2(x,y);
+            x--;
+            y--;
+            Adj[x].insert(y);
+            Adj[y].insert(x);
+        }
+        solve();
+        int first_end = dd[0].back();
+        for(int i=1;i<dd.size();i++){
+            Ans2.PB({first_end, dd[i][0]});
+            first_end = dd[i].back();
+        }
+        pd(SZ(Ans1));
+        REP(i,SZ(Ans1)){
+            printf("%d %d ", Ans1[i].F + 1, Ans1[i].S + 1);
+            printf("%d %d\n", Ans2[i].F + 1, Ans2[i].S + 1);
+        }
+    }
+    return 0;
+}
+```
+</details>
+
 ## Single Source Shortest Paths on Weighted Tree
 
 Generally we use Dijkstra's O((V+E)logV) and Bellman-Ford's O(VE) algorithms for solving SSP problem on weighted graph. But if the 
