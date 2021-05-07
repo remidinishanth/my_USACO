@@ -259,8 +259,8 @@ Proof: <https://cs.stackexchange.com/questions/22855/algorithm-to-find-diameter-
 Since it is a tree, DFS/BFS doesn't matter
 
 <details>
-    
     <summary>Breaking tree recursively based on diameters</summary>
+    
 ```cpp
 vector<set<int>> Adj;
 
