@@ -185,3 +185,45 @@ CP3 defines these steps as follows:
 1. Determine the required set of parameters that uniquely describe the problem (the state). This step is similar to what we have discussed in recursive backtracking and top-down DP earlier.
 2. If there are N parameters required to represent the states, prepare an N dimensional DP table, with one entry per state. This is equivalent to the memo table in top-down DP. However, there are differences. In bottom-up DP, we only need to initialize some cells of the DP table with known initial values (the base cases). Recall that in topdown DP, we initialize the memo table completely with dummy values (usually -1) to indicate that we have not yet computed the values.
 3. Now, with the base-case cells/states in the DP table already filled, determine the cells/states that can be filled next (the transitions). Repeat this process until the DP table is complete. For the bottom-up DP, this part is usually accomplished through iterations, using loops (more details about this later).
+
+We describe the state of a subproblem with two parameters: The current garment g and the current money. This state formulation is essentially equivalent to the state in the top-down DP above, except that we have reversed the order to make g the first parameter (thus the values of g are the row indices of the DP table so that we can take advantage of *cache-friendly* row-major traversal in a 2D array). Then, we initialize a 2D table (boolean matrix) `reachable[g][money]` of size 20 × 201. Initially, only cells/states reachable by buying any of the models of the first garment g=0 are set to true (in the first row). 
+
+Topological Ordering for the following test case
+
+Suppose we have the following test case A with M = 20, C = 3:\
+Price of the 3 models of garment g=0 → 6 4 <ins>8</ins> // the prices are not sorted in the input\
+Price of the 2 models of garment g=1 → 5 <ins>10</ins>\
+Price of the 4 models of garment g=2 → <ins>1</ins> 5 3 5
+
+![image](https://user-images.githubusercontent.com/19663316/117550854-4079b880-b060-11eb-9e04-c39793b57a31.png)
+
+Top-down version
+```cpp
+int main() {
+  int i, j, k, TC, M, C;
+  int price[25][25];                     // price[g (<= 20)][model (<= 20)]
+  bool reachable[25][210];    // reachable table[g (<= 20)][money (<= 200)]
+  scanf("%d", &TC);
+  while (TC--) {
+    scanf("%d %d", &M, &C);
+    for (i = 0; i < C; i++) {
+      scanf("%d", &price[i][0]);               // we store K in price[i][0]
+      for (j = 1; j <= price[i][0]; j++) scanf("%d", &price[i][j]);
+    }
+
+    memset(reachable, false, sizeof reachable);         // clear everything
+    for (i = 1; i <= price[0][0]; i++)       // initial values (base cases)
+      if (M - price[0][i] >= 0)      // to prevent array index out of bound
+        reachable[0][M - price[0][i]] = true;  // using first garment g = 0
+
+    for (i = 1; i < C; i++)                   // for each remaining garment
+      for (j = 0; j < M; j++) if (reachable[i - 1][j]) // a reachable state
+        for (k = 1; k <= price[i][0]; k++) if (j - price[i][k] >= 0)
+          reachable[i][j - price[i][k]] = true;   // also a reachable state
+
+    for (j = 0; j <= M && !reachable[C - 1][j]; j++); // the answer in here
+
+    if (j == M + 1) printf("no solution\n");         // last row has on bit
+    else            printf("%d\n", M - j);
+} } // return 0;
+```
