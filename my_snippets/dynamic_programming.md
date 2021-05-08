@@ -130,4 +130,36 @@ int shop(int money, int g) {
     ans = max(ans, shop(money - price[g][model], g + 1));
   return memo[money][g] = ans; // TOP-DOWN: assign ans to table + return it
 }
+
+int main() {            // easy to code if you are already familiar with it
+  int i, j, TC, score;
+
+  scanf("%d", &TC);
+  while (TC--) {
+    scanf("%d %d", &M, &C);
+    for (i = 0; i < C; i++) {
+      scanf("%d", &price[i][0]);                  // store K in price[i][0]
+      for (j = 1; j <= price[i][0]; j++) scanf("%d", &price[i][j]);
+    }
+    memset(memo, -1, sizeof memo);    // TOP-DOWN: initialize DP memo table
+    score = shop(M, 0);                            // start the top-down DP
+    if (score < 0) printf("no solution\n");
+    else           printf("%d\n", score);
+} } // return 0;
+```
+
+Instead of frequently addressing a certain cell in
+the memo table, we can use a local reference variable to store the memory address of the
+required cell in the memo table as shown below.
+
+```cpp
+int shop(int money, int g) {
+  if (money < 0) return -1000000000;
+  if (g == C) return M - money;
+  int &ans = memo[money][g];                 // remember the memory address
+  if (ans != -1) return ans;
+  for (int model = 1; model <= price[g][0]; model++)
+    ans = max(ans, shop(money - price[g][model], g + 1));
+  return ans;                // ans (or memo[money][g]) is directly updated
+}
 ```
