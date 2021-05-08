@@ -20,3 +20,21 @@ Reusing Subproblem Solutions
 * **Top down**: record subproblem solutions in a memo and re-use (recursion+memoization)
    * easy to prove correct
 * **Bottom up**: solve subproblems in topological sort order(usually via loops)
+
+### Generic DP algorithm(top-down)
+
+```python
+memo = {}
+def f(subprob):
+   if subprob not in memo:
+      memo[subprob] = base or recursive relation
+   return memo[subprob]
+return orginial
+```
+
+### Subproblem design trick
+
+Subproblem design is the hard part, when we are given sequences, often use
+- prefixes S[:i] for all i, O(n)
+- suffiixes S[i:] for all i, O(n)
+- substring S[i:j] for all i<j, O(n^2)
