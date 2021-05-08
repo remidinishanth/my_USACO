@@ -40,3 +40,11 @@ Subproblem design is the hard part, when we are given sequences, often use
 - substring S[i:j] for all i<j, O(n^2)
 
 ### Relation trick
+
+Identify part of the subproblem solution that, if you knew, reduces the subproblem to smaller subproblem(s).
+- locally brute force to find best choice
+- guessing perspective:
+   - allow "guesing" part of subproblem solution
+   - assume relation algorithm makes correct guess
+   - in analysis, multiply realtion running time by # possible guesses (brute force)
+- key for efficiency: design subproblems so that they are few possible choices/guesses to brute force. 
