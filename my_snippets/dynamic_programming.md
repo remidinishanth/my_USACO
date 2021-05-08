@@ -18,4 +18,5 @@ Existence of recursive solution implies that subproblems are decomposable(this p
 
 Reusing Subproblem Solutions
 * **Top down**: record subproblem solutions in a memo and re-use (recursion+memoization)
+   * easy to prove correct
 * **Bottom up**: solve subproblems in topological sort order(usually via loops)
