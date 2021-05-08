@@ -164,7 +164,7 @@ int shop(int money, int g) {
 }
 ```
 
-Findings which garments has been brought
+Finding which model of garments has been brought
 ```cpp
 void print_shop(int money, int g) { // this function does not return anything
   if (money < 0 || g == C) return;                      // similar base cases
