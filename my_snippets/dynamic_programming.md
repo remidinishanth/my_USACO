@@ -38,3 +38,5 @@ Subproblem design is the hard part, when we are given sequences, often use
 - prefixes S[:i] for all i, O(n)
 - suffiixes S[i:] for all i, O(n)
 - substring S[i:j] for all i<j, O(n^2)
+
+### Relation trick
