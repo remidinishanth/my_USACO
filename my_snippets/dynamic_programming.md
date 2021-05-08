@@ -178,7 +178,44 @@ void print_shop(int money, int g) { // this function does not return anything
 
 #### Bottom-Up DP
 
-We'll need to find topological ordering between the subproblems and solve in this order.
+We'll need to find topological ordering between the subproblems defined in the above recursion and solve in this order.
+
+`reachable[g][rem]` defines can we buy garments starting from g with `rem` amount.
+
+```cpp
+int main(){
+    int i, j, TC, M, C;
+    int price[25][25];                     // price[g (<= 20)][model (<= 20)]
+    bool reachable[25][210];    // reachable table[g (<= 20)][money (<= 200)]
+    scanf("%d", &TC);
+    while (TC--) {
+        scanf("%d %d", &M, &C);
+        for (i = 0; i < C; i++) {
+          scanf("%d", &price[i][0]);               // we store K in price[i][0]
+          for (j = 1; j <= price[i][0]; j++) scanf("%d", &price[i][j]);
+        }
+
+        memset(reachable, false, sizeof reachable);         // clear everything
+        reachable[C][0] = true; // base case
+
+        for(i=C-1;i>=0;i--){ // garment i
+            for(int rem=0;rem<=M;rem++){ // remanining amount to shop
+                for(int model=1;model <= price[i][0]; model++){
+                    if(rem >= price[i][model]){ // can buy this model
+                        reachable[i][rem] |= reachable[i+1][rem - price[i][model]];
+                    }
+                }
+            }
+        }
+
+        for(j=M;j!=-1 && !reachable[0][j];j--);
+
+        if (j == -1) printf("no solution\n");         // last row has on bit
+        else            printf("%d\n", j);
+    }
+    return 0;
+}
+```
 
 CP3 defines these steps as follows:
 
