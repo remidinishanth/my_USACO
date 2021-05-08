@@ -313,11 +313,11 @@ Notice that ∑a[i:j] = ∑a[i:j-1] + a[j],  ∑a[i:j] = ∑a[0:j] - ∑a[0:i-1]
 We can use prefix sums to optimize s[i] = ∑a[0:i], we get O(N^2) solution
 
 ### Attempt 2
-Solution: Choose sub-problem as s[i] = max. sum sub-array ending at a[i]
+Solution: Choose sub-problem as dp[i] = max. sum sub-array ending at a[i]
 
 Optimal sub-structure: if the max. sub-array includes a[i], it starts with the max. sum sub-array ending at a[i] 
 
-Relating subproblems: s[i] = max(s[i - 1] + a[i], a[i]), So we keep adding to the current sub-array
+Relating subproblems: dp[i] = max(dp[i - 1] + a[i], a[i]), So we keep adding to the current sub-array
 until the sub-array sum becomes negative
 
 ```cpp
