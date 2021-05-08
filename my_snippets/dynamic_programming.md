@@ -227,3 +227,36 @@ int main() {
     else            printf("%d\n", M - j);
 } } // return 0;
 ```
+
+There is an advantage for writing DP solutions in the bottom-up fashion. For problems where we only need the last row of the DP table (or, more generally, the last updated slice of all the states) to determine the solution—including this problem, we can optimize the memory usage of our DP solution by sacrificing one dimension in our DP table. For harder DP problems with tight memory requirements, this **‘space saving trick’** may prove to be useful, though the overall time complexity does not change.
+
+```cpp
+// space saving trick
+int main() {
+  int i, j, k, TC, M, C, cur;
+  int price[25][25];
+  bool reachable[2][210]; // reachable table[ONLY TWO ROWS][money (<= 200)]
+  scanf("%d", &TC);
+  while (TC--) {
+    scanf("%d %d", &M, &C);
+    for (i = 0; i < C; i++) {
+      scanf("%d", &price[i][0]);
+      for (j = 1; j <= price[i][0]; j++) scanf("%d", &price[i][j]);
+    }
+    memset(reachable, false, sizeof reachable);
+    for (i = 1; i <= price[0][0]; i++)
+      if (M - price[0][i] >= 0)
+        reachable[0][M - price[0][i]] = true;
+    cur = 1;                                      // we start with this row
+    for (i = 1; i < C; i++) {
+      memset(reachable[cur], false, sizeof reachable[cur]);    // reset row
+      for (j = 0; j < M; j++) if (reachable[!cur][j])        // notice !cur
+        for (k = 1; k <= price[i][0]; k++) if (j - price[i][k] >= 0)
+          reachable[cur][j - price[i][k]] = true;
+      cur = !cur;                                      // flip the two rows
+    }
+    for (j = 0; j <= M && !reachable[!cur][j]; j++);         // notice !cur
+    if (j == M + 1) printf("no solution\n");         // last row has on bit
+    else            printf("%d\n", M - j);
+} } // return 0;
+```
