@@ -315,9 +315,9 @@ We can use prefix sums to optimize s[i] = ∑a[0:i], we get O(N^2) solution
 ### Attempt 2
 Solution: Choose sub-problem as dp[i] = max. sum sub-array ending at a[i]
 
-Optimal sub-structure: if the max. sub-array includes a[i], it starts with the max. sum sub-array ending at a[i] 
+Optimal sub-structure: if the max. sub-array includes a[i], it starts with the max sum sub-array ending at a[i] 
 
-Relating subproblems: dp[i] = max(dp[i - 1] + a[i], a[i]), So we keep adding to the current sub-array
+Relating subproblems: dp[i] = max(dp[i - 1] + a[i], a[i]), So we keep adding to the current element to sub-array
 until the sub-array sum becomes negative
 
 ![image](https://user-images.githubusercontent.com/19663316/117552765-09f56b00-b06b-11eb-9ffa-c85adc3943fa.png)
