@@ -163,3 +163,15 @@ int shop(int money, int g) {
   return ans;                // ans (or memo[money][g]) is directly updated
 }
 ```
+
+Findings which garments has been brought
+```cpp
+void print_shop(int money, int g) { // this function does not return anything
+  if (money < 0 || g == C) return;                      // similar base cases
+  for (int model = 1; model <= price[g][0]; model++)   // which model is opt?
+    if (shop(money - price[g][model], g + 1) == memo[money][g]) { // this one
+      printf("%d - ", price[g][model]);
+      print_shop(money - price[g][model], g + 1); // recurse to this one only
+      break;
+}   }
+```
