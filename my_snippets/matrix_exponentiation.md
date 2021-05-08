@@ -254,7 +254,7 @@ source: <https://zobayer.blogspot.com/2010/11/matrix-exponentiation.html>
 
 source: <https://codeforces.com/blog/entry/67776>
 
-We can use the same efficient exponentiation technique shown above to perform square matrix exponentiation in O(n3 log p). Each matrix multiplication is O(n3). In case of 2×2 Fibonacci matrix,
+We can use the same efficient exponentiation technique shown above to perform square matrix exponentiation in O(n^3 log p). Each matrix multiplication is O(n^3). In case of 2×2 Fibonacci matrix,
 this is just 8 multiplications, thus we can compute fib(p) in O(log p). The iterative implementation
 (for comparison with the recursive implementation shown earlier) is shown below:
 
