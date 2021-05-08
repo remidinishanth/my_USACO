@@ -297,3 +297,41 @@ int main() {
     else            printf("%d\n", M - j);
 } } // return 0;
 ```
+
+## Classical Examples
+
+### Max 1D Range sum
+
+Given an array arr[0], arr[1], . . . , arr[n − 1] of integers, find the interval with the highest sum.  In other words,
+find the maximum Range Sum Query (RSQ) between two indices i and j in [0..n-1], that is: A[i] + A[i+1] + A[i+2] +...+ A[j] 
+
+### Attempt 1
+If we choose a[i:j] as subproblem,
+
+Notice that ∑a[i:j] = ∑a[i:j-1] + a[j],  ∑a[i:j] = ∑a[0:j] - ∑a[0:i-1]
+
+We can use prefix sums to optimize s[i] = ∑a[0:i], we get O(N^2) solution
+
+### Attempt 2
+Solution: Choose sub-problem as s[i] = max. sum sub-array ending at a[i]
+
+Optimal sub-structure: if the max. sub-array includes a[i], it starts with the max. sum sub-array ending at a[i] 
+
+Relating subproblems: s[i] = max(s[i - 1] + a[i], a[i]), So we keep adding to the current sub-array
+until the sub-array sum becomes negative
+
+```cpp
+int main() {
+  int n = 9, A[] = { 4, -5, 4, -3, 4, 4, -4, 4, -5 };   // a sample array A
+  int running_sum = 0, ans = 0;
+  for (int i = 0; i < n; i++)                                       // O(n)
+    if (running_sum + A[i] >= 0) {  // the overall running sum is still +ve
+      running_sum += A[i];
+      ans = max(ans, running_sum);          // keep the largest RSQ overall
+    }
+    else        // the overall running sum is -ve, we greedily restart here
+      running_sum = 0;      // because starting from 0 is better for future
+                           // iterations than starting from -ve running sum
+  printf("Max 1D Range Sum = %d\n", ans);                    // should be 9
+} // return 0;
+```
