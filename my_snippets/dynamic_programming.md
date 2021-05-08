@@ -320,6 +320,11 @@ Optimal sub-structure: if the max. sub-array includes a[i], it starts with the m
 Relating subproblems: dp[i] = max(dp[i - 1] + a[i], a[i]), So we keep adding to the current sub-array
 until the sub-array sum becomes negative
 
+![image](https://user-images.githubusercontent.com/19663316/117552765-09f56b00-b06b-11eb-9ffa-c85adc3943fa.png)
+
+
+Can also be written in memory efficient way as follows
+
 ```cpp
 int main() {
   int n = 9, A[] = { 4, -5, 4, -3, 4, 4, -4, 4, -5 };   // a sample array A
