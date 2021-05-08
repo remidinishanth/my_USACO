@@ -10,8 +10,12 @@ You can think in terms of 5 steps as Erik Demaine describes
 1. Define Subproblems
 2. Relate Subproblems solutions recursively
     * Define/State topological order on subproblems to argue relations are acyclic and form a DAG
-3. Identify Base Cases
+3. Identify Base Cases - State solitions for all (reachable) independent subproblems where relations break down
 4. Solve the original problem
 5. Analyze the running time
 
 Existence of recursive solution implies that subproblems are decomposable(this property is often called optimal substructure property, it is a property of recursion, not just DP).
+
+Reusing Subproblem Solutions
+* **Top down**: record subproblem solutions in a memo and re-use (recursion+memoization)
+* **Bottom up**: solve subproblems in topological sort order(usually via loops)
