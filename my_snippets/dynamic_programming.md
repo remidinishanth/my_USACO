@@ -43,6 +43,7 @@ def f(subprob):
 return orginial
 ```
 
+Dynamic programming formulation
 ```cpp
 map<problem, value> memory;
 
