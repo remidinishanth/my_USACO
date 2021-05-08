@@ -3,16 +3,27 @@
 Dynamic Programming (from now on abbreviated as DP) is perhaps the most challenging
 problem-solving technique among Divide and Conquer, Greedy and complete search paradigms.
 
+* Similar in some respects to both divide and conquer and backtracking
+* Divide and conquer recap:
+   * Split the problem into *independent* subproblems
+   * Solve each subproblem recursively
+   * Combine the solutions to subproblems into a solution for the given problem
+* Dynamic programming:
+   * Split the problem into *overlapping* subproblems
+   * Solve each subproblem recursively
+   * Combine the solutions to subproblems into a solution for the given problem
+   * Don’t compute the answer to the same subproblem more than once
+
 The key skills that we have to develop in order to master DP are the abilities to determine the problem states and to determine the relationships or transitions between current
 problems and their sub-problems.
 
-You can think in terms of 5 steps as Erik Demaine describes
-1. Define Subproblems
-2. Relate Subproblems solutions recursively
-    * Topological order on subproblems to guarantee acyclic relation, subproblems relations should form a DAG
-3. Identify Base Cases - State solitions for all (reachable) independent subproblems where relations break down
-4. Solve the original problem
-5. Analyze the running time
+You can think in terms of SRT - BOT steps as Erik Demaine describes
+1. Define **Subproblems**
+2. **Relate** Subproblems solutions recursively
+    * **Topological** order on subproblems to guarantee acyclic relation, subproblems relations should form a DAG
+3. Identify **Base** Cases - State solitions for all (reachable) independent subproblems where relations break down
+4. Solve the **original** problem
+5. Analyze the running **time**
 
 Existence of recursive solution implies that subproblems are decomposable(this property is often called optimal substructure property, it is a property of recursion, not just DP).
 
