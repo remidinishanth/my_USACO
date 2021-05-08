@@ -160,6 +160,8 @@ printf("%0.10lf\n", lo);
 
 ```cpp
 #define tcT template<class T
+#define tcTU tcT, class U
+
 tcTU> T fstTrue(T lo, T hi, U f) {
 	hi ++; assert(lo <= hi); // assuming f is increasing
 	while (lo < hi) { // find first index such that f is true 
