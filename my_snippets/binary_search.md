@@ -155,6 +155,29 @@ while (hi - lo > EPS) {
 printf("%0.10lf\n", lo);
 ```
 
+
+## Benq's Template
+
+```cpp
+#define tcT template<class T
+tcTU> T fstTrue(T lo, T hi, U f) {
+	hi ++; assert(lo <= hi); // assuming f is increasing
+	while (lo < hi) { // find first index such that f is true 
+		T mid = lo+(hi-lo)/2;
+		f(mid) ? hi = mid : lo = mid+1; 
+	} 
+	return lo;
+}
+tcTU> T lstTrue(T lo, T hi, U f) {
+	lo --; assert(lo <= hi); // assuming f is decreasing
+	while (lo < hi) { // find first index such that f is true 
+		T mid = lo+(hi-lo+1)/2;
+		f(mid) ? lo = mid : hi = mid-1;
+	} 
+	return lo;
+}
+```
+
 ## Topcoder
 
 source: <https://apps.topcoder.com/forums/?module=Thread&threadID=670168&start=0>
