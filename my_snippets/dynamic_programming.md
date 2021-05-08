@@ -175,3 +175,13 @@ void print_shop(int money, int g) { // this function does not return anything
       break;
 }   }
 ```
+
+#### Bottom-Up DP
+
+We'll need to find topological ordering between the subproblems and solve in this order.
+
+CP3 defines these steps as follows:
+
+1. Determine the required set of parameters that uniquely describe the problem (the state). This step is similar to what we have discussed in recursive backtracking and top-down DP earlier.
+2. If there are N parameters required to represent the states, prepare an N dimensional DP table, with one entry per state. This is equivalent to the memo table in top-down DP. However, there are differences. In bottom-up DP, we only need to initialize some cells of the DP table with known initial values (the base cases). Recall that in topdown DP, we initialize the memo table completely with dummy values (usually -1) to indicate that we have not yet computed the values.
+3. Now, with the base-case cells/states in the DP table already filled, determine the cells/states that can be filled next (the transitions). Repeat this process until the DP table is complete. For the bottom-up DP, this part is usually accomplished through iterations, using loops (more details about this later).
