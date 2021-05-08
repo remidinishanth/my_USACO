@@ -43,6 +43,28 @@ def f(subprob):
 return orginial
 ```
 
+```cpp
+map<problem, value> memory;
+
+value dp(problem P) {
+  if (is_base_case(P)) {
+    return base_case_value(P);
+  }
+  
+  if (memory.find(P) != memory.end()) {
+    return memory[P];
+  }
+  
+  value result = some value;
+  for (problem Q in subproblems(P)) {
+    result = combine(result, dp(Q));
+  }
+  
+  memory[P] = result;
+  return result;
+}
+```
+
 ### Subproblem design trick
 
 Subproblem design is the hard part, when we are given sequences, often use
