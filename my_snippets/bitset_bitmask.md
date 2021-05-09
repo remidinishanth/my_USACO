@@ -22,6 +22,23 @@ There are also bitwise shifts `<<` and `>>` operators.
 
 If there is no overflow, an expression `x << b` is equal to `𝑥⋅2^𝑏`, like here we had `(13 << 2) = 52`. An expression `x >> b` is equal to the floor of `𝑥/2^𝑏`.
 
+Consider this problem: You are given 𝑁 ≤ 20 numbers, each up to 10^9. Is there a subset with sum equal to given goal S?
+```
+for(int mask = 0; mask < (1 << n); mask++) {
+	long long sum_of_this_subset = 0;
+	for(int i = 0; i < n; i++) {
+		if(mask & (1 << i)) {
+			sum_of_this_subset += a[i];
+		}
+	}
+	if(sum_of_this_subset == S) {
+		puts("YES");
+		return 0;
+	}
+}
+puts("NO");
+```
+
 Use helpers
 
 ```cpp
