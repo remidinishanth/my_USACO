@@ -339,3 +339,34 @@ int main() {
   printf("Max 1D Range Sum = %d\n", ans);                    // should be 9
 } // return 0;
 ```
+
+### Longest Increasing Subsequence (LIS)
+
+Given a sequence {A[0], A[1],..., A[n-1]},, find the longest subsequence that strictly increases.  Example:
+n = 8, A = {−7, 10, 9, 2, 3, 8, 8, 1}. The length-4 LIS is {-7, 2, 3, 8}.
+
+### Attempt:
+
+- Subproblems: L(i) = LIS(A[i:])
+- Relate L(i) ?= max{L(i+1) don't include A[i], 1+L(i+1) include A[i]}
+  * How can we guarantee increasing subsequence?
+  * No way to constrain smaller subproblem...
+
+### Subproblem constraints
+
+Solve a more specific problem(add constraints) to enable relation
+
+### Solution
+
+- Subproblems: L(i) = LIS of A[i:] such that starts with (includes) A[i]
+- Relate L(i) = max {1+L(j) | i < j ≤ |A|, A[i] < A[j]} U {1} (increase impossible)
+  * nonconstant branching(like DAG Shortest paths but unlike other DPs)
+- Topological ordering: for i = |A|, ..., 0
+- Base case: L(|A|) = 0
+- Original problem: max{L(i) | 0 <= i < |A|}
+  * Where to start? guess/brute-force options
+- Time: O(n) subproblems * O(n) non-recursive work in relation = O(n^2)  
+
+Topological ordering
+![image](https://user-images.githubusercontent.com/19663316/117561389-020de900-b0b4-11eb-87c7-240dce1d7643.png)
+
