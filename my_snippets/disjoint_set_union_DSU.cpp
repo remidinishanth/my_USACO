@@ -21,12 +21,11 @@ void merge(int x,int y){	//	x and y are some tools (vertices)
 
 // source: kmjp https://kmjp.hatenablog.jp/entry/2020/06/18/0900
 // https://codeforces.com/contest/1278/submission/67749296
-#define FOR(x,to) for(x=0;x<(to);x++)
 template<int um> class UF {
 	public:
 	vector<int> par,rank,cnt;
 	UF() {par=rank=vector<int>(um,0); cnt=vector<int>(um,1); for(int i=0;i<um;i++) par[i]=i;}
-	void reinit() {int i; FOR(i,um) rank[i]=0,cnt[i]=1,par[i]=i;}
+	void reinit() {for(int i=0;i<um;i++) rank[i]=0,cnt[i]=1,par[i]=i;}
 	int operator[](int x) {return (par[x]==x)?(x):(par[x] = operator[](par[x]));}
 	int count(int x) { return cnt[operator[](x)];}
 	int operator()(int x,int y) {
