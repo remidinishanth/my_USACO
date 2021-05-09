@@ -111,7 +111,7 @@ int main(){
             // elements in a group differ by A[i]
 	    // Find optimal solution using sliding window minimum for windows of size C[i]
             for(int w=j,id=0; w<=77777; w+=A[i],id++){
-	    	// array ai = opt[w], array bi = opt[w] - id
+	    	// array ai = opt[w]; array bi = opt[w] - id; id - index of elements in array ai, bi
                 while(l<=r && id-qid[l]>C[i]) l++; // if window size >= C[i], remove elements from left
                 if(l<=r) tmp[w] = que[l] + id; // if queue is not empty, optimal value is min in window
                 while(l<=r && opt[w]-id<=que[r]) r--; // pop all elements greater than current value
