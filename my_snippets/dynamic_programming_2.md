@@ -13,3 +13,34 @@ And this, in turn, is a well-known problem that is solvable in O(size of array) 
 Is it well-known that bounded knapsack is solvable in O(W*n) worst-case?
 
 source: https://petr-mitrichev.blogspot.com/2011/07/integral-bounded-knapsack-problem.html
+
+### Elaborate explanation
+
+In the above DP, `dp[k][w] = max(dp[k-1,w], dp[k-1,w-wk]+ck, dp[k-1, w-2*wk]+2*ck..., dp[k-1,w-uk*wk]+uk*ck)`
+
+An interesting observation is that we only deal with every wk-th element from the previous array to decide on any element in the current array.
+
+Let us for a minute ignore the fact that we have only a fixed number of items of each type and instead assume that we have an infinite number of items of each type. Let us assume that item i weighs 3 and costs 9. If we make that assumption, we see that the best solution at DPk, 12 is represented by taking the maximum of the cells colored in green below.
+
+![image](https://user-images.githubusercontent.com/19663316/117568034-3f866c80-b0dc-11eb-92ac-bf7348b72b01.png)
+
+What we have essentially done is added:
+`0*9` to DP(k-1), 12
+`1*9` to DP(k-1), 9
+`2*9` to DP(k-1), 6
+`3*9` to DP(k-1), 3 and
+`4*9` to DP(k-1), 0
+
+The problem has reduced to finding the maximum value among all the values of the array that is formed by picking every wk-th element from the previous best solution and adding some multiple of ck to it.
+
+We also notice that it doesn't matter what values we add to DP(k-1), w (for the kth item) as long as they are ck apart. Hence, if the weight of the knapsack is W and the weight of the kth item is wk, we can add the following to every wkth element in the previous array.
+
+![image](https://user-images.githubusercontent.com/19663316/117568185-a6a42100-b0dc-11eb-88f2-0215827d37c1.png)
+
+If we now reintroduce the requirement that each item type will have only a bounded or fixed number of instances (i.e. uk is bounded), then the problem reduces to finding the maximum value in every window of size uk in the array we just computed. This can easily be done by pre-processing the array to maintain the largest element in every window of size uk.
+
+However, the actual value of the cost at any cell needs to be computed by adding back any differential that we may have subtracted to ensure that every entry is ck apart and that the first entry is the one which has the maximum multiple of ck subtracted from it. For the jth array element in the current sub-array we are processing, this value will be `(W/wk - j)*ck` (since we have subtracted that much extra from those elements, we must now add it back).
+
+Hence, we can safely say that we shall have wk different sub-problems that we shall try to solve assuming that we can use a single computation for every wkth element.
+
+This allows us to find the value at every cell of the (k x W) matrix is amortized time O(1) (we have amortized the cost of pre-computing the wk arrays across all the element accesses). This makes the total running time of this algorithm `O(W*n)`.
