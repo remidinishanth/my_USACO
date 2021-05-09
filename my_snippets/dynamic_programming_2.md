@@ -73,6 +73,7 @@ for(int i = 0; i < n; i++)
     dp |= dp << a[i];
 cout << dp.count() << '\n';
 ```
+source: https://codeforces.com/blog/entry/45576?#comment-302358
 
 ### Bounded Knapsack
 
