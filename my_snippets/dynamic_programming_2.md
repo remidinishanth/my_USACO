@@ -100,7 +100,7 @@ int main(){
         C.push_back(x.second); // number of such components
     }
 
-    for(int i=1;i<=77777;i++) opt[i] = oo;
+    for(int i=1;i<=77777;i++) opt[i] = oo; // 77777 is the largest lucky number <= maxn
 
     for(int i=0;i<A.size();i++){
     	// opt[j] corresponds to dp[i-1][j], tmp[j] to dp[i][j]
