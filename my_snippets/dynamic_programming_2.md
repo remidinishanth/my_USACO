@@ -6,7 +6,7 @@ The best algorithm I could find on the Internet has complexity `O(W*n*log(max(ui
 
 However, when this problem was given at a [Codeforces contest](https://codeforces.com/problemset/problem/95/E), several people came up with a `O(W*n)` solution for this problem. First, we start with the standard dynamic programming solution: let `dp[k,w]` be the best cost that we can get by packing the total weight of w using the first k item types. Each new type is then handled as follows: `dp[k][w] = min(dp[k-1,w], dp[k-1,w-wk]+ck, ..., dp[k-1,w-uk*wk]+uk*ck)`. This dynamic programming has `O(W*n)` states, and each state is processed in `O(max(ui))`.
 
-But we can process each state in O(1) amortized time! Let's take a look at the above recurrence. First, we notice that we can separate all values of w into wk groups, based on the remainder of division on wk, and those groups can be handled separately. Then, for each group, the problem we need to solve is to find `min(ai, ai-1+c, ai-2+2*c, ..., ai-k+k*c)`. By setting `bi=ai-i*c`, this expression is transformed into `min(bi+i*c,bi-1+(i-1)*c+c, ...)`, which is just `i*c+min(bi, bi-1, ..., bi-k)`. Thus our problem is reduced to finding minimums of groups of k+1 consecutive numbers in a given array.
+But we can process each state in O(1) amortized time! Let's take a look at the above recurrence. First, we notice that we can separate all values of w into wk groups, based on the remainder of division on wk, and those groups can be handled separately. Then, for each group, the problem we need to solve is to find `min(a[i], a[i-1]+c, a[i-2]+2*c, ..., a[i-k]+k*c)`. By setting `bi=ai-i*c`, this expression is transformed into `min(bi+i*c,b[i-1]+(i-1)*c+c, ...)`, which is just `i*c+min(bi, b[i-1], ..., b[i-k])`. Thus our problem is reduced to finding minimums of groups of k+1 consecutive numbers in a given array.
 
 And this, in turn, is a well-known problem that is solvable in O(size of array) using one of the two methods: we can either maintain a sequence of incremental (from the end) minima for a segment of size k+1 and update it quickly when we shift one position to the right, or we can just separate the entire array into blocks of size k+1, and calculate the prefix and suffix minima for each block - this allows to find the minimum for any block of size k+1 by splitting it into two blocks with precomputed answers.
 
@@ -28,7 +28,7 @@ What we have essentially done is added: `0*9` to `dp[k-1, 12]`, `1*9` to `dp[k-1
 
 The problem has reduced to finding the maximum value among all the values of the array that is formed by picking every wk-th element from the previous best solution and adding some multiple of ck to it.
 
-We also notice that it doesn't matter what values we add to DP(k-1), w (for the kth item) as long as they are ck apart. Hence, if the weight of the knapsack is W and the weight of the kth item is wk, we can add the following to every wkth element in the previous array.
+We also notice that it doesn't matter what values we add to dp[k-1, w] (for the kth item) as long as they are ck apart. Hence, if the weight of the knapsack is W and the weight of the kth item is wk, we can add the following to every wk-th element in the previous array.
 
 ![image](https://user-images.githubusercontent.com/19663316/117568185-a6a42100-b0dc-11eb-88f2-0215827d37c1.png)
 
