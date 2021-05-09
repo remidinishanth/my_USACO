@@ -48,6 +48,12 @@ One night Petya was sleeping. He was dreaming of being the president of some isl
 
 As a real president, Petya first decided to build a presidential palace. Being a lucky numbers' fan, Petya wants to position his palace in one of the lucky regions. However, it is possible that initially the country has no such regions. In this case Petya can build additional roads between different regions, thus joining them. Find the minimum number of roads needed to build to create a lucky region.
 
+#### Input
+The first line contains two integers n and m (1 ≤ n, m ≤ 10^5). They are the number of islands and the number of roads correspondingly. Next m lines contain road descriptions. Each road is defined by the numbers of islands that it connects: that is, by two integers u and v (1 ≤ u, v ≤ n). Some roads can connect an island with itself; there can be more than one road between a pair of islands. Numbers in each line are separated by exactly one space character.
+
+#### Output
+If there's no solution, output the only number "-1" (without the quotes). Otherwise, output the minimum number of roads r that need to be built to get a lucky region.
+
 #### Solution
 
 Let's first find the different sizes of regions(connected components), we might have more than one component of a particular size.
