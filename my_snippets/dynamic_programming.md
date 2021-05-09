@@ -407,7 +407,7 @@ set<int> st;
 set<int>::iterator it;
 ...
 st.clear();
-for(i=0; i<n; i++)
+for(i = 0; i < n; i++)
 {
   st.insert(a[i]); it=st.find(A[i]);
   it++; if(it!=st.end()) st.erase(it);
