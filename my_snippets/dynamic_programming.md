@@ -367,6 +367,26 @@ Solve a more specific problem(add constraints) to enable relation
   * Where to start? guess/brute-force options
 - Time: O(n) subproblems * O(n) non-recursive work in relation = O(n^2)  
 
-Topological ordering
-![image](https://user-images.githubusercontent.com/19663316/117561389-020de900-b0b4-11eb-87c7-240dce1d7643.png)
+Can also be solved using subproblem L[:i], which is simple to code
 
+![image](https://user-images.githubusercontent.com/19663316/117561454-a4c66780-b0b4-11eb-9c35-1d5cbbdd35e6.png)
+
+```cpp
+vector<int> A(n);
+//read A
+vector<int> lis(n);
+for(int i=0;i<n;i++){
+  int res = 1; // base case
+  for(int j=0;j<i;j++){
+    if(A[j]<A[i]){
+      res = max(res, 1+lis[i]};
+    }
+  }
+  lis[i] = res;
+}
+int mx = 0;
+for(int i=0;i<n;i++){
+  mx = max(mx, lis[i]);
+}
+// mx is answer
+```
