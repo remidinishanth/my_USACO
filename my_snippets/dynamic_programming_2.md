@@ -46,7 +46,7 @@ If there's no solution, output the only number "-1" (without the quotes). Otherw
 
 Let's first find the different sizes of regions(connected components), we might have more than one component of a particular size.
 
-Let A[i] - sorted array of sizes of different connection components, C[i] – number of connection components of size A[i], This is similar to Bounded knapsack problem. `Sum for all C[i]*A[i]` is equal to N. Size of A will be O(sqrt(N)).
+Let A[i] - sorted array of sizes of different connection components, C[i] – number of connection components of size A[i], This is similar to Bounded knapsack problem. `Sum for all C[i]*A[i]` is equal to N. Size of A will be O(sqrt(N)) because each entry of A[i] is unique and increasing.
 
 ```cpp
 const int maxn = 100000+10; // 1e5 + 10
