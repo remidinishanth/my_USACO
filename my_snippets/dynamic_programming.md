@@ -403,14 +403,14 @@ Let array L be an array such that L(i) represents the smallest ending value of a
 
 Using the same example `n = 8`, `A = {−7, 10, 9, 2, 3, 8, 8, 1}` , we will update array L step by step using this algorithm:
 * Initially, at `A[0] = -7`, we have `L = {-7}`.
-* We can insert `A[1] = 10` at L[1] so that we have a length-2 LIS, `L = {-7, 10}`.
-* For `A[2] = 9`, we replace L[1] so that we have a ‘better’ length-2 LIS ending: `L = {-7, 9}`. This is a greedy strategy. By storing the LIS with smaller ending value, we maximize our ability to further extend the LIS with future values.
-* For `A[3] = 2`, we replace L[1] to get an ‘even better’ length-2 LIS ending: `L = {-7, 2}`.
-* We insert `A[4] = 3` at L[2] so that we have a longer LIS, `L = {-7, 2, 3}`.
-* We insert `A[5] = 8` at L[3] so that we have a longer LIS, `L = {-7, 2, 3, 8}`.
-* For `A[6] = 8`, nothing changes as L[3] = 8. `L = {-7, 2, 3, 8}` remains unchanged.
-* For `A[7] = 1`, we improve L[1] so that `L = {-7, 1, 3, 8}`. This illustrates how the array L is not the LIS of A. This step is important as there can be longer subsequences in the future that may extend the length-2 subsequence at L[1] = 1.
-* The answer is the largest length of the sorted array L at the end of the process.
+* We can insert `A[1] = 10` at `L[1]` so that we have a length-2 LIS, `L = {-7, 10}`.
+* For `A[2] = 9`, we replace `L[1]` so that we have a ‘better’ length-2 LIS ending: `L = {-7, 9}`. This is a greedy strategy. By storing the LIS with smaller ending value, we maximize our ability to further extend the LIS with future values.
+* For `A[3] = 2`, we replace `L[1]` to get an ‘even better’ length-2 LIS ending: `L = {-7, 2}`.
+* We insert `A[4] = 3` at `L[2]` so that we have a longer LIS, `L = {-7, 2, 3}`.
+* We insert `A[5] = 8` at `L[3]` so that we have a longer LIS, `L = {-7, 2, 3, 8}`.
+* For `A[6] = 8`, nothing changes as `L[3] = 8`. `L = {-7, 2, 3, 8}` remains unchanged.
+* For `A[7] = 1`, we improve `L[1]` so that `L = {-7, 1, 3, 8}`. This illustrates how the array L is not the LIS of A. This step is important as there can be longer subsequences in the future that may extend the length-2 subsequence at `L[1] = 1`.
+* The answer is the largest length of the sorted array `L` at the end of the process.
 
 Using cpp set
 ```cpp
