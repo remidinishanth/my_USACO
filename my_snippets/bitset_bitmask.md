@@ -52,6 +52,13 @@ inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; }
 
 `cout << bitset<8>(x);` prints a number after converting it into a bitset, which can be printed. More about this in next section.
 
+## Built-in functions
+
+In C++, `__builtin_popcount(x)` returns popcount of a number — the number of ones in the binary representation of 𝑥. Use `__builtin_popcountll(x)` for long longs.
+
+There are also `__builtin_clz` and `__builtin_ctz` (and their long long versions) for counting the number of leading or trailing zeros in a positive number. Read more [here](https://www.geeksforgeeks.org/builtin-functions-gcc-compiler/). To compute the biggest power of 2 that is a divisor of x, e.g f(12) = 4, we can simply use `1 << __builtin_ctz(x)`. We can solve it in `O(logx)` with simple while-loops which is more intuitive.
+
+source: https://codeforces.com/blog/entry/73558
 
 ## Motivation behind bitsets
 
