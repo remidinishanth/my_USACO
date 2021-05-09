@@ -79,6 +79,8 @@ Subproblem design is the hard part, when we are given sequences, often use
 - suffiixes S[i:] for all i, O(n)
 - substring S[i:j] for all i<j, O(n^2)
 
+Think in terms of what all variables is required to maintain the state.
+
 ### Relation trick
 
 Identify part of the subproblem solution that, if you knew, reduces the subproblem to smaller subproblem(s).
