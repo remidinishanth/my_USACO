@@ -35,6 +35,17 @@ for (int k = 1; k <= n; k++) {
 }
 ```
 
+However, here is a better implementation that only uses a one-dimensional array `possible[x]` that indicates whether we can construct a subset with sum x. The trick is to update the array from right to left for each new weight:
+
+```cpp
+possible[0] = true;
+	for (int k = 1; k <= n; k++) {
+		for (int x = W; x >= 0; x--) {
+			if (possible[x]) possible[x+w[k]] = true;
+	}
+}
+```
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
