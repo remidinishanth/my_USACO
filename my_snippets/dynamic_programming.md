@@ -14,6 +14,11 @@ problem-solving technique among Divide and Conquer, Greedy and complete search p
    * Combine the solutions to subproblems into a solution for the given problem
    * Don’t compute the answer to the same subproblem more than once
 
+Dynamic programming can be generally used to solve the following type of problems:
+  * Count something(combinatorics), often the number of ways
+  * Minimize or maximize certain value
+  * Yes/No questions, whether something is possible.
+
 The key skills that we have to develop in order to master DP are the abilities to determine the problem states and to determine the relationships or transitions between current
 problems and their sub-problems.
 
