@@ -80,7 +80,7 @@ int main(){
         int x, y;
         scanf("%d%d", &x, &y);
         x--;y--;
-        uf(x,y);
+        uf(x,y); // to find component sizes
     }
     
     lucky[0] = 1;
