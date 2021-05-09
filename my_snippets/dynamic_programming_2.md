@@ -1,3 +1,40 @@
+### Knapsack Problems
+
+The term knapsack refers to problems where a set of objects is given, and subsets with some properties have to be found. Knapsack problems can often be solved using dynamic programming.
+
+In this section, we focus on the following problem: Given a list of weights `[w1,w2,...,wn]`, determine all sums that can be constructed using the weights. This can also be thought as subset sum problem.
+
+For example, if the weights are [1,3,3,5], the following sums are possible:
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| X | X |   | X | X | X | X | X | X | X |    | X  | X  |
+
+In this case, all sums between 0...12 are possible, except 2 and 10. For example, the sum 7 is possible because we can select the weights [1,3,3].
+
+Subproblems: possible(x,k) = true if we can construct a sum x using the first k weights.
+
+Relate:
+
+	possible(x,k) = possible(x−wk,k −1) V possible(x,k −1)
+
+The formula is based on the fact that we can either use or not use the weight wk
+in the sum. If we use wk, the remaining task is to form the sum x−wk using the
+first k−1 weights, and if we do not use wk, the remaining task is to form the sum
+x using the first k −1 weights.
+
+Let W denote the total sum of the weights. The following O(nW) time dynamic programming solution corresponds to the recursive function:
+
+```cpp
+possible[0][0] = true;
+for (int k = 1; k <= n; k++) {
+	for (int x = 0; x <= W; x++) {
+		if (x-w[k] >= 0) possible[x][k] |= possible[x-w[k]][k-1];
+			possible[x][k] |= possible[x][k-1];
+	}
+}
+```
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
