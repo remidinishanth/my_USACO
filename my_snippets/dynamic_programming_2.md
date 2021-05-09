@@ -107,6 +107,7 @@ int main(){
         for(int j=0;j<A[i];j++){
             int l=1,r=0;
             // elements in a group differ by A[i]
+	    // Find optimal solution using sliding window minimum for windows of size C[i]
             for(int w=j,id=0; w<=77777; w+=A[i],id++){
                 while(l<=r && id-qid[l]>C[i]) l++; // if window size >= C[i]
                 if(l<=r) tmp[w] = que[l] + id; // optimal value is min in window
