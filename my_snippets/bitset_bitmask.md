@@ -152,6 +152,30 @@ The complexity of bitwise operations is 𝑂(size/32) or 𝑂(size/64), it depen
 The benefit of using bitsets is that they require less memory than ordinary arrays, because each element in a bitset only uses one bit of memory. For
 example, if n bits are stored in an int array, 32n bits of memory will be used, but a corresponding bitset only requires n bits of memory. In addition, the values of a bitset can be efficiently manipulated using bit operators, which makes it possible to optimize algorithms using bit sets.
 
+### Bonus
+
+```cpp
+bitset<17>BS;
+BS[1] = BS[7] = 1;
+cout<<BS._Find_first()<<endl; // prints 1
+```
+
+After more research , we found `bs._Find_next(idx)`. This function returns first set bit after index `idx`. for example:
+```cpp
+bitset<17>BS;
+BS[1] = BS[7] = 1;
+cout<<BS._Find_next(1)<<','<<BS._Find_next(3)<<endl; // prints 7,7
+```
+
+So this code will print all of the set bits of BS:
+```cpp
+for(int i=BS._Find_first();i< BS.size();i = BS._Find_next(i))
+    cout<<i<<endl;
+```    
+Note that there isn't any set bit after idx, `BS._Find_next(idx)` will return `BS.size()`; same as calling `BS._Find_first()` when bitset is clear;
+
+source: https://codeforces.com/blog/entry/43718
+
 ## Problems
 
 **P1. Different numbers** — You are given a sequence of 𝑁 ≤ 10^7 numbers, each from interval [0,10<sup>9</sup>]. How many different values appear in the sequence? 
