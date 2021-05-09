@@ -59,3 +59,87 @@ If there's no solution, output the only number "-1" (without the quotes). Otherw
 Let's first find the different sizes of regions(connected components), we might have more than one component of a particular size.
 
 Let A[i] - sorted array of sizes of different connection components, C[i] – number of connection components of size A[i], This is similar to Bounded knapsack problem.
+
+```cpp
+const int maxn = 100000+10; // 1e5 + 10
+const int oo=100000000; // 1e8
+int que[maxn];
+int qid[maxn];
+int opt[maxn];
+int tmp[maxn];
+bool lucky[maxn];
+
+template<int um> class UF {
+	public:
+	vector<int> par,rank,cnt;
+	UF() {par=rank=vector<int>(um,0); cnt=vector<int>(um,1); for(int i=0;i<um;i++) par[i]=i;}
+	void reinit() { for(int i=0;i<um; i++) rank[i]=0,cnt[i]=1,par[i]=i;}
+	int operator[](int x) {return (par[x]==x)?(x):(par[x] = operator[](par[x]));}
+	int count(int x) { return cnt[operator[](x)];}
+	int operator()(int x,int y) {
+		if((x=operator[](x))==(y=operator[](y))) return x;
+		cnt[y]=cnt[x]=cnt[x]+cnt[y];
+		if(rank[x]>rank[y]) return par[x]=y;
+		rank[x]+=rank[x]==rank[y]; return par[y]=x;
+	}
+};
+
+int main(){
+    int n,m;
+    scanf("%d%d",&n, &m);
+    UF<maxn> uf;
+    for(int i=0;i<m;i++){
+        int x, y;
+        scanf("%d%d", &x, &y);
+        x--;y--;
+        uf(x,y);
+    }
+    
+    lucky[0] = 1;
+    for(int k=1;k<maxn;k++){
+        lucky[k] = (k%10==4 || k%10==7) ? lucky[k/10] : 0;
+    }
+    
+    map<int,int> M;
+    for(int i=0;i<n;i++)
+        if(uf.par[i] == i) M[uf.cnt[i]]++;
+
+    vector<int> A,C;
+    for(pair<int,int> x:M){
+        A.push_back(x.first); // component size
+        C.push_back(x.second); // number of such components
+    }
+
+    for(int i=1;i<=77777;i++) opt[i] = oo;
+
+    for(int i=0;i<A.size();i++){
+        for(int j=0;j<=77777;j++) tmp[j] = oo;
+
+        // groups based on remainder mod A[i]
+        for(int j=0;j<A[i];j++){
+            int l=1,r=0;
+            // elements in a group differ by A[i]
+            for(int k=j,id=0; k<=77777; k+=A[i],id++){
+                while(l<=r && id-qid[l]>C[i]) l++; // if window size >= C[i]
+                if(l<=r) tmp[k] = que[l] + id;
+                while(l<=r && opt[k]-id<=que[r]) r--;
+                que[++r] = opt[k]-id; qid[r]=id;
+            }
+        }
+
+        for(int j=0;j<=77777;j++)
+            opt[j] = min(opt[j], tmp[j]);
+    }
+
+
+    int res=n+1;
+    for(int i=1;i<=77777;i++){
+        if(lucky[i]){
+            res = min(res, opt[i]);
+        }
+    }
+    if(res==n+1) printf("-1\n");
+    else printf("%d\n", res-1);
+    return 0;
+}
+```
