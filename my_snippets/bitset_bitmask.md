@@ -52,7 +52,7 @@ inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; }
 
 `m & (m-1)` turns off the lowest bit that was set to 1 in a positive number 𝑚. For example, we get 24 for 𝑚=26, as 11010 changes into 11000.
 
-Given a bitmask m, you want to efficiently iterate through all of its submasks, that is, masks s in which only bits that were included in mask m are set.
+Given a bitmask m, you want to efficiently iterate through all of its submasks, that is, masks s in which only bits that were included in mask m are set. https://cp-algorithms.com/algebra/all-submasks.html
 ```
 for (int s=m; s; s=(s-1)&m)
     ... you can use s ...
