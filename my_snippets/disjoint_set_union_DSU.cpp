@@ -21,6 +21,7 @@ void merge(int x,int y){	//	x and y are some tools (vertices)
 
 // source: kmjp https://kmjp.hatenablog.jp/entry/2020/06/18/0900
 // https://codeforces.com/contest/1278/submission/67749296
+#define FOR(x,to) for(x=0;x<(to);x++)
 template<int um> class UF {
 	public:
 	vector<int> par,rank,cnt;
