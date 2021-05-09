@@ -375,17 +375,17 @@ Can also be solved using subproblem L[:i], which is simple to code
 vector<int> A(n);
 //read A
 vector<int> lis(n);
-for(int i=0;i<n;i++){
+for(int i = 0; i < n; i++){
   int res = 1; // base case
-  for(int j=0;j<i;j++){
-    if(A[j]<A[i]){
-      res = max(res, 1+lis[i]};
+  for(int j = 0; j < i; j++){
+    if(A[j] < A[i]){
+      res = max(res, 1 + lis[i]};
     }
   }
   lis[i] = res;
 }
 int mx = 0;
-for(int i=0;i<n;i++){
+for(int i = 0; i < n; i++){
   mx = max(mx, lis[i]);
 }
 // mx is answer
