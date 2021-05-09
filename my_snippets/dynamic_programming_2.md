@@ -39,3 +39,17 @@ However, the actual value of the cost at any cell needs to be computed by adding
 Hence, we can safely say that we shall have wk different sub-problems that we shall try to solve assuming that we can use a single computation for every wkth element.
 
 This allows us to find the value at every cell of the (k x W) matrix is amortized time O(1) (we have amortized the cost of pre-computing the wk arrays across all the element accesses). This makes the total running time of this algorithm `O(W*n)`.
+
+### CF Problem
+
+Petya loves lucky numbers. Everybody knows that positive integers are lucky if their decimal representation doesn't contain digits other than 4 and 7. For example, numbers 47, 744, 4 are lucky and 5, 17, 467 are not.
+
+One night Petya was sleeping. He was dreaming of being the president of some island country. The country is represented by islands connected by two-way roads. Between some islands there is no road way, even through other islands, that's why the country is divided into several regions. More formally, each island belongs to exactly one region, there is a path between any two islands located in the same region; there is no path between any two islands from different regions. A region is lucky if the amount of islands in it is a lucky number.
+
+As a real president, Petya first decided to build a presidential palace. Being a lucky numbers' fan, Petya wants to position his palace in one of the lucky regions. However, it is possible that initially the country has no such regions. In this case Petya can build additional roads between different regions, thus joining them. Find the minimum number of roads needed to build to create a lucky region.
+
+#### Solution
+
+Let's first find the different sizes of regions(connected components), we might have more than one component of a particular size.
+
+Let A[i] - sorted array of sizes of different connection components, C[i] – number of connection components of size A[i], This is similar to Bounded knapsack problem.
