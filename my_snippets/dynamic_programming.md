@@ -571,3 +571,7 @@ int dp(int id, int remW) {
         }
       ans += C[N][MW];
 ```
+Note: The top-down version of this DP solution is often faster than the bottom-up
+version. This is because not all states are actually visited, and hence the critical DP states
+involved are actually only a (very small) subset of the entire state space. Remember: The
+top-down DP only visits the required states whereas bottom-up DP visits all distinct states.
