@@ -131,7 +131,7 @@ example, if n bits are stored in an int array, 32n bits of memory will be used, 
 
 ## Problems
 
-**P1. Different numbers** — You are given a sequence of 𝑁≤107 numbers, each from interval [0,10<sup>9</sup>]. How many different values appear in the sequence? 
+**P1. Different numbers** — You are given a sequence of 𝑁 ≤ 10^7 numbers, each from interval [0,10<sup>9</sup>]. How many different values appear in the sequence? 
 Don't use set or unordered_set because they quite slow.
 
 <details>
