@@ -107,11 +107,11 @@ int main(){
         for(int j=0;j<A[i];j++){
             int l=1,r=0;
             // elements in a group differ by A[i]
-            for(int k=j,id=0; k<=77777; k+=A[i],id++){
+            for(int w=j,id=0; w<=77777; w+=A[i],id++){
                 while(l<=r && id-qid[l]>C[i]) l++; // if window size >= C[i]
-                if(l<=r) tmp[k] = que[l] + id;
-                while(l<=r && opt[k]-id<=que[r]) r--;
-                que[++r] = opt[k]-id; qid[r]=id;
+                if(l<=r) tmp[w] = que[l] + id;
+                while(l<=r && opt[w]-id<=que[r]) r--;
+                que[++r] = opt[w]-id; qid[r]=id;
             }
         }
 
