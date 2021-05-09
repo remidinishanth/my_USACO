@@ -320,6 +320,8 @@ Optimal sub-structure: if the max. sub-array includes a[i], it starts with the m
 Relating subproblems: dp[i] = max(dp[i - 1] + a[i], a[i]), So we keep adding to the current element to sub-array
 until the sub-array sum becomes negative
 
+Solution to orginal problem will be max{dp[i]} for 0 ≤ i < n
+
 Can also be written in memory efficient way as follows
 
 ```cpp
