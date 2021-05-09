@@ -2,7 +2,9 @@
 
 The term knapsack refers to problems where a set of objects is given, and subsets with some properties have to be found. Knapsack problems can often be solved using dynamic programming.
 
-In this section, we focus on the following problem: Given a list of weights `[w1,w2,...,wn]`, determine all sums that can be constructed using the weights. This can also be thought as subset sum problem.
+In this section, we focus on the following problem: Given a list of weights `[w1,w2,...,wn]`, determine all sums that can be constructed using the weights. 
+
+This can also be thought as subset sum problem.  Given a set of integers and an integer S, is there a (non-empty) subset that has a sum equal to S?
 
 For example, if the weights are [1,3,3,5], the following sums are possible:
 
