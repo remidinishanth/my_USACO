@@ -533,3 +533,30 @@ for(i = 0; i < n; i++)
 }
 cout<<st.size()<<endl;
 ```
+
+### 0-1 Knapsack
+
+Problem: Given n items, each with its own value Vi and weight Wi, ∀i ∈ [0..n-1], and a maximum knapsack size S, compute the maximum value of the items that we can carry, if we can either ignore or take a particular item (hence the term 0-1 for ignore/take).
+
+Example: n = 4, V = {100, 70, 50, 10}, W = {10, 4, 6, 12}, S = 12.\
+If we select item 0 with weight 10 and value 100, we cannot take any other item. Not optimal.\
+If we select item 3 with weight 12 and value 10, we cannot take any other item. Not optimal.\
+If we select item 1 and 2, we have total weight 10 and total value 120. This is the maximum.
+
+```cpp
+const int MAX_N = 1010;
+const int MAX_W = 40;
+
+int N, V[MAX_N], W[MAX_N], memo[MAX_N][MAX_W];
+
+int dp(int id, int remW) {
+  if ((id == N) || (remW == 0)) return 0;        // two base cases
+  int &ans = memo[id][remW];
+  if (ans != -1) return ans;                     // computed before
+  if (W[id] > remW) return ans = dp(id+1, remW); // no choice, skip
+  return ans = max(dp(id+1, remW),               // has choice, skip
+                   V[id]+dp(id+1, remW-W[id]));  // or take
+}
+
+// dp(0, MW); solution to original problem
+```
