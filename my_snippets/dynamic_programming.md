@@ -562,7 +562,7 @@ int dp(int id, int remW) {
 ```
 
 Bottom-up
-```
+```cpp
 // inside main
       for (int i = 1; i<= N; ++i) // Values are stored from 1 to N
         scanf("%d %d", &V[i], &W[i]);
