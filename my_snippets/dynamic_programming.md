@@ -559,4 +559,15 @@ int dp(int id, int remW) {
 }
 
 // dp(0, MW); solution to original problem
+
+// Bottom-up
+// inside main
+      for (int i = 0; i <= N;  ++i) C[i][0] = 0;
+      for (int w = 0; w <= MW; ++w) C[0][w] = 0;
+      for (int i = 1; i <= N; ++i)
+        for (int w = 1; w <= MW; ++w) {
+          if (W[i] > w) C[i][w] = C[i-1][w];
+          else          C[i][w] = max(C[i-1][w], V[i] + C[i-1][w-W[i]]);
+        }
+      ans += C[N][MW];
 ```
