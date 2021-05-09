@@ -28,18 +28,6 @@ What we have essentially done is added: `0*9` to `dp[k-1, 12]`, `1*9` to `dp[k-1
 
 The problem has reduced to finding the maximum value among all the values of the array that is formed by picking every wk-th element from the previous best solution and adding some multiple of ck to it.
 
-We also notice that it doesn't matter what values we add to dp[k-1, w] (for the kth item) as long as they are ck apart. Hence, if the weight of the knapsack is W and the weight of the kth item is wk, we can add the following to every wk-th element in the previous array.
-
-![image](https://user-images.githubusercontent.com/19663316/117568185-a6a42100-b0dc-11eb-88f2-0215827d37c1.png)
-
-If we now reintroduce the requirement that each item type will have only a bounded or fixed number of instances (i.e. uk is bounded), then the problem reduces to finding the maximum value in every window of size uk in the array we just computed. This can easily be done by pre-processing the array to maintain the largest element in every window of size uk.
-
-However, the actual value of the cost at any cell needs to be computed by adding back any differential that we may have subtracted to ensure that every entry is ck apart and that the first entry is the one which has the maximum multiple of ck subtracted from it. For the jth array element in the current sub-array we are processing, this value will be `(W/wk - j)*ck` (since we have subtracted that much extra from those elements, we must now add it back).
-
-Hence, we can safely say that we shall have wk different sub-problems that we shall try to solve assuming that we can use a single computation for every wkth element.
-
-This allows us to find the value at every cell of the (k x W) matrix is amortized time O(1) (we have amortized the cost of pre-computing the wk arrays across all the element accesses). This makes the total running time of this algorithm `O(W*n)`.
-
 ### CF Problem
 
 Petya loves lucky numbers. Everybody knows that positive integers are lucky if their decimal representation doesn't contain digits other than 4 and 7. For example, numbers 47, 744, 4 are lucky and 5, 17, 467 are not.
