@@ -24,12 +24,7 @@ Let us for a minute ignore the fact that we have only a fixed number of items of
 
 ![image](https://user-images.githubusercontent.com/19663316/117568034-3f866c80-b0dc-11eb-92ac-bf7348b72b01.png)
 
-What we have essentially done is added:
-`0*9` to DP(k-1), 12
-`1*9` to DP(k-1), 9
-`2*9` to DP(k-1), 6
-`3*9` to DP(k-1), 3 and
-`4*9` to DP(k-1), 0
+What we have essentially done is added: `0*9` to `dp[k-1, 12]`, `1*9` to `dp[k-1, 9]`, `2*9` to `dp[k-1, 6]`, `3*9` to `dp[k-1, 3]` and `4*9` to `dp[k-1, 0]`.
 
 The problem has reduced to finding the maximum value among all the values of the array that is formed by picking every wk-th element from the previous best solution and adding some multiple of ck to it.
 
