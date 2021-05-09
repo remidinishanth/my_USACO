@@ -431,7 +431,7 @@ void reconstruct_print(int end, int a[], int p[]) {
   stack<int> s;
   for (; p[x] >= 0; x = p[x]) s.push(a[x]);
   printf("[%d", a[x]);
-  for (; !s.empty(); s.pop()) printf(", %d", s.top());
+  for (; !s.empty(); s.pop()) printf(", %d", s.top()); // to reverse the sequence
   printf("]\n");
 }
 
