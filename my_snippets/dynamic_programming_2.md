@@ -131,3 +131,5 @@ int main(){
     return 0;
 }
 ```
+
+source: https://codeforces.com/contest/95/submission/535779
