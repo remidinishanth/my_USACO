@@ -103,6 +103,7 @@ int main(){
     for(int i=1;i<=77777;i++) opt[i] = oo;
 
     for(int i=0;i<A.size();i++){
+    	// opt[j] corresponds to dp[i-1][j], tmp[j] to dp[i][j]
         for(int j=0;j<=77777;j++) tmp[j] = oo;
 
         // groups based on remainder mod A[i]
