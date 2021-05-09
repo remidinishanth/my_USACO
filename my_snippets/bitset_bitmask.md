@@ -137,7 +137,7 @@ Don't use set or unordered_set because they quite slow.
 <details>
   <summary>Solution</summary>
   
-Create `bitset<1000000001> visited`, mark every given number `visited[x] = 1`, and print `visited.count()`. The time complexity is 𝑂(𝑁+𝑀𝐴𝑋_𝑋/32), space is 𝑂(𝑀𝐴𝑋_𝑋/32). This will use 128 MB memory (one billion bits).
+Create `bitset<1000000001> visited`, mark every given number `visited[x] = 1`, and print `visited.count()`. The time complexity is 𝑂(𝑁 + 𝑀𝐴𝑋_𝑋/32), space is 𝑂(𝑀𝐴𝑋_𝑋/32). This will use 128 MB memory (one billion bits).
 
 Creating a boolean array instead would take 1GB because one element of this array takes the whole byte. Remember that bitset is more memory-optimized than a boolean array!
 
