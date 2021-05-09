@@ -135,7 +135,15 @@ cout << s[4] << "\n"; // 1
 cout << s[5] << "\n"; // 0
 ```
 
-Another way to declare above bitset is `bitset<10> s(string("0010011010")); `
+Another way to declare above bitset is `bitset<10> s(string("0010011010"));`
+
+Shift operators `<<`, `>>` with bitsets, useful while solving problems.
+
+```cpp
+bitset<4> b("0001");
+cout << (b<<2) << "\n"; // 0100
+cout << (b>>1) << "\n"; // 0010
+```
 
 Note that the size of the bitset must be a constant number. You can't read n and then declare `bitset<n> john`;. If n is up to 100, just create bitset<100>.
 
