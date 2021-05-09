@@ -104,13 +104,30 @@ int intersection(int i, int j) {
 }
 ```
 
-Some functions differ, e.g. x.count() instead of `__builtin_popcount(x)` but it's only more convenient. 
-You can read and print binary numbers, construct a bitset from int or `string bitset<100> a(17); bitset<100> b("1010");`.
+Some functions differ, e.g. `x.count()` instead of `__builtin_popcount(x)` but it's only more convenient. 
+
+You can read and print binary numbers, construct a bitset from int or string `bitset<100> a(17); bitset<100> b("1010");`.
+
 You can even access particular bits with b[i]. Read more in C++ reference <https://en.cppreference.com/w/cpp/utility/bitset.>
 
-Note that the size of the bitset must be a constant number. You can't read 𝑛 and then declare bitset<n> john;. If 𝑛 is up to 100, just create bitset<100>.
+```cpp
+bitset<10> s;
+s[1] = 1;
+s[3] = 1;
+s[4] = 1;
+s[7] = 1;
+cout << s[4] << "\n"; // 1
+cout << s[5] << "\n"; // 0
+```
 
-The complexity of bitwise operations is 𝑂(𝑠𝑖𝑧𝑒/32) or 𝑂(𝑠𝑖𝑧𝑒/64), it depends on the architecture of your computer.
+Another way to declare above bitset is `bitset<10> s(string("0010011010")); `
+
+Note that the size of the bitset must be a constant number. You can't read n and then declare `bitset<n> john`;. If n is up to 100, just create bitset<100>.
+
+The complexity of bitwise operations is 𝑂(size/32) or 𝑂(size/64), it depends on the architecture of your computer.
+
+The benefit of using bitsets is that they require less memory than ordinary arrays, because each element in a bitset only uses one bit of memory. For
+example, if n bits are stored in an int array, 32n bits of memory will be used, but a corresponding bitset only requires n bits of memory. In addition, the values of a bitset can be efficiently manipulated using bit operators, which makes it possible to optimize algorithms using bit sets.
 
 ## Problems
 
