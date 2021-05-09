@@ -24,6 +24,7 @@ You can think in terms of SRT - BOT steps as Erik Demaine describes
 3. Identify **Base** Cases - State solitions for all (reachable) independent subproblems where relations break down
 4. Solve the **original** problem
 5. Analyze the running **time**
+    * no of	subproblems . time/subproblem
 
 Existence of recursive solution implies that subproblems are decomposable(this property is often called optimal substructure property - optimal solution can be constructed from optimal solutions of its subproblems), it is a property of recursion, not just DP).
 
