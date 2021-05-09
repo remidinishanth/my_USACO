@@ -46,7 +46,7 @@ If there's no solution, output the only number "-1" (without the quotes). Otherw
 
 Let's first find the different sizes of regions(connected components), we might have more than one component of a particular size.
 
-Let A[i] - sorted array of sizes of different connection components, C[i] – number of connection components of size A[i], This is similar to Bounded knapsack problem. `Sum for all C[i]*A[i]` is equal to N. Size of A will be O(sqrt(N)) because each entry of A[i] is unique and increasing.
+Let A[i] - sorted array of sizes of different connection components, C[i] – number of connection components of size A[i], This is similar to Bounded knapsack problem. `Sum for all C[i]*A[i]` is equal to n. Size of A will be `O(sqrt(n))` because each entry of A[i] is unique and increasing, the smallest unique values we have is `1,2,3,...,sqrt(n)` and `for all i, C[i]=1`
 
 We want to find `dp[i][w] = max(dp[i-1,w], dp[i-1,w-wi]+ci, dp[i-1, w-2*wi]+2*ci..., dp[i-1,w-ui*wi]+ui*ci)`. Here `ci` = cost of joining components which is single road, hence `ci = 1`. Now let's divide the groups by remainder module `A[i]`. Then, for each group, the problem we need to solve is to find `min(a[i], a[i-1]+c, a[i-2]+2*c, ..., a[i-k]+k*c) = min(a[i], a[i-1]+1, a[i-2]+2, ..., a[i-k]+k)`, By setting `bi=ai-i*c=ai-i`, this expression is transformed into `min(bi+i*c,b[i-1]+(i-1)*c+c, ...) = min(bi+i,b[i-1]+(i-1)+1, ...)`, which is just `i+min(bi, b[i-1], ..., b[i-k])`
 
