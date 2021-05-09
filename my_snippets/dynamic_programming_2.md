@@ -109,8 +109,8 @@ int main(){
             // elements in a group differ by A[i]
             for(int w=j,id=0; w<=77777; w+=A[i],id++){
                 while(l<=r && id-qid[l]>C[i]) l++; // if window size >= C[i]
-                if(l<=r) tmp[w] = que[l] + id;
-                while(l<=r && opt[w]-id<=que[r]) r--;
+                if(l<=r) tmp[w] = que[l] + id; // optimal value is min in window
+                while(l<=r && opt[w]-id<=que[r]) r--; // pop all elements smaller than current value
                 que[++r] = opt[w]-id; qid[r]=id;
             }
         }
