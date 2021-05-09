@@ -1,3 +1,41 @@
+## Basics
+
+![image](https://user-images.githubusercontent.com/19663316/117581703-e3433d00-b11b-11eb-8cd8-d355922c6b7b.png)
+
+```
+53 = 110101
+28 = 11100
+
+  110101
+&  11100  // imagine padding a shorter number with leading zeros to get the same length
+ -------
+  010100  =  20
+```
+
+There are also bitwise shifts `<<` and `>>` operators.
+
+```
+    LEFT SHIFT                             RIGHT SHIFT
+       13 =     1101                          13 =   1101
+(13 << 2) =   110100                   (13 >> 2) =     11     
+```
+
+If there is no overflow, an expression `x << b` is equal to `𝑥⋅2^𝑏`, like here we had `(13 << 2) = 52`. An expression `x >> b` is equal to the floor of `𝑥/2^𝑏`.
+
+Use helpers
+
+```cpp
+inline int two(int n) { return 1 << n; } // 2^n
+inline int test(int n, int b) { return (n>>b)&1; } // test whether b-th bit is on/set in n
+inline void set_bit(int & n, int b) { n |= two(b); } // set bth-bit to 1
+inline void unset_bit(int & n, int b) { n &= ~two(b); }
+inline int last_bit(int n) { return n & (-n); } // return the last on bit
+inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; } // number of bits turned on
+```
+
+`cout << bitset<8>(x);` prints a number after converting it into a bitset, which can be printed. More about this in next section.
+
+
 ## Motivation behind bitsets
 
 Consider this problem: There are 𝑁≤5000 workers. Each worker is available during some days of this month (which has 30 days). 
