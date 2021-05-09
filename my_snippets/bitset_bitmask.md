@@ -50,6 +50,21 @@ inline int last_bit(int n) { return n & (-n); } // return the last on bit
 inline int ones(int n) { int res = 0; while(n && ++res) n-=n&(-n); return res; } // number of bits turned on
 ```
 
+`m & (m-1)` turns off the lowest bit that was set to 1 in a positive number 𝑚. For example, we get 24 for 𝑚=26, as 11010 changes into 11000.
+
+Given a bitmask m, you want to efficiently iterate through all of its submasks, that is, masks s in which only bits that were included in mask m are set.
+```
+for (int s=m; s; s=(s-1)&m)
+    ... you can use s ...
+
+// using while loop
+int s = m;
+while (s > 0) {
+   ... you can use s ...
+   s = (s-1) & m;
+}    
+```
+
 `cout << bitset<8>(x);` prints a number after converting it into a bitset, which can be printed. More about this in next section.
 
 ## Built-in functions
