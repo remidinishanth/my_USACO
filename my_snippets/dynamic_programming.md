@@ -493,19 +493,7 @@ int main() {
   // so that all LIS (that can start anywhere) will end at n-1
   srand(time(NULL));
   int n = 10+rand()%11;                          // [10..20]
-  A.assign(n, 0);
-  A[n-1] = 99;                                   // set A[n-1] = INF
-  for (int i = 0; i < n-1; ++i)
-    A[i] = rand()%101-50;                        // [-50..50]
-
-  n = 12;
-  vi sample({-7, 10, 9, 2, 3, 8, 8, 1, 2, 3, 4, 99});
-  A = sample;
-
-  printf("n = %d:", n);
-  for (int i = 0; i < n; ++i)
-    printf(" %d", A[i]);
-  printf("\n");
+  // read n, A
 
   // early 2000 problems usually accept O(n^2) solution
   memset(memo, -1, sizeof memo);
