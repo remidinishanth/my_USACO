@@ -438,7 +438,7 @@ void reconstruct_print(int end, int a[], int p[]) {
 int main() {
   int n = 11, A[] = {-7, 10, 9, 2, 3, 8, 8, 1, 2, 3, 4};
   int L[MAX_N], L_id[MAX_N], P[MAX_N];
-  // P[] stores the arrows so that we can reconstruct the sequence
+  // P[] stores the predecessors such that we can reconstruct the subsequence
 
   int lis = 0, lis_end = 0;
   for (int i = 0; i < n; ++i) {
