@@ -514,6 +514,9 @@ int main() {
       k = pos+1;                                 // k = longer LIS by +1
       lis_end = i;                               // keep best ending i
     }
+  }
+    
+  print_LIS(lis_end);
 }
 ```
 
