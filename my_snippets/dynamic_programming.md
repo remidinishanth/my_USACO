@@ -399,7 +399,7 @@ We can speed up LIS DP to O(n logn) by computing max in relation via memo table 
 
 The LIS problem can also be solved using the output-sensitive O(n log k) Greedy + Divide & Conquer algorithm (where k is the length of the LIS) instead of O(n^2) by maintaining an array that is always sorted and therefore amenable to binary search.
 
-Let array L be an array such that L(i) represents the smallest ending value of all length-i LISs found so far. Though this definition is slightly complicated, it is easy to see that it is always ordered—L(i-1) will always be smaller than L(i) as the second-last element of any LIS (of length-i) is smaller than its last element. As such, we can binary search array L to determine the longest possible subsequence we can create by appending the current element A[i]—simply find the index of the last element in L that is less than A[i].
+Let array L be an array such that L(i) represents the smallest ending value of all length-i LISs found so far. Though this definition is slightly complicated, it is easy to see that it is always ordered — L(i-1) will always be smaller than L(i) as the second-last element of any LIS (of length-i) is smaller than its last element. As such, we can binary search array L to determine the longest possible subsequence we can create by appending the current element A[i]—simply find the index of the last element in L that is less than A[i].
 
 Using cpp sets
 ```cpp
