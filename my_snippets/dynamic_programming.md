@@ -390,3 +390,27 @@ for(int i = 0; i < n; i++){
 }
 // mx is answer
 ```
+
+We can find the longest subsequence by storing the predecessor information(arrows in the image) and tracing the arrows from index k that contain the highest value of LIS(k).
+
+We can speed up LIS DP to O(n logn) by computing max in relation via memo table data structure.
+
+### Faster solution
+
+The LIS problem can also be solved using the output-sensitive O(n log k) Greedy + Divide & Conquer algorithm (where k is the length of the LIS) instead of O(n^2) by maintaining an array that is always sorted and therefore amenable to binary search.
+
+Let array L be an array such that L(i) represents the smallest ending value of all length-i LISs found so far. Though this definition is slightly complicated, it is easy to see that it is always ordered—L(i-1) will always be smaller than L(i) as the second-last element of any LIS (of length-i) is smaller than its last element. As such, we can binary search array L to determine the longest possible subsequence we can create by appending the current element A[i]—simply find the index of the last element in L that is less than A[i].
+
+Using cpp sets
+```cpp
+set<int> st;
+set<int>::iterator it;
+...
+st.clear();
+for(i=0; i<n; i++)
+{
+  st.insert(a[i]); it=st.find(A[i]);
+  it++; if(it!=st.end()) st.erase(it);
+}
+cout<<st.size()<<endl;
+```
