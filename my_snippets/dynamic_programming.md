@@ -559,9 +559,13 @@ int dp(int id, int remW) {
 }
 
 // dp(0, MW); solution to original problem
+```
 
-// Bottom-up
+Bottom-up
+```
 // inside main
+      for (int i = 1; i<= N; ++i) // Values are stored from 1 to N
+        scanf("%d %d", &V[i], &W[i]);
       for (int i = 0; i <= N;  ++i) C[i][0] = 0;
       for (int w = 0; w <= MW; ++w) C[0][w] = 0;
       for (int i = 1; i <= N; ++i)
