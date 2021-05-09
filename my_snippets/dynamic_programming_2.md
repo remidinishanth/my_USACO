@@ -48,6 +48,32 @@ for (int k = 1; k <= n; k++) {
 }
 ```
 
+### Using Bitsets for faster solutions
+
+Problem is: we have n numbers, calculate how many distinct numbers we can form by sum some of these numbers.
+
+For example if we have set {17, 23, 40}, we can form {0, 17, 23, 40, 57, 63, 80}.
+
+Dp solution is obvious:
+
+```cpp
+dp[0] = 1;
+for(int i = 0; i < n; i++)
+    for(int j = maxv - 1; j >= a[i]; j--)  // maxv is some number bigger than sum of a[i]'s
+        dp[j] |= dp[ j - a[i] ];
+cout << count(dp, dp + maxv, 1) << '\n';
+```
+
+Now how to optimize it? bitset can store bits and do operations 32 times faster like this:
+
+```cpp
+bitset<maxv> dp;
+dp.set(0);
+for(int i = 0; i < n; i++)
+    dp |= dp << a[i];
+cout << dp.count() << '\n';
+```
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
