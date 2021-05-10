@@ -622,7 +622,7 @@ int main() {
     int n, W;
     scanf("%d%d", &n, &W);
     vector<ll> dp(W + 1); // 0 ... W
-    // dp[i] - the maximum total value of items with total weight exactly
+    // dp[i] - the maximum total value of items with total weight exactly i
     for(int item = 0; item < n; ++item) {
         int weight, value;
         scanf("%d%d", &weight, &value);
