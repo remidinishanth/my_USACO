@@ -1,6 +1,7 @@
-// Memory tight sieve by "Yarin" 
-// source: https://onlinejudge.org/board/viewtopic.php?t=2447
+Memory tight sieve by "Yarin" 
+source: https://onlinejudge.org/board/viewtopic.php?t=2447
 
+```cpp
 #define MAXSIEVE 100000000 // All prime numbers up to this
 #define MAXSIEVEHALF (MAXSIEVE/2)
 #define MAXSQRT 5000 // sqrt(MAXSIEVE)/2
@@ -17,32 +18,54 @@ void sieve(){
             for(j=i+i+i+1;j<MAXSIEVEHALF;j+=i+i+1)
                 a[j>>3]&=~(1<<(j&7));
 }
+```
 
-// Notes:
-// a[0] = 0xFE; (254) exclude 1 from the primes
-// a[i>>3]&(1<<(i&7)) isn't about the primality of 𝑖, but the primality of 2𝑖+1.
-// char can store 8 bits and we are storing it using j>>3 and unsetting using ~(1<<(j&7))
+Notes:
+* a[0] = 0xFE; (254) exclude 1 from the primes
+* a[i>>3]&(1<<(i&7)) isn't about the primality of 𝑖, but the primality of 2𝑖+1.
+* char can store 8 bits and we are storing it using j>>3 and unsetting using ~(1<<(j&7))
 
+How to come up with such a thing?
+
+You start with the original sieve algorithm, like this:
+
+```cpp
+char isprime[MAX];
+for(int i=0;i<MAX;i++) isprime=i>=2;
+for(int i=2;i<MAX;i++)
+    if (isprime) // i is a prime, so make all multiples of it non-prime
+	for(int j=i*2;j<MAX;j+=i) isprime[j]=0;
+```
+
+Then you realize you can store the data more compact since isprime is really just a bit array. That introduces bitmasks. The final step is to only consider odd numbers, and make 2 a special case. When considering only odd numbers, you let index 1 be 3, index 2 be 5 etc. This causes the somewhat strange loops...
+
+Another exaplanation
+
+```cpp
 for (int i = 1; i < MAXSQRT; i++)
   if (isprime(2 * i + 1))
     for (int j = 3 * i + 1; j < MAXSIEVEHALF; j += 2 * i + 1)
       mark 2 * j + 1 as not prime;
+```
 
-Now let's do the substitutions 𝑢=2𝑖+1 and 𝑣=2𝑗+1.
+Now let's do the substitutions `u = 2i+1` and `v=2j+1`.
 
+```cpp
 for (int u = 3; u < sqrt(MAXSIEVE); u += 2)
   if (isprime(u))
     for (int v = 3 * u; v < MAXSIEVE; v += 2 * u)
       mark v as not prime;
+```
 
-// Now this is quite standard. 
-// The only thing to notice here is that 𝑢 and 𝑣 both skip the even numbers,
-// that's why you see u += 2 and v += 2 * u, contrary to the standard implementation.
+Now this is quite standard. 
+The only thing to notice here is that `u` and `v` both skip the even numbers,
+that's why you see `u += 2` and `v += 2 * u`, contrary to the standard implementation.
 
 
-// calculate minimum prime factor lp[i] for every number i in the segment [2;n] in O(n) 
-// which allows us to find factorization of any number in the segment [2;n]
+Calculate minimum prime factor `lp[i]` for every number `i` in the segment `[2;n]` in `O(n)` 
+which allows us to find factorization of any number in the segment `[2;n]`
 
+```cpp
 const int N = 10000000;
 int lp[N+1];
 vector<int> pr;
@@ -55,31 +78,35 @@ for (int i=2; i<=N; ++i) {
     for (int j=0; j<(int)pr.size() && pr[j]<=lp[i] && i*pr[j]<=N; ++j)
         lp[i * pr[j]] = pr[j];
 }
+```
 
-// While we do need to cross out each composite once, in practice we run the inner loop for a 
-// composite multiple times due to the fact that it has multiple factors. Thus, if we can establish a unique 
-// representation for each composite and pick them out only once, our algorithm will be somewhat better.
-// i = lp[i].x, Since lp[i] is the smallest prime factor, we have x ≥ lp[i]
+While we do need to cross out each composite once, in practice we run the inner loop for a 
+composite multiple times due to the fact that it has multiple factors. Thus, if we can establish a unique 
+representation for each composite and pick them out only once, our algorithm will be somewhat better.
+`i = lp[i].x`, Since `lp[i]` is the smallest prime factor, we have `x ≥ lp[i]`
 
-// Correctness proof:
-// Notice that every number i has exactly one representation in form: i=lp[i]⋅x ,
-// where lp[i] is the minimal prime factor of i, and the number x doesn't have any prime factors less than lp[i], i.e.
-// lp[i]≤lp[x].
-// Now, let's compare this with the actions of our algorithm: in fact, for every x it goes through all prime numbers it 
-// could be multiplied by, i.e. all prime numbers up to lp[x] inclusive, in order to get the numbers in the form given above.
+**Correctness proof:**
+Notice that every number i has exactly one representation in form: `i=lp[i]⋅x`, where `lp[i]` is the minimal prime factor of i, and the number x doesn't have any prime factors less than `lp[i]`, i.e. `lp[i] ≤ lp[x]`.
 
-// source: https://codeforces.com/blog/entry/54090
+Now, let's compare this with the actions of our algorithm: in fact, for every x it goes through all prime numbers it 
+could be multiplied by, i.e. all prime numbers up to lp[x] inclusive, in order to get the numbers in the form given above.
 
+source: https://codeforces.com/blog/entry/54090
+
+```cpp
 // Simple to code
 const int N = 200200;
 int d[N];
 for (int i = 2; i < N; i++) {
-		if (d[i]) continue;
-		for (int j = i; j < N; j += i)
-			if (d[j] == 0)
-				d[j] = i;
-// source: https://codeforces.com/contest/1349/submission/79817454    
-    
+	if (d[i]) continue;
+	for (int j = i; j < N; j += i)
+		if (d[j] == 0)
+			d[j] = i;
+```
+
+source: https://codeforces.com/contest/1349/submission/79817454    
+
+```cpp
 const int M = 300 * 1000;
 int prm[M];
  
@@ -93,10 +120,11 @@ void Sieve() {
 		}
 	}
 }
-// source: https://codeforces.com/contest/1349/submission/79817664
+```
 
-	
+source: https://codeforces.com/contest/1349/submission/79817664
 
+```cpp	
 #define rep(i,a,n) for (int i=a;i<n;i++)
 #define per(i,a,n) for (int i=n-1;i>=a;i--)
 #define pb push_back
@@ -263,4 +291,6 @@ namespace Factor {
 		return 1;
 	}
 }
-// source: MiFaFaOvO https://codeforces.com/contest/1349/submission/79897715 
+```
+
+source: MiFaFaOvO https://codeforces.com/contest/1349/submission/79897715 
