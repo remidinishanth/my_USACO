@@ -748,6 +748,8 @@ for(i=M; i>=0; i--)
 cout<<m[0][0]; // if you want m[x][y], write m[x&1][y]
 ```
 
+#### Reconstruction of common subsequence
+
 Using `s[:i]` and `t[:j]` as subproblems.
 
 Note while re-constructing the solution only `if(dp[i][j] == 1 + dp[i-1][j-1])` will result in wrong solution
