@@ -747,3 +747,69 @@ for(i=M; i>=0; i--)
 }
 cout<<m[0][0]; // if you want m[x][y], write m[x&1][y]
 ```
+
+Using `s[:i]` and `t[:j]` as subproblems.
+
+Note while re-constructing the solution only `if(dp[i][j] == 1 + dp[i-1][j-1])` will result in wrong solution
+```cpp
+int dp[3005][3005];
+
+int main(){
+    string s,t;
+    cin >> s >> t;
+    int n = s.size(),m=t.size();
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(s[i-1]==t[j-1]) dp[i][j]=1+dp[i-1][j-1];
+            else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+        }
+    }
+    int i=n,j=m;
+    string ans;
+    while(i>0 && j>0){
+        if(dp[i][j] == 1+dp[i-1][j-1] && s[i-1]==t[j-1]){ // be careful with this
+            ans.PB(s[i-1]);
+            i--;j--;
+        }
+        else if(dp[i][j] == dp[i-1][j]) i--;
+        else if(dp[i][j] == dp[i][j-1]) j--;
+    }
+    reverse(ALL(ans));
+    if(ans!="") cout << ans << endl;
+    return 0;
+}
+```
+
+For reconstructing we can simply use 
+
+```cpp
+  int i=n,j=m;
+  string ans;
+  while(i>0 && j>0){
+      if(dp[i][j] == dp[i-1][j]) i--;
+      else if(dp[i][j] == dp[i][j-1]) j--;
+      else{
+          ans.PB(s[i-1]);
+          i--;j--;
+      }
+  }
+  reverse(ALL(ans));
+```
+
+But the following is wrong
+```cpp
+  int i=n,j=m;
+  string ans;
+  while(i>0 && j>0){
+      if(dp[i][j] == 1+dp[i-1][j-1]){ // this is wrong
+          ans.PB(s[i-1]);
+          i--;j--;
+      }
+      if(dp[i][j] == dp[i-1][j]) i--;
+      else if(dp[i][j] == dp[i][j-1]) j--;
+  }
+  reverse(ALL(ans));
+  if(ans!="") cout << ans << endl;
+```
+
+You can check at https://atcoder.jp/contests/dp/tasks/dp_f
