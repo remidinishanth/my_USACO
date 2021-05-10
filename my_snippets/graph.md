@@ -243,7 +243,13 @@ struct SCC {
 
 source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
 
-## Longest path in DAG
+## Longest path in Graphs
+
+### Acyclic graphs
+
+A longest path between two given vertices s and t in a weighted graph G is the same thing as a shortest path in a graph −G derived from G by changing every weight to its negation. Therefore, if shortest paths can be found in −G, then longest paths can also be found in G.
+
+### DAG
 
 DFS in case of longest path for a DAG: What you can do is use `in_degree[x]==0` before you call `dfs(x)`, that is 
 ```cpp
