@@ -70,7 +70,8 @@ void fold(long long x, long long y, long long h, int k, long long cur)
         printf("%lld\n", h);
         return;
     }
-    // foldig bottom over top
+    // cur is number of sheets after folds
+    // folding bottom over top
     if (x >= (1LL << (k - 1)))  // if number belongs to bottom half
     {
         x = (1LL << k) - x - 1; // invert x
