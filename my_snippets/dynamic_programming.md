@@ -845,10 +845,10 @@ Ideally it has to search in the following way:
  [i: 4]  [j: 5]
  [i: 3]  [j: 5]
  [i: 2]  [j: 5]
- [i: 2]  [j: 5]  [s[i-1]: j]  [s[j-1]: c]
+ [i: 2]  [j: 5]  [s[i-1]: j]  [t[j-1]: j]
  [i: 1]  [j: 4]
  [i: 1]  [j: 3]
- [i: 1]  [j: 3]  [s[i-1]: a]  [s[j-1]: d]
+ [i: 1]  [j: 3]  [s[i-1]: a]  [t[j-1]: a]
  
 Solution = "aj"
 ```
