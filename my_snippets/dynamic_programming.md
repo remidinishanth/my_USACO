@@ -591,7 +591,11 @@ top-down DP only visits the required states whereas bottom-up DP visits all dist
 
 ### Longest Common Subsequence
 
-Given two sequences s1[0..M-1] and s2[0..N-1], what is the longest common subsequence of them?
+Given two sequences `s1[0..M-1]` and `s2[0..N-1]`, what is the longest common subsequence of them?
+
+Subproblems: Let `m[i][j]` be the length of the longest common subsequence of `s1[i..M-1]` and `s2[j..N-1]`. 
+
+To solve `m[i][j]`, focus on the first step, `if s1[i]==s2[j]`, then we will pick them in our common sequence (why picking them is no worse than not picking, this requires a 10 seconds proof, because `m[i-1][j-1]` is optimal); otherwise, we must throw away at least one of them.
 
 ```cpp
 for(i=M; i>=0; i--)
