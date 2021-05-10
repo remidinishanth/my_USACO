@@ -846,3 +846,7 @@ Ideally it has to search in the following way and leave us with "aj"
 ```
 
 You can check at https://atcoder.jp/contests/dp/tasks/dp_f
+
+Or we can simply remember the parent arrow like the algorithm described in cormen
+
+![image](https://user-images.githubusercontent.com/19663316/117719065-8ec2bf00-b1fa-11eb-81ed-58084801c303.png)
