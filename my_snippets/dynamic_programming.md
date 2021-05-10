@@ -617,7 +617,7 @@ for(i=M; i>=0; i--)
 cout<<m[0][0];
 ```
 
-**Remark.** When all the symbols in s1 are distinct, the LCS problem can be reduced to the LIC problem. By renaming the elements of s2, according to the order they appear in s1, the LCS problem is the same as finding the LIS in s2. So, when all elements in s1 are distinct, the problem can be solved in O((m + n) log(m + n)) time.
+**Remark.** When all the symbols in s1 are distinct, the LCS problem can be reduced to the LIC problem. By renaming the elements of s2, according to the order they appear in s1, the LCS problem is the same as finding the LIS in s2. So, when all elements in s1 are distinct, the problem can be solved in `O((m + n) log(m + n))` time.
 
 #### Reduce the space to one dimension
 
@@ -625,10 +625,10 @@ The dynamic programming is on a two dimensional table. Again, we see that any co
 the right neighboring column. At any moment two columns are enough. However, this is not as nice as the
 situation in subset sum where one column is enough.
 
-This is a technique you may need in many situations. Here ii = i&1 is the shadow of i. Every m[x][y]
-becomes m[x&1][y].
+This is a technique you may need in many situations. Here `ii = i&1` is the shadow of `i`. Every `m[x][y]`
+becomes `m[x&1][y]`.
 
-Outline: O(nm) algorithm for the LCS with O(n) space
+Outline: `O(nm)` algorithm for the LCS with `O(n)` space
 
 ```cpp
 int m[2][1000]; // instead of [1000][1000]
