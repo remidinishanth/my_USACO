@@ -27,3 +27,5 @@ def 4sum(A):
  
   print("No solution.")
 ```
+
+source: https://www.infoarena.ro/blog/meet-in-the-middle
