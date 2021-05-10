@@ -588,6 +588,53 @@ version. This is because not all states are actually visited, and hence the crit
 involved are actually only a (very small) subset of the entire state space. Remember: The
 top-down DP only visits the required states whereas bottom-up DP visits all distinct states.
 
+### Memory efficient implementation
+
+Question: https://atcoder.jp/contests/dp/tasks/dp_d
+
+There are N items, numbered 1,2,...,N. For each i(1 ≤ i ≤ N), Item i has a weight wi(1 ≤ wi ≤ W) and a value of vi(1 ≤ W ≤ 10^9).
+
+Taro has decided to choose some of the N(1 ≤ N ≤ 100) items and carry them home in a knapsack. The cpacity of the knapsack is W(1 ≤ W ≤ 10^5), which means that the sum of the weight of tiems taken must be at most W.
+
+Find the maximum possible sum of the values of items that Taro takes home.
+
+**Input**
+```
+N W
+w1 v1
+w2 v2
+...
+wN vN
+```
+
+```cpp
+using ll = long long;
+ 
+void max_self(ll& a, ll b) {
+    a = max(a, b);
+}
+ 
+int main() {
+    int n, W;
+    scanf("%d%d", &n, &W);
+    vector<ll> dp(W + 1); // 0 ... W
+    // dp[i] - the maximum total value of items with total weight exactly
+    for(int item = 0; item < n; ++item) {
+        int weight, value;
+        scanf("%d%d", &weight, &value);
+        for(int weight_already = W - weight; weight_already >= 0; --weight_already) {
+        // for(int weight_already = 0; weight_already <= W - weight; ++weight_already) { // this will be wrong
+        // dp[0] -> dp[3] -> dp[6], if weight is 3, it will first update 3, then 6, then 9 ...
+            max_self(dp[weight_already+weight], dp[weight_already] + value);
+        }
+    }
+    ll answer = 0;
+    for(int i = 0; i <= W; ++i) {
+        max_self(answer, dp[i]);
+    }
+    printf("%lld\n", answer);
+}
+```
 
 ### Longest Common Subsequence
 
