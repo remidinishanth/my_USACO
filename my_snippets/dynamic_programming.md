@@ -588,7 +588,7 @@ version. This is because not all states are actually visited, and hence the crit
 involved are actually only a (very small) subset of the entire state space. Remember: The
 top-down DP only visits the required states whereas bottom-up DP visits all distinct states.
 
-### Memory efficient implementation
+#### Memory efficient implementation
 
 Question: https://atcoder.jp/contests/dp/tasks/dp_d
 
@@ -606,6 +606,10 @@ w2 v2
 ...
 wN vN
 ```
+
+**Solution**
+
+Here to compute dp[i][w] where i is the i-th item and w is the weight. To compute `dp[i][w]`, all we need is `dp[i-1][:]`, so we can use `dp[2][W]` and alternate between them using `i%2`. One observatin we can use is that `dp[i][w]` uses smaller weights than w that is `dp[i-1][<w]`, so we can just use `dp[w]` by iterating in decreasing value of `w`.
 
 ```cpp
 using ll = long long;
