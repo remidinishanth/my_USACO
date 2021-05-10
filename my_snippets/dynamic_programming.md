@@ -587,3 +587,19 @@ Note: The top-down version of this DP solution is often faster than the bottom-u
 version. This is because not all states are actually visited, and hence the critical DP states
 involved are actually only a (very small) subset of the entire state space. Remember: The
 top-down DP only visits the required states whereas bottom-up DP visits all distinct states.
+
+
+### Longest Common Subsequence
+
+Given two sequences s1[0..M-1] and s2[0..N-1], what is the longest common subsequence of them?
+
+```cpp
+for(i=M; i>=0; i--)
+  for(j=N; j>=0; j--)
+  {
+    if(i==M || j==N) { m[i][j]=0; continue; }
+    if(s1[i]==s2[j]) m[i][j] = 1+m[i+1][j+1];
+    else m[i][j] = max(m[i][j+1], m[i+1][j]);
+  }
+cout<<m[0][0];
+```
