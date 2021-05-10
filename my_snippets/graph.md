@@ -251,6 +251,13 @@ A longest path between two given vertices s and t in a weighted graph G is the s
 
 ### DAG
 
+For each vertex v in a given DAG, the length of the longest path ending at v may be obtained by the following steps:
+
+* Find a topological ordering of the given DAG.
+* For each vertex v of the DAG, in the topological ordering, compute the length of the longest path ending at v by looking at its incoming neighbors and adding one to the maximum length recorded for those neighbors. If v has no incoming neighbors, set the length of the longest path ending at v to zero. In either case, record this number so that later steps of the algorithm can access it.
+
+Once this has been done, the longest path in the whole DAG may be obtained by starting at the vertex v with the largest recorded value, then repeatedly stepping backwards to its incoming neighbor with the largest recorded value, and reversing the sequence of vertices found in this way.
+
 DFS in case of longest path for a DAG: What you can do is use `in_degree[x]==0` before you call `dfs(x)`, that is 
 ```cpp
 for(int v:Adj[u]){
