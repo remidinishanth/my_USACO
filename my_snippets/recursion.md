@@ -53,6 +53,8 @@ source: https://csacademy.com/contest/algorithms-2019-01-22-12/task/sheets/state
 
 ### Solution
 
+Numbers are from back to front after folding.
+
 ```cpp
 #include <iostream>
 #include <stdio.h>
@@ -68,12 +70,14 @@ void fold(long long x, long long y, long long h, int k, long long cur)
         printf("%lld\n", h);
         return;
     }
-    if (x >= (1LL << (k - 1)))
+    // foldig bottom over top
+    if (x >= (1LL << (k - 1)))  // if number belongs to bottom half
     {
         x = (1LL << k) - x - 1;
         h = (cur << 1) - h + 1;
     }
-    if (y >= (1LL << (k - 1)))
+    // folding right over left
+    if (y >= (1LL << (k - 1)))  // if number belongs to right half
     {
         y = (1LL << k) - y - 1;
         h = (cur << 2) - h + 1;
