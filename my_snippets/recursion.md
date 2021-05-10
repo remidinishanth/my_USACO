@@ -73,14 +73,14 @@ void fold(long long x, long long y, long long h, int k, long long cur)
     // foldig bottom over top
     if (x >= (1LL << (k - 1)))  // if number belongs to bottom half
     {
-        x = (1LL << k) - x - 1;
-        h = (cur << 1) - h + 1;
+        x = (1LL << k) - x - 1; // invert x
+        h = (cur << 1) - h + 1; // invert h with (cur*2)
     }
     // folding right over left
     if (y >= (1LL << (k - 1)))  // if number belongs to right half
     {
         y = (1LL << k) - y - 1;
-        h = (cur << 2) - h + 1;
+        h = (cur << 2) - h + 1; // invert h with (cur*4) 4 because of folded with x then y
     }
     fold(x, y, h, k - 1, cur << 2);
 }
