@@ -822,17 +822,8 @@ t = "juarj"
 ```
 ![image](https://user-images.githubusercontent.com/19663316/117715932-91bbb080-b1f6-11eb-8a27-25797cbd79fd.png)
 
+Our wrong solution made wrong guesses which gives us solution as "aa"
 ```
-
-       DP table
-  [       j  u  a  r  j ]
-  [   [0, 0, 0, 0, 0, 0]]
-  [ a [0, 0, 0, 1, 1, 1]]
-  [ j [0, 1, 1, 1, 1, 2]]
-  [ d [0, 1, 1, 1, 1, 2]]
-  [ a [0, 1, 1, 2, 2, 2]]
-  [ c [0, 1, 1, 2, 2, 2]]
-  
  [i: 5]  [j: 5]
  [i: 4]  [j: 5]
  [i: 4]  [j: 5]  [s[i-1]: a]  [t[j-1]: j] // incorrect pairing
@@ -840,11 +831,10 @@ t = "juarj"
  [i: 2]  [j: 4]
  [i: 1]  [j: 4]
  [i: 1]  [j: 4]  [s[i-1]: a]  [t[j-1]: r]  // incorrect pairing
- 
-Solution = "aa"
+```
 
-Ideally it has to search in the following way:
-
+Ideally it has to search in the following way and leave us with "aj"
+```
  [i: 5]  [j: 5]
  [i: 4]  [j: 5]
  [i: 3]  [j: 5]
@@ -853,8 +843,6 @@ Ideally it has to search in the following way:
  [i: 1]  [j: 4]
  [i: 1]  [j: 3]
  [i: 1]  [j: 3]  [s[i-1]: a]  [t[j-1]: a]
- 
-Solution = "aj"
 ```
 
 You can check at https://atcoder.jp/contests/dp/tasks/dp_f
