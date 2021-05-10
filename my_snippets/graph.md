@@ -243,6 +243,18 @@ struct SCC {
 
 source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
 
+## Longest path in DAG
+
+DFS in case of longest path for a DAG: What you can do is use `in_degree[x]==0` before you call `dfs(x)`, that is 
+```cpp
+for(int v:Adj[u]){
+    in_degree[v]--;
+    if(in_degree[v]==0){
+        dfs(v);
+    }
+}
+```
+
 ## Diameter of Weighted Tree
 
 For general graph, we need O(V^3) Floyd Warshall's algorithm plus O(V^2) all-pairs check to compute the diameter. However,
