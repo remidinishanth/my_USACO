@@ -803,11 +803,11 @@ But the following is wrong
   int i=n,j=m;
   string ans;
   while(i>0 && j>0){
-      if(dp[i][j] == 1+dp[i-1][j-1]){ // this is wrong
+      if(dp[i][j] == 1+dp[i-1][j-1]){ // this might be wrong for somecases
           ans.PB(s[i-1]);
           i--;j--;
       }
-      if(dp[i][j] == dp[i-1][j]) i--;
+      else if(dp[i][j] == dp[i-1][j]) i--;
       else if(dp[i][j] == dp[i][j-1]) j--;
   }
   reverse(ALL(ans));
