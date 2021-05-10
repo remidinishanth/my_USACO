@@ -588,7 +588,7 @@ version. This is because not all states are actually visited, and hence the crit
 involved are actually only a (very small) subset of the entire state space. Remember: The
 top-down DP only visits the required states whereas bottom-up DP visits all distinct states.
 
-#### Memory efficient implementation
+#### Space efficient implementation
 
 Question: https://atcoder.jp/contests/dp/tasks/dp_d
 
@@ -635,6 +635,57 @@ int main() {
     ll answer = 0;
     for(int i = 0; i <= W; ++i) {
         max_self(answer, dp[i]);
+    }
+    printf("%lld\n", answer);
+}
+```
+
+**Constraints**
+```
+1 ≤ N ≤ 100
+1 ≤ W ≤ 10^9
+1 ≤ wi ≤ W
+1 ≤ vi ≤ 10^3
+```
+
+Note that we cannot use the above solution to solve this problem because we get `Memory Limit Exceeded` because of `W ≤ 10^9`. To solve this, we can do DP on value instead of weight. Subproblem would be dp[i][v], what is the mimimum weight required to get value `v` using first `i` items.
+
+```cpp
+using ll = long long;
+ 
+void max_self(ll& a, ll b) {
+    a = max(a, b);
+}
+void min_self(ll& a, ll b) {
+    a = min(a, b);
+}
+ 
+const ll INF = 1e18L + 5;
+ 
+int main() {
+    int n, W;
+    scanf("%d%d", &n, &W);
+    vector<int> weight(n), value(n);
+    for(int i = 0; i < n; ++i) {
+        scanf("%d%d", &weight[i], &value[i]);
+    }
+    int sum_value = 0;
+    for(int x : value) {
+        sum_value += x;
+    }
+    vector<ll> dp(sum_value + 1, INF); // 0 ... W
+    dp[0] = 0;
+    // dp[i] - the minimum total weight of items with total value exactly i
+    for(int item = 0; item < n; ++item) {
+        for(int value_already = sum_value - value[item]; value_already >= 0; --value_already) {
+            min_self(dp[value_already+value[item]], dp[value_already] + weight[item]);
+        }
+    }
+    ll answer = 0;
+    for(int i = 0; i <= sum_value; ++i) {
+        if(dp[i] <= W) {
+            answer = max(answer, (ll) i);
+        }
     }
     printf("%lld\n", answer);
 }
