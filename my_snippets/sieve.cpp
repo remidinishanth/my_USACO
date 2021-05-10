@@ -1,4 +1,5 @@
 // Memory tight sieve by "Yarin" 
+// source: https://onlinejudge.org/board/viewtopic.php?t=2447
 
 #define MAXSIEVE 100000000 // All prime numbers up to this
 #define MAXSIEVEHALF (MAXSIEVE/2)
