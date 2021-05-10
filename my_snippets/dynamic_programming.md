@@ -831,11 +831,11 @@ t = "juarj"
   
  [i: 5]  [j: 5]
  [i: 4]  [j: 5]
- [i: 4]  [j: 5]  [s[i-1]: a]  [s[j-1]: c]
+ [i: 4]  [j: 5]  [s[i-1]: a]  [t[j-1]: j] // incorrect pairing
  [i: 3]  [j: 4]
  [i: 2]  [j: 4]
  [i: 1]  [j: 4]
- [i: 1]  [j: 4]  [s[i-1]: a]  [s[j-1]: a]
+ [i: 1]  [j: 4]  [s[i-1]: a]  [t[j-1]: r]  // incorrect pairing
  
 Solution = "aa"
 
