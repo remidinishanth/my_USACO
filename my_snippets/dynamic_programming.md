@@ -616,3 +616,5 @@ for(i=M; i>=0; i--)
   }
 cout<<m[0][0];
 ```
+
+**Remark.** When all the symbols in s1 are distinct, the LCS problem can be reduced to the LIC problem. By renaming the elements of s2, according to the order they appear in s1, the LCS problem is the same as finding the LIS in s2. So, when all elements in s1 are distinct, the problem can be solved in O((m + n) log(m + n)) time.
