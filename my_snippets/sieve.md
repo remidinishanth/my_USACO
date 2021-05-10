@@ -21,9 +21,9 @@ void sieve(){
 ```
 
 Notes:
-* a[0] = 0xFE; (254) exclude 1 from the primes
-* a[i>>3]&(1<<(i&7)) isn't about the primality of 𝑖, but the primality of 2𝑖+1.
-* char can store 8 bits and we are storing it using j>>3 and unsetting using ~(1<<(j&7))
+* `a[0] = 0xFE`; (254) exclude 1 from the primes
+* `a[i>>3]&(1<<(i&7))` isn't about the primality of `i`, but the primality of `2i + 1`.
+* char can store `8` bits and we are storing it using `j>>3` and unsetting using `~(1<<(j&7))`
 
 ### How to come up with such a thing?
 
