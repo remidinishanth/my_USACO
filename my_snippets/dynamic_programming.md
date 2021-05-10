@@ -595,7 +595,16 @@ Given two sequences `s1[0..M-1]` and `s2[0..N-1]`, what is the longest common su
 
 Subproblems: Let `m[i][j]` be the length of the longest common subsequence of `s1[i..M-1]` and `s2[j..N-1]`. 
 
-To solve `m[i][j]`, focus on the first step, `if s1[i]==s2[j]`, then we will pick them in our common sequence (why picking them is no worse than not picking, this requires a 10 seconds proof, because `m[i-1][j-1]` is optimal); otherwise, we must throw away at least one of them.
+To solve `m[i][j]`, focus on the first step, `if s1[i]==s2[j]`, then we will pick them in our common sequence (why picking them is no worse than not picking, this requires a 10 seconds proof, because `m[i+1][j+1]` is optimal); otherwise, we must throw away at least one of them.
+
+Proof: 
+
+* If the first symbols don't match, one of them isn't in LCS ~ guess which one
+* If match, claim a LCS pais them up:
+  * if LCS uses exactly one of them, say it pairs up `s1[i]` with `s2[>j]`, then it doesn't use `s2[j]`, so could instead pair `s1[i]` with `s2[j]`.  
+  * if LCS uses neither, contradiciton(could add a pair).
+
+![image](https://user-images.githubusercontent.com/19663316/117668299-6e2b4280-b1c3-11eb-82a9-9c5720eea1b3.png)
 
 ```cpp
 for(i=M; i>=0; i--)
