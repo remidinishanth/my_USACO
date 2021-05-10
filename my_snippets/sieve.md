@@ -39,8 +39,6 @@ for(int i=2;i<MAX;i++)
 
 Then you realize you can store the data more compact since isprime is really just a bit array. That introduces bitmasks. The final step is to only consider odd numbers, and make 2 a special case. When considering only odd numbers, you let index 1 be 3, index 2 be 5 etc. This causes the somewhat strange loops...
 
-Another explanation
-
 ```cpp
 for (int i = 1; i < MAXSQRT; i++)
   if (isprime(2 * i + 1))
@@ -48,7 +46,7 @@ for (int i = 1; i < MAXSQRT; i++)
       mark 2 * j + 1 as not prime;
 ```
 
-Now let's do the substitutions `u = 2i+1` and `v=2j+1`.
+Now let's do the substitutions `u = 2i + 1` and `v = 2j + 1`.
 
 ```cpp
 for (int u = 3; u < sqrt(MAXSIEVE); u += 2)
