@@ -819,6 +819,12 @@ The testcase where it would be wrong
 ```cpp
 s = "ajdac"
 t = "juarj"
+```
+
+![image](https://user-images.githubusercontent.com/19663316/117715932-91bbb080-b1f6-11eb-8a27-25797cbd79fd.png)
+
+
+```
 
        DP table
   [       j  u  a  r  j ]
