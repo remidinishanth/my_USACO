@@ -366,16 +366,16 @@ Solve a more specific problem(add constraints) to enable relation
 
 ### Solution
 
-- Subproblems: L(i) = LIS of A[i:] such that starts with (includes) A[i]
-- Relate L(i) = max {1+L(j) | i < j ≤ |A|, A[i] < A[j]} U {1} (increase impossible)
+- Subproblems: `L(i) = LIS of A[i:] such that starts with (includes) A[i]`
+- Relate `L(i) = max {1+L(j) | i < j ≤ |A|, A[i] < A[j]} U {1}` (`1` takes care of increase impossible case)
   * nonconstant branching(like DAG Shortest paths but unlike other DPs)
-- Topological ordering: for i = |A|, ..., 0
-- Base case: L(|A|) = 0
-- Original problem: max{L(i) | 0 <= i < |A|}
+- Topological ordering: for `i = |A|, ..., 0`
+- Base case: `L(|A|) = 0`
+- Original problem: `max{L(i) | 0 <= i < |A|}`
   * Where to start? guess/brute-force options
-- Time: O(n) subproblems * O(n) non-recursive work in relation = O(n^2)  
+- Time: `O(n)` subproblems * `O(n)` non-recursive work in relation = `O(n^2)`  
 
-Can also be solved using subproblem L[:i], which is simple to code
+Can also be solved using subproblem `L[:i]`, which is simple to code
 
 ![image](https://user-images.githubusercontent.com/19663316/117561454-a4c66780-b0b4-11eb-9c35-1d5cbbdd35e6.png)
 
