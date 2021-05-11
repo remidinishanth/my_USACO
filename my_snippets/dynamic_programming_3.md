@@ -22,6 +22,6 @@ a1 a2 ... aN
 
 #### Solution
 
-If we choose our subproblem or DP state to be something like `dp(r1,r2,...,rN)` where `ri` is the number of remaining sushi in `i-th` dish, the number of dp states will be `O(4^N)` because `0 ≤ ri ≤ 3` and `0 ≤ i ≤ N`
+If we choose our subproblem or DP state to be something like `dp(r1,r2,...,rN)` where `ri` is the number of remaining sushi in `i-th` dish, the number of DP states will be `O(4^N)` because `0 ≤ ri ≤ 3` and `0 ≤ i ≤ N`
 
-So instead of considering each `i-th` dish seperately we can combine them and use the state `dp(i,j,k)`, where `i` denotes number of dishes with `1 sushi`, `j` denotes number of dishes with `2 sushi` and `k` denotes number of dishes with `3 sushi`, `(N-i-j-k)` will be number of dishes with `0 sushi` left.
+So instead of considering each `i-th` dish seperately we can combine them and use the state `dp(i,j,k)`, where `i` denotes number of dishes with `1 sushi`, `j` denotes number of dishes with `2 sushi` and `k` denotes number of dishes with `3 sushi`, `(N-i-j-k)` will be number of dishes with `0 sushi` left. The number of DP state will now be `O(N^3)`
