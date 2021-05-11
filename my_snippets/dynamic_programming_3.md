@@ -215,5 +215,6 @@ int main() {
     printf("%lld\n", dp[0][n-1]);
 }
 ```
+The above problem can be solved in O(n). REF: https://qr.ae/pGnaCy, https://youtu.be/pOv4LRNt0jo
+TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book.
 
-TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book
