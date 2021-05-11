@@ -31,3 +31,8 @@ Relation between subproblems
 dp[i,j,k] = k/N . ( dp[i,j,k-1] + 1) + j/N . (dp[i,j-1,k] + 1) +  i/N . (dp[i-1,j,k] + 1) + (N-i-j-k)/N . (dp[i,j,k] + 1)
 
 ```
+
+We also have `dp[i,j,k]` on the right side, After simplification we get 
+```
+dp[i,j,k] = k/(i+j+k) . (dp[i,j,k-1] + 1) + j/(i+j+k) . (dp[i,j-1,k] + 1) + i/(i+j+k) . (dp[i-1,j,k] + 1) + (N-i-j-k)/(i+j+k)
+```
