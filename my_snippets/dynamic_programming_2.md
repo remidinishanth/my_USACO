@@ -228,7 +228,11 @@ The bounded knapsack problem is: you are given n types of items, you have ui ite
 
 The best algorithm I could find on the Internet has complexity `O(W*n*log(max(ui))`. It goes like this: instead of having ui items of type i, we create several new types that are multiples of type i, for example items with weight `2*wi` and cost `2*ci`, then the same for 4 and so on, and declare that we have just one item of each type. We create the new types in such a way that the number of new types is logarithmic, and anything that was possible to represent using the old items is also representable using the new items and vice versa. We get a 0-1 knapsack problem with `n * log(max(ui)` types which leads to a dynamic programming solution with the above complexity.
 
-However, when similar problem was given at a [Codeforces contest](https://codeforces.com/problemset/problem/95/E), several people came up with a `O(W*n)` solution for this problem. First, we start with the standard dynamic programming solution: let `dp[k,w]` be the best cost that we can get by packing the total weight of w using the first k item types. Each new type is then handled as follows: `dp[k][w] = min(dp[k-1,w], dp[k-1,w-wk]+ck, ..., dp[k-1,w-uk*wk]+uk*ck)`. This dynamic programming has `O(W*n)` states, and each state is processed in `O(max(ui))`.
+However, when similar problem was given at a [Codeforces contest](https://codeforces.com/problemset/problem/95/E), several people came up with a `O(W*n)` solution for this problem. 
+
+First, we start with the standard dynamic programming solution: let `dp[k,w]` be the best cost that we can get by packing the total weight of w using the first k item types. DP solution is `dp[k][w] = max(dp[k-1,w], dp[k-1,w-wk]+ck, dp[k-1, w-2*wk]+2*ck..., dp[k-1,w-uk*wk]+uk*ck)`. An interesting observation is that we only deal with every `wk-th` element from the previous array to decide on any element in the current array. If we consider only `wk-th` indices then it is similar to finding maximum over some window. Thus problem can be reduced to finding the maximum value among all the values of the array that is formed by picking every `wk-th` element from the previous best solution and adding some multiple of `ck` to it. How to add this multiple of `ck` is described below.
+
+Let's consider the CF problem. Each new type is then handled as follows: `dp[k][w] = min(dp[k-1,w], dp[k-1,w-wk]+ck, ..., dp[k-1,w-uk*wk]+uk*ck)`. This dynamic programming has `O(W*n)` states, and each state is processed in `O(max(ui))`.
 
 But we can process each state in O(1) amortized time! Let's take a look at the above recurrence. First, we notice that we can separate all values of w into wk groups, based on the remainder of division on wk, and those groups can be handled separately. Then, for each group, the problem we need to solve is to find `min(a[i], a[i-1]+c, a[i-2]+2*c, ..., a[i-k]+k*c)`. By setting `bi=ai-i*c`, this expression is transformed into `min(bi+i*c,b[i-1]+(i-1)*c+c, ...)`, which is just `i*c+min(bi, b[i-1], ..., b[i-k])`. Thus our problem is reduced to finding minimums of groups of k+1 consecutive numbers in a given array.
 
@@ -237,20 +241,6 @@ And this, in turn, is a well-known problem that is solvable in O(size of array) 
 Is it well-known that bounded knapsack is solvable in O(W*n) worst-case?
 
 source: https://petr-mitrichev.blogspot.com/2011/07/integral-bounded-knapsack-problem.html
-
-### Elaborate explanation
-
-In the above DP, `dp[k][w] = max(dp[k-1,w], dp[k-1,w-wk]+ck, dp[k-1, w-2*wk]+2*ck..., dp[k-1,w-uk*wk]+uk*ck)`
-
-An interesting observation is that we only deal with every `wk-th` element from the previous array to decide on any element in the current array.
-
-Let us for a minute ignore the fact that we have only a fixed number of items of each type and instead assume that we have an infinite number of items of each type. Let us assume that item i weighs 3 and costs 9. If we make that assumption, we see that the best solution at DPk, 12 is represented by taking the maximum of the cells colored in green below.
-
-![image](https://user-images.githubusercontent.com/19663316/117568034-3f866c80-b0dc-11eb-92ac-bf7348b72b01.png)
-
-What we have essentially done is added: `0*9` to `dp[k-1, 12]`, `1*9` to `dp[k-1, 9]`, `2*9` to `dp[k-1, 6]`, `3*9` to `dp[k-1, 3]` and `4*9` to `dp[k-1, 0]`.
-
-The problem has reduced to finding the maximum value among all the values of the array that is formed by picking every `wk-th` element from the previous best solution and adding some multiple of ck to it.
 
 ### CF Problem
 
