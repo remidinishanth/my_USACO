@@ -186,7 +186,8 @@ int main(){
 ```
 
 Observation: In the above solution `dp[i][j][0] = -dp[i][j][1]`. Hence we can modify and just use what is the value if first player starts from deque[i:j] and simplify to the following code
-```
+
+```cpp
 using ll = long long;
 const int nax = 3005;
 ll dp[nax][nax];
