@@ -188,7 +188,7 @@ void print_shop(int money, int g) { // this function does not return anything
 
 We'll need to find topological ordering between the subproblems defined in the above recursion and solve in this order.
 
-`reachable[g][rem]` defines can we buy garments starting from g with `rem` amount.
+`reachable[g][rem]` defines can we buy garments starting from g with exactly `rem` amount.
 
 ```cpp
 int main(){
