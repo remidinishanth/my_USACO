@@ -160,7 +160,7 @@ But copying each item `bi` times is quite wasteful. We do not need to examine ea
 
 In order to do it more efficiently, we will group the items in “packets”. It is clearer to see how to do it if we assume that `bi = 2^k − 1` for some k . Then we can form k packets of sizes `wi , 2 wi , 4 wi , … , 2^(k − 1) wi`. Now if we want to take some packets of total weight `j wi` , we just take packets based on set bits in binary representation of `j` . In general case when `2^k ≤ bi < 2^k + 1` we add an additional packet of size `r = ( bi − 2^(k − 1) + 1 ) wi`. If we take this packet, the remaining weight `bi.wi − r` is smaller than `2^k wi` , so it can be covered by choosing from the first `k` packets.
 
-Therefore for the elements of the `i-th` type we will have `O( log bi )` packets, so the algorithm (0-1 knapsack on these packets) will run in time `O(n M logB )` .
+Therefore for the elements of the `i-th` type we will have `O(log bi)` packets, so the algorithm (0-1 knapsack on these packets) will run in time `O(n M logB )` .
 
 But we can do faster. Let's consider adding the `i-th` type. Observe that the recurrence formula is as follows:
 
