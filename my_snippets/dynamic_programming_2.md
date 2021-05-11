@@ -187,6 +187,8 @@ int jr[MAXM+1];
 
 The time complexity of this algorithm is `O(n M)`. The algorithm highlights quite important idea we will use when creating algorithms for more complicated variants of bounded knapsacks. The idea helps us working with recursive formulas which, when calculating `d[j]`, depend on values `d[j − kw]` for `0 ≤ k ≤ b`. The other way of thinking about this is as follows: we partition array d into w arrays d 0 , d 1 , … , d w − 1 by taking to array d J every w -th element from array d starting from index J , i.e. `dJ [ j′ ] = d[ J + j′ w ]` . Then the recursive formula for `j = J + j′ w` can be written as follows:
 
+```dnew[j] = dJnew[j′] = or( dJ[j′], dJ[j′−1], dJ[j′−2],…,dJ[j′−b] ),```
+
 ![image](https://user-images.githubusercontent.com/19663316/117840727-0dbb0480-b29a-11eb-91a0-92e4624c8c88.png)
 
 thus it depends on a consecutive range of indices `dJ [ j′ − k ]` for `0 ≤ k ≤ b`. And often we can propose a faster algorithm which uses the fact that the range of indices is consecutive.
