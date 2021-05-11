@@ -222,6 +222,18 @@ Of course this is after a preprocessing phase in which we form groups. It will r
 
 Note that exactly the same algorithm works for bounded knapsack with limit on the sum of weights.
 
+#### Unlimited amount, big knapsack, small items
+
+Most of the variants we discuss here has linear dependency on knapsack size `M` . That is no surprise, since the knapsack problem is NP-complete and for big limits we know only exponential algorithms. For instance meet-in-the-middle one which after building phase of time `O( n 2^{n/2} )` and memory `O(2^{n/2})` can answer queries in time `O(2^{n/2})`.
+
+But there is one more interesting variant for the unbounded knapsack problem in which values of `M` is big and weights `wi ≤ W` are small. Let's take any item `w` and build array `d[j]` for `0 ≤ j < w` in which `d[j]` is the smallest weight among all obtainable subsets of weights giving remainder `j` when divided by `w`. Having this array answering queries in constant time is easy, since we can obtain weights `d[j] + k w` for any `k ≥ 0`:
+```cpp
+bool query(int j) {
+  return d[j % w] <= j;
+}
+```
+The array can be calculated using shortest paths algorithm for directed graphs. We consider a graph with w vertices `v0, … , v{w−1}`. For every vertex `vj` and every item of weight `wi` we add a directed edge from `vj` to `v{(j + wi) mod w}` with length `wi` . Then `d[j]` is the length of the shortest path from `v0` to `vj`.
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
