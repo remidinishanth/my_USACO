@@ -154,10 +154,14 @@ Taro and Jiro will play the following game against each other. Initially, they a
 * Remove the element at the beginning or the end of a . The player earns x points, where x is the removed element.
 
 Let X and Y be Taro's and Jiro's total score at the end of the game, respectively. Taro tries to maximize `X − Y` , while Jiro tries to minimize `X − Y`.
-Assuming that the two players play optimally, find the resulting value of `X − Y`.
+Assuming that the two players play optimally, find the resulting value of `X − Y` if `1 ≤ N ≤ 3000` and `1 ≤ ai ≤ 10^9`
 
+#### Solution
+
+Let `dp[i][j][0/1]` denote be the value if first/second player starts from deque[i:j]
 
 ```cpp
+using ll = long long;
 ll dp[3005][3005][2];
  
 int main(){
@@ -178,5 +182,33 @@ int main(){
     }
     pl(dp[0][n-1][0]);
     return 0;
+}
+```
+
+Observation: In the above solution `dp[i][j][0] = -dp[i][j][1]`. Hence we can modify and just use what is the value if first player starts from deque[i:j] and simplify to the following code
+```
+using ll = long long;
+const int nax = 3005;
+ll dp[nax][nax];
+ 
+int main() {
+    int n;
+    scanf("%d", &n);
+    vector<int> a(n);
+    for(int i = 0; i < n; ++i) {
+        scanf("%d", &a[i]);
+    }
+    // dp[0][n-1]
+    for(int L = n - 1; L >= 0; --L) {
+        for(int R = L; R < n; ++R) {
+            if(L == R) {
+                dp[L][R] = a[L];
+            }
+            else {
+                dp[L][R] = max(a[L] - dp[L+1][R], a[R] - dp[L][R-1]);
+            }
+        }
+    }
+    printf("%lld\n", dp[0][n-1]);
 }
 ```
