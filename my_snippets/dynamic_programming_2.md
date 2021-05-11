@@ -134,6 +134,22 @@ If we want, we can utilize the above optimization to write the recurrence formul
 
 Note also that we solve more general problem: our array `d[j]` is true if we can choose a subset of items such that its total weight is exactly `j` . We will call it a knapsack structure. It will allow us to answer in constant time queries of form: is there a subset of total weight exactly `j` , where `0 ≤ j ≤ M` . The space complexity of the structure is `O(M)` and we can build it in `O(nM)`.
 
+#### Unlimited amount of items of each kind
+
+We can also think about items not as single entities, but as various kinds, from which we can take multiple items. The simplest variant is when we can take unlimited amount of items of each kind. This is called unbounded knapsack problem. It is easy to adapt the previous algorithm. Just observe that if we consider taking an item of the `i-th` type, the remaining place `j − w[i]` can still contain this kind of item, therefore the main recurrence is replaced by
+
+```d[i,j] = d[i−1,j] or d[i,j−w[i]]⋅[j ≥ w[i]]```
+
+It is also easy to change code which uses one row. Now we can immediately use the values of improved cells, so we only need to change the direction of the inner loop:
+```cpp
+  REP(i, n) {
+    for (int j = w[i]; j <= M; ++j) {
+      d[j] |= d[j - w[i]];
+    }
+  }
+```
+This gives us O (nM) algorithm for the unbounded knapsack problem.
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
