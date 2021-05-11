@@ -106,10 +106,10 @@ int main() {
                 // 1 + S = S / p_waste, S = p_waste/(1 - p_waste)
                 double ev_waste = p_waste / (1 - p_waste) + 1;
 		/*
-		* The above can also be written as
-		* ev_waste = p_waste(1 + ev_waste) + (1 - p_waste)*1
-		* ev_waste = 1/(1 - p_waste)
-		* which is what we get after ev_waste = p_waste/(1 - p_waste) + 1;
+		The above can also be written as
+		    ev_waste = p_waste(1 + ev_waste) + (1 - p_waste)*1
+		    ev_waste = 1/(1 - p_waste)
+		which is what we get after ev_waste = p_waste/(1 - p_waste) + 1;
 		*/
                 debug() << imie(a) imie(b) imie(c) imie(ev_waste);
                 ev[a][b][c] += ev_waste * p[a][b][c];
