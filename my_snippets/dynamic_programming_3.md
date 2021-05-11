@@ -185,7 +185,9 @@ int main(){
 }
 ```
 
-Observation: In the above solution `dp[i][j][0] = -dp[i][j][1]`. Hence we can modify and just use what is the value if first player starts from deque[i:j] and simplify to the following code
+Observation: In the above solution `dp[i][j][0] = -dp[i][j][1]`. Hence we can modify and just use what is the value if first player starts from deque[i:j] and simplify to the following code. 
+
+An alternative way to think is that `dp[i][j]` denotes by how much difference `X - Y` does the first player win.
 
 ```cpp
 using ll = long long;
