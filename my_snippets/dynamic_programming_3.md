@@ -45,6 +45,7 @@ Code
 ```cpp
 double dp[305][305][305];
 int n,a[3];
+// expected number of days to get from (a,b,c) to (0,0,0)
 double rec(int a,int b,int c){
 	if(dp[a][b][c] >= -1e16) return dp[a][b][c];
 	if(a+b+c == 0) return 0.0;
