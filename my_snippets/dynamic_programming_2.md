@@ -114,6 +114,26 @@ int knapsack() {
 
 The time complexity is `O(n M)`. The space complexity is the same, but can be easily reduced to `O(M)`, using the standard DP trick of storing only two last rows of array d (since the calculations in the row only refers to values in the previous row). But here we can do even better. Observe that line with a comment just rewrites `row i` to `row i + 1` , and then in next two lines we improve some cells. Moreover during improvement we use only cells with lower `j` , so we can store everything in one row, as long as we iterate over it backwards:
 
+```cpp
+bool d[MAXM+1];
+
+int knapsack() {
+  REP(j, M+1) d[j] = j==0;
+  REP(i, n) {
+    for (int j = M; j >= w[i]; --j) {
+      d[j] |= d[j - w[i]];
+    }
+  }
+  return last_max_element(d, d+M+1) - d;
+}
+```
+
+If we want, we can utilize the above optimization to write the recurrence formula in a slightly more readable way, by removing row indices:
+
+```dnew[j] = d[j] or d[j − w[i]]⋅[j ≥ w[i]]```
+
+Note also that we solve more general problem: our array `d[j]` is true if we can choose a subset of items such that its total weight is exactly `j` . We will call it a knapsack structure. It will allow us to answer in constant time queries of form: is there a subset of total weight exactly `j` , where `0 ≤ j ≤ M` . The space complexity of the structure is `O(M)` and we can build it in `O(nM)`.
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
