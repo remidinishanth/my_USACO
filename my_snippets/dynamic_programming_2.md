@@ -164,7 +164,7 @@ Therefore for the elements of the `i-th` type we will have `O(log bi)` packets, 
 
 But we can do faster. Let's consider adding the `i-th` type. Observe that the recurrence formula is as follows:
 
-```dnew[j] = or( d[j], d[j−wi], d[j−2wi], …, d[j−biwi] ),```
+```dnew[j] = or( d[j], d[j−wi], d[j−2wi], …, d[j−bi.wi] ),```
 
 where for notational simplicity we assume that `d[⋅]` is false for negative indices. That means that the new value is true if there is at least one true value among `bi` values which we get starting from index `j` an jumping backwards every other `wi -th` index. Note that for `wi = 1` we could just say that “there is at least one true value among the last `bi + 1` values”. Such condition would be very easy to check, by maintaining the index `jr` of the most recent true value; then the condition is true if `j − jr ≤ bi`.
 
