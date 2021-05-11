@@ -104,9 +104,9 @@ int main() {
                 double p_waste = (double) (n - (a + b + c)) / n;
                 // p_waste + p_waste^2 + ... = S
                 // 1 + S = S / p_waste, S = p_waste/(1 - p_waste)
-                double ev_waste = p_waste / (1 - p_waste) + 1;
+                double ev_waste = p_waste / (1 - p_waste);
                 debug() << imie(a) imie(b) imie(c) imie(ev_waste);
-                ev[a][b][c] += ev_waste * p[a][b][c];
+                ev[a][b][c] += (ev_waste + 1) * p[a][b][c]; // number of days wasted + 1
                 
                 // remove 1 -> dp[a-1][b][c]
                 // we will eventually choose one of a+b+c
