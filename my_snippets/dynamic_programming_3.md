@@ -2,6 +2,8 @@ TODO https://codeforces.com/blog/entry/47764
 
 TODO https://apps.topcoder.com/forums/?module=Thread&threadID=700080&start=0
 
+TODO https://codeforces.com/blog/entry/8219
+
 ## Expected Number DP
 
 ### J Sushi Atcoder
@@ -216,5 +218,6 @@ int main() {
 }
 ```
 The above problem can be solved in O(n). REF: https://qr.ae/pGnaCy, https://youtu.be/pOv4LRNt0jo
+
 TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book.
 
