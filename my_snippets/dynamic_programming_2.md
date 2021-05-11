@@ -1,5 +1,3 @@
-## Survey of knapsack problems
-
 ### Knapsack Problems
 
 The term knapsack refers to problems where a set of objects is given, and subsets with some properties have to be found. Knapsack problems can often be solved using dynamic programming.
@@ -76,6 +74,45 @@ for(int i = 0; i < n; i++)
 cout << dp.count() << '\n';
 ```
 source: https://codeforces.com/blog/entry/45576?#comment-302358
+
+## Survey of knapsack problems
+http://www.algonotes.com/en/knapsacks/
+
+### Standard Knapsacks
+
+We begin with probably the simplest formulation. We have a set of `n` items, each of them is described by its weight (sometimes called size or something similar); the `i-th` item has weight `wi` . We also have a knapsack of weight limit `M` and we are asked to find a subset of items of total weight as large as possible, but less than or equal to the limit (so that the selected items can fit into the knapsack). This is called 0-1 knapsack problem.
+
+The dynamic programming is rather straightforward here. We denote by `d[i,j]` a Boolean value which says whether exists a subset of total weight exactly `j` when we are allowed to use items number `{1, 2, … , i}` . Thus variables satisfy `0 ≤ i ≤ n , 0 ≤ j ≤ M`. Of course `d[0, j] = [j == 0]` , since without any items, we can only obtain an empty subset.
+
+For `i ≥ 1` we consider two cases: either we do not take the `i-th` item to the subset (so the weight j can be realized only if `d[i − 1, j]` is true), or we take it, but only if its weight is no bigger than `j` and `d[i − 1, j − w[i]]` is true:
+
+```d[i, j] = d[i−1, j] or d[i−1, j − w[i]]⋅[j ≥ w[i]]```
+
+The answer is the biggest value j ≤ M for which `d[n, j]` is true. The code is quite simple:
+```cpp
+#include <cstdio>
+using namespace std;
+#define REP(i,n) for(int i=0;i<(n);++i)
+
+const int N = 1000, MAXM = 1000;
+int n, M, w[N];
+bool d[N+1][MAXM+1];
+
+int knapsack() {
+  REP(j, M+1) d[0][j] = j==0;
+  REP(i, n) {
+    REP(j, M+1) {
+      d[i+1][j] = d[i][j];  /* rewrite */
+      if (j >= w[i]) {
+        d[i+1][j] |= d[i][j - w[i]];
+      }
+    }
+  }
+  return last_max_element(d[n], d[n]+M+1) - d[n];
+}
+```
+
+The time complexity is `O(n M)`. The space complexity is the same, but can be easily reduced to `O(M)`, using the standard DP trick of storing only two last rows of array d (since the calculations in the row only refers to values in the previous row). But here we can do even better. Observe that line with a comment just rewrites `row i` to `row i + 1` , and then in next two lines we improve some cells. Moreover during improvement we use only cells with lower `j` , so we can store everything in one row, as long as we iterate over it backwards:
 
 ### Bounded Knapsack
 
