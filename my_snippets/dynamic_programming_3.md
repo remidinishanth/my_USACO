@@ -213,3 +213,5 @@ int main() {
     printf("%lld\n", dp[0][n-1]);
 }
 ```
+
+TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book
