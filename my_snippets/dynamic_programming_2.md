@@ -166,7 +166,7 @@ But we can do faster. Let's consider adding the `i-th` type. Observe that the re
 
 ```dnew[j] = or( d[j], d[j−wi], d[j−2wi], …, d[j−bi.wi] ),```
 
-where for notational simplicity we assume that `d[⋅]` is false for negative indices. That means that the new value is true if there is at least one true value among `bi` values which we get starting from index `j` an jumping backwards every other `wi -th` index. Note that for `wi = 1` we could just say that “there is at least one true value among the last `bi + 1` values”. Such condition would be very easy to check, by maintaining the index `jr` of the most recent true value; then the condition is true if `j − jr ≤ bi`.
+where for notational simplicity we assume that `d[⋅]` is false for negative indices. That means that the new value is true if there is at least one true value among `bi` values which we get starting from index `j` an jumping backwards every other `wi -th` index. Note that for `wi = 1` we could just ask that “Is there is at least one true value among the last `bi + 1` values”. Such condition would be very easy to check, by maintaining the index `jr` of the most recent true value; then the condition is true if `j − jr ≤ bi`.
 
 But we can extend this idea for bigger values of `wi` , by maintaining an array `jr` of size `wi`, where different indices keep track of most recent true values for cells which indices have the same remainder when divided by `wi` . Maybe it is easier to explain it by providing the code:
 
