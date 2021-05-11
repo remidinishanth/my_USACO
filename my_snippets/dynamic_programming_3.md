@@ -117,6 +117,7 @@ int main() {
                 }
                 
                 // remove 2 -> dp[a+1][b-1][c]
+		// number of two sushi will decrease, number of one sushi will increase
                 if(b != 0) {
                     double p_go = (double) b / (a + b + c);
                     p[a+1][b-1][c] += p[a][b][c] * p_go;
