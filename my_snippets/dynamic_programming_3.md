@@ -90,7 +90,7 @@ int main() {
         scanf("%d", &x);
         ++cnt[x];
     }
-    p[cnt[1]][cnt[2]][cnt[3]] = 1; // initial state
+    p[cnt[1]][cnt[2]][cnt[3]] = 1; // initial state (ones, twos, threes)
     for(int c = n; c >= 0; --c) {
         for(int b = n; b >= 0; --b) {
             for(int a = n; a >= 0; --a) {
