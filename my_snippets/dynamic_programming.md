@@ -850,3 +850,57 @@ You can check at https://atcoder.jp/contests/dp/tasks/dp_f
 Or we can simply remember the parent arrow like the algorithm described in cormen
 
 ![image](https://user-images.githubusercontent.com/19663316/117719065-8ec2bf00-b1fa-11eb-81ed-58084801c303.png)
+
+### Longest path in a DAG
+
+Given a directed acyclic graph, how many paths are there from u to v? What is the longest one if there are weights on the edges?
+
+#### Solution
+
+Do a topological sort on the graph, then do a DP along the topological order.
+
+**Remark.** You do not need to do the DFS (topological sort) and DP separately. Just do the DP in recursive
+manner. The situation where the recursive DP is good is exactly when the order of the DP is hidden.
+
+```cpp
+// DAG - directed acyclic graph
+ 
+const int nax = 1e5 + 5;
+vector<int> edges[nax];
+int in_degree[nax]; // the number of edges going to 'b'
+int dist[nax];
+bool visited[nax];
+ 
+void dfs(int a) {
+    assert(!visited[a]);
+    visited[a] = true;
+    for(int b : edges[a]) {
+        dist[b] = max(dist[b], dist[a] + 1);
+        --in_degree[b];
+        if(in_degree[b] == 0) {
+            dfs(b);
+        }
+    }
+}
+ 
+int main() {
+    int n, m;
+    scanf("%d%d", &n, &m);
+    while(m--) {
+        int a, b;
+        scanf("%d%d", &a, &b);
+        edges[a].push_back(b);
+        ++in_degree[b];
+    }
+    for(int i = 1; i <= n; ++i) {
+        if(!visited[i] && in_degree[i] == 0) {
+            dfs(i);
+        }
+    }
+    int answer = 0;
+    for(int i = 1; i <= n; ++i) {
+        answer = max(answer, dist[i]);
+    }
+    printf("%d\n", answer);
+}
+```
