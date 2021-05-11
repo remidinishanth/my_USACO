@@ -162,6 +162,64 @@ In order to do it more efficiently, we will group the items in “packets”. It
 
 Therefore for the elements of the `i-th` type we will have `O( log bi )` packets, so the algorithm (0-1 knapsack on these packets) will run in time `O(n M logB )` .
 
+But we can do faster. Let's consider adding the `i-th` type. Observe that the recurrence formula is as follows:
+
+```dnew[j] = or( d[j], d[j−wi], d[j−2wi], …, d[j−biwi] ),```
+
+where for notational simplicity we assume that `d[⋅]` is false for negative indices. That means that the new value is true if there is at least one true value among `bi` values which we get starting from index `j` an jumping backwards every other `wi -th` index. Note that for `wi = 1` we could just say that “there is at least one true value among the last `bi + 1` values”. Such condition would be very easy to check, by maintaining the index `jr` of the most recent true value; then the condition is true if `j − jr ≤ bi`.
+
+But we can extend this idea for bigger values of `wi` , by maintaining an array `jr` of size `wi`, where different indices keep track of most recent true values for cells which indices have the same remainder when divided by `wi` . Maybe it is easier to explain it by providing the code:
+
+```cpp
+int jr[MAXM+1];
+
+  REP(i, n) {
+    const int w = w[i], b = b[i];
+    REP(j, w) jr[j] = -infty;
+    REP(j, M+1) {
+      d[j] |= j - jr[j % w] <= b*w;
+      if (d[j]) {
+        jr[j % w] = j;
+      }
+    }
+  }
+```
+
+The time complexity of this algorithm is `O(n M)`. The algorithm highlights quite important idea we will use when creating algorithms for more complicated variants of bounded knapsacks. The idea helps us working with recursive formulas which, when calculating `d[j]`, depend on values `d[j − kw]` for `0 ≤ k ≤ b`. The other way of thinking about this is as follows: we partition array d into w arrays d 0 , d 1 , … , d w − 1 by taking to array d J every w -th element from array d starting from index J , i.e. `dJ [ j′ ] = d[ J + j′ w ]` . Then the recursive formula for `j = J + j′ w` can be written as follows:
+
+![image](https://user-images.githubusercontent.com/19663316/117840727-0dbb0480-b29a-11eb-91a0-92e4624c8c88.png)
+
+thus it depends on a consecutive range of indices `dJ [ j′ − k ]` for `0 ≤ k ≤ b`. And often we can propose a faster algorithm which uses the fact that the range of indices is consecutive.
+
+But for the basic bounded knapsack problem we can show a different algorithm of `O(n M)` complexity, which does not need additional memory. Once again let's consider adding the `i-th` type. If `d[j]` is true, we can generate subsets `j + wi , j + 2 wi , … , j + bi ⋅ wi`, thus we should set all these indices of array `d` to true. Doing it naively would need time `O(n M B)`.
+
+But let's iterate over j decreasingly and take a closer look what happens. When examining value j , we can assume that for all values `j′ > j` if `d[ j′ ]` is true, then `d[ j′ + k′ ⋅ wi]` is also true for all `k′ ≤ bi`. So if `d[j]` is true, we iterate over `k` and set `d[j + k ⋅ wi]` to true, until we hit the cell which was already set. Of course it couldn't be set in this iteration (since then `d[j + (k − 1) ⋅ wi]` must also be set), thus the size `j + k ⋅ wi` can be obtained using elements of type smaller that `i` . But this means that when previously algorithm examined `j + k ⋅ wi`, the value `d[j + k ⋅ wi]` was true, so it also set to true all values `d[j + (k + k′) ⋅ wi]` for all `k′ ≤ bi`. Therefore we can stop our iteration over `k` . The code is as follows:
+
+```cpp
+  REP(i, n) {
+    for (int j = M - w[i]; j >= 0; --j) {
+      if (d[j]) {
+        int k = b[i], x = j + w[i];
+        while (k > 0 && x <= M && !d[x]) {
+          d[x] = true;
+          --k;
+          x += w[i];
+        }
+      }
+    }
+  }
+```
+
+Observe that the inner while loop invokes body if some cell `d[x]` changes its value to true (the loop fills cells and stops if it finds a cell filled before). It can happen only `M` times, so total time complexity is `O(n M)`.
+
+#### Sum of weights of items is limited
+
+This algorithm can also help us in a slight variant of 0-1 knapsack problem in which we have a limit on the sum of weights of all items, i.e. `∑ wi ≤ S`. The idea is that if `S` is small, then there cannot be many items of different weights (weights of items have to repeat). More precisely, if we have k items of different weights, their total weight must be equal to at least `1 + 2 + … + k = O(k^2)`, so the number of different weights is `O(√S)`. Thus we can utilize this fact and group items of the same weight and use algorithm for bounded knapsack problem. Thanks to that we add a bunch of items of the same weight in linear time, which results in time complexity `O(√S M)`.
+
+Of course this is after a preprocessing phase in which we form groups. It will run in time `O(n log n)` or `O(n + W)` where `W` is the upper bound on the size of the item weight, depending how we sort the weights. Important distinction between this and all previous algorithms is that int the previous ones we added items one by one, each in time `O(M)`, and now we must enforce some order by cleverly grouping them.
+
+Note that exactly the same algorithm works for bounded knapsack with limit on the sum of weights.
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
