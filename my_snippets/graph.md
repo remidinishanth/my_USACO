@@ -258,6 +258,10 @@ For each vertex v in a given DAG, the length of the longest path ending at v may
 
 Once this has been done, the longest path in the whole DAG may be obtained by starting at the vertex v with the largest recorded value, then repeatedly stepping backwards to its incoming neighbor with the largest recorded value, and reversing the sequence of vertices found in this way.
 
+**Trick**
+You do not need to do the DFS (topological sort) and DP separately. Just do the DP in recursive
+manner. The situation where the recursive DP is good is exactly when the order of the DP is hidden.
+
 DFS in case of longest path for a DAG: What you can do is use `in_degree[x]==0` before you call `dfs(x)`, that is 
 ```cpp
 for(int v:Adj[u]){
