@@ -41,6 +41,37 @@ After simplification we get
 dp[i,j,k] = k/(i+j+k) . (dp[i,j,k-1]) + j/(i+j+k) . (dp[i,j-1,k]) + i/(i+j+k) . (dp[i-1,j,k]) + N/(i+j+k)
 ```
 
+Code
+```cpp
+double dp[305][305][305];
+int n,a[3];
+double rec(int a,int b,int c){
+	if(dp[a][b][c] >= -1e16) return dp[a][b][c];
+	if(a+b+c == 0) return 0.0;
+	double sum = 0;
+	if(a) sum += (double)(a)/(double)(a+b+c)*rec(a-1,b,c);
+	if(b) sum += (double)(b)/(double)(a+b+c)*rec(a+1,b-1,c);
+	if(c) sum += (double)(c)/(double)(a+b+c)*rec(a,b+1,c-1);
+	sum += 1.0*(double)(n)/(double)(a+b+c);
+	return dp[a][b][c] = sum;
+}
+int main(){
+	cin>>n;
+	for(int i=0;i<305;i++) for(int j=0;j<305;j++) for(int k=0;k<305;k++){
+		dp[i][j][k]=-1e18;
+	}
+	for(int i=0;i<305;i++) for(int j=0;j<305;j++) for(int k=0;k<305;k++){
+		if(i+j+k > n) continue;
+		dp[i][j][k] = rec(i,j,k);
+	}
+	rep(i,n){
+		int x; cin>>x; a[x-1]++;
+	}
+	printf("%.12f\n",dp[a[0]][a[1]][a[2]]);
+}
+```
+source: https://atcoder.jp/contests/dp/submissions/3943172
+
 Using probabilities
 
 ```cpp
@@ -103,3 +134,5 @@ int main() {
     printf("%.10lf\n", ev[0][0][0]);
 }
 ```
+
+source: Errichto https://atcoder.jp/contests/dp/submissions/4303017
