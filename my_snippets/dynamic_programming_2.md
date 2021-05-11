@@ -150,6 +150,18 @@ It is also easy to change code which uses one row. Now we can immediately use th
 ```
 This gives us O (nM) algorithm for the unbounded knapsack problem.
 
+#### Limited amount of items of each kind
+
+Same section is also described in `Bounded Knapsack` below
+
+A little bit harder variant is when we limit number of items we can take from each kind. Denote by `bi` number of items of the `i-th` kind. This is called bounded knapsack problem. Of course the naive approach would be to copy each item `bi` times and use the first algorithm for 0-1 knapsack. If `bi ≤ B`, then this would use time `O(nMB)`, which is not very fast.
+
+But copying each item `bi` times is quite wasteful. We do not need to examine each item separately, since they are indistinguishable anyway, but we need some method to allow us to take any number of such items between `0` and `bi` , or in other words a bunch of items of total weight from the set `{0 , wi , 2wi , … , bi.wi }`.
+
+In order to do it more efficiently, we will group the items in “packets”. It is clearer to see how to do it if we assume that `bi = 2^k − 1` for some k . Then we can form k packets of sizes `wi , 2 wi , 4 wi , … , 2^(k − 1) wi`. Now if we want to take some packets of total weight `j wi` , we just take packets based on set bits in binary representation of `j` . In general case when `2^k ≤ bi < 2^k + 1` we add an additional packet of size `r = ( bi − 2^(k − 1) + 1 ) wi`. If we take this packet, the remaining weight `bi.wi − r` is smaller than `2^k wi` , so it can be covered by choosing from the first `k` packets.
+
+Therefore for the elements of the `i-th` type we will have `O( log bi )` packets, so the algorithm (0-1 knapsack on these packets) will run in time `O(n M logB )` .
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
