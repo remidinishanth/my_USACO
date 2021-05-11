@@ -79,7 +79,9 @@ Subproblem design is the hard part, when we are given sequences, often use
 - suffiixes S[i:] for all i, O(n)
 - substring S[i:j] for all i<j, O(n^2)
 
-Think in terms of what all variables is required to maintain the state.
+Think in terms of what all dimensions/variables is required to maintain the state. If you want to move from one step to another, what all variables matter, those all have to be part of subproblem. 
+
+For example: If you are given `N` coins say `1,2,...,N`, each having `pi` probability of getting a head and we want to find the probability of having more heads than tails after tossing N coins. While tossing `i-th` coin, we need to remember, how many heads we have seen till now. Hence our subproblem has to be something like `dp[i][h]` that is of out the first `i` coins, what is the probability of having `h` heads.
 
 ### Relation trick
 
