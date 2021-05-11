@@ -5,11 +5,11 @@ problem-solving technique among Divide and Conquer, Greedy and complete search p
 
 * Similar in some respects to both divide and conquer and backtracking
 * Divide and conquer recap:
-   * Split the problem into *independent* subproblems
+   * Split the problem into **independent** subproblems
    * Solve each subproblem recursively
    * Combine the solutions to subproblems into a solution for the given problem
 * Dynamic programming:
-   * Split the problem into *overlapping* subproblems
+   * Split the problem into **overlapping** subproblems
    * Solve each subproblem recursively
    * Combine the solutions to subproblems into a solution for the given problem
    * Don’t compute the answer to the same subproblem more than once
