@@ -144,3 +144,39 @@ int main() {
 ```
 
 source: Errichto https://atcoder.jp/contests/dp/submissions/4303017
+
+## Game Theory, optimization
+
+### L Deque Atcoder
+source: https://atcoder.jp/contests/dp/tasks/dp_l
+
+Taro and Jiro will play the following game against each other. Initially, they are given a sequence `a=(a1,a2,…,aN)`. Until `a` becomes empty, the two players perform the following operation alternately, starting from Taro.
+* Remove the element at the beginning or the end of a . The player earns x points, where x is the removed element.
+
+Let X and Y be Taro's and Jiro's total score at the end of the game, respectively. Taro tries to maximize `X − Y` , while Jiro tries to minimize `X − Y`.
+Assuming that the two players play optimally, find the resulting value of `X − Y`.
+
+
+```cpp
+ll dp[3005][3005][2];
+ 
+int main(){
+    int n;
+    scanf("%d", &n);
+    vector<int> a(n);
+    REP(i,n) scanf("%d", &a[i]);
+    for(int l=0;l<n;l++){
+        for(int i=0;i+l<n;i++){
+            if(l==0){
+                dp[i][i][0] = a[i];
+                dp[i][i][1] = -a[i];
+            }else{
+                dp[i][i+l][0] = max(dp[i][i+l-1][1]+a[i+l],dp[i+1][i+l][1]+a[i]);
+                dp[i][i+l][1] = min(dp[i][i+l-1][0]-a[i+l],dp[i+1][i+l][0]-a[i]);
+            }
+        }
+    }
+    pl(dp[0][n-1][0]);
+    return 0;
+}
+```
