@@ -234,6 +234,8 @@ bool query(int j) {
 ```
 The array can be calculated using shortest paths algorithm for directed graphs. We consider a graph with w vertices `v0, … , v{w−1}`. For every vertex `vj` and every item of weight `wi` we add a directed edge from `vj` to `v{(j + wi) mod w}` with length `wi` . Then `d[j]` is the length of the shortest path from `v0` to `vj`.
 
+The overall time complexity depends on the size of this graph. Of course, it's the best to use the smallest weight as value `w`. Moreover, the number of edges from each vertex is bounded by `min(n, w)` , since we need to store only the cheapest edge between each pair of vertices. So depending on whether the graph is dense or sparse, it make sense to use different implementation of Dijkstra algorithm: bucket `O(n + w^{3/2} + w.min(n, w))` for dense graph or binary heap `O(wn log w)` for sparse graph.
+
 ### Bounded Knapsack
 
 The bounded knapsack problem is: you are given n types of items, you have ui items of i-th type, and each item of i-th type weighs wi and costs ci. What is the maximal cost you can get by picking some items weighing at most W in total?
