@@ -147,7 +147,7 @@ int main() {
 
 source: Errichto https://atcoder.jp/contests/dp/submissions/4303017
 
-Bonus: https://math.stackexchange.com/questions/2772873/show-that-n-sum-k-1n-frac1k-sim-n-logn-collectors-problem
+**Bonus**: https://math.stackexchange.com/questions/2772873/show-that-n-sum-k-1n-frac1k-sim-n-logn-collectors-problem
 
 Consider coupons numbered `1,2,...,n`, which you collect until you have all numbers. Each time you get a coupon, its number is independent of previous numbers and all numbers are equally likely. Let `n` be the number of coupons you need,
 
