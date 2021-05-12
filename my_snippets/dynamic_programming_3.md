@@ -75,7 +75,7 @@ int main(){
 ```
 source: https://atcoder.jp/contests/dp/submissions/3943172
 
-Using probabilities
+Using probabilities `ev_waste = p_waste / (1 - p_waste) + 1;`. Current step always uses a turn no matter what happens, the rest of the sum is the expected number of additional turns after this one.
 
 ```cpp
 const int nax = 305;
