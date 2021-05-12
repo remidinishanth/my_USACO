@@ -230,7 +230,7 @@ The above problem can be solved in O(n). REF: https://qr.ae/pGnaCy, https://yout
 
 TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book.
 
-## Prefix sum trick in DP
+## Combinatorics & Prefix sum trick in DP
 
 ### M Candies Atcoder DP
 
