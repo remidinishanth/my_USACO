@@ -316,3 +316,18 @@ One thing to note here is `k` is always equal to the number of set bits in `mask
 ```answer(mask | (1 << i)) = min( answer(mask | (1 << i)), answer(mask) + cost[x][i])```
 
 here `x` = number of set bits in `mask`.
+
+```python
+assign(N, cost)
+    for i = 0 to power(2,N)
+        dp[i] = INFINITY
+    dp[0] = 0
+    for mask = 0 to power(2, N)
+        x = count_set_bits(mask)
+        for j = 0 to N
+            if jth bit is not set in i
+                dp[mask|(1<<j)] = min(dp[mask|(1<<j)], dp[mask]+cost[x][j])
+    return dp[power(2,N)-1]                
+```
+
+Time complexity of above algorithm is `O(n 2^n)` and space complexity if `O(2^n)`.
