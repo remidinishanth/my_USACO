@@ -221,3 +221,50 @@ The above problem can be solved in O(n). REF: https://qr.ae/pGnaCy, https://yout
 
 TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book.
 
+## Prefix sum trick in DP
+
+### M Candies Atcoder DP
+
+source: https://atcoder.jp/contests/dp/tasks/dp_m
+
+There are `N (1 ≤ N ≤ 100)` children, numbered `1 , 2 , … , N`. They have decided to share `K  (1 ≤ K ≤ 10^5)` candies among themselves. Here, for each `i ( 1 ≤ i ≤ N )`, Child `i` must receive between `0` and `ai (0 ≤ ai ≤ K)` candies (inclusive). Also, no candies should be left over. Find the number of ways for them to share candies, modulo `10^9 + 7`. Here, two ways are said to be different when there exists a child who receives a different number of candies.
+
+#### Solution
+
+let `dp[i][j]` denote the number of ways of distributing `j` candies between first `i` children.
+
+Transition `dp[i][j] = dp[i-1][j] + dp[i-1][j-1] + ... + dp[i-1][j-ai]` assume that `d[i-1][j]` = 0 if `j` is negative.
+
+Since `1 ≤ i ≤ maxN = 100` and `1 ≤ j ≤ maxK = 10^5` and `1 ≤ ai ≤ maxK = 10^5`, the time limit is` O(N.K^2)`. We get TLE if we compute the above DP directly. But if we observe the relation, we find that we can compute this efficiently with prefix sums, therefore `dp[i][j] = prefix_sum([i-1][j]) - prefix_sum(dp[i-1][j-ai-1])`, we can compute `prefix_sum` once for every `i` and can solve the problem in `O(NK)`
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int dp[105][100005];
+int MOD = 1e9 + 7;
+ 
+int main(){
+    int n,k;
+    scanf("%d%d", &n, &k);
+    vector<int> A(n);
+    for(int i=0;i<n;i++) scanf("%d", &A[i]);
+    dp[0][0] = 1; // base case
+    for(int i=0;i<n;i++){
+        vector<int> prefix_sum(k+1);
+        prefix_sum[0] = dp[i][0];
+        for(int j=1;j<=k;j++){
+            prefix_sum[j] = (1ll*prefix_sum[j-1] + dp[i][j])%MOD;
+        }
+        for(int j=0;j<=k;j++){
+            int remove = 0;
+            if(j>A[i]){
+                remove = prefix_sum[j-A[i]-1];
+            }
+            dp[i+1][j] = (1ll*prefix_sum[j] - remove + MOD)%MOD;
+        }
+    }
+    printf("%d\n", dp[n][k]);
+    return 0;
+}
+```
