@@ -305,13 +305,13 @@ The complexity of above algorithm is , well that's clearly not good.
 
 #### DP bitmask solution
 
-Let's try to improve it using dynamic programming. Supoose thae state of `dp` is `(k, mask)`, where `k` represents that person `0` to `k-1` have been assigned a task, and `mask` is a binary number, whose `i-th` bit represents if the `i-th` task has been assigned or not.
+Let's try to improve it using dynamic programming. When we want to assign a task to person `k`, all that matters is which of the tasks have been assigned already. Suppose that state of `dp` is `(k, mask)`, where `k` represents that person `0` to `k-1` have been assigned a task, and `mask` is a binary number, whose `i-th` bit represents if the `i-th` task has been assigned or not.
 
 Now, suppose, we have `answer(k, mask)`, we can assign a task `i` to person `k`, iff `i-th` task is not yet assinged to any person i.e, `mask & (1 << i) = 0` then, `answer(k+1, mask | (1 << i)` will be given as:
 
 ```answer(k + 1, mask | (1 << i)) = min( answer(k + 1, mask | (1 << i)), answer(k, mask) + cost[k][i])```
 
-One thing to note here is `k` is always equal to the number  set bits in `mask`, so we can remove that. So the dp state now is just `(mask)`, ans if we have `answer(mask)`, then
+One thing to note here is `k` is always equal to the number of set bits in `mask`, so we can remove that. So the dp state now is just `(mask)`, ans if we have `answer(mask)`, then
 
 ```answer(mask | (1 << i)) = min( answer(mask | (1 << i)), answer(mask) + cost[x][i])```
 
