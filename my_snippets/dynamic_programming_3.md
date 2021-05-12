@@ -277,3 +277,42 @@ int main(){
     return 0;
 }
 ```
+
+## Dynamic Programming and Bit Masking
+
+### Assignment Problem
+source: https://www.hackerearth.com/practice/algorithms/dynamic-programming/bit-masking/tutorial/
+
+There are `N` persons and `N` tasks, each task is to be alloted to a single person. We are also given a matrix `cost` of size `N x N`, where `cost[i][j]` denotes, how much person `i` is going to charge for task `j`. Now we need to assign each task to a person in such a way that the total cost is minimum. Note that each task is to be alloted to a single person, and each person will be alloted only one task.
+
+#### Solution
+The brute force approach here is to try every possible assignment. Algorithm is given below:
+```python
+assign(N,  cost)
+    for i = 0 to N
+        assignment[i] = i            //assigning task i to person i
+    res = INFINITY
+    for j = 0 to factorial(N)
+        total_cost = 0
+        for i = 0 to N
+            total_cost = total_cost + cost[i][assignment[i]]
+        res = min(res, total_cost)
+        generate_next_greater_permutation(assignment)
+    return res
+```
+
+The complexity of above algorithm is , well that's clearly not good.
+
+#### DP bitmask solution
+
+Let's try to improve it using dynamic programming. Supoose thae state of `dp` is `(k, mask)`, where `k` represents that person `0` to `k-1` have been assigned a task, and `mask` is a binary number, whose `i-th` bit represents if the `i-th` task has been assigned or not.
+
+Now, suppose, we have `answer(k, mask)`, we can assign a task `i` to person `k`, iff `i-th` task is not yet assinged to any person i.e, `mask & (1 << i) = 0` then, `answer(k+1, mask | (1 << i)` will be given as:
+
+```answer(k + 1, mask | (1 << i)) = min( answer(k + 1, mask | (1 << i)), answer(k, mask) + cost[k][i])```
+
+One thing to note here is `k` is always equal to the number  set bits in `mask`, so we can remove that. So the dp state now is just `(mask)`, ans if we have `answer(mask)`, then
+
+```answer(mask | (1 << i)) = min( answer(mask | (1 << i)), answer(mask) + cost[x][i])```
+
+here `x` = number of set bits in `mask`.
