@@ -331,3 +331,65 @@ assign(N, cost)
 ```
 
 Time complexity of above algorithm is `O(n 2^n)` and space complexity if `O(2^n)`.
+
+### Matching problem
+
+There are `N (1 ≤ N ≤ 21)` men and `N` women, both numbered `1 , 2 , … , N`. For each `i , j ( 1 ≤ i , j ≤ N )`, the compatibility of Man `i` and Woman `j` is given as an integer a `i` , `j` . If `a[i,j]` = 1 , Man `i` and Woman `j` are compatible; if `a[i ,j] = 0`, they are not. Taro is trying to make N pairs, each consisting of a man and a woman who are compatible. Here, each man and each woman must belong to exactly one pair. Find the number of ways in which Taro can make `N` pairs, modulo `10^9 + 7`.
+
+#### Solution
+
+A brute force dp solution can take `O(n^2. 2^n)` time. `solve(i, mask)` is the number of ways of matching `[i:]` men, `mask` represents women matched till now using bitmask. Solution to original problem is `solve(0, 0)`.
+
+source: https://atcoder.jp/contests/dp/submissions/3947427
+
+```cpp
+ll solve(int i,int mask){
+	if(i==n) return mask==lim;
+	if(dp[i][mask]!=-1) return dp[i][mask];
+	ll c = 0;
+	for(int j=0; j<n; j++){
+		// check whether i & j are compatible and j is not matched yet
+		if(a[i][j] && ((mask & (1<<j))==0)){ 
+			c += solve(i+1,mask|(1<<j));
+		}
+	}
+	return dp[i][mask]=c%MOD;
+}
+```
+
+We can solve in `O(n. 2^n)` time in bottom-up fashion similar to Assignment problem solution.
+
+```cpp
+const int mod = 1e9 + 7;
+ 
+void add_self(int& a, int b) {
+    a += b;
+    if(a >= mod) {
+        a -= mod;
+    }
+}
+ 
+int main() {
+    int n;
+    scanf("%d", &n);
+    vector<vector<int>> can(n, vector<int>(n));
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < n; ++j) {
+            scanf("%d", &can[i][j]);
+        }
+    }
+    vector<int> dp(1 << n); // 2^n
+    dp[0] = 1;
+    for(int mask = 0; mask < (1 << n) - 1; ++mask) {
+        int a = __builtin_popcount(mask); // the number of bits set to 1
+	// till now a/n men are matched, and we want to match (a+1)-th person now
+        for(int b = 0; b < n; ++b) {
+            if(can[a][b] && !(mask & (1 << b))) { // check whether we can match a-th person with b
+                int m2 = mask ^ (1 << b);
+                add_self(dp[m2], dp[mask]);
+            }
+        }
+    }
+    printf("%d\n", dp[(1<<n)-1]);
+}
+```
