@@ -530,7 +530,9 @@ int main() {
 }
 ```
 
-Recursive solution to find the sum of digits from 1 to K, assuming digits of K are stored in `vector<int> num`.
+#### SPOJ CPCRC1C - Sum of Digits
+
+Recursive solution to find the sum of digits from 1 to K, assuming digits of K are stored in `vector<int> num`. 
 ```cpp
 vector<int> num;
 long long int solve(int pos,int sum,int f){
