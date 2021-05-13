@@ -164,13 +164,11 @@ int get ( int v, int tl, int tr, int pos ) {
 } 
 ```
 
+### Range Update Point Query
 
-### Assignment on segments
-Painting a segment - Changing all elements in a segment to some value
+Assignment on segments: Painting a segment - Changing all elements in a segment to some value
 
-Range Update Point Query
-
-Version 1
+Version 1 - Lazy propogation
 
 ```cpp
 void push(int v) {
@@ -243,11 +241,11 @@ int get(int v, int tl, int tr, int pos) {
 }
 ```
 
-Lazy propagation
+### Range update and Range query
 
-Adding on segments, querying for maximum
+Using Lazy propagation
 
-Range update and Range query
+#### Adding on segments, querying for maximum
 
 ```cpp
 void push(int v) { // This push works because we are querying for maximum, see get() below
@@ -283,12 +281,15 @@ int query(int v, int tl, int tr, int l, int r) {
     return max(query(v*2, tl, tm, l, min(r, tm)), 
                query(v*2+1, tm+1, tr, max(tl, tm+1), tr));
 }
+```
 
+#### Range Update Range Sum Query
 
-// update: add v to all elements a[x], a[x+1]...a[y]a[x],a[x+1]...a[y]
-// query: a[x]+a[x+1]+...+a[y]a[x]+a[x+1]+...+a[y]
-// Range Update Range Sum Query
+Update: add v to all elements a[x], a[x+1]...a[y]
 
+Query: a[x]+a[x+1]+...+a[y]
+
+```cpp
 void push(int v, int l, int r){
     t[v] += (r - l + 1)*lazy[v];
     if(l!=r){ // if the node has children we propagate the lazy
