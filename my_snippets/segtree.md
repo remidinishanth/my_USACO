@@ -106,13 +106,11 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 ```
 
 
-Counting the number of zeros, search k zero
-Store in t[] the no. of zeros in that segment same as above
-now the problem of finding a position k, the occurrence of zero in the array
+Counting the number of zeros, search `k-th` zero. Store in t[] the no. of zeros in that segment same as above
 
 ```cpp
  int find_kth ( int v, int tl, int tr, int k ) {
-	if ( k > t [ v ] ) //k_th zero does not exist
+	if ( k > t [ v ] ) // k-th zero does not exist
 		return - 1 ;
 	if ( tl == tr )
 		return tl ;
