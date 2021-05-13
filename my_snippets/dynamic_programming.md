@@ -40,6 +40,8 @@ Reusing Subproblem Solutions
 
 ### Generic DP algorithm(top-down)
 
+Those who don't remember the past are condemned to repeat it - Dynamic Programming
+
 ```python
 memo = {}
 def f(subprob):
