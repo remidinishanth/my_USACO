@@ -527,3 +527,28 @@ int main() {
     printf("%d\n", answer);
 }
 ```
+
+Recursive solution
+```cpp
+vector<int> num;
+long long int solve(int pos,int sum,int f){
+	if(pos==num.size()){
+	  return sum;
+	}
+	if (DP[pos][sum][f] != -1) return DP[pos][sum][f];
+	
+	long long int res = 0;
+	int lmt;
+	if(f==0){
+	  lmt = num[pos];
+	}
+	else lmt = 9;
+	
+	for(int dgt=0;dgt<=lmt;dgt++){
+	   int nf = f;
+	   if(f==0 && dgt<lmt) nf = 1; // from pos+1 the numbers will be smaller
+	   res += solve(pos+1,sum+dgt,nf);
+	}
+	return DP[pos][sum][f]=res;
+}
+```
