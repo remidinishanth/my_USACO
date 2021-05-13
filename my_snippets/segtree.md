@@ -126,34 +126,34 @@ Assume a[] contains only non-negative numbers. We can use similar trick to find 
 
 #### Searching for the first element greater than a given amount.
 
-The task is as follows: for a given value `x` and `a` range `a[l…r]` find the smallest `i` in the range `a[l…r]`, such that `a[i]` is greater than `x`.
+The task is as follows: for a given value `x` and a specified segment `a[l…r]`, find the smallest `i` in the range `a[l…r]`, such that `a[i]` is greater than `x`.
 
 This task can be solved using binary search over max prefix queries with the Segment Tree. However, this will lead to a `O(log^2 n)` solution.
 
 Instead, we can use the same idea as in the previous sections, and find the position by descending the tree: by moving each time to the left or the right, depending on the maximum value of the left child. Thus finding the answer in `O(logn)` time.
 
 ```cpp
-int get_first(int v, int lv, int rv, int l, int r, int x) {
-    if(lv > r || rv < l) return -1;
-    if(l <= lv && rv <= r) {
+int get_first(int v, int tl, int tr, int l, int r, int x) {
+    if(tl > r || tr < l) return -1;
+    if(l <= tl && tr <= r) {
         if(t[v] <= x) return -1;
         while(lv != rv) {
-            int mid = lv + (rv-lv)/2;
+            int mid = tl + (tr-tl)/2;
             if(t[2*v] > x) {
                 v = 2*v;
-                rv = mid;
+                tr = mid;
             }else {
                 v = 2*v+1;
-                lv = mid+1;
+                tl = mid+1;
             }
         }
-        return lv;
+        return tl;
     }
 
-    int mid = lv + (rv-lv)/2;
-    int rs = get_first(2*v, lv, mid, l, r, x);
+    int mid = tl + (tr-tl)/2;
+    int rs = get_first(2*v, tl, mid, l, r, x);
     if(rs != -1) return rs;
-    return get_first(2*v+1, mid+1, rv, l ,r, x);
+    return get_first(2*v+1, mid+1, tr, l ,r, x);
 }
 ```
 
