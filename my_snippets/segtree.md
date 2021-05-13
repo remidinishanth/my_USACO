@@ -1,6 +1,7 @@
-//e-maxx
+e-maxx
 
-//Point Update Range Sum
+Point Update Range Sum
+```cpp
 int n, t[4*MAXN];
 int a[MAXN];
 
@@ -40,11 +41,12 @@ void update(int v, int tl, int tr, int pos, int new_val) {
         t[v] = t[v * 2] + t[v * 2 + 1];
     }
 }
+```
 
 
+In case of search of max/min and no. of times it occurs
 
-//In case of search of max/min and no. of times it occurs
-
+```cpp
 pair<int,int> t[4*MAXN]; //pair<maximum, number of times it occurs in the subtree>
  
 pair<int,int> combine (pair<int,int> a, pair<int,int> b) {
@@ -90,13 +92,14 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 		t[v] = combine (t[v*2], t[v*2+1]);
 	}
 }
+```
 
 
+Counting the number of zeros, search k zero
+Store in t[] the no. of zeros in that segment same as above
+now the problem of finding a position k, the occurrence of zero in the array
 
-//Counting the number of zeros, search k zero
-//Store in t[] the no. of zeros in that segment same as above
-//now the problem of finding a position k, the occurrence of zero in the array
-
+```cpp
  int find_kth ( int v, int tl, int tr, int k ) {
 	if ( k > t [ v ] ) //k_th zero does not exist
 		return - 1 ;
@@ -107,16 +110,16 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 		return find_kth ( v * 2 , tl, tm , k ) ;
 	else
 		return find_kth ( v * 2 + 1 , tm + 1 , tr, k - t [ v * 2 ] ) ;
-} 
+}
+```
 
-//Assume a[] contains only non-negative numbers
-//Use similar trick to find i such that sum of first i elements is >=x
-//Searching for an array prefix with a given amount
+Assume a[] contains only non-negative numbers. Use similar trick to find i such that sum of first i elements is ≥ x. Searching for an array prefix with a given amount
 
 
-//Range update and point Query
-//Addition on segment without lazy propogation
+### Range update and point Query
+Addition on segment without lazy propogation
 
+```cpp
  void build (int v, int tl, int tr ) {
 	if ( tl == tr )
 		t [ v ] = a [ tl ] ;
@@ -150,15 +153,17 @@ int get ( int v, int tl, int tr, int pos ) {
 	else
 		return t [ v ] + get ( v * 2 + 1 , tm + 1 , tr, pos ) ;
 } 
+```
 
 
+### Assignment on segments
+Painting a segment - Changing all elements in a segment to some value
 
-//Assignment on segments
-//Painting a segment - Changing all elements in a segment to some value
-//Range Update Point Query
+Range Update Point Query
 
-//Version 1
+Version 1
 
+```cpp
 void push(int v) {
     if (t[v] ! = -1) {
         t[v * 2] = t[v * 2 + 1] = t[v];
@@ -189,8 +194,11 @@ int get(int v, int tl, int tr, int pos) {
     else
         return get(v * 2 + 1, tm + 1, tr, pos);
 }
+```
 
-//Version 2 emaxx english
+Version 2 emaxx english
+
+```cpp
 void push(int v) {
     if (marked[v]) {
         t[v*2] = t[v*2+1] = t[v];
@@ -224,11 +232,15 @@ int get(int v, int tl, int tr, int pos) {
     else
         return get(v*2+1, tm+1, tr, pos);
 }
+```
 
-//Lazy propagation
-//Adding on segments, querying for maximum
-//Range update and Range query
+Lazy propagation
 
+Adding on segments, querying for maximum
+
+Range update and Range query
+
+```cpp
 void push(int v) { // This push works because we are querying for maximum, see get() below
     t[v*2] += lazy[v];
     lazy[v*2] += lazy[v];
@@ -314,13 +326,15 @@ ll sum(int v, int tl, int tr, int l, int r) {
     return sum(v * 2, tl, tm, l, min(r, tm)) +
         sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
+```
 
-// Tested with SPOJ HORRIBLE - Horrible Queries
+Tested with SPOJ HORRIBLE - Horrible Queries
 
 
 
 // kmjp
 
+```cpp
 Static ll const def = - 1LL << 50 ;
  template < class V, int NV> class SegTree_3 {
  public :
@@ -393,6 +407,7 @@ public:
 	}
 };
 SegTree_1<int,1<<18> st;
- 
-// source: https://codeforces.com/contest/1516/submission/113760111
-// source: https://kmjp.hatenablog.jp/entry/2018/01/03/0930
+```
+
+source: https://codeforces.com/contest/1516/submission/113760111
+source: https://kmjp.hatenablog.jp/entry/2018/01/03/0930
