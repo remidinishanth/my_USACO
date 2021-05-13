@@ -245,10 +245,10 @@ int get(int v, int tl, int tr, int pos) {
 
 Using Lazy propagation
 
-#### Adding on segments, querying for maximum
+#### Increment values on segments by some value, query for maximum
 
 ```cpp
-void push(int v) { // This push works because we are querying for maximum, see get() below
+void push(int v) { // This push works because we are querying for maximum, see query() below
     t[v*2] += lazy[v];
     lazy[v*2] += lazy[v];
     t[v*2+1] += lazy[v];
@@ -285,9 +285,9 @@ int query(int v, int tl, int tr, int l, int r) {
 
 #### Range Update Range Sum Query
 
-Update: add v to all elements a[x], a[x+1]...a[y]
+Update: add v to all elements `a[x], a[x+1]...a[y]`
 
-Query: a[x]+a[x+1]+...+a[y]
+Query: `a[x]+a[x+1]+...+a[y]`
 
 ```cpp
 void push(int v, int l, int r){
