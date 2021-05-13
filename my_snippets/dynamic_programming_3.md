@@ -586,6 +586,33 @@ So in general
 
 ```sum(10^d - 1) = sum(10^{d-1} - 1) * 10 + 45*(10^{d-1})```
 
+Algorithm: sum(n) 
+
+1) Find number of digits minus one in n. Let this value be 'd'.  
+   For 328, d is 2.
+
+2) Compute some of digits in numbers from 1 to 10d - 1.  
+   Let this sum be w. For 328, we compute sum of digits from 1 to 
+   99 using above formula.
+
+3) Find Most significant digit (msd) in n. For 328, msd is 3.
+
+4) Overall sum is sum of following terms
+
+    a) Sum of digits in 1 to "msd * 10d - 1".  For 328, sum of 
+       digits in numbers from 1 to 299.
+        For 328, we compute 3*sum(99) + (1 + 2)*100.  Note that sum of
+        sum(299) is sum(99) + sum of digits from 100 to 199 + sum of digits
+        from 200 to 299.  
+        Sum of 100 to 199 is sum(99) + 1*100 and sum of 299 is sum(99) + 2*100.
+        In general, this sum can be computed as w*msd + (msd*(msd-1)/2)*10d
+
+    b) Sum of digits in msd * 10d to n.  For 328, sum of digits in 
+       300 to 328.
+        For 328, this sum is computed as 3*29 + recursive call "sum(28)"
+        In general, this sum can be computed as  msd * (n % (msd*10d) + 1) 
+        + sum(n % (10d))
+
 ```cpp
 #include <iostream>
 #include <cstdio>
