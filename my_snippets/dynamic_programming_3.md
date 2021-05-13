@@ -599,16 +599,14 @@ Algorithm: sum(n)
 
 4) Overall sum is sum of following terms
 
-    a) Sum of digits in 1 to `msd * 10^d - 1`.  For 328, sum of 
-       digits in numbers from 1 to 299.
+    a) Sum of digits in 1 to `msd * 10^d - 1`.  For 328, sum of digits in numbers from 1 to 299.
         For 328, we compute `3*sum(99) + (1 + 2)*100`.  Note that sum of
         sum(299) is sum(99) + sum of digits from 100 to 199 + sum of digits
         from 200 to 299.  
         Sum of 100 to 199 is sum(99) + 1*100 and sum of 299 is sum(99) + 2*100.
         In general, this sum can be computed as `w*msd + (msd*(msd-1)/2)*10^d`
 
-    b) Sum of digits in `msd * 10^d to n`.  For 328, sum of digits in 
-       300 to 328.
+    b) Sum of digits in `msd * 10^d` to` n`.  For 328, sum of digits in 300 to 328.
         For 328, this sum is computed as 3*29 + recursive call "sum(28)"
         In general, this sum can be computed as  msd * (n % (msd*10^d) + 1) 
         + sum(n % (10^d))
