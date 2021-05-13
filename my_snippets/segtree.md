@@ -1,6 +1,11 @@
-e-maxx
+e-maxx english https://cp-algorithms.com/data_structures/segment_tree.html
 
-Point Update Range Sum
+### Point Update Range Sum
+
+Building segment tree
+
+![image](https://user-images.githubusercontent.com/53462873/118095011-2ab41c80-b3ed-11eb-8dd6-94ea9de2e1bb.png)
+
 ```cpp
 int n, t[4*MAXN];
 int a[MAXN];
@@ -42,7 +47,6 @@ void update(int v, int tl, int tr, int pos, int new_val) {
     }
 }
 ```
-
 
 In case of search of max/min and no. of times it occurs
 
