@@ -106,7 +106,7 @@ void update (int v, int tl, int tr, int pos, int new_val) {
 ```
 
 
-Counting the number of zeros, search `k-th` zero. Store in t[] the no. of zeros in that segment same as above
+Counting the number of zeros, search `k-th` zero. Store in t[] the no. of zeros in that segment. Now we get find the `k-th` as follows:
 
 ```cpp
  int find_kth ( int v, int tl, int tr, int k ) {
@@ -122,7 +122,7 @@ Counting the number of zeros, search `k-th` zero. Store in t[] the no. of zeros 
 }
 ```
 
-Assume a[] contains only non-negative numbers. Use similar trick to find i such that sum of first i elements is ≥ x. Searching for an array prefix with a given amount
+Assume a[] contains only non-negative numbers. We can use similar trick to find `i` such that sum of first `i` elements is `≥ x`. Searching for an array prefix with a given amount
 
 
 ### Range update and point Query
