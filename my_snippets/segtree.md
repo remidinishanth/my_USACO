@@ -2,7 +2,7 @@ e-maxx english https://cp-algorithms.com/data_structures/segment_tree.html
 
 ### Point Update Range Sum
 
-Building segment tree
+Here is a visual representation of such a Segment Tree over the array `a=[1, 3, −2, 8, −7]`:
 
 ![image](https://user-images.githubusercontent.com/53462873/118095011-2ab41c80-b3ed-11eb-8dd6-94ea9de2e1bb.png)
 
