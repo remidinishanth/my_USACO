@@ -139,7 +139,7 @@ int get_first(int v, int tl, int tr, int l, int r, int x) {
         if(t[v] <= x) return -1;
         while(lv != rv) {
             int mid = tl + (tr-tl)/2;
-            if(t[2*v] > x) {
+            if(t[2*v] > x) { // max of left child > x, go to left child
                 v = 2*v;
                 tr = mid;
             }else {
