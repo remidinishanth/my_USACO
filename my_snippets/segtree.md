@@ -501,6 +501,8 @@ int main() {
 }
 ```
 
+### TODO: https://codeforces.com/blog/entry/15890
+
 ### kmjp implementations
 
 ```cpp
