@@ -532,6 +532,10 @@ int main() {
 
 #### SPOJ CPCRC1C - Sum of Digits
 
+Problem: Find the sum of the digits of numbers a through b.
+
+Solution: sum_of_digits(1..b) - sum_of_digits(1..a-1)
+
 Recursive solution to find the sum of digits from 1 to K, assuming digits of K are stored in `vector<int> num`. 
 ```cpp
 vector<int> num;
