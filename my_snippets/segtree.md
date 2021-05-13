@@ -339,7 +339,18 @@ ll sum(int v, int tl, int tr, int l, int r) {
 
 Tested with SPOJ HORRIBLE - Horrible Queries
 
+#### Why we need O(4n)?
 
+Consider the Minimum segment tree for the array `[1, 3, −2, 8, −7]`
+
+![image](https://user-images.githubusercontent.com/53462873/118101284-0eb47900-b3f5-11eb-8211-bcc98e07a3f0.png)
+
+If we add one more element to the array `[1, 3, −2, 8, −7, 5]`, in this case till `13` elements which is greater than `2*n = 12`
+
+![image](https://user-images.githubusercontent.com/53462873/118101476-491e1600-b3f5-11eb-9775-e740ec5b473c.png)
+
+
+The above implementation for a min segment tree for the array [-1
 
 // kmjp
 
