@@ -8,7 +8,10 @@ Here is a visual representation of such a Segment Tree over the array `a=[1, 3, 
 
 It is easy to see that, the root vertex is at index `1`, the left child of a vertex at index `i` is stored at index `2i`, and the right one at index `2i+1`.
 
-Let `v` be the index of the current vertex, and the boundaries `tl` and `tr` of the current segment, then we can build segment tree recursively as follows.
+Let `v` be the index of the current vertex, and the boundaries `tl` and `tr` of the current segment, let `tm = (tl+tr)/2` then we can build segment tree recursively as follows.
+
+![image](https://user-images.githubusercontent.com/53462873/118097415-4967e280-b3f0-11eb-9e6c-02f7aed9dee2.png)
+
 
 ```cpp
 int n, t[4*MAXN];
