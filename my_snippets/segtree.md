@@ -4,7 +4,7 @@ e-maxx english https://cp-algorithms.com/data_structures/segment_tree.html
 
 Here is a visual representation of such a Segment Tree over the array `a=[1, 3, −2, 8, −7]`:
 
-![image](https://user-images.githubusercontent.com/53462873/118095011-2ab41c80-b3ed-11eb-8dd6-94ea9de2e1bb.png)
+![image](https://user-images.githubusercontent.com/53462873/118096629-3accfb80-b3ef-11eb-9ddf-a0f0c926cabd.png)
 
 It is easy to see that, the root vertex is at index `1`, the left child of a vertex at index `i` is stored at index `2i`, and the right one at index `2i+1`.
 
