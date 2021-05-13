@@ -351,9 +351,7 @@ If we add one more element to the array `[1, 3, −2, 8, −7, 5]`, in this case
 ![image](https://user-images.githubusercontent.com/53462873/118101476-491e1600-b3f5-11eb-9775-e740ec5b473c.png)
 
 
-The above implementation for a min segment tree for the array [-1
-
-// kmjp
+### kmjp implementations
 
 ```cpp
 Static ll const def = - 1LL << 50 ;
