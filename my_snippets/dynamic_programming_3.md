@@ -468,3 +468,62 @@ int main() {
     printf("%d\n", dp[(1<<n)-1]);
 }
 ```
+
+### Digit DP
+
+#### S - Digit Sum
+
+Find the number of integers between `1` and `K` (inclusive) satisfying the following condition, modulo `10^9 + 7`: 
+* The sum of the digits in base ten is a multiple of D.
+
+#### Solutions
+
+Observation: If we want to find sum of digits to be multiple of `D`, only thing that matters is what is the remainder modulo `D`.
+
+Subproblems: `dp[sum][i][sm_already]` - Number of integers such that digit sum remainder modulo `D` is `sum`, only considering only first `i` digits of `K` i.e `K[1:i]`, `sm_already` denotes whether these numbers are strictly smaller than `K[1:i]`.
+
+```cpp
+const int nax = 10123;
+char k[nax];
+const int mod = 1e9 + 7;
+ 
+void add_self(int& a, int b) {
+    a += b;
+    if(a >= mod) {
+        a -= mod;
+    }
+}
+ 
+int main() {
+    scanf("%s", k);
+    int D;
+    scanf("%d", &D);
+    int len = strlen(k);
+    vector<vector<int>> dp(D, vector<int>(2));
+    // dp[sum][smaller_already] - the number of ways to choose digits so far
+    // such that the sum of digits modulo D is 'sum' and 'smaller_already'
+    // says whether we already chosen some digit smaller than in K
+    dp[0][0] = 1;
+    for(int where = 0; where < len; ++where) {
+        vector<vector<int>> new_dp(D, vector<int>(2));
+        for(int sum = 0; sum < D; ++sum) {
+            for(bool sm_already : {false, true}) {
+                for(int digit = 0; digit < 10; ++digit) {
+                    if(digit > k[where] - '0' && !sm_already) {
+                        break;
+                    }
+                    add_self(new_dp[(sum+digit)%D][sm_already || (digit < k[where]-'0')],
+                        dp[sum][sm_already]);
+                }
+            }
+        }
+        dp = new_dp;
+    }
+    int answer = (dp[0][false] + dp[0][true]) % mod;
+    --answer; // don't include 0
+    if(answer == -1) {
+        answer = mod - 1;
+    }
+    printf("%d\n", answer);
+}
+```
