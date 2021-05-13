@@ -339,7 +339,7 @@ ll sum(int v, int tl, int tr, int l, int r) {
 
 Tested with SPOJ HORRIBLE - Horrible Queries
 
-#### Why we need O(4n)?
+#### Why we need O(4n) space?
 
 Consider the Minimum segment tree for the array `[1, 3, −2, 8, −7]`
 
