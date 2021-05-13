@@ -560,3 +560,68 @@ long long int solve(int pos,int sum,int f){
 	return DP[pos][sum][f]=res;
 }
 ```
+
+Brian Bi
+```cpp
+#include <iostream>
+#include <cstdio>
+using namespace std;
+int sum_of_digits(int x) {
+    if (x == 0) return 0; else return x%10 + sum_of_digits(x/10);
+}
+long long sum(int x) {
+    // returns sum of digits in 0 + 1 + ... + (x-1)
+    long long res = 0;
+    long long cur = 0;
+    long long increment = 1;
+    int exponent = 0;
+    while (10*increment <= x) { increment *= 10; exponent++; }
+    while (cur < x) {
+        if (cur + increment > x) {
+            increment /= 10; exponent--; continue;
+        }
+        long long sod = sum_of_digits(cur);
+        res += increment*sod + 45*exponent*increment/10;
+        cur += increment;
+    }
+    return res;
+}
+int main() {
+    for (;;) {
+        int a, b; scanf("%d %d", &a, &b);
+        if (a == -1) return 0;
+        printf("%lld\n", sum(b+1) - sum(a));
+    }
+}
+```
+
+How to compute sum(x)? Let us try finding out a pattern
+
+What is sum(9)?
+```
+1 2 3 4 ........... 9
+9*10/2 = 45
+```
+
+What is sum(19)? sum(9) + sum of digits in following numbers
+```
+10 11 12 13 ....... 19
+10 + 9*10/2 = 10 + 45 [10 is sum of first digit in all numbers]
+```
+
+What is sum(29)? sum(19) + sum of digits in following numbers
+
+```
+20 21 22 23 ........29
+2*10 + 1 + 2 + ... + 9
+20 + 9*10/2 = 20 + 45 
+```
+What is sum(100)?
+
+```
+45 + (10 + 45) + (20 + 45) + (30 + 45) + ..... (90 + 45)
+45*10 + (10 + 20 + 30 ... 90)
+45*10 + 10(1 + 2 + ... 9)
+45*10 + 45*10
+45*20
+```
