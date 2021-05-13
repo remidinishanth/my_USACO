@@ -561,7 +561,44 @@ long long int solve(int pos,int sum,int f){
 }
 ```
 
-Brian Bi
+Brian Bi t3nsor SPOJ solution https://github.com/t3nsor/SPOJ/blob/master/cpcrc1c.cpp
+
+
+How to compute sum(x)? Let us try finding out a pattern
+
+What is sum(9)?
+```
+1 2 3 4 ........... 9
+9*10/2 = 45
+```
+
+What is sum(19)? sum(9) + sum of digits in following numbers
+```
+10 11 12 13 ....... 19
+10 + 9*10/2 = 10 + 45 [10 is sum of first digit in all numbers]
+```
+
+What is sum(29)? sum(19) + sum of digits in following numbers
+
+```
+20 21 22 23 ........29
+2*10 + 1 + 2 + ... + 9
+20 + 9*10/2 = 20 + 45 
+```
+What is sum(100)?
+
+```
+45 + (10 + 45) + (20 + 45) + (30 + 45) + ..... (90 + 45)
+45*10 + (10 + 20 + 30 ... 90)
+45*10 + 10(1 + 2 + ... 9)
+45*10 + 45*10
+45*20
+```
+
+So in general
+
+```sum(10^d - 1) = sum(10^{d-1} - 1) * 10 + 45*(10^{d-1})```
+
 ```cpp
 #include <iostream>
 #include <cstdio>
@@ -595,33 +632,3 @@ int main() {
 }
 ```
 
-How to compute sum(x)? Let us try finding out a pattern
-
-What is sum(9)?
-```
-1 2 3 4 ........... 9
-9*10/2 = 45
-```
-
-What is sum(19)? sum(9) + sum of digits in following numbers
-```
-10 11 12 13 ....... 19
-10 + 9*10/2 = 10 + 45 [10 is sum of first digit in all numbers]
-```
-
-What is sum(29)? sum(19) + sum of digits in following numbers
-
-```
-20 21 22 23 ........29
-2*10 + 1 + 2 + ... + 9
-20 + 9*10/2 = 20 + 45 
-```
-What is sum(100)?
-
-```
-45 + (10 + 45) + (20 + 45) + (30 + 45) + ..... (90 + 45)
-45*10 + (10 + 20 + 30 ... 90)
-45*10 + 10(1 + 2 + ... 9)
-45*10 + 45*10
-45*20
-```
