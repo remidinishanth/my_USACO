@@ -480,7 +480,7 @@ Find the number of integers between `1` and `K` (inclusive) satisfying the follo
 
 Observation: If we want to find sum of digits to be multiple of `D`, only thing that matters is what is the remainder modulo `D`.
 
-Think in terms of what information we need to place a digit at the current position `i`, if the number till now is already smaller than we can place all digits from `0` to `9` digits. If not we can only place from `0` to `digit[i]`.
+Think in terms of what information we need to place a digit at the current position `i`, if the number till now is already smaller than we can place all digits from `0` to `9` digits. If not we can only place from `0` to `digit[i]`. We don't need to know what digits are present but only the sum of these digits.
 
 Subproblems: `dp[sum][i][sm_already]` - Number of integers such that digit sum remainder modulo `D` is `sum`, only considering only first `i` digits of `K` i.e `K[1:i]`, `sm_already` denotes whether these numbers are strictly smaller than `K[1:i]`.
 
