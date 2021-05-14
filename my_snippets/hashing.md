@@ -97,3 +97,4 @@ Like previous examples, we assign a polynomial for a rooted tree, and evaluate t
 
 This way we get a multi-variable polynomial over d variables of degree l, where l is the number of leaves in the tree. We can prove that two polynomials that correspond to non-isomorphic trees are different (by using the uniqueness of factorization of the ring of polynomials). Thus, if we evaluate this polynomial for random variables, we get a good hash with collision probability at most l/MOD!
 
+TODO: https://codeforces.com/blog/entry/60442
