@@ -20,6 +20,6 @@ int main(void) {
 }
 ```
 
-Handy for graph edges
+Handy for graph edges, source: https://atcoder.jp/contests/abc197/submissions/21333042
 
 ![image](https://user-images.githubusercontent.com/19663316/118325069-86cb8d80-b520-11eb-908d-bd7d318667da.png)
