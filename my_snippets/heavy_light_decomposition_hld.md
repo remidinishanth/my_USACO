@@ -49,12 +49,13 @@ source: <https://ipsc.ksp.sk/2009/real/solutions/l.html> IPSC 2009 problem L in 
 
 ## Two school of thoughts
 
-* For each vertex that isn’t a leaf, find the edge that leads to the child with the largest subtree (breaking ties arbitrarily) and call it heavy.
+There are two ways to label edges as heavy or light.
 
-* To determine which, consider the edge's two endpoints: one is closer to the root, and one is further away. 
+1. For each vertex that isn’t a leaf, find the edge that leads to the child with the largest subtree (breaking ties arbitrarily) and call it heavy.
+
+2. Consider the edge's two endpoints: one is closer to the root, and one is further away. 
   If the size of the subtree rooted at the latter is more than half that of the subtree rooted at the former, the edge is heavy. 
   Otherwise, it is light.
-
 
 ![image](https://user-images.githubusercontent.com/19663316/115995981-24efc600-a5fb-11eb-8722-7233db484cfc.png)
 
