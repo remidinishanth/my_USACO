@@ -78,6 +78,8 @@ In the case of rolling hash, we are only interested in single-variable polynomia
 For each vertex v in the graph and an integer d, define the level-d hash for v, h(d, v). When d = 0, define h(0, v) = 1. Otherwise, let x_1, ..., x_k be the sorted list of level-(d-1) hashes of vertices adjacent to v, and define h(d, v) as the sum of x_i * r^i modulo MOD. Compute the level-N hashes of the two graphs for each vertex, sort them, and compare them.
 
 Petr: For graph isomorphism, it's easy to break such hashing: take two non-isomorphic regular (all degrees the same) graphs.
+![image](https://user-images.githubusercontent.com/19663316/118253744-e47fbb80-b4c7-11eb-9c40-b66b01283fe8.png)
+
 
 However there's no theoretical guarantee under this hash and I think most people agree that this doesn't look valid as an intended solution of a problem in a contest (graph isomorphism is a well-known difficult problem). I'd say this is a "bad hash".
 
