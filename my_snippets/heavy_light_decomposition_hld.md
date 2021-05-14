@@ -254,7 +254,7 @@ We can answer all queries in O((n + q) log^2n) because batch updates may be 
 
 source: https://codeforces.com/blog/entry/53170
 
-### Benq's complete implementation
+###  Implementations
 
 <details>
 	<summary> Benq's cpp implementation </summary>
@@ -545,6 +545,8 @@ int main(void) {
 }
 ```
 </details>
+
+Edge List representation based
 
 <details>
 	<summary>Thanuj Khattar Baba's code</summary>
