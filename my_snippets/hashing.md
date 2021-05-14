@@ -30,7 +30,7 @@ Precomputing the powers of p might give a performance boost.
 
 ## Problems
 
-### 1
+#### 1 Palindromic substring
 
 You have a string `𝑆` of length `N`. You are given `𝑄` queries of form `𝐿𝑖, 𝑅𝑖`. For each query, print `"YES"`, if substring denoted by `𝑆𝐿𝑖, 𝑆𝐿𝑖+1...𝑆𝑅𝑖` is a palindrome. Both `𝑁, 𝑄 ≤ 10^5`.
 
@@ -49,14 +49,14 @@ We can precompute the inverse of every `p^i`, which allows computing the hash of
 
 Now we got `𝐻𝑎𝑠ℎ(L,R)`, now we'll need to compute reverse hash of `S[L,R]`, If both will be equal, `S[L,R]` is a palindrome with high probability. Notice how we can similarly calculate reverse hash if we store the suffix hash of `S`.
 
-### 2
+#### 2 Number of Palindromic substrings
 You have a string `𝑆` of length `𝑁`. Given an `𝑀 ≤ 𝑁`, find the number of substrings of `S` that are palindrome and are of size `𝑀`. Given that `𝑁 ≤ 10^5`.
 
 Again, similar kind of problem. We will use sliding window here. Note that worst case `𝑂(𝑁)` substrings can have a size of `𝑀`. So, we use sliding window here. We pick the first substring of size `𝑀`(ie. substring starting at 0) and in each step keep adding one character to the string in end and removing one character from front until we reach the end of `𝑆`.
 
 So, we have `hash(S[L,R])` and we need `hash(S[L+1,R+1])`. Is it difficult? No. We can do this in logarithmic time easily by adding `𝑆_{𝑅+1} x 𝑝^{𝑅+1}` and subtracting `SL x 𝑝^{L}` from `hash(S[L,R])` and dividing by `𝑝`. Don't forget the modular arithmetic involved here!
 
-### 3
+#### 3 Largest substring which occurs atleast twice
 Given a string `𝑆`, find the size of substring of largest size which occurs atleast twice in the string.
 
 Interesting thing to note is that if a substring `𝑝` occurs atleast twice in `𝑆`, all its substrings(which are of lesser length) will always occur atleast twice in `𝑆`. So, we can apply binary search on the answer.
@@ -69,7 +69,7 @@ Check out this informational post: [Anti-hash test](https://codeforces.com/blog/
 
 source: https://threadsiiithyderabad.quora.com/String-Hashing-for-competitive-programming
 
-### 4 Search for duplicate strings in an array of strings
+#### 4 Search for duplicate strings in an array of strings
 
 **Problem:** Given a list of `n` strings `si`, each no longer than `m` characters, find all the duplicate strings and divide them into groups.
 
@@ -96,7 +96,7 @@ vector<vector<int>> group_identical_strings(vector<string> const& s) {
 }
 ```
 
-### 5 Determine the number of different substrings in a string
+#### 5 Determine the number of different substrings in a string
 
 **Problem:** Given a string `s` of length `n`, consisting only of lowercase English letters, find the number of different substrings in this string.
 
