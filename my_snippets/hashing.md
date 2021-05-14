@@ -23,6 +23,8 @@ Note that you can calculate hash of any substring in logarithmic time. How? Let'
 
 ![image](https://user-images.githubusercontent.com/19663316/118243777-6e298c00-b4bc-11eb-8dc5-a50823acbde3.png)
 
+![image](https://user-images.githubusercontent.com/19663316/118251016-b0ef6200-b4c4-11eb-8398-cc5793822e1a.png)
+
 ![image](https://user-images.githubusercontent.com/19663316/118243655-4cc8a000-b4bc-11eb-831d-06696553388a.png)
 
 Hence Using the prefix hash array `pre[i] = Hash(S[0,i])`, we can compute `Hash(L,R)` in logarithmic time. Note that we'll need to find inverse modulo here(one reason to use prime `𝑀𝑂𝐷`).
