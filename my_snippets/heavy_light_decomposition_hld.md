@@ -547,7 +547,7 @@ int main(void) {
 </details>
 
 <details>
-	<summary>Baba's code</summary>
+	<summary>Thanuj Khattar Baba's code</summary>
 
 ```cpp
 int U[N], V[N], W[N], baseArray[N], DP[LOGN][N], level[N], sub[N];
