@@ -271,3 +271,6 @@ Again, this is the simplest case because of two reasons:
 
 1. order of modifications doesn't affect the result;
 2. when updating a node, we don't need to know the length of interval it represents.
+
+
+TODO: https://codeforces.com/blog/entry/1256
