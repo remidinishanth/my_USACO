@@ -96,12 +96,6 @@ vector<vector<int>> group_identical_strings(vector<string> const& s) {
 }
 ```
 
-### Rabin Karp rolling hash
-
-Hash for the string (c1,c2,...,ck) is defined as follows
-![image](https://user-images.githubusercontent.com/19663316/118251675-8225bb80-b4c5-11eb-8859-a9b294d7fd72.png)
-
-
 ## Hashing and Probability fo Collision
 
 source: https://rng-58.blogspot.com/2017/02/hashing-and-probability-of-collision.html
