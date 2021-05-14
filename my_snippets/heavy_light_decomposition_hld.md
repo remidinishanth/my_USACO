@@ -836,11 +836,17 @@ void update(int i, int w) {
 }
 ```
 
-And modify the query as follows
+And modify the query as follows, only if u and v are in same chain we will need to query in the following way.
 
 ```cpp
+  int mx = -inf;
+  while(head[u] != head[v]) {
+    if(dep[head[u]] > dep[head[v]]) swap(u, v);
+    mx = max(mx, segtree::query(0, n, pos[head[v]], pos[v]));
+    v = fa[head[v]];
+  }
   if(dep[u] > dep[v]) swap(u, v);
-  if(pos[u] < pos[v]) mx = max(mx, segtree::query(0, n, pos[u] + 1, pos[v]));
+  if(pos[u] < pos[v]) mx = max(mx, segtree::query(0, n, pos[u] + !valuesOnVertices, pos[v]));
 ```
 
 ## REF
