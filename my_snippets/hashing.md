@@ -96,6 +96,43 @@ vector<vector<int>> group_identical_strings(vector<string> const& s) {
 }
 ```
 
+### 5 Determine the number of different substrings in a string
+
+**Problem:** Given a string `s` of length `n`, consisting only of lowercase English letters, find the number of different substrings in this string.
+
+To solve this problem, we iterate over all substring lengths `l = 1...n`. For every substring length l we construct an array of hashes of all substrings of length l multiplied by the same power of p. The number of different elements in the array is equal to the number of distinct substrings of length l in the string. This number is added to the final answer.
+
+For convenience, we will use h[i] as the hash of the prefix with i characters, and define h[0]=0.
+
+```cpp
+int count_unique_substrings(string const& s) {
+    int n = s.size();
+
+    const int p = 31;
+    const int m = 1e9 + 9;
+    vector<long long> p_pow(n);
+    p_pow[0] = 1;
+    for (int i = 1; i < n; i++)
+        p_pow[i] = (p_pow[i-1] * p) % m;
+
+    vector<long long> h(n + 1, 0);
+    for (int i = 0; i < n; i++)
+        h[i+1] = (h[i] + (s[i] - 'a' + 1) * p_pow[i]) % m;
+
+    int cnt = 0;
+    for (int l = 1; l <= n; l++) {
+        set<long long> hs;
+        for (int i = 0; i <= n - l; i++) {
+            long long cur_h = (h[i + l] + m - h[i]) % m;
+            cur_h = (cur_h * p_pow[n-i-1]) % m;
+            hs.insert(cur_h);
+        }
+        cnt += hs.size();
+    }
+    return cnt;
+}
+```
+
 ## Hashing and Probability fo Collision
 
 source: https://rng-58.blogspot.com/2017/02/hashing-and-probability-of-collision.html
@@ -137,3 +174,9 @@ Like previous examples, we assign a polynomial for a rooted tree, and evaluate t
 This way we get a multi-variable polynomial over d variables of degree l, where l is the number of leaves in the tree. We can prove that two polynomials that correspond to non-isomorphic trees are different (by using the uniqueness of factorization of the ring of polynomials). Thus, if we evaluate this polynomial for random variables, we get a good hash with collision probability at most l/MOD!
 
 TODO: https://codeforces.com/blog/entry/60442
+
+## ## Improve no-collision probability
+
+Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests. Remember, the probability that collision happens is only `≈ 1/m`. For `m = 10^9+9` the probability is `≈ 10^−9` which is quite low. But notice, that we only did one comparison. What if we compared a string s with `10^6` different strings. The probability that at least one collision happens is now `≈ 10^−3`. And if we want to compare `10^6` different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already `≈ 1`. It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
+
+There is a really easy trick to get better probabilities. We can just compute two different hashes for each string (by using two different `p`, and/or different `m`, and compare these pairs instead. If m is about `10^9` for each of the two hash functions than this is more or less equivalent as having one hash function with `m ≈ 10^18`. When comparing `10^6` strings with each other, the probability that at least one collision happens is now reduced to `≈10^−6`.
