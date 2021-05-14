@@ -45,6 +45,8 @@ Note that you can calculate hash of any substring in logarithmic time. How? Let'
 
 Hence Using the prefix hash array `pre[i] = Hash(S[0,i])`, we can compute `Hash(L,R)` in logarithmic time. Note that we'll need to find inverse modulo here(one reason to use prime `𝑀𝑂𝐷`).
 
+We can precompute the inverse of every `p^i`, which allows computing the hash of any substring of `S` in `O(1)` time.
+
 Now we got `𝐻𝑎𝑠ℎ(L,R)`, now we'll need to compute reverse hash of `S[L,R]`, If both will be equal, `S[L,R]` is a palindrome with high probability. Notice how we can similarly calculate reverse hash if we store the suffix hash of `S`.
 
 ### 2
