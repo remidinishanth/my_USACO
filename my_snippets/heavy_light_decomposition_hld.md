@@ -12,7 +12,7 @@ The heavy-light decomposition of a tree T=(V, E) is a coloring of the tree's edg
 
 We can calculate LCA and find the answer by breaking path(u,v) into path(u, lca) and path(lca, v), now Calc(u,v) = Calc(u, root) + Calc(v, root) - 2 Calc(root, LCA(u,v)).
 
-But say we also have an update query set(v,x) where we are given node v and value x, and we need to update the value of node v to x. Now we can use LCA to answer efficiently.
+But say we also have an update query set(v,x) where we are given node v and value x, and we need to update the value of node v to x. Now we can't use LCA to answer efficiently.
 
 Say instead of a tree, we just have a chain(set of nodes connected one after another), we can support both calc(u,v) and set(v,x) by using BIT/Segment tree.
 
