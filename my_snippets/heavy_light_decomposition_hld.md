@@ -568,20 +568,20 @@ void HLD(int u, int ee) {  // edge list graph.graph is 1-based.
   pos[u] = blen;
   blen++;
   chainNo[u] = nchain;
-  int sc = -1, mx = 0;
+  int sc = -1, mx = 0; // sc - special child/heavy child
   for (auto e : g[u]) {
-    if (e == ee) continue;
+    if (e == ee) continue; // parent
     int w = adj(u, e);
     if (sub[w] > mx) sc = e, mx = sub[w];
   }
-  if (sc == -1) return;
+  if (sc == -1) return; // leaf node
   HLD(adj(u, sc), sc);
   for (auto e : g[u]) {
     if (e == ee || e == sc) continue;
     int w = adj(u, e);
     nchain++;
-    chainParent[nchain] = u;
-    chainHead[nchain] = w;
+    chainParent[nchain] = u; // chainParent is the node connecting the light edge
+    chainHead[nchain] = w; // the top node of this chain
     HLD(w, e);
   }
 }
