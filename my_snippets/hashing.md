@@ -175,7 +175,7 @@ This way we get a multi-variable polynomial over d variables of degree l, where 
 
 TODO: https://codeforces.com/blog/entry/60442
 
-## ## Improve no-collision probability
+## Improve no-collision probability
 
 Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests. Remember, the probability that collision happens is only `≈ 1/m`. For `m = 10^9+9` the probability is `≈ 10^−9` which is quite low. But notice, that we only did one comparison. What if we compared a string s with `10^6` different strings. The probability that at least one collision happens is now `≈ 10^−3`. And if we want to compare `10^6` different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already `≈ 1`. It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
 
