@@ -847,7 +847,7 @@ And modify the query as follows, only if u and v are in same chain we will need 
     v = fa[head[v]];
   }
   if(dep[u] > dep[v]) swap(u, v);
-  if(pos[u] < pos[v]) mx = max(mx, segtree::query(0, n, pos[u] + !valuesOnVertices, pos[v]));
+  if(pos[u] < pos[v]) mx = max(mx, segtree::query(0, n, pos[u] + (valuesOnVertices ? 0 : 1), pos[v]));
 ```
 
 ## REF
