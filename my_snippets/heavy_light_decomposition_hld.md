@@ -821,18 +821,26 @@ Also check out https://cp-algorithms.com/graph/hld.html for simple implementatio
 We need to mofiy the segment tree query based on whether values stored on vertices or edges.
 
 ```cpp
-if (!valuesOnVertices && u == v) return;
-operation(Math.min(pos[u], pos[v]) + (valuesOnVertices ? 0 : 1), Math.max(pos[u], pos[v]));
+  if (!valuesOnVertices && u == v) return;
+  operation(Math.min(pos[u], pos[v]) + (valuesOnVertices ? 0 : 1), Math.max(pos[u], pos[v]));
 ```
 source: https://sites.google.com/site/indy256/algo/heavy_light
 
-Or store the values in the deeper nodes in HLD as update the weight of `i-th` edge as follows
+
+Store the values in the deeper nodes in HLD as update the weight of `i-th` edge as follows
 
 ```cpp
 void update(int i, int w) {
   int u = dep[edges[i].F] > dep[edges[i].S] ? edges[i].F : edges[i].S;
   segtree::update(0, n, pos[u], w);
 }
+```
+
+And modify the query as follows
+
+```cpp
+  if(dep[u] > dep[v]) swap(u, v);
+  if(pos[u] < pos[v]) mx = max(mx, segtree::query(0, n, pos[u] + 1, pos[v]));
 ```
 
 ## REF
