@@ -32,7 +32,7 @@ do this using a technique called heavy light decomposition.
 
 We will divide the tree into vertex-disjoint chains (meaning no two chains has a node in common) in such a way that to move from any node in the tree to the root node, we will have to change at most log N chains. To put it in other words, if the path from any node to root can be broken into pieces such that each piece belongs to only one chain, then we will have no more than log N pieces.
 
-We already know that queries in each chain can be answered with O(log N) complexity and there are at most log N chains we need to consider per path. So on the whole we have O( log^2 N ) complexity solution.
+We already know that queries in each chain can be answered with `O(log N)` complexity and there are at most `log N` chains we need to consider per path. So on the whole we have `O(log^2 N)` complexity solution.
 
 ## What does this decomposition accomplish?
 
@@ -43,7 +43,7 @@ We just showed that for any vertex v the path from v to the root only contains a
 Almost the same is true for a path between two arbitrary vertices v and w: Let x be their least common ancestor in the rooted tree. The path from v to w can be split into two paths, v to x and x to w. Each of these two paths only uses edges from at most lg N important paths, hence the entire path from v to w crosses at most 2lg N important paths.
 
 For each heavy path, we will keep an interval tree, hence to answer a query, we first identify the segments of heavy paths it uses. 
-This can be done in O(log N). Then we process each segment separately. Processing each segment involves two queries on the interval tree for its important path, hence the total time complexity is O(log 2N) per query.
+This can be done in O(log N). Then we process each segment separately. Processing each segment involves two queries on the interval tree for its important path, hence the total time complexity is `O(log^2 N)` per query.
 
 source: <https://ipsc.ksp.sk/2009/real/solutions/l.html> IPSC 2009 problem L in http://ipsc.ksp.sk/archive
 
