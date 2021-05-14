@@ -826,7 +826,7 @@ operation(Math.min(pos[u], pos[v]) + (valuesOnVertices ? 0 : 1), Math.max(pos[u]
 ```
 source: https://sites.google.com/site/indy256/algo/heavy_light
 
-Or store the values in the deeper nodes in HLD as update as follows
+Or store the values in the deeper nodes in HLD as update the weight of `i-th` edge as follows
 
 ```cpp
 void update(int i, int w) {
