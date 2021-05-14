@@ -154,6 +154,20 @@ int lca(int i, int j)
 }
 ```
 
+The above python pseudo code can be further simplified to, here when querying segment tree in sum we'll need to use `pos[v]` instead of `v`
+
+```python
+def process_path(u, v):
+    while top[u] != top[v]:
+        if depth[top[u]] > depth[top[v]]:
+	    swap(u, v)
+	res += sum(top[v], v)
+    # u and v are now in same chain
+    if depth[u] > depth[v]:
+        swap(u, v)
+    res += sum(u, v)
+```
+
 Here `head[i]` is the `top[i]`, for more details refer complete code.
 
 <details>
