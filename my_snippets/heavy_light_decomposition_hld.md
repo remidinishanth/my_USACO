@@ -154,6 +154,8 @@ int lca(int i, int j)
 }
 ```
 
+Here `head[i]` is the `top[i]`, for more details refer complete code.
+
 <details>
 	<summary> Complete code </summary>
 	
