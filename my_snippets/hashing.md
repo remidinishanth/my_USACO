@@ -12,6 +12,22 @@ Intelligent choices of `p` and `𝑀𝑂𝐷` help us avoid collisions. We will 
 
 Another good method is to store hash modulo two primes `𝑀𝑂𝐷1` and `𝑀𝑂𝐷2` which surely results in lesser collisions. Also, we should choose `𝑀𝑂𝐷` such that  `𝑀𝑂𝐷*𝑀𝑂𝐷`  doesn't result into overflow in C/C++.
 
+```cpp
+long long compute_hash(string const& s) {
+    const int p = 31;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    long long p_pow = 1;
+    for (char c : s) {
+        hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
+        p_pow = (p_pow * p) % m;
+    }
+    return hash_value;
+}
+```
+
+Precomputing the powers of p might give a performance boost.
+
 ## Problems
 
 ### 1
@@ -50,6 +66,33 @@ There are various problems which can always be solved by high order data structu
 Check out this informational post: [Anti-hash test](https://codeforces.com/blog/entry/4898) - Codeforces Read in comments also. You can try this problem using string hashing: [Problem - H - Codeforces](https://codeforces.com/contest/245/problem/H)
 
 source: https://threadsiiithyderabad.quora.com/String-Hashing-for-competitive-programming
+
+### 4 Search for duplicate strings in an array of strings
+
+**Problem:** Given a list of `n` strings `si`, each no longer than `m` characters, find all the duplicate strings and divide them into groups.
+
+From the obvious algorithm involving sorting the strings, we would get a time complexity of `O(nmlogn)` where the sorting requires `O(nlogn)` comparisons and each comparison take `O(m)` time. However, by using hashes, we reduce the comparison time to O(1), giving us an algorithm that runs in `O(nm + nlogn)` time.
+
+We calculate the hash for each string, sort the hashes together with the indices, and then group the indices by identical hashes.
+
+```cpp
+vector<vector<int>> group_identical_strings(vector<string> const& s) {
+    int n = s.size();
+    vector<pair<long long, int>> hashes(n);
+    for (int i = 0; i < n; i++)
+        hashes[i] = {compute_hash(s[i]), i};
+
+    sort(hashes.begin(), hashes.end());
+
+    vector<vector<int>> groups;
+    for (int i = 0; i < n; i++) {
+        if (i == 0 || hashes[i].first != hashes[i-1].first)
+            groups.emplace_back(); // Inserts a new vector at the end
+        groups.back().push_back(hashes[i].second);
+    }
+    return groups;
+}
+```
 
 ### Rabin Karp rolling hash
 
