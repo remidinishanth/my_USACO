@@ -213,6 +213,8 @@ public:
 
 ### Adamant's implementation trick
 
+This tries to combine the ideas from Euler tour tree, so that we can query subtrees while we query subpaths. Here `nxt[v]` is the top vertex in the heavy chain from `v`.
+
 ```cpp
 void dfs_sz(int v = 0) {
     sz[v] = 1;
