@@ -826,6 +826,7 @@ We need to mofiy the segment tree query based on whether values stored on vertic
 ```
 source: https://sites.google.com/site/indy256/algo/heavy_light
 
+![image](https://user-images.githubusercontent.com/19663316/118335289-f5164d00-b52c-11eb-8e9e-a988838414aa.png)
 
 Store the values in the deeper nodes in HLD as update the weight of `i-th` edge as follows
 
