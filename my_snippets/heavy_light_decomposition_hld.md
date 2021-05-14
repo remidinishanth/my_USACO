@@ -56,8 +56,8 @@ There are two ways to label edges as heavy or light.
 2. Consider the edge's two endpoints: one is closer to the root, and one is further away. 
   If the size of the subtree rooted at the latter is more than half that of the subtree rooted at the former, the edge is heavy. 
   Otherwise, it is light.
-
-![image](https://user-images.githubusercontent.com/19663316/115995981-24efc600-a5fb-11eb-8722-7233db484cfc.png)
+  
+![image](https://user-images.githubusercontent.com/19663316/118304119-e4051600-b503-11eb-9ff1-4c4a63be0243.png)
 
 In the first case, we'll have many heavy edges and hence our code will run faster, in the second case we might have not any heavy edges for some trees.
 
