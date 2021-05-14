@@ -837,7 +837,7 @@ void update(int i, int w) {
 }
 ```
 
-And modify the query as follows, only if u and v are in same chain we will need to query in the following way.
+And modify the query as follows, only if u and v are in same chain, then instead of querying from pos[u] to pos[v], we query from `pos[v] + 1`(the next vertex in this heavy path) to `pos[v]`. The code needs to be updated as follows.
 
 ```cpp
   int mx = -inf;
