@@ -36,14 +36,14 @@ We already know that queries in each chain can be answered with `O(log N)` compl
 
 ## What does this decomposition accomplish?
 
-Imagine that you are traveling down the tree, starting at the root. How many times can you use a light edge? Clearly, lg N is an upper bound, because each time you use a light edge the number of vertices in your subtree is at least halved.
+Imagine that you are traveling down the tree, starting at the root. How many times can you use a light edge? Clearly, `log N` is an upper bound, because each time you use a light edge the number of vertices in your subtree is at least halved.
 
-We just showed that for any vertex v the path from v to the root only contains at most lg N light edges. Now imagine that as we walk along the path from v to the root, we are keeping track of the important path we are on. This only changes when we use a light edge. And as there are at most lg N light edges on our path, we only change the important path at most lg N times.
+We will show that for any vertex `v` the path from `v` to the `root` only contains at most `log N` light edges. Now imagine that as we walk along the path from `v` to the root, we are keeping track of the important path we are on. This only changes when we use a light edge. And as there are at most `log N` light edges on our path, we only change the important path at most `log N` times.
 
-Almost the same is true for a path between two arbitrary vertices v and w: Let x be their least common ancestor in the rooted tree. The path from v to w can be split into two paths, v to x and x to w. Each of these two paths only uses edges from at most lg N important paths, hence the entire path from v to w crosses at most 2lg N important paths.
+Almost the same is true for a path between two arbitrary vertices `v` and `w`: Let `x` be their least common ancestor in the rooted tree. The path from `v` to `w` can be split into two paths, `v` to `x` and `x` to `w`. Each of these two paths only uses edges from at most `log N` important paths, hence the entire path from `v` to `w` crosses at most `2log N` important paths.
 
 For each heavy path, we will keep an interval tree, hence to answer a query, we first identify the segments of heavy paths it uses. 
-This can be done in O(log N). Then we process each segment separately. Processing each segment involves two queries on the interval tree for its important path, hence the total time complexity is `O(log^2 N)` per query.
+This can be done in `O(log N)`. Then we process each segment separately. Processing each segment involves two queries on the interval tree for its important path, hence the total time complexity is `O(log^2 N)` per query.
 
 source: <https://ipsc.ksp.sk/2009/real/solutions/l.html> IPSC 2009 problem L in http://ipsc.ksp.sk/archive
 
