@@ -103,7 +103,7 @@ def go2(x):
   if not children[x].empty():
     go2(heavy[x])
     for y in children[x]:
-      if y!=heavy[x]:
+      if y != heavy[x]:
         go2(x)
 ```
 
@@ -122,7 +122,7 @@ We don't need any special code to calculate LCA, we can leverage HLD code to do 
 while True:
   x = top[u]
   y = top[v]
-  if x==y:
+  if x == y:
     # u and v belong to same heavy chain
     res += sum(u,v) # sum is call to segment tree
     break
