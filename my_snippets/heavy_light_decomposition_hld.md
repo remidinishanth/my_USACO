@@ -8,7 +8,7 @@ The heavy-light decomposition of a tree T=(V, E) is a coloring of the tree's edg
 
 ## Motivation
 
-Suppose we are given a tree where each node is having some value, we want to answer queries like the sum of values on nodes on the path from u to v.
+**Problem 1:** Suppose we are given a tree where each node is having some value, we want to answer queries like the sum of values on nodes on the path from u to v.
 
 We can calculate LCA and find the answer by breaking path(u,v) into path(u, lca) and path(lca, v), now Calc(u,v) = Calc(u, root) + Calc(v, root) - 2 Calc(root, LCA(u,v)).
 
@@ -19,6 +19,14 @@ Say instead of a tree, we just have a chain(set of nodes connected one after ano
 ![image](https://user-images.githubusercontent.com/19663316/115997295-42735e80-a600-11eb-9d0c-84b492d83964.png)
 
 Key: HLD supports updating the tree node/edge values unlike the LCA sparse array approach, but the tree structure is fixed.
+
+**Problem 2:** Suppose we have a rooted tree with weights at each node. Answer a series of queries that either update the value at a node, or query the maximum value along a path from a node to the root.
+
+The naive solution to this problem is to simply walk up that path from a node to the root and calculate the maximum value along the path. This solution has
+runs in O(1) time for updates and O(n) time for queries, which is too slow for multiple queries.
+
+The problem of finding the maximum value along a path is a signal that segment trees might be useful, but how do we make a segment tree from a tree? We will
+do this using a technique called heavy light decomposition.
 
 ## Basic idea
 
