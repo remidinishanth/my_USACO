@@ -274,3 +274,5 @@ Again, this is the simplest case because of two reasons:
 
 
 TODO: https://codeforces.com/blog/entry/1256
+
+TODO: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/LazySeg%20(15.2).h and https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/SegTree%20(9.2).h
