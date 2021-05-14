@@ -50,3 +50,48 @@ There are various problems which can always be solved by high order data structu
 Check out this informational post: [Anti-hash test](https://codeforces.com/blog/entry/4898) - Codeforces Read in comments also. You can try this problem using string hashing: [Problem - H - Codeforces](https://codeforces.com/contest/245/problem/H)
 
 source: https://threadsiiithyderabad.quora.com/String-Hashing-for-competitive-programming
+
+### Rabin Karp rolling hash
+
+Hash for the string (c1,c2,...,ck) is defined as follows
+![image](https://user-images.githubusercontent.com/19663316/118251675-8225bb80-b4c5-11eb-8859-a9b294d7fd72.png)
+
+
+## Hashing and Probability fo Collision
+
+source: https://rng-58.blogspot.com/2017/02/hashing-and-probability-of-collision.html
+
+[Problem D](http://codeforces.com/contest/763/problem/D) of Codeforces #395 required hashes of rooted trees. In this post I give some examples of good hashes and bad hashes, and then construct a good hash for rooted trees.
+
+The most well-known hash in competitive programming is probably the rolling-hash of strings. The following problem looks stupid, but let's solve it using rolling hash anyway.
+
+**Problem 1.** You are given two strings s, t of lengths N (<= 10^5) that consist of lowercase letters. Determine if they are the same.
+
+Let `MOD = 10^9+7`. Choose an integer `r` uniformly at random from the interval `[0, MOD)`. Compute the sum of `r^i * s[i]` over all `i`. This is called the rolling hash of `s`. We can consider it as a polynomial of `r`, let's denote it as `S(r)`. Similarly, define `T(r)`. The hash collision happens when `s` and `t` are different strings (thus S and T are different polynomials), but unluckily S(r) = T(r). Here we use [Schwartz-Zippel lemma](https://en.wikipedia.org/wiki/Schwartz%E2%80%93Zippel_lemma): 
+
+Let `P(x_1, ..., x_k)` be a non-zero (multi-variable) polynomial on a finite field `F_MOD`. If the variables are chosen independently and uniformly at random, the probability that `P(x_1, ..., x_k) = 0` is at most `D/MOD`, where `D` is the total degree of the polynomial.
+
+In the case of rolling hash, we are only interested in single-variable polynomials. From the lemma above, we can prove that the collision probability is at most `N/MOD (<= 1/10^4)`. Thus I'd say this is a "good hash". My intuition tells that in practice the probability is as small as `1/MOD`, but that looks at least very hard to prove. Let me give an interesting example that shows the intuition is not always correct. In the lemma F_MOD must be a field, and MOD must be a prime. What happens if the modulo is not prime, for example 2^64 (this would simplify the implementation). It turns out that the rolling hash doesn't work well for a certain case if the modulo is 2^64. [Detailed description on Codeforces](https://codeforces.com/blog/entry/4898).
+
+**Problem 2.** You are given two graphs G, H with N (<= 10^3) vertices and M (<= 10^4) edges. Determine if they are isomorphic.
+
+For each vertex v in the graph and an integer d, define the level-d hash for v, h(d, v). When d = 0, define h(0, v) = 1. Otherwise, let x_1, ..., x_k be the sorted list of level-(d-1) hashes of vertices adjacent to v, and define h(d, v) as the sum of x_i * r^i modulo MOD. Compute the level-N hashes of the two graphs for each vertex, sort them, and compare them.
+
+Petr: For graph isomorphism, it's easy to break such hashing: take two non-isomorphic regular (all degrees the same) graphs.
+
+However there's no theoretical guarantee under this hash and I think most people agree that this doesn't look valid as an intended solution of a problem in a contest (graph isomorphism is a well-known difficult problem). I'd say this is a "bad hash".
+
+OK, now we want to construct a good hash for rooted trees. Before that, let's try an easier version. Hashes for (multi)sets.
+
+**Problem 3.** You are given two (multi)sets A = {a_1, ...., a_n} and B = {b_1, ..., b_n}. n <= 10^5 and each element is in the interval `[0, MOD)`. Determine if they are the same.
+
+One possible solution is to sort the input and then compute the rolling hash of it. Can you find a linear-time hash? The solution is indeed very simple. Let's take a random integer r from the interval `[0, MOD)`, and compute the hash (r+a_1)(r+a_2)...(r+a_n). This is a polynomial of r of degree n, so again from Schwartz-Zippel lemma, the collision probability is at most n/MOD.
+
+**Problem 4.** You are given two rooted trees with n vertices. Determine if they are isomorphic.
+
+Like previous examples, we assign a polynomial for a rooted tree, and evaluate the polynomial for random variables. However, unlike previous examples, this time we use multi-variable polynomials. We define the polynomial P(G) for a rooted tree G as follows. If G is a single leaf, P(G) = 1. Otherwise, let d be the depth of the tree, k be the number of children of the root of G, and G_1, G_2, ..., G_d be the subtrees corresponding to those children. Define P(G) = (x_d + P(G_1))(x_d + P(G_2))...(x_d + P(G_k)). See the picture for an example. (x_1, x_2, x_3 are replaced with x, y, z).
+
+![image](https://user-images.githubusercontent.com/19663316/118252879-e1380000-b4c6-11eb-94ae-981eefa369bd.png)
+
+This way we get a multi-variable polynomial over d variables of degree l, where l is the number of leaves in the tree. We can prove that two polynomials that correspond to non-isomorphic trees are different (by using the uniqueness of factorization of the ring of polynomials). Thus, if we evaluate this polynomial for random variables, we get a good hash with collision probability at most l/MOD!
+
