@@ -133,7 +133,7 @@ int count_unique_substrings(string const& s) {
 }
 ```
 
-## Hashing and Probability fo Collision
+## Hashing and Probability of Collision
 
 source: https://rng-58.blogspot.com/2017/02/hashing-and-probability-of-collision.html
 
@@ -179,4 +179,4 @@ TODO: https://codeforces.com/blog/entry/60442
 
 Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests. Remember, the probability that collision happens is only `≈ 1/m`. For `m = 10^9+9` the probability is `≈ 10^−9` which is quite low. But notice, that we only did one comparison. What if we compared a string s with `10^6` different strings. The probability that at least one collision happens is now `≈ 10^−3`. And if we want to compare `10^6` different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already `≈ 1`. It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
 
-There is a really easy trick to get better probabilities. We can just compute two different hashes for each string (by using two different `p`, and/or different `m`, and compare these pairs instead. If m is about `10^9` for each of the two hash functions than this is more or less equivalent as having one hash function with `m ≈ 10^18`. When comparing `10^6` strings with each other, the probability that at least one collision happens is now reduced to `≈10^−6`.
+There is a really easy trick to get better probabilities. We can just compute two different hashes for each string (by using two different `p`, and/or different `m`, and compare these pairs instead. If m is about `10^9` for each of the two hash functions than this is more or less equivalent as having one hash function with `m ≈ 10^18`. When comparing `10^6` strings with each other, the probability that at least one collision happens is now reduced to `≈ 10^−6`.
