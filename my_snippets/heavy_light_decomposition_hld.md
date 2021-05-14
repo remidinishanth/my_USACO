@@ -165,7 +165,8 @@ class HeavyLight {
       if (depth[root[u]] > depth[root[v]]) swap(u, v);
       op(treePos[root[v]], treePos[v] + 1);
     }
-    if (depth[u] > depth[v]) swap(u, v); // root[u] == root[v], same chain, query in Segtree
+    // root[u] == root[v], same chain, query in Segtree
+    if (depth[u] > depth[v]) swap(u, v); 
     op(treePos[u], treePos[v] + 1);
   }
 
