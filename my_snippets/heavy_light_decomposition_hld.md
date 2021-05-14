@@ -816,6 +816,16 @@ void preprocess() {
 
 Also check out https://cp-algorithms.com/graph/hld.html for simple implementation
 
+### Values stored on Edges
+
+We need to mofiy the segment tree query based on whether values stored on vertices or edges.
+
+```cpp
+if (!valuesOnVertices && u == v) return;
+operation(Math.min(pos[u], pos[v]) + (valuesOnVertices ? 0 : 1), Math.max(pos[u], pos[v]));
+```
+source: https://sites.google.com/site/indy256/algo/heavy_light
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
