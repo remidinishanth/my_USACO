@@ -235,8 +235,10 @@ TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book.
 We have a grid with `H` rows and `W` columns of squares, where each square is blue or red. The square at the `i-th` row and `j-th` column is blue if `A[i][j]` is `+`, and red if `A[i][j]` is `-`. There is a piece on this grid, which is initially placed on the top-left square. Takahashi and Aoki will play a game using this piece. Each of the two players has `0` points in the beginning. They will alternately do the following operation, with Takahashi going first: Move the piece one square right or one square down. It is not allowed to move the piece outside the grid. Then, the player (who moved the piece) gets one point if the piece is now on a blue square, and loses one point if the piece is now on a red square. The game ends when one of the players is unable to do the operation. Then, the player with the greater number of points wins the game if they have different numbers of points. Otherwise, the game is drawn. Find the result of the game when both players play the game to get the best outcome.
 
 **Solution**
+
+Let `dp[i][j]` be a `pair<int,int>` which stores the scores of `Takshahi` and `Aoki` when they playing from submatrix `(i,j)` to `(h-1, w-1)`.
 ```cpp
-dp[h-1][w-1] = {0, 0};
+    dp[h-1][w-1] = {0, 0};
     for(int i=h-1;i>=0;i--){
         for(int j=w-1;j>=0;j--){
             if(i==h-1 && j==w-1) continue;
@@ -291,11 +293,11 @@ Observation: All we need to minimize is `dp[i][j].F - dp[i][j].S` if this is pos
         dbg(t);
         if (t == 0) {
             dp[i][j] = -INF;
-            if (i + 1 < H) chmax(dp[i][j], dp[i + 1][j] + (S[i + 1][j] == '+' ? 1 : -1));
+            if (i + 1 < H) chmax(dp[i][j], dp[i + 1][j] + (S[i + 1][j] == '+' ? 1 : -1)); // Takshashi tries to maximize it
             if (j + 1 < W) chmax(dp[i][j], dp[i][j + 1] + (S[i][j + 1] == '+' ? 1 : -1));
         } else {
             dp[i][j] = INF;
-            if (i + 1 < H) chmin(dp[i][j], dp[i + 1][j] - (S[i + 1][j] == '+' ? 1 : -1));
+            if (i + 1 < H) chmin(dp[i][j], dp[i + 1][j] - (S[i + 1][j] == '+' ? 1 : -1)); // Aoki tries to minimize the score
             if (j + 1 < W) chmin(dp[i][j], dp[i][j + 1] - (S[i][j + 1] == '+' ? 1 : -1));
         }
     }
