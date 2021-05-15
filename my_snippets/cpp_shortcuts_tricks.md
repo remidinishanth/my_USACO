@@ -97,7 +97,7 @@ auto f = [] (int a, int b) -> int { return a + b; };
 cout << f(1, 2); // prints "3"
 ```
 
-* You can use lambdas in for_each, sort and many more STL functions:
+* You can use lambdas in `for_each`, `sort` and many more STL functions:
 ```cpp
 vector<int> v = {3, 1, 2, 1, 8};
 sort(begin(v), end(v), [] (int a, int b) { return a > b; });
