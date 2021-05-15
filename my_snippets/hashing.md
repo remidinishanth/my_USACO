@@ -398,3 +398,15 @@ The idea is to create the list SortedAdj(vi) simultaneously, Bucket sorting take
 
 ![image](https://user-images.githubusercontent.com/19663316/118373918-e4221600-b5d6-11eb-8734-4abd478eedfe.png)
 
+
+## Random number generator
+
+```cpp
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+ 
+int getRand(int l, int r)
+{
+	uniform_int_distribution<int> uid(l, r);
+	return uid(rng);
+}
+``` 
