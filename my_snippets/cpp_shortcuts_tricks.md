@@ -72,6 +72,32 @@ for(auto &it:container) //Using & also allows us to modify the elements
   // x, y can be two integers, or two vectors, or any two containers 
   swap(x, y); 
   ```
+`emplace_back` is faster than `push_back` because it just construct value at the end of vector but push_back construct it somewhere else and then move it to the vector.  
+```cpp
+#define mt make_tuple
+#define eb emplace_back
+typedef tuple<int,int,int> State; // operator< defined
+
+int main(){
+  int a,b,c;
+  tie(a,b,c) = mt(1,2,3); // assign
+  tie(a,b) = mt(b,a); // swap(a,b)
+
+  vector<pair<int,int>> v;
+  v.eb(a,b); // shorter and faster than pb(mp(a,b))
+
+  // Dijkstra
+  priority_queue<State> q;
+  q.emplace(0,src,-1);
+  while(q.size()){
+    int dist, node, prev;
+    tie(dist, ode, prev) = q.top(); q.pop();
+    dist = -dist;
+    // ~~ find next state ~~
+    q.emplace(-new_dist, new_node, node);
+  }
+}
+```
 * Macros
   * If you are tired of typing some statement like `push_back` again and again, you can just use `#define pb push_back`, and type `pb` in your code.
   * Getting the name of the argument in macro using #, and using it to debug your program: `#define trace(x) cerr<<#x<<": "<<x<<" "<<endl;`
