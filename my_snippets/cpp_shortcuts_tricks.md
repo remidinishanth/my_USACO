@@ -24,6 +24,25 @@ Handy for graph edges, source: https://atcoder.jp/contests/abc197/submissions/21
 
 ![image](https://user-images.githubusercontent.com/19663316/118325069-86cb8d80-b520-11eb-908d-bd7d318667da.png)
 
+### Printing with precision in CPP, Faster IO
+```cpp
+  // Fast IO
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  
+  // printing till x digits
+  cout << fixed << setprecision(11);
+  cerr << fixed << setprecision(6);
+  
+  // Just in single line
+  cout << fixed << setprecision(15) << ans << '\n';
+  
+  // Another way
+  double d = 3.14159265358979;
+  cout.precision(17);
+  cout << "Pi: " << fixed << d << endl;
+```
+
 ### C++ Tricks for competitive programming
 
 * Getting rid of "includes": Just use `#include <bits/stdc++.h>`
