@@ -91,13 +91,43 @@ for(i = 1; i <= n; i++)
     for(j = 1; j <= m; j++)
         cout << a[i][j] << " \n"[j == m];
 ```
-* Lambdas `[capture list](parameters) -> return value { body }`. Shortcuts: There are two shortcut capture specifications that might be useful on occasion:
-  * [=] capture all variables currently in local block scope by copy of their current values
-  * [&] capture all variables currently in local block scope by reference 
+
+### Using C++ Lambdas
+
+Use case:
 ```cpp
+// define a special-purpose custom printing function
+void print_it (int i)
+{
+ cout << ":" << i << ":";
+}
+...
+// apply print_it to each integer in the list
+for_each(int_list.begin(), int_list.end(), print_it);
+cout << endl;
+```
+
+Using lambdas
+
+```cpp
+for_each(int_list.begin(), int_list.end(), [](int i){cout << ":" << i << ":";} );
+cout << endl;
+```
+
+We could store the above example lambda in a variable,
+and then call it using the syntax that we would also use a function pointer or function object, as follows: 
+
+```cpp
+auto func1 = [](int i) {cout << ":" << i << ":";};
+func1(42); // prints ":42:"
+
 auto f = [] (int a, int b) -> int { return a + b; };
 cout << f(1, 2); // prints "3"
 ```
+
+* Lambdas `[capture list](parameters) -> return value { body }`. Shortcuts: There are two shortcut capture specifications that might be useful on occasion:
+  * [=] capture all variables currently in local block scope by copy of their current values
+  * [&] capture all variables currently in local block scope by reference 
 
 * You can use lambdas in `for_each`, `sort` and many more STL functions:
 ```cpp
