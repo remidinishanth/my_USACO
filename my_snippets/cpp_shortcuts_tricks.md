@@ -91,7 +91,9 @@ for(i = 1; i <= n; i++)
     for(j = 1; j <= m; j++)
         cout << a[i][j] << " \n"[j == m];
 ```
-* Lambdas `[capture list](parameters) -> return value { body }`
+* Lambdas `[capture list](parameters) -> return value { body }`. Shortcuts: There are two shortcut capture specifications that might be useful on occasion:
+  * [=] capture all variables currently in local block scope by copy of their current values
+  * [&] capture all variables currently in local block scope by reference 
 ```cpp
 auto f = [] (int a, int b) -> int { return a + b; };
 cout << f(1, 2); // prints "3"
