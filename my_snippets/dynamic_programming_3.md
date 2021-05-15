@@ -644,3 +644,4 @@ int main() {
 }
 ```
 
+TODO: https://csacademy.com/contest/archive/task/array-elimination/
