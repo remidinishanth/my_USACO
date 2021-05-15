@@ -359,3 +359,31 @@ Which is best, decide for yourself. I advertise the first option to everyone. If
 **Choosing a simple module**
 
 A special hello to everyone who says "the number P can be chosen by anyone." P must be larger than the size of the alphabet. If so, then the hash computed without taking modulo, as a long number, is injective. Otherwise, already at the stage of computation without a module, there may be collisions. Examples of how not to do: alphabet "a..z", P = 13 , ASCII alphabet 33..127, P = 31 .
+
+## CF Problems
+
+### Div 1C. Double Profiles
+
+https://codeforces.com/contest/154/problem/C
+
+The social network contains `n` registered profiles, numbered from `1` to `n`. Some pairs there are friends (the "friendship" relationship is mutual, that is, if `i` is friends with `j`, then `j` is also friends with `i`). Let's say that profiles `i` and `j` `(i ≠ j)` are doubles, if for any profile `k (k ≠ i, k ≠ j)` one of the two statements is true: either `k` is friends with `i` and `j`, or `k` isn't friends with either of them. Also, `i` and `j` can be friends or not be friends.
+
+Your task is to count the number of different unordered pairs `(i, j)`, such that the profiles `i` and `j` are doubles. Note that the pairs are unordered, that is, pairs `(a, b)` and `(b, a)` are considered identical.
+
+**Input**
+The first line contains two space-separated integers `n` and `m (1 ≤ n ≤ 10^6, 0 ≤ m ≤ 10^6)`, — the number of profiles and the number of pairs of friends, correspondingly.
+
+Next `m` lines contains descriptions of pairs of friends in the format `"v u"`, where `v` and `u` `(1 ≤ v, u ≤ n, v ≠ u)` are numbers of profiles that are friends with each other. It is guaranteed that each unordered pair of friends occurs no more than once and no profile is friends with itself.
+
+**Output**
+Print the single integer — the number of unordered pairs of profiles that are doubles.
+
+**Solution**
+
+It is necessary in the graph to count the number of pairs of verties that have the same set of neighbours up to these vertices themselves(These vertices can be friends too). You can calculate the number of pairs of vertices whose sets coincide exactly by hashing these sets and sorting the hashes (yes, hashes are the author's solution). How to adapt this method for the case when there is an edge between the vertices?
+
+Note that the pairs who are friends to each other are no more than number of edges, so if we know how to compute hash changes when adding/removing one vertex to the set(for example, using the polynomial hash of the row of the graph Adjacency matrix), we can iterate over all the edges and check each pair directly.
+
+Alternatively, we can calculate the second variant of the hash for each vertex by including that vertex, assuming there is a loop at each vertex. Then the pair of sets will coincide just when the vertices are doubles and there is an edge between them. After that, we count the number of pairs in the same way as in the first case.
+
+It was not possible to sort hashes, but sort adjacency lists for each vertex. Due to the fact that their total size is 2M. this could also pass, but it required careful implementation, since the restrictions were great. The complexity of the solution with hashes is `O(M + N log N)`.
