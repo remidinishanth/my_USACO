@@ -372,7 +372,7 @@ ll sum(int v, int tl, int tr, int l, int r) {
 ```
 Tested with SPOJ HORRIBLE - Horrible Queries
 
-If we don't push at the beginning, we will need to do something like this in update function
+If we don't push at the beginning and do it after `if (l > r) return;` then we will need to do something like this in update function
 
 ```cpp
     int lsubtree = (lazy[l(p)] != -1) ? lazy[l(p)] : st[l(p)]; // find actual value of left subtree
