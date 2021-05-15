@@ -180,3 +180,122 @@ TODO: https://codeforces.com/blog/entry/60442
 Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests. Remember, the probability that collision happens is only `≈ 1/m`. For `m = 10^9+9` the probability is `≈ 10^−9` which is quite low. But notice, that we only did one comparison. What if we compared a string s with `10^6` different strings. The probability that at least one collision happens is now `≈ 10^−3`. And if we want to compare `10^6` different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already `≈ 1`. It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
 
 There is a really easy trick to get better probabilities. We can just compute two different hashes for each string (by using two different `p`, and/or different `m`, and compare these pairs instead. If m is about `10^9` for each of the two hash functions than this is more or less equivalent as having one hash function with `m ≈ 10^18`. When comparing `10^6` strings with each other, the probability that at least one collision happens is now reduced to `≈ 10^−6`.
+
+## Polynomial hashes
+
+source: https://codeforces.com/blog/entry/17507
+
+Short version
+
+```cpp
+
+typedef unsigned long long ull;
+
+const int N = 1e5;
+const int P = 239017;
+
+char s[N + 1];
+ull h[N + 1], deg[N + 1];
+
+void init() {
+  int n = strlen(s);
+  deg[0] = 1, h[0] = 0;
+  forn(i, n) {
+    h[i + 1] = h[i] * P + s[i];
+    deg[i + 1] = deg[i] * P;
+  }
+}
+
+ull getHash( int i, int len ) {
+  return h[i + len] - h[i] * deg[len];
+}
+```
+
+Long version
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define forn(i, n) for (int i = 0; i < (int)(n); i++)
+#define sz(a) (int)(a).size()
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+struct num {
+  static const int MA = 1e9 + 7, MB = 1e9 + 9;
+
+  int a, b;
+
+  num() { }
+  num( int x ) : a(x), b(x) { }
+  num( int a, int b ) : a(a), b(b) { }
+
+  num operator + ( const num &x ) const { return num((a + x.a) % MA, (b + x.b) % MB); }
+  num operator - ( const num &x ) const { return num((a + MA - x.a) % MA, (b + MB - x.b) % MB); }
+  num operator * ( int x ) const { return num(((ll)a * x) % MA, ((ll)b * x) % MB); }
+  num operator * ( const num &x ) const { return num(((ll)a * x.a) % MA, ((ll)b * x.b) % MB); }
+  bool operator == ( const num &x ) const { return a == x.a && b == x.b; }
+
+  explicit operator ll () const { return (ll)a * MB + b + 1; } // > 0
+};
+
+template <class hash_t>
+struct StrComparator {
+  static const int P;
+  static vector<hash_t> deg;
+
+  int n;
+  const char *s;
+  hash_t *h;
+
+  StrComparator( int n, const char *s ) : n(n), s(s) {
+    h = new hash_t[n + 1];
+    h[0] = 0;
+    forn(i, n)
+      h[i + 1] = h[i] * P + s[i];
+    deg.reserve(n);
+    while (sz(deg) <= n)
+      deg.push_back(*deg.rbegin() * P);      
+  }
+
+  hash_t substr( int i, int len ) const { return h[i + len] - h[i] * deg[len]; }
+
+  int lcp( int i, int j ) {
+    int L = 0, R = n - max(i, j);
+    while (L < R) {
+      int M = (L + R + 1) / 2;
+      if (substr(i, M) == substr(j, M))
+        L = M;
+      else
+        R = M - 1;
+    }
+    return L;
+  }
+
+  int cmp( int a, int b ) {
+    int LEN = n - max(a, b), L = lcp(a, b);
+    return L < LEN ? (int)s[a + L] - s[b + L] : b - a;
+  }
+
+  bool operator() ( int i, int j ) { return cmp(i, j) < 0; }
+};
+template <class hash_t> vector <hash_t> StrComparator<hash_t>::deg(1, hash_t(1));
+template <class hash_t> const int StrComparator<hash_t>::P = max(239, rand());
+
+//   StrComparator<num> h(n, s);
+
+/**
+ * Usage:
+ *   StrComparator<num> h(length, s); // int length, char *s
+ *   h.substr(0, 3) == h.substr(1, 3); // сравнение на равенство подстрок за O(1)
+ *   h.cmp(2, 3); // сравнение на больше-меньше суффиксов за O(logn)
+ *
+ *   int p[n]; forn(i, n) p[i] = i;
+ *   sort(p, p + n, h); // сортировать суффиксы, суф.массив за O(nlog^2n)
+ */
+```
+
+source: http://acm.math.spbu.ru/~sk1/algo/hash/hash.cpp.html and http://acm.math.spbu.ru/~sk1/algo/hash/HashStrComparator_simple.cpp.html
