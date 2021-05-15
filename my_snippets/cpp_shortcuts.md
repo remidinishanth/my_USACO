@@ -32,7 +32,7 @@ Handy for graph edges, source: https://atcoder.jp/contests/abc197/submissions/21
   * `__builtin_popcount(x)`: Returns the number of set bits in `x`
 * Initializer Lists: These make STL containers easy to initialize, for eg:
   * `vector<int> odd_nos = {1, 3, 5, 7, 9};`
-  * `pair<int, string> p = {1, “Hi”}; //Equiv. to p=make_pair(1, "Hi")`
+  * `pair<int, string> p = {1, “Hi”}; // Equiv. to p=make_pair(1, "Hi")`
   * `map<int, string> m = { {1, “This”}, {2, “is”}, {3, “awesome”} };`
 * Finding min and max of multiple variables:
 ```cpp
