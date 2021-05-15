@@ -183,6 +183,8 @@ There is a really easy trick to get better probabilities. We can just compute tw
 
 ## Polynomial hashes
 
+In Russia we call rolling hashes as a polynomial hashes.
+
 source: https://codeforces.com/blog/entry/17507
 
 Short version
