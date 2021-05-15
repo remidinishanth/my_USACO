@@ -230,6 +230,82 @@ The above problem can be solved in O(n). REF: https://qr.ae/pGnaCy, https://yout
 
 TODO: `Termites` by Tomasz Idziaszek from Looking for a challenge book.
 
+### Game in Momotetsu World
+
+We have a grid with `H` rows and `W` columns of squares, where each square is blue or red. The square at the `i-th` row and `j-th` column is blue if `A[i][j]` is `+`, and red if `A[i][j]` is `-`. There is a piece on this grid, which is initially placed on the top-left square. Takahashi and Aoki will play a game using this piece. Each of the two players has `0` points in the beginning. They will alternately do the following operation, with Takahashi going first: Move the piece one square right or one square down. It is not allowed to move the piece outside the grid. Then, the player (who moved the piece) gets one point if the piece is now on a blue square, and loses one point if the piece is now on a red square. The game ends when one of the players is unable to do the operation. Then, the player with the greater number of points wins the game if they have different numbers of points. Otherwise, the game is drawn. Find the result of the game when both players play the game to get the best outcome.
+
+**Solution**
+```cpp
+dp[h-1][w-1] = {0, 0};
+    for(int i=h-1;i>=0;i--){
+        for(int j=w-1;j>=0;j--){
+            if(i==h-1 && j==w-1) continue;
+            int tak = (i+j+1)%2;
+            if(tak) dp[i][j] = {-INF, 0};
+            else dp[i][j] = {0, -INF};
+            if(i+1 < h){
+                int sign = (V[i+1][j] == '+' ? 1 : -1);
+                if(tak){
+                    if(dp[i][j].F - dp[i][j].S < dp[i+1][j].F - dp[i+1][j].S + sign){
+                        dp[i][j] = dp[i+1][j];
+                        dp[i][j].F = dp[i+1][j].F + sign;
+                    }
+                }else{
+                    if(dp[i][j].S - dp[i][j].F < dp[i+1][j].S -dp[i+1][j].F + sign){
+                        dp[i][j] = dp[i+1][j];
+                        dp[i][j].S = dp[i+1][j].S + sign;
+                    }
+                }
+            }
+            if(j+1 < w){
+                int sign = (V[i][j+1] == '+' ? 1 : -1);
+                if(tak){
+                    if(dp[i][j].F - dp[i][j].S < dp[i][j+1].F -dp[i][j+1].S + sign){
+                        dp[i][j] = dp[i][j+1];
+                        dp[i][j].F = dp[i][j+1].F + sign;
+                    }
+                }else{
+                    if(dp[i][j].S - dp[i][j].F < dp[i][j+1].S -dp[i][j+1].F + sign){
+                        dp[i][j] = dp[i][j+1];
+                        dp[i][j].S = dp[i][j+1].S + sign;
+                    }
+                }
+            }
+        }
+    }
+    int f = dp[0][0].F;
+    int s = dp[0][0].S;
+    if(f > s){
+        printf("Takahashi\n");
+    }else if(s>f){
+        printf("Aoki\n");
+    }else printf("Draw\n");
+```
+
+Observation: All we need to minimize is `dp[i][j].F - dp[i][j].S` if this is positive in the ending then Takshashi wins, by using this the above code can be simplified.
+
+```cpp
+    IREP(i, H) IREP(j, W) {
+        if (i == H - 1 and j == W - 1) continue;
+        int t = (i + j) % 2;
+        dbg(t);
+        if (t == 0) {
+            dp[i][j] = -INF;
+            if (i + 1 < H) chmax(dp[i][j], dp[i + 1][j] + (S[i + 1][j] == '+' ? 1 : -1));
+            if (j + 1 < W) chmax(dp[i][j], dp[i][j + 1] + (S[i][j + 1] == '+' ? 1 : -1));
+        } else {
+            dp[i][j] = INF;
+            if (i + 1 < H) chmin(dp[i][j], dp[i + 1][j] - (S[i + 1][j] == '+' ? 1 : -1));
+            if (j + 1 < W) chmin(dp[i][j], dp[i][j + 1] - (S[i][j + 1] == '+' ? 1 : -1));
+        }
+    }
+    if (dp[0][0] > 0) puts("Takahashi");
+    else if (dp[0][0] < 0) puts("Aoki");
+    else puts("Draw");
+```
+
+Remember this trick to simplify the code in Game Theory DP problems.
+
 ## Combinatorics & Prefix sum trick in DP
 
 ### M Candies Atcoder DP
