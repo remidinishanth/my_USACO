@@ -299,3 +299,63 @@ template <class hash_t> const int StrComparator<hash_t>::P = max(239, rand());
 ```
 
 source: http://acm.math.spbu.ru/~sk1/algo/hash/hash.cpp.html and http://acm.math.spbu.ru/~sk1/algo/hash/HashStrComparator_simple.cpp.html
+
+**Common part:**
+```cpp
+const int P = 239017; // If you take a simple modulo, use rand() here!
+// s - string, n - its length
+```
+
+**First way:**
+```cpp
+// deg[] = {1, P, P^2, P^3, ...}
+// h[] = {0, s[0], s[0]*P + s[1], s[0]*P^2 + s[1]*P + s[2], ...}
+unsigned long long h[n + 1], deg[n + 1];
+h[0] = 0, deg[0] = 1;
+for (int i = 0; i < n; i++) {
+  h[i + 1] = h[i] * P + s[i];
+  deg[i + 1] = deg[i] * P;
+}
+auto get_hash = [&]( int l, int r ) { // [l..r]
+  return h[r + 1] - h[l] * deg[r - l + 1];
+};
+```
+
+**Second way:**
+```cpp
+// deg[] = {1, P, P^2, P^3, ...}
+// h[] = {s[0], s[0] + s[1]*P, s[0] + s[1]*P + s[2]*P^2, ...}
+unsigned long long h[n], deg[n];
+h[0] = s[0], deg[0] = 1;
+for (int i = 1; i < n; i++) {
+  deg[i] = deg[i - 1] * P;
+  h[i] = h[i - 1] + s[i] * deg[i];
+}
+auto get_hash = [&]( int l, int r ) { // [l..r]
+  if (l == 0)
+    return h[r];
+  return h[r] - h[l - 1];
+};
+```
+
+There are two differences
+
+![image](https://user-images.githubusercontent.com/19663316/118372843-26485900-b5d1-11eb-8579-1a42a24caebd.png)
+
+In the first method, to compare two strings `[l1..r1]` and `[l2..r2]`, just write `get_hash(l1, r1)` == `get_hash(l2, r2)`. That is, the get_hash function honestly returns a hash. You can, for example, find the number of different substrings by putting all the hashes into a hash table.
+
+In the second case, the get_hash function actually returns not a hash, but a hash multiplied by some power of `P`, so you have to write it like this `deg[r2] * get_hash(l1, r1) == deg[r1] * get_hash(l2, r2)`(on e-maxx, the truth is a little worse). And using hashes will not work otherwise. You can modify the function `get_hash`, use an honest hash `true_hash(l, r) = deg[n - r - 1] * get_hash(l, r)`, but this method has a drawback - we assume that we know the maximum string length. This is not always convenient, and sometimes it is not true with online solutions.
+
+The second method also has a modulo variation. It is definitely not necessary to write that way.
+
+**Where to start the h array ? With 0 or with s[0] ?**
+
+If we start at `0`, we end up with shorter, faster code (yes, yes, it takes time for the if to execute!). When evaluating the speed, notice that there will be the same number of multiplications.
+
+If we start at `s[0]`, then we get an array of length `n` , that is, we save `O(1)` memory.
+
+Which is best, decide for yourself. I advertise the first option to everyone. If there are constructive comments or alternative versions, I will be glad to hear.
+
+**Choosing a simple module**
+
+A special hello to everyone who says "the number P can be chosen by anyone." P must be larger than the size of the alphabet. If so, then the hash computed without taking modulo, as a long number, is injective. Otherwise, already at the stage of computation without a module, there may be collisions. Examples of how not to do: alphabet "a..z", P = 13 , ASCII alphabet 33..127, P = 31 .
