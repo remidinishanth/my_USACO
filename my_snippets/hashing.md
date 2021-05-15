@@ -290,11 +290,11 @@ template <class hash_t> const int StrComparator<hash_t>::P = max(239, rand());
 /**
  * Usage:
  *   StrComparator<num> h(length, s); // int length, char *s
- *   h.substr(0, 3) == h.substr(1, 3); // сравнение на равенство подстрок за O(1)
- *   h.cmp(2, 3); // сравнение на больше-меньше суффиксов за O(logn)
+ *   h.substr(0, 3) == h.substr(1, 3); // comparison for equality of substrings O(1)
+ *   h.cmp(2, 3); // comparision for suffixes O(logn)
  *
  *   int p[n]; forn(i, n) p[i] = i;
- *   sort(p, p + n, h); // сортировать суффиксы, суф.массив за O(nlog^2n)
+ *   sort(p, p + n, h); // sort suffixes, for suf.array O(nlog^2n)
  */
 ```
 
