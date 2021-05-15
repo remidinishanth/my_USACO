@@ -866,6 +866,8 @@ And modify the query as follows, only if u and v are in same chain, then instead
 
 #### SPOJ QTREE
 
+Store the weights of edges in vertices as mentioned above, For update queries: we can update the node value by updating it's position in segment tree.
+
 <details>
 	<summary>Solution</summary>
 	
@@ -1058,6 +1060,19 @@ int main(){
 }
 ```
 </details>
+
+#### SPOJ QTREE2
+
+You are given a tree (an undirected acyclic connected graph) with `N` nodes, and edges numbered `1, 2, 3...N-1`. Each edge has an integer value assigned to it, representing its length.
+
+We will ask you to perfrom some instructions of the following form:
+
+* `DIST a b` : ask for the distance between node `a` and node `b`
+* `KTH a b k` : ask for the k-th node on the path from node `a` to node `b`
+
+**Solution** We can answer distance queries in similar way as QTREE by storing edge weights in the deeper node and doing sum query.
+
+To answer `KTH a b k`, we will check whether `k-th` node from `a` is on 1) the path from `a` to `lca(a,b)` or 2) the path from `lca(a,b)` to `b`. To find this we can use `dist[a, lca(a,b)] = depth[a] - depth[lca(a,b)]`, once we know on which vertical path it lies we can do move between heavy-chains and find the `k-th` in `log n` time. This is similar to binary lifting algorithm.
 
 ## REF
 
