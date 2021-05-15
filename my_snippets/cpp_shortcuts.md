@@ -24,6 +24,60 @@ Handy for graph edges, source: https://atcoder.jp/contests/abc197/submissions/21
 
 ![image](https://user-images.githubusercontent.com/19663316/118325069-86cb8d80-b520-11eb-908d-bd7d318667da.png)
 
+### C++ Tricks for competitive programming
+
+* Getting rid of "includes": Just use `#include <bits/stdc++.h>`
+* Useful inbuilt functions:
+  * `__gcd(a, b)`: Returns the `𝐺𝐶𝐷` of `a` and `b`
+  * `__builtin_popcount(x)`: Returns the number of set bits in `x`
+* Initializer Lists: These make STL containers easy to initialize, for eg:
+  * `vector<int> odd_nos = {1, 3, 5, 7, 9};`
+  * `pair<int, string> p = {1, “Hi”}; //Equiv. to p=make_pair(1, "Hi")`
+  * `map<int, string> m = { {1, “This”}, {2, “is”}, {3, “awesome”} };`
+* Finding min and max of multiple variables:
+```cpp
+// Long Way: 
+ 
+int max_of_3 = max(a, max(b, c)); 
+int max_of_4 = max(max(a, b), max(c, d)); 
+ 
+// Easier Way - Can be extended to any number of variables: 
+ 
+int max_of_3 = max({a, b, c}); 
+int max_of_4 = max({a, b, c, d}); 
+```
+* Range-based for loops: Makes it much simpler to iterate through containers.
+```cpp
+// Old Way: 
+for(auto it=container.begin(), it!=container.end(); it++) 
+	  cout<<*it<<" "; 
+ 
+// Alternatively: 
+for(int i=0;i<container.size();i++) //If the container is a vector 
+	  cout<<container[i]<<" "; 
+ 
+// Easier Way: 
+for(auto &it:container) //Using & also allows us to modify the elements 
+	  cout<<it<<" "; 
+
+```
+* Tie and Swap:
+  * Tie makes it easier to initialize multiple variables in a single line
+  ```cpp
+  // Initializes a with -1, b with 1, etc 
+  tie(a, b, c, d) = make_tuple(-1, 1, -2, 2); 
+  ```
+  * Swap enables swapping of variables, and even containers with a single statement
+  ```cpp
+  // x, y can be two integers, or two vectors, or any two containers 
+  swap(x, y); 
+  ```
+* Macros
+  * If you are tired of typing some statement like `push_back` again and again, you can just use `#define pb push_back`, and type `pb` in your code.
+  * Getting the name of the argument in macro using #, and using it to debug your program: `#define trace(x) cerr<<#x<<": "<<x<<" "<<endl;`
+
+source: https://qr.ae/pGvblN
+
 ### What’s the syntax / semantics for a “function template”?
 
 Consider this function that swaps its two integer arguments:
