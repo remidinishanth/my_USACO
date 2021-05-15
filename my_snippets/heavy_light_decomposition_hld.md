@@ -864,6 +864,201 @@ And modify the query as follows, only if u and v are in same chain, then instead
   if(pos[u] < pos[v]) mx = max(mx, segtree::query(0, n, pos[u] + (valuesOnVertices ? 0 : 1), pos[v]));
 ```
 
+#### SPOJ QTREE
+
+<details>
+	<summary>Solution</summary>
+	
+```cpp
+const int nax = 1e4 + 5;
+ 
+int ttime = 0;
+int sz[nax], top[nax], depth[nax], in[nax], out[nax], par[nax];
+vvi Adj;
+ 
+class SegmentTree {                              // OOP style
+private:
+  int n;                                         // n = (int)A.size()
+  vi A, st, lazy;                                // the arrays
+ 
+  int l(int p) { return  p<<1; }                 // go to left child
+  int r(int p) { return (p<<1)+1; }              // go to right child
+ 
+  int conquer(int a, int b) {
+    if (a == -1) return b;                       // corner case
+    if (b == -1) return a;
+    return max(a, b);                            // RMQ
+  }
+ 
+  void build(int p, int L, int R) {              // O(n)
+    if (L == R)
+      st[p] = A[L];                              // base case
+    else {
+      int m = (L+R)/2;
+      build(l(p), L  , m);
+      build(r(p), m+1, R);
+      st[p] = conquer(st[l(p)], st[r(p)]);
+    }
+  }
+ 
+  void propagate(int p, int L, int R) {
+    if (lazy[p] != -1) {                         // has a lazy flag
+      st[p] = lazy[p];                           // [L..R] has same value
+      if (L != R)                                // not a leaf
+        lazy[l(p)] = lazy[r(p)] = lazy[p];       // propagate downwards
+      else                                       // L == R, a single index
+        A[L] = lazy[p];                          // time to update this
+      lazy[p] = -1;                              // erase lazy flag
+    }
+  }
+ 
+  int RMQ(int p, int L, int R, int i, int j) {   // O(log n)
+    propagate(p, L, R);                          // lazy propagation
+    if (i > j) return -1;                        // infeasible
+    if ((L >= i) && (R <= j)) return st[p];      // found the segment
+    int m = (L+R)/2;
+    return conquer(RMQ(l(p), L  , m, i          , min(m, j)),
+                   RMQ(r(p), m+1, R, max(i, m+1), j        ));
+  }
+ 
+  void update(int p, int L, int R, int i, int j, int val) { // O(log n)
+    propagate(p, L, R);                          // lazy propagation
+    if (i > j) return;
+    if ((L >= i) && (R <= j)) {                  // found the segment
+      lazy[p] = val;                             // update this
+      propagate(p, L, R);                        // lazy propagation
+    }
+    else {
+      int m = (L+R)/2;
+      update(l(p), L  , m, i          , min(m, j), val);
+      update(r(p), m+1, R, max(i, m+1), j        , val);
+      int lsubtree = (lazy[l(p)] != -1) ? lazy[l(p)] : st[l(p)];
+      int rsubtree = (lazy[r(p)] != -1) ? lazy[r(p)] : st[r(p)];
+      st[p] = conquer(lsubtree, rsubtree);
+    }
+  }
+ 
+public:
+  SegmentTree(int sz) : n(sz), A(n), st(4*n), lazy(4*n, -1) {}
+ 
+  SegmentTree(const vi &initialA) : SegmentTree((int)initialA.size()) {
+    A = initialA;
+    build(1, 0, n-1);
+  }
+ 
+  void update(int i, int j, int val) { update(1, 0, n-1, i, j, val); }
+ 
+  int RMQ(int i, int j) { return RMQ(1, 0, n-1, i, j); }
+};
+ 
+ 
+int dfs(int u, int p){
+    sz[u] = 1;
+    for(int &v:Adj[u]){
+        if(v!=p){
+            depth[v] = depth[u] + 1;
+            par[v] = u;
+            sz[u] += dfs(v, u);
+            if(sz[v] > sz[Adj[u][0]])
+                swap(Adj[u][0], v);
+        }
+    }
+    return sz[u];
+}
+ 
+void hld(int u, int p){
+    in[u] = ttime++;
+    for(int v:Adj[u]){
+        if(v == p) continue;
+        top[v] = (v == Adj[u][0] ? top[u] : v);
+        hld(v, u);
+    }
+    out[u] = ttime;
+}
+ 
+struct Edge{
+    int a, b, w;
+    Edge(int _a, int _b, int _w) : a(_a), b(_b), w(_w) {}
+};
+ 
+void solve(){
+    int n;
+    scanf("%d", &n);
+ 
+    Adj = vvi(n, vi());
+    vector<Edge> E;
+    for(int i=0;i<n-1;i++){
+        int a, b, w;
+        scanf("%d %d %d", &a, &b, &w);
+        a--;b--;
+        Adj[a].push_back(b);
+        Adj[b].push_back(a);
+        Edge e(a,b,w);
+        E.push_back(e);
+    }
+ 
+    depth[0] = 0;
+    par[0] = 0;
+    ttime = 0;
+    dfs(0, -1);
+    hld(0, -1);
+    SegmentTree st(n);
+    for(Edge e:E){
+        if(depth[e.a] < depth[e.b])
+            swap(e.a, e.b);
+        st.update(in[e.a], in[e.a], e.w); // update deeper node
+    }
+ 
+    while(true){
+        char s[40];
+        scanf("%s", s);
+        if(s[0] == 'D') break;
+        if(s[0] == 'C'){
+            int i, ti;
+            scanf("%d %d", &i, &ti);
+            i--;
+            Edge e = E[i];
+            if(depth[e.a] < depth[e.b])
+                swap(e.a, e.b);
+            st.update(in[e.a], in[e.a], ti); // update deeper node
+        }else{
+            int u, v;
+            scanf("%d %d", &u, &v);
+            u--; v--;
+            int res = 0;
+            while(true){
+                int x = top[u], y = top[v];
+                if(x == y){
+                    if(depth[u]>depth[v]) swap(u,v); // u is top
+                    res = max(res, st.RMQ(in[u]+1, in[v]));
+                    break;
+                }
+                if(depth[x] > depth[y]){
+                    // query from x to u
+                    res = max(res, st.RMQ(in[x], in[u]));
+                    u = par[x];
+                }else{
+                    // query from y to v
+                    res = max(res, st.RMQ(in[y], in[v]));
+                    v = par[y];
+                }
+            }
+            printf("%d\n", res);
+        }
+    }
+}
+ 
+int main(){
+    int TC;
+    scanf("%d", &TC);
+    while(TC--){
+        solve();
+    }
+    return 0;
+}
+```
+</details>
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
