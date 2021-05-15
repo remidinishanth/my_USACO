@@ -151,3 +151,5 @@ int main()
 ```
 
 Note that prior to C++11, a space was required between the two >’s in the last example. Without this space, the C++98/C++03 compiler would see a >> (right-shift) token instead of two >’s. Aren’t you lucky that it is no longer the case in C++11?
+
+Look at https://stackoverflow.com/questions/2023977/difference-of-keywords-typename-and-class-in-templates
