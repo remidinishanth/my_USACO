@@ -370,8 +370,15 @@ ll sum(int v, int tl, int tr, int l, int r) {
         sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
 }
 ```
-
 Tested with SPOJ HORRIBLE - Horrible Queries
+
+If we don't push at the beginning, we will need to do something like this in update function
+
+```cpp
+    int lsubtree = (lazy[l(p)] != -1) ? lazy[l(p)] : st[l(p)]; // find actual value of left subtree
+    int rsubtree = (lazy[r(p)] != -1) ? lazy[r(p)] : st[r(p)]; // find actual value of left subtree
+    st[p] = combine(lsubtree, rsubtree);
+```
 
 #### Why we need O(4n) space?
 
