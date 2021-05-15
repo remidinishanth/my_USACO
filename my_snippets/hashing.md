@@ -402,6 +402,8 @@ The idea is to create the list SortedAdj(vi) simultaneously, Bucket sorting take
 ## Random number generator
 
 ```cpp
+#include <chrono>
+
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
  
 int getRand(int l, int r)
@@ -410,3 +412,5 @@ int getRand(int l, int r)
 	return uid(rng);
 }
 ``` 
+
+REF: https://codeforces.com/blog/entry/61587
