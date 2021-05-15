@@ -1074,6 +1074,10 @@ We will ask you to perfrom some instructions of the following form:
 
 To answer `KTH a b k`, we will check whether `k-th` node from `a` is on 1) the path from `a` to `lca(a,b)` or 2) the path from `lca(a,b)` to `b`. To find this we can use `dist[a, lca(a,b)] = depth[a] - depth[lca(a,b)]`, once we know on which vertical path it lies we can do move between heavy-chains and find the `k-th` in `log n` time. This is similar to binary lifting algorithm.
 
+#### SPOJ QTREE6
+
+TODO: https://discuss.codechef.com/t/qtree6-editorial/3906
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
