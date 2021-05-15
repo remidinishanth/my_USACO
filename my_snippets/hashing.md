@@ -387,3 +387,14 @@ Note that the pairs who are friends to each other are no more than number of edg
 Alternatively, we can calculate the second variant of the hash for each vertex by including that vertex, assuming there is a loop at each vertex. Then the pair of sets will coincide just when the vertices are doubles and there is an edge between them. After that, we count the number of pairs in the same way as in the first case.
 
 It was not possible to sort hashes, but sort adjacency lists for each vertex. Due to the fact that their total size is 2M. this could also pass, but it required careful implementation, since the restrictions were great. The complexity of the solution with hashes is `O(M + N log N)`.
+
+**Sorting Adjacency list in `O(N+M)` time.**
+
+It is well-known fact that any algorithm which correctly sorts a set of `k` numbers using comparisons will require atleast `klogk` comparisons (in the worst and in the average cases). So this suggests that if we want to sort the Adjacency list `Adj[vi]` of length `degree(vi) = di` for vertex `vi` it takes `O(di log di)` time. So the sorting of all lists will take `Σ O(di log di)` which is superlinear, i.e. greater than `O(n+m)`.
+
+Here size of |V| is fixed, instead of comparision based sorting, even if we use bucket sort algorithm, Sorting `Adj[vi]` takes `O(N)`, so in total we would require `O(N^2)` steps.
+
+The idea is to create the list SortedAdj(vi) simultaneously, Bucket sorting takes `O(n+di)` time. Starting from `i = 0,1,...` For every vertex `vj` in `Adj(vi)`,  we append `vi` to `SortedAdj(vj)`. This runs in `O(N+M)` time.
+
+![image](https://user-images.githubusercontent.com/19663316/118373918-e4221600-b5d6-11eb-8734-4abd478eedfe.png)
+
