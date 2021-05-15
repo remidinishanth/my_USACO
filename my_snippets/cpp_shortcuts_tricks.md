@@ -78,6 +78,32 @@ for(auto &it:container) //Using & also allows us to modify the elements
 
 source: https://qr.ae/pGvblN
 
+* Printing newlines: `" \n"` is a char*, `" \n"[0]` is `' '` and `" \n"[1]` is `'\n'`.
+```cpp
+for(i = 1; i <= n; i++) {
+    for(j = 1; j <= m; j++)
+        cout << a[i][j] << " ";
+    cout << "\n";
+}
+is equivalent to this:
+
+for(i = 1; i <= n; i++)
+    for(j = 1; j <= m; j++)
+        cout << a[i][j] << " \n"[j == m];
+```
+* Lambdas `[capture list](parameters) -> return value { body }`
+```cpp
+auto f = [] (int a, int b) -> int { return a + b; };
+cout << f(1, 2); // prints "3"
+```
+
+  * You can use lambdas in for_each, sort and many more STL functions:
+  ```cpp
+  vector<int> v = {3, 1, 2, 1, 8};
+  sort(begin(v), end(v), [] (int a, int b) { return a > b; });
+  for (auto i: v) cout << i << ' '; // Output: 8 3 2 1 1
+  ```
+
 ### What’s the syntax / semantics for a “function template”?
 
 Consider this function that swaps its two integer arguments:
