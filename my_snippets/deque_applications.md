@@ -39,7 +39,7 @@ Solution: https://codeforces.com/contest/1525/submission/116334549
 Consider odd and even places separately because when they meet, they cross each other at non-integer coordinates. If something is moving left and it is not colliding with any other robot, consider as if it is starting from `-x` and moving `R`. If a robot moves to `R` and is at `x1` and another robot moves to `L` and is at `x2 (x2 > x1)`, then they meet in `(x2-x1)/2` time, because their relative velocity is `2`.
 
 Consider robots with same parity: Once robots which are moving left and moving right collide, we will have robots moving only to one direction, assume that we consider all robots moving to the right. Now consider the rightmost two robots say they are at `y` and `x (y < x)` respectively. Then in `(m-x)` time, robot at `x` reaches `m` and robot at `y` reaches `y + x - m` which is less than `m`, now robot at `y + x - m` is moving `R` and robot at `m` is moving left, they collide
-in `(m - (y + x - m))/2` time, because their relative velocity is `2`. So they meet in `m - x + (x-y)/2` time.
+in `(m - (y + x - m))/2` time, because their relative velocity is `2`. So they meet in `m - x + (x-y)/2` time. Or simply you can think that robot which is at `x` is starting at `m + (m - x)` and moving `L`.
 ```cpp
 /*
     author:  Maksim1744
