@@ -13,3 +13,5 @@ struct my_hash {
     }
 };
 // gp_hash_table<int,int,my_hash> m;
+
+// source: https://codeforces.com/blog/entry/60737 and Errichto
