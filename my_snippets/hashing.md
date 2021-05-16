@@ -434,4 +434,101 @@ source: https://codeforces.com/blog/entry/60445
 
 Note 1: It is possible that some of the above problems can bve solved more quickly by other methods, for example, sorting the cyclic shifts - this is exactly what happens when constructing a suffix array, to search for all occurences of one string in another - we can use KMP algorithm, for sub-palindromes we can use Manacher's algorithm, and for own suffixes there is prefix function.
 
-Note 2: 
+Note 2: In the above problems, an estimate is made when a hash search is performed by sorting and binary search. If you have your own hash table with Open Addressing or Seperate chaining, then you can replace the hash seach for a search in your hash table, but don't try to use `std::unordered_set`, as in practice the search in `unordered_set` performs worse than sorting and binary search(See the code below).
+
+<details>
+	<summary> Sort + Binary Search </summary>
+	
+source: https://ideone.com/W18tw5	
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <unordered_set>
+#include <cstdlib>
+#include <ctime>
+#include <cassert>
+ 
+typedef unsigned long long ull;
+typedef std::pair<int,ull> Hash;
+ 
+struct getHash {
+public:
+	template <typename T, typename U>
+	std::size_t operator()(const std::pair<T, U> &x) const
+	{
+		return std::hash<T>()(x.first) ^ std::hash<U>()(x.second);
+	}
+};
+ 
+ull rand_ull() {
+	ull res = 0;
+	for (int i = 0; i < 6; ++i) {
+		(res *= 1000) += (std::rand() % 1000);
+	}
+	return res;
+}
+ 
+int main() {
+	std::srand(std::time(0));
+ 
+	const int n = (int)4e6;
+ 
+	std::vector<Hash> array(n);
+ 
+	for (auto& it : array) {
+		it = std::make_pair(std::rand() % (int)1e9, rand_ull());
+	}
+ 
+	std::vector<Hash> queries(n);
+ 
+	for (auto& it : queries) {
+		it = std::make_pair(std::rand() % (int)1e9, rand_ull());
+	}
+ 
+	double t = clock();
+ 
+	std::unordered_set<Hash, getHash> hashtable;
+ 
+	for (auto it : array) {
+		hashtable.insert(it);
+	}
+ 
+	int count1 = 0;
+ 
+	for (auto hash : queries) {
+		count1 += hashtable.find(hash) != hashtable.end();
+	}
+ 
+	double time1 = (clock() - t) / CLOCKS_PER_SEC;
+ 
+	t = clock();
+ 
+	std::sort(array.begin(), array.end());
+ 
+	int count2 = 0;
+ 
+	for (auto hash : queries) {
+		count2 += std::binary_search(array.begin(), array.end(), hash);
+	}
+ 
+	double time2 = (clock() - t) / CLOCKS_PER_SEC;
+ 
+	assert(count1 == count2);
+ 
+	fprintf(stdout, "size & queries = %d\n", n);
+	fprintf(stdout, "     hashtable = %0.3fs\n", time1);
+	fprintf(stdout, "sort+binsearch = %0.3fs\n", time2);
+ 
+	return 0;
+}
+```
+
+Output
+```
+size & queries = 4000000
+     hashtable = 2.074s
+sort+binsearch = 1.621s
+```
+
+Note 3: In cases where comparison of elements is slow (for example, comparison by hash in `O(log(n))` time), in the worst case `std::random_shuffle + std::sort` always loses `std::stable_sort`, because `std::stable_sort` guarantees the minimum number of comparisons among all sorts (based on comparisons) for the worst case.
