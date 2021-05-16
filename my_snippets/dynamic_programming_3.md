@@ -4,6 +4,9 @@ TODO https://apps.topcoder.com/forums/?module=Thread&threadID=700080&start=0
 
 TODO https://codeforces.com/blog/entry/8219
 
+### Things to watch out
+1. Whether your subproblem array indicies become negative or will exceed bounds.
+
 ## Expected Number DP
 
 ### J Sushi Atcoder
