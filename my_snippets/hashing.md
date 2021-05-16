@@ -417,7 +417,7 @@ int getRand(int l, int r)
 }
 ``` 
 
-REF: https://codeforces.com/blog/entry/61587
+REF: https://codeforces.com/blog/entry/61587 and https://codeforces.com/blog/entry/62393
 
 ## Rolling hash and interesting problems
 
