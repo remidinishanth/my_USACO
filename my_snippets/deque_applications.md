@@ -22,6 +22,18 @@ The third line of each testcase contains 𝑛 space-separated characters `'L'` o
 
 All coordinates `x𝑖` in the testcase are distinct.
 
+**Example**
+
+Testcase
+```
+7 12
+1 2 3 4 9 10 11
+R R L L R R R
+```
+
+![image](https://user-images.githubusercontent.com/19663316/118408544-a8a14d80-b6a3-11eb-96d0-f1539b8717e2.png)
+
+
 Solution: https://codeforces.com/contest/1525/submission/116334549
 ```cpp
 /*
