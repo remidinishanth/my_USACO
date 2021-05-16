@@ -35,6 +35,9 @@ R R L L R R R
 
 
 Solution: https://codeforces.com/contest/1525/submission/116334549
+
+Consider odd and even places separately because when they meet, they cross each other at non-integer coordinates. If something is moving left and it is not colliding with any other robot, consider as if it is starting from `-x` and moving `R`.
+
 ```cpp
 /*
     author:  Maksim1744
