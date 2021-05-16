@@ -181,6 +181,8 @@ Quite often the above mentioned polynomial hash is good enough, and no collision
 
 There is a really easy trick to get better probabilities. We can just compute two different hashes for each string (by using two different `p`, and/or different `m`, and compare these pairs instead. If m is about `10^9` for each of the two hash functions than this is more or less equivalent as having one hash function with `m ≈ 10^18`. When comparing `10^6` strings with each other, the probability that at least one collision happens is now reduced to `≈ 10^−6`.
 
+Note: Birthday paradox - With only 23 people, the probability that two people have the same date of birth is `50%`.
+
 ## Polynomial hashes
 
 In Russia we call rolling hashes as a polynomial hashes.
@@ -416,3 +418,20 @@ int getRand(int l, int r)
 ``` 
 
 REF: https://codeforces.com/blog/entry/61587
+
+## Rolling hash and interesting problems
+
+source: https://codeforces.com/blog/entry/60445
+
+1. Searching all occurrences of one string of length `n` in another string length `m` in `O(n + m)` time
+2. Searching for the largest common substring of two strings of lengths `n` and `m` `(n ≥ m)` in `O((n + m·log(n))·log(m))` and `O(n·log(m))` time
+3. Finding the lexicographically minimal cyclic shift of a string of length `n` in `O(n·log(n))` time
+4. Sorting of all cyclic shifts of a string of length `n` in lexicographic order in `O(n·log(n)^2)` time
+5. Finding the number of sub-palindromes of a string of length `n` in `O(n·log(n))` time
+6. The number of substrings of string of length `n` that are cyclic shifts of the another string length `m` in `O((n + m)·log(n))` time
+7. The number of suffixes of a string of length `n`, the infinite extension of which coincides with the infinite extension of the given string for `O(n·log(n))` (extension is a duplicate string an infinite number of times).
+8. Largest common prefix of two strings length `n` with swapping two chars in one of them `O(n·log(n))`
+
+Note 1: It is possible that some of the above problems can bve solved more quickly by other methods, for example, sorting the cyclic shifts - this is exactly what happens when constructing a suffix array, to search for all occurences of one string in another - we can use KMP algorithm, for sub-palindromes we can use Manacher's algorithm, and for own suffixes there is prefix function.
+
+Note 2: 
