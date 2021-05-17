@@ -43,6 +43,7 @@ source: <https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%
 
 ### Implementation
 
+#### Baba's implementation
 ```cpp
 const int N = int(1e5)+10;
 const int LOGN = 20;
@@ -80,6 +81,7 @@ int MX(int l,int r){
 
 source: Baba <https://codeforces.com/contest/675/submission/17946839>
 
+#### Benq's implementation
 Description: 1D range minimum query. Can also do queries for any associative operation in $O(1)$ with D\&C
 Source: KACTL
  * Verification: 
