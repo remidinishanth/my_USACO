@@ -128,6 +128,100 @@ Given a rooted tree T and two nodes u and v, find the furthest node from the roo
 
 ![image](https://user-images.githubusercontent.com/19663316/115987367-628c2900-a5d2-11eb-8816-e66d0710ec19.png)
 
+### Warm-up, a slow algorithm
+
+To get warmed up, let's start with a naive algorithm for computing LCAs. It seems pretty straightforward that we could simply walk up the tree from `u` and `v`
+ until the two meet, then we are at the LCA. For instance, say we preprocess the tree and compute the level (distance from the root) of each vertex using a depth-first search, then we simply iterate by moving the lower vertex up one until the two meet.
+
+```cpp
+// Precomputes levels
+function precompute() {
+  dfs(root, 0)
+}
+
+// Traverse the tree downwards from the vertex v
+// Mark each vertex with its "level", i.e. its
+// distance from the root
+function dfs(v, lvl) {
+  level[v] = lvl
+  for (each child u of v) {
+    dfs(u, lvl+1)
+  }
+}
+
+// Compute the LCA of u and v
+function lca(u, v) {
+  while (u != v) {
+    if (level[u] > level[v]) {
+      u = parent[u]
+    } else {
+      v = parent[v]
+    }
+  }
+  return u
+}
+```
+
+This algorithm will compute the LCA of the vertices `u` , `v` after `O(n)` preprocessing to compute the levels. However, this algorithm will be really slow if the tree is very deep, because it may have to climb from the bottom of the tree all the way to the top. The complexity of a query is therefore `O(h)`, where `h` is the height of the tree, which can be `O(n)` in the worst case. To be faster, we will need a smarter algoriithm.
+
+### Binary lifting, a faster algorithm
+
+The binary lifting technique (a fast algorithm): The naive algorithm was slow because it could have to walk from the bottom to the top of a very tall tree. To overcome this, we will use the technique of binary lifting. The idea at its core is quite simple. At each vertex of the tree, instead of only knowing who the parent is, we also remember who the 2nd, 4th, 8th, ... ancestors are. We call these the binary ancestors of the vertex. This means that each vertex remembers `O( log n)` of its ancestors, so we pay `O(n log n)` space, but it will be worth it. We can compute the binary ancestors in our preprocessing step with a depth-first search. The key observation that makes binary ancestors easy to compute is the following: The `k-th` binary ancestor of a vertex is the `(k-1)`th binary ancestor of its `(k-1)`th binary ancestor We can use this fact to precompute all of the binary ancestors of all vertices in `O (n log n)` time, as follows.
+
+```cpp
+// Preprocess and compute binary ancestors
+function preprocess() {
+  for (each vertex v in the tree) {
+    ancestor[v][0] = parent[v]
+    for (k = 1 to log(n)) {
+      ancestor[v][k] = -1
+    }
+  }
+  dfs(root, 0)
+  for (k = 1 to log(n)) {
+    for (each vertex v in the tree) {
+      if (ancestor[i][k-1] != -1) {      
+        ancestor[i][k] = ancestor[ancestor[i][k-1]][k-1]
+    }
+  }
+}
+
+// Traverse the tree downwards from the vertex v
+// Mark each vertex with its "level", i.e. its
+// distance from the root
+function dfs(v, lvl) {
+  level[v] = lvl
+  for (each child u of v) {
+    dfs(u, lvl+1)
+  }
+}
+```
+
+LCA code
+```cpp
+// Compute the LCA of u and v using binary lifting
+function lca(u, v) {
+  if (level[u] > level[v]) swap(u, v)
+  for (k = log(n) - 1 to 0) {
+    if (level[v] - pow(2, k) >= level[u]) {
+      v = ancestor[v][k]
+    }
+  }
+  if (u == v) {
+    return u
+  }
+  for (k = log(n) - 1 to 0) {
+    if (ancestor[v][k] != ancestor[u][k]) {
+      u = ancestor[u][k]
+      v = ancestor[v][k]
+    }
+  }
+  return parent[u]
+}
+```
+
+source: https://contest.cs.cmu.edu/295/s20/tutorials/lca.mark
+
 ### DP solution
 
 First, let’s compute a table `P[1,N][1,logN]` where `P[i][j]` is the `2^j`-th ancestor of `i`. For computing this value we may use the following recursion:
@@ -253,7 +347,6 @@ void getPars(vector<vi> &tree, int cur, int p, int d, vector<int> &par, vector<i
         vector<vi> tbl = treeJump(par);
 	int binLca = lca(tbl, depth, a, b);
 ```
-
 
 ## Reduction from LCA to RMQ
 
