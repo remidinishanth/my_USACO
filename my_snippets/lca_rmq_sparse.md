@@ -44,6 +44,7 @@ source: <https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%
 ### Implementation
 
 #### Baba's implementation
+Cache-friendly traversal
 ```cpp
 const int N = int(1e5)+10;
 const int LOGN = 20;
