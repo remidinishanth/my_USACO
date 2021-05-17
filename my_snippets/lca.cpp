@@ -4,6 +4,7 @@ const int D = 22;
 int n, edge_count, first_edge[N], to[N], next_edge[N], jump[N][D], depth[N], weight[N], result[N];
 
 // Adjacency list representation using arrays
+// This is how you can iterate - for (int iter = first_edge[u]; iter != -1; iter = next_edge[iter])
 void add_edge(int u, int v) {
     to[edge_count] = v;
     next_edge[edge_count] = first_edge[u];
