@@ -47,7 +47,7 @@ sort(ord.begin(), ord.end(), [&a](int x, int y){
 });
 ```
 
-source: https://codeforces.com/blog/entry/90793
+source: https://codeforces.com/blog/entry/90793 Problem C
 
 ### Printing with precision in CPP, Faster IO
 ```cpp
