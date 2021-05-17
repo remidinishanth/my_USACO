@@ -116,69 +116,6 @@ template<class T> struct RMQ { // floor(log_2(x))
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RMQ%20(9.1).h>
 
-### Binary lifting KACTL
-
-Binary Lifting is a dynamic programming approach where we pre-compute an array `jmp[1, n][1, log(n)]` where `jmp[i][j]` contains `2^j`-th ancestor of node `i`. For computing the values of jmp[][], the `2^j`-th ancestor of `i` can be thought of as `2^(j-1)`th ancestor of `(2^(j-1)`th ancestor of `i`), 
-hence the following recursion may be used 
-
-	jmp[i][j] = parent[i] if j = 0 and 
-	jmp[i][j] = jmp[jmp[i][j – 1]][j – 1] if j > 0. 
-
-```cpp
-/**
- * Author: Johan Sannemo
- * Date: 2015-02-06
- * License: CC0
- * Source: Folklore
- * Description: Calculate power of two jumps in a tree,
- * to support fast upward jumps and LCAs.
- * Assumes the root node points to itself.
- * Time: construction $O(N \log N)$, queries $O(\log N)$
- * Status: Tested at Petrozavodsk, also stress-tested via LCA.cpp
- */
-#pragma once
-
-vector<vi> treeJump(vi& P){
-	int on = 1, d = 1;
-	while(on < sz(P)) on *= 2, d++;
-	vector<vi> jmp(d, P);
-	rep(i,1,d) rep(j,0,sz(P))
-		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
-	return jmp;
-}
-
-int jmp(vector<vi>& tbl, int nod, int steps){
-	rep(i,0,sz(tbl))
-		if(steps&(1<<i)) nod = tbl[i][nod];
-	return nod;
-}
-
-int lca(vector<vi>& tbl, vi& depth, int a, int b) {
-	if (depth[a] < depth[b]) swap(a, b);
-	a = jmp(tbl, a, depth[a] - depth[b]); // find ancestor of a which is at same depth as b
-	if (a == b) return a;
-	for (int i = sz(tbl); i--;) {
-		int c = tbl[i][a], d = tbl[i][b];
-		if (c != d) a = c, b = d;
-	}
-	return tbl[0][a];
-}
-
-
-// Usage
-void getPars(vector<vi> &tree, int cur, int p, int d, vector<int> &par, vector<int> &depth) {
-    par[cur] = p;
-    depth[cur] = d;
-    for(auto i: tree[cur]) if (i != p) {
-        getPars(tree, i, cur, d+1, par, depth);
-    }
-}
- 	vector<int> par(n), depth(n);
-        getPars(tree, 0, 0, 0, par, depth);
-        vector<vi> tbl = treeJump(par);
-	int binLca = lca(tbl, depth, a, b);
-```
-
 ## Lowest Common Ancestor
 
 Given a rooted tree T and two nodes u and v, find the furthest node from the root that is an ancestor for both u and v. Here is an example (the root of the tree will be node 1 for all examples in this editorial):
@@ -249,7 +186,71 @@ int query(int N, int P[MAXN][LOGMAXN], int T[MAXN],
 
 Now, we can see that this function makes at most 2 * log(H) operations, where H is the height of the tree. In the worst case H = N, so the overall complexity of this algorithm is <O(N logN), O(logN)>. This solution is easy to code too, and it’s faster than the previous one.
 
-### Reduction from LCA to RMQ
+#### Binary lifting KACTL
+
+Binary Lifting is a dynamic programming approach where we pre-compute an array `jmp[1, n][1, log(n)]` where `jmp[i][j]` contains `2^j`-th ancestor of node `i`. For computing the values of jmp[][], the `2^j`-th ancestor of `i` can be thought of as `2^(j-1)`th ancestor of `(2^(j-1)`th ancestor of `i`), 
+hence the following recursion may be used 
+
+	jmp[i][j] = parent[i] if j = 0 and 
+	jmp[i][j] = jmp[jmp[i][j – 1]][j – 1] if j > 0. 
+
+```cpp
+/**
+ * Author: Johan Sannemo
+ * Date: 2015-02-06
+ * License: CC0
+ * Source: Folklore
+ * Description: Calculate power of two jumps in a tree,
+ * to support fast upward jumps and LCAs.
+ * Assumes the root node points to itself.
+ * Time: construction $O(N \log N)$, queries $O(\log N)$
+ * Status: Tested at Petrozavodsk, also stress-tested via LCA.cpp
+ */
+#pragma once
+
+vector<vi> treeJump(vi& P){
+	int on = 1, d = 1;
+	while(on < sz(P)) on *= 2, d++;
+	vector<vi> jmp(d, P);
+	rep(i,1,d) rep(j,0,sz(P))
+		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
+	return jmp;
+}
+
+int jmp(vector<vi>& tbl, int nod, int steps){
+	rep(i,0,sz(tbl))
+		if(steps&(1<<i)) nod = tbl[i][nod];
+	return nod;
+}
+
+int lca(vector<vi>& tbl, vi& depth, int a, int b) {
+	if (depth[a] < depth[b]) swap(a, b);
+	a = jmp(tbl, a, depth[a] - depth[b]); // find ancestor of a which is at same depth as b
+	if (a == b) return a;
+	for (int i = sz(tbl); i--;) {
+		int c = tbl[i][a], d = tbl[i][b];
+		if (c != d) a = c, b = d;
+	}
+	return tbl[0][a];
+}
+
+
+// Usage
+void getPars(vector<vi> &tree, int cur, int p, int d, vector<int> &par, vector<int> &depth) {
+    par[cur] = p;
+    depth[cur] = d;
+    for(auto i: tree[cur]) if (i != p) {
+        getPars(tree, i, cur, d+1, par, depth);
+    }
+}
+ 	vector<int> par(n), depth(n);
+        getPars(tree, 0, 0, 0, par, depth);
+        vector<vi> tbl = treeJump(par);
+	int binLca = lca(tbl, depth, a, b);
+```
+
+
+## Reduction from LCA to RMQ
 
 Now, let’s show how we can use RMQ for computing LCA queries. Actually, we will reduce the LCA problem to RMQ in linear time, so every algorithm that solves the RMQ problem will solve the LCA problem too. Let’s show how this reduction can be done using an example:
 
