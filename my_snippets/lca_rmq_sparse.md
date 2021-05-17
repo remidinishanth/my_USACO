@@ -1,5 +1,7 @@
 # RANGE MINIMUM QUERY AND LOWEST COMMON ANCESTOR
 
+The term range minimum query (RMQ) comprises all variations of the problem of finding the smallest element (or the position of the smallest element) in a contiguous subsequence of a list of items taken from a totally ordered set (usually numbers).
+
 ## SPARSE TABLE (ST) ALGORITHM
 
 A better approach is to preprocess RMQ for sub arrays of length `2^k` using dynamic programming. We will keep an array `M[0, N-1][0, logN]` where `M[i][j]` is the index of the minimum value in the sub array starting at `i` having length `2^j`. Here is an example:
