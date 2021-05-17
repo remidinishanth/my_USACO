@@ -29,13 +29,13 @@ void process2(int M[MAXN][LOGMAXN], int A[MAXN], int N) {
 }
 ```
   
-Once we have these values preprocessed, let’s show how we can use them to calculate RMQA(i, j). The idea is to select two blocks that entirely cover the interval [i…j] and find the minimum between them. Let k = [log(j - i + 1)]. For computing RMQA(i, j) we can use the following formula:
+Once we have these values preprocessed, let’s show how we can use them to calculate `RMQ A(i, j)`. The idea is to select two blocks that entirely cover the interval `[i…j]` and find the minimum between them. Let `k = [log(j - i + 1)]`. For computing `RMQ A(i, j)` we can use the following formula:
 
 ![image](https://user-images.githubusercontent.com/19663316/115985212-65821c00-a5c8-11eb-9535-c8186fd8d481.png)
 
-Each algorithm has complexities  < O(f(n)), O(g(n)) > , it means that this algorithm's preprocess is O(f(n)) and answering a query is O(g(n)) .
+Each algorithm has complexities  `< O(f(n)), O(g(n)) >`, it means that this algorithm's preprocess is `O(f(n))` and answering a query is `O(g(n))`.
 
-So, the overall complexity of the algorithm is <Preprocessing, Query> = <O(N logN), O(1)>. 
+So, the overall complexity of the algorithm is `<Preprocessing, Query> = <O(N logN), O(1)>`. 
 
 source: <https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%20Lowest%20Common%20Ancestor>
 
