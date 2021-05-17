@@ -160,8 +160,7 @@ void process3(int N, int T[MAXN], int P[MAXN][LOGMAXN]) {
 This takes O(N logN) time and space. Now let’s see how we can make queries. Let L[i] be the level of node i in the tree. We must observe that if p and q are on the same level in the tree we can compute LCA(p, q) using a meta-binary search. So, for every power j of 2 (between log(L[p]) and 0, in descending order), if P[p][j] != P[q][j] then we know that LCA(p, q) is on a higher level and we will continue searching for LCA(p = P[p][j], q = P[q][j]). At the end, both p and q will have the same father, so return T[p]. Let’s see what happens if L[p] != L[q]. Assume, without loss of generality, that L[p] < L[q]. We can use the same meta-binary search for finding the ancestor of p situated on the same level with q, and then we can compute the LCA as described below. Here is how the query function should look:
 
 ```cpp
-int query(int N, int P[MAXN][LOGMAXN], int T[MAXN],
-  int L[MAXN], int p, int q) {
+int query(int N, int P[MAXN][LOGMAXN], int T[MAXN], int L[MAXN], int p, int q) {
   int tmp, log, i;
 
   //if p is situated on a higher level than q then we swap them
