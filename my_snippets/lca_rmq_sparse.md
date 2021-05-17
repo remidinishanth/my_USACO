@@ -1,6 +1,6 @@
 # RANGE MINIMUM QUERY AND LOWEST COMMON ANCESTOR
 
-The term range minimum query (RMQ) comprises all variations of the problem of finding the smallest element (or the position of the smallest element) in a contiguous subsequence of a list of items taken from a totally ordered set (usually numbers).
+The term range minimum/maximum query (RMQ) comprises all variations of the problem of finding the smallest element (or the position of the smallest element) in a contiguous subsequence of a list of items taken from a totally ordered set (usually numbers).
 
 ## SPARSE TABLE (ST) ALGORITHM
 
