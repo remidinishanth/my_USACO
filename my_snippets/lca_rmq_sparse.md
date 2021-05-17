@@ -2,11 +2,11 @@
 
 ## SPARSE TABLE (ST) ALGORITHM
 
-A better approach is to preprocess RMQ for sub arrays of length 2k using dynamic programming. We will keep an array M[0, N-1][0, logN] where M[i][j] is the index of the minimum value in the sub array starting at i having length 2j. Here is an example:
+A better approach is to preprocess RMQ for sub arrays of length `2^k` using dynamic programming. We will keep an array `M[0, N-1][0, logN]` where `M[i][j]` is the index of the minimum value in the sub array starting at `i` having length `2^j`. Here is an example:
 
 ![image](https://user-images.githubusercontent.com/19663316/115985129-04f2df00-a5c8-11eb-845c-af1d614d56c6.png)
 
-For computing M[i][j] we must search for the minimum value in the first and second half of the interval. It’s obvious that the small pieces have 2^(j-1) length, so the recurrence is:
+For computing `M[i][j]` we must search for the minimum value in the first and second half of the interval. It’s obvious that the small pieces have `2^(j-1)` length, so the recurrence is:
 
 ![image](https://user-images.githubusercontent.com/19663316/115985155-2653cb00-a5c8-11eb-979a-4a406fe35abd.png)
 
