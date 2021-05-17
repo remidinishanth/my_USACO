@@ -348,6 +348,28 @@ void getPars(vector<vi> &tree, int cur, int p, int d, vector<int> &par, vector<i
 	int binLca = lca(tbl, depth, a, b);
 ```
 
+### Applications of LCA
+
+A common and useful application of LCA queries is for computing distances between vertices in trees. Suppose we have a weighted tree, i.e. the edges of the tree have weights, and we want to compute the lengths of paths between pairs of vertices. First, we solve an easier problem -- given a rooted, weighted tree, let's try to compute the lengths of paths from the root to any given vertex. This is much easier, we can simply perform a single depth-first search and aggregate the total weight of each path.
+
+```cpp
+// Compute the weights of all root-to-vertex paths
+function compute_path_weights() {
+  dfs(root, 0)
+}
+
+function dfs(v, dist) {
+  distance[v] = dist
+  for (each child u of v) {
+    dfs(u, dist + w(u,v))
+  }
+}
+```
+
+This will compute `distance[v]` for all vertices. We can now extend this to work for arbitrary paths in the tree. First, if our our tree is not already rooted, we can pick an aribtrary root, and perform the preprocessing step above to compute all root-to-vertex path lengths. Then, to compute the length of the path from `u` to `v`, we just notice that it is equal to 
+
+	δ ( u , v ) = distance [ u ] + distance [ v ] − 2 × distance [ L C A ( u , v ) ] .
+
 ## Reduction from LCA to RMQ
 
 Now, let’s show how we can use RMQ for computing LCA queries. Actually, we will reduce the LCA problem to RMQ in linear time, so every algorithm that solves the RMQ problem will solve the LCA problem too. Let’s show how this reduction can be done using an example:
