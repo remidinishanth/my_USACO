@@ -130,7 +130,7 @@ Given a rooted tree T and two nodes u and v, find the furthest node from the roo
 
 ### DP solution
 
-First, let’s compute a table P[1,N][1,logN] where P[i][j] is the 2j-th ancestor of i. For computing this value we may use the following recursion:
+First, let’s compute a table `P[1,N][1,logN]` where `P[i][j]` is the `2^j`-th ancestor of `i`. For computing this value we may use the following recursion:
 
 ![image](https://user-images.githubusercontent.com/19663316/115987414-abdc7880-a5d2-11eb-94ef-dee27711f953.png)
 
