@@ -24,6 +24,31 @@ Handy for graph edges, source: https://atcoder.jp/contests/abc197/submissions/21
 
 ![image](https://user-images.githubusercontent.com/19663316/118325069-86cb8d80-b520-11eb-908d-bd7d318667da.png)
 
+Also if you want to sort based on properties in struct
+
+```cpp
+struct bot{
+	int x, d;
+};
+
+// inside main
+vector<bot> a(n);
+forn(i, n) scanf("%d", &a[i].x);
+forn(i, n){
+    char c;
+    scanf(" %c", &c);
+    a[i].d = c == 'L' ? -1 : 1;
+}
+		
+vector<int> ord(n);
+iota(ord.begin(), ord.end(), 0);
+sort(ord.begin(), ord.end(), [&a](int x, int y){
+    return a[x].x < a[y].x;
+});
+```
+
+source: https://codeforces.com/blog/entry/90793
+
 ### Printing with precision in CPP, Faster IO
 ```cpp
   // Fast IO
