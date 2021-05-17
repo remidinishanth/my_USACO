@@ -532,3 +532,5 @@ sort+binsearch = 1.621s
 ```
 
 Note 3: In cases where comparison of elements is slow (for example, comparison by hash in `O(log(n))` time), in the worst case `std::random_shuffle + std::sort` always loses `std::stable_sort`, because `std::stable_sort` guarantees the minimum number of comparisons among all sorts (based on comparisons) for the worst case.
+
+TODO: https://contest.cs.cmu.edu/295/s20/tutorials/strings.mark
