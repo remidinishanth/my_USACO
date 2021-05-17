@@ -118,7 +118,7 @@ source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/dat
 
 ### Binary lifting KACTL
 
-Binary Lifting is a dynamic programming approach where we pre-compute an array jmp[1, n][1, log(n)] where jmp[i][j] contains 2^j-th ancestor of node i. For computing the values of jmp[][], the 2^j-th ancestor of i can be thought of as 2^(j-1)th ancestor of (2^(j-1)th ancestor of i), 
+Binary Lifting is a dynamic programming approach where we pre-compute an array `jmp[1, n][1, log(n)]` where `jmp[i][j]` contains `2^j`-th ancestor of node `i`. For computing the values of jmp[][], the `2^j`-th ancestor of `i` can be thought of as `2^(j-1)`th ancestor of `(2^(j-1)`th ancestor of `i`), 
 hence the following recursion may be used 
 
 	jmp[i][j] = parent[i] if j = 0 and 
