@@ -88,7 +88,7 @@ def find_next_smaller_elements(xs):
 [4, 2, -1]
 ```
 
-## Brian Bi t3nsor
+### Brian Bi t3nsor
 
 ```cpp
 // Linear time all nearest smaller values, standard stack-based algorithm.
