@@ -2,9 +2,14 @@
 
 The term range minimum/maximum query (RMQ) comprises all variations of the problem of finding the smallest element (or the position of the smallest element) in a contiguous subsequence of a list of items taken from a totally ordered set (usually numbers).
 
+We have seen that Segment Tree data structure can be used to solve the Range Minimum Query (RMQ) problem—the problem of finding the index that has the
+minimum element within a range `[i..j]` of the underlying array A. It takes O(n) preprocessing time to build the Segment Tree, and once the Segment Tree is ready, each RMQ is just O(log n). With Segment Tree, we can deal with the dynamic version of this RMQ problem, i.e. when the underlying array is updated, we usually only need `O(log n)` to update the corresponding Segment Tree structure.
+
+However, some problems involving RMQ never change the underlying array A after the first query. This is called the static RMQ problem. Although Segment Tree obviously can be used to deal with the static RMQ problem, this static version has an alternative DP solution with `O(n log n)` pre-processing time and `O(1)` per RMQ.
+
 ## SPARSE TABLE (ST) ALGORITHM
 
-A better approach is to preprocess RMQ for sub arrays of length `2^k` using dynamic programming. We will keep an array `M[0, N-1][0, logN]` where `M[i][j]` is the index of the minimum value in the sub array starting at `i` having length `2^j`. Here is an example:
+The approach here is to preprocess RMQ for sub arrays of length `2^k` using dynamic programming. We will keep an array `M[0, N-1][0, logN]` where `M[i][j]` is the index of the minimum value in the sub array starting at `i` having length `2^j`. Here is an example:
 
 ![image](https://user-images.githubusercontent.com/19663316/115985129-04f2df00-a5c8-11eb-845c-af1d614d56c6.png)
 
