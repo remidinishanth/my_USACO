@@ -142,7 +142,7 @@ while True:
     v = y.parent
 ```
 
-The above works because `lca(u,v)` can be computed from HLD of tree as follows:
+The above works because if `depth[x] > depth[y]` then `lca(u,v)` is at higher depth than `x` and hence we can safely add the values from `u` to `x` to the answer and move to node above `x`. The `lca(u,v)` can be computed from HLD of tree as follows:
 
 ```cpp
 int lca(int i, int j)
