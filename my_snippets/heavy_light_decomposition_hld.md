@@ -119,9 +119,12 @@ If you look at array p, it can be breaked into heavy chains segments. For two no
 
 It turns out that we don't need any special code to calculate LCA and answer the queries, we can leverage HLD to do it. From each node let's have a pointer to the top node in the heavy path. For node u let's call this top node of chain as `top[u]`(We can find this in the same recursive procedure, see Adamant's trick).
 
+![image](https://user-images.githubusercontent.com/19663316/115999560-e6153c80-a609-11eb-8a08-f9b03b66f407.png)
+
 If both `u` and `v` are on the same heavy chain, then we can query Segment tree and get the answer, otherwise, since they belong to different chains, we just move to the `top[deeper_node]` continue.
  
-![image](https://user-images.githubusercontent.com/19663316/115999560-e6153c80-a609-11eb-8a08-f9b03b66f407.png)
+ 
+![image](https://user-images.githubusercontent.com/19663316/118531491-853dd780-b763-11eb-9eb2-270f7d38b49d.png)
 
 ```python
 while True:
