@@ -837,3 +837,36 @@ Then from the recurrence relation for `T(i, j, p, q)`, we obtain the recurrence 
 ```T(c, i, p) = grid[i][c-i] + grid[p][c-p] + max{T(c-1, i-1, p-1), T(c-1, i-1, p), T(c-1, i, p-1), T(c-1, i, p)}```.
 
 Of course, in the recurrence relation above, only one of `grid[i][c-i]` and `grid[p][c-p]` will be taken if `i == p` (i.e., when the two positions overlap). Also note that all four indices, `i`, `j`, `p` and `q`, are in the range `[0, N)`, meaning `n` will be in the range `[0, 2N-1)` (remember it is the sum of `i` and `j`). Lastly we have the base case given by `T(0, 0, 0) = grid[0][0]`.
+
+Now using the recurrence relation for `T(n, i, p)`, it is straightforward to code for the `O(N^3)` time and `O(N^3)` space solution. However, if you notice that `T(c, i, p)` only depends on those subproblems with `c - 1`, we can iterate on this dimension and cut down the space to `O(N^2)`.
+
+```java
+public int cherryPickup(int[][] grid) {
+    int N = grid.length, M = (N << 1) - 1; // M = 2*N - 1
+    int[][] dp = new int[N][N];
+    dp[0][0] = grid[0][0];
+	    
+    for (int c = 1; c < M; c++) {
+		for (int i = N - 1; i >= 0; i--) {
+			for (int p = N - 1; p >= 0; p--) {
+				int j = c - i, q = c - p;
+                
+				if (j < 0 || j >= N || q < 0 || q >= N || grid[i][j] < 0 || grid[p][q] < 0) {
+                    			dp[i][p] = -1;
+                    			continue;
+                 		}
+		 
+				 if (i > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p]);
+				 if (p > 0) dp[i][p] = Math.max(dp[i][p], dp[i][p - 1]);
+				 if (i > 0 && p > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p - 1]);
+		 
+				 if (dp[i][p] >= 0) dp[i][p] += grid[i][j] + (i != p ? grid[p][q] : 0)
+             		}
+		 }
+    }
+    
+    return Math.max(dp[N - 1][N - 1], 0);
+}
+```
+
+source: https://leetcode.com/problems/cherry-pickup/discuss/109903/Step-by-step-guidance-of-the-O(N3)-time-and-O(N2)-space-solution
