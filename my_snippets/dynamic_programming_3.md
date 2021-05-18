@@ -816,3 +816,5 @@ Case 4 is equivalent to T(i, j-1, p, q-1) + grid[i][j] + grid[p][q];
 Therefore, the recurrence relations can be written as:
 
 ```T(i, j, p, q) = grid[i][j] + grid[p][q] + max{T(i-1, j, p-1, q), T(i-1, j, p, q-1), T(i, j-1, p-1, q), T(i, j-1, p, q-1)}```
+
+Now to make it work, we need to impose the aforementioned constraint. As mentioned above, since we already counted grid[i][j] and grid[p][q] towards T(i, j, p, q), to avoid duplicate counting, both of them should NOT be counted for any of T(i-1, j, p-1, q), T(i-1, j, p, q-1), T(i, j-1, p-1, q) and T(i, j-1, p, q-1). It is obvious that the position (i, j) won't appear on the paths of the trips (0, 0) ==> (i-1, j) or (0, 0) ==> (i, j-1), and similarly the position (p, q) won't appear on the paths of the trips (p-1, q) ==> (0, 0) or (p, q-1) ==> (0, 0). Therefore, if we can guarantee that (i, j) won't appear on the paths of the trips (p-1, q) ==> (0, 0) or (p, q-1) ==> (0, 0), and (p, q) won't appear on the paths of the trips (0, 0) ==> (i-1, j) or (0, 0) ==> (i, j-1), then no duplicate counting can ever happen.
