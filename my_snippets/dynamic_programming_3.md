@@ -726,3 +726,93 @@ int main() {
 ```
 
 TODO: https://csacademy.com/contest/archive/task/and-closure/
+
+### Cherry Pickup
+source: https://leetcode.com/problems/cherry-pickup/
+
+You are given an `n x n` grid representing a field of cherries, each cell is one of three possible integers.
+* `0` means the cell is empty, so you can pass through,
+* `1` means the cell contains a cherry that you can pick up and pass through, or
+* `-1` means the cell contains a thorn that blocks your way.
+
+Return the maximum number of cherries you can collect by following the rules below:
+* Starting at the position `(0, 0)` and reaching `(n - 1, n - 1)` by moving right or down through valid path cells (cells with value 0 or 1).
+* After reaching `(n - 1, n - 1)`, returning to `(0, 0)` by moving left or up through valid path cells.
+* When passing through a path cell containing a cherry, you pick it up, and the cell becomes an empty cell 0.
+* If there is no valid path between `(0, 0)` and `(n - 1, n - 1)`, then no cherries can be collected.
+
+Example:
+
+![image](https://user-images.githubusercontent.com/19663316/118598728-2bbdc300-b7cc-11eb-809d-d811b478219c.png)
+
+```
+Input: grid = [[0,1,-1],[1,0,-1],[1,1,1]]
+Output: 5
+Explanation: The player started at (0, 0) and went down, down, right right to reach (2, 2).
+4 cherries were picked up during this single trip, and the matrix becomes [[0,1,-1],[0,0,-1],[0,0,0]].
+Then, the player went left, up, up, left to return home, picking up one more cherry.
+The total number of cherries picked up is 5, and this is the maximum possible.
+```
+
+**Constraints:**
+* `1 <= n <= 50`
+* `grid[0][0] != -1` & `grid[n - 1][n - 1] != -1`
+
+#### Solution
+
+**Attempt 1**
+
+Why not break into two paths from `(0,0)` to `(n-1, n-1)` and then `(n-1, n-1)` to `(0,0)` and solve both of them independently. Once we pickup the cherry on the path from `(0,0)` from `(n-1,n-1)` then we cannot pick it again on the way back from `(n-1, n-1)` to `(0,0)`. Even though we remove the cherries once we pick it up, this idea will not work. Here is a counter example:
+
+```
+grid = [[1,1,1,0,1],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [1,0,1,1,1]]
+```
+
+The idea above suggests that we go through the path `(0, 0) ==> (0, 2) ==> (4, 2) ==> (4, 4)` which pickups `6` cherries. Then on the reverse path we only choose `1` cherry. But the optimal way would be to through `(0,0) => (0,4) => (4,4)` and then from `(4,4) => (4,0) => (0,0)` which would take `8` cherries.
+
+**Attempt 2**
+
+We define `T(i, j)` as the maximum number of cherries we can pick up starting from the position `(i, j)`(assume it's not a thorn) of the grid and following the path `(i, j) ==> (N-1, N-1) ==>(0, 0)`, we could move one step forward to either `(i+1, j)` or `(i, j+1)`, and recursively solve for the subproblems starting from each of those two positions (that is, `T(i+1, j)` and `T(i, j+1))`, then take the sum of the larger one (assume it exists) together with `grid[i][j]` to form a solution to the original problem. 
+
+Note: The previous analyses assume we are on the first leg of the round trip, that is, `(0, 0) ==> (N-1, N-1)`; if we are on the second leg, that is, `(N-1, N-1) ==> (0, 0)`, then we should move one step backward from `(i, j)` to either `(i-1, j)` or `(i, j-1)`.
+
+`T(i, j) = grid[i][j] + max{T(i+1, j), T(i, j+1)}`, which means we already counted `grid[i][j]` towards `T(i, j)`. To avoid the duplicate counting, we somehow need to make sure that `grid[i][j]` will not be counted towards any of `T(i+1, j)` and `T(i, j+1)`. We'll need to make sure that `(i,j)` doesn't appear on the apth from `(N-1, N-1) => (0,0)` which would result in double counting.
+
+Maybe, we can redefine `S(i, j)` as the maximum number of cherries for the shortened round trip: `(0, 0) ==> (i, j) ==> (0, 0)` without modifying the grid matrix. The original problem then will be denoted as `S(N-1, N-1)`.  
+
+To obtain the recurrence relations, note that for each position (i, j), we have two options for arriving at and two options for leaving it: (i-1, j) and (i, j-1), so the above round trip can be divide into four cases:
+
+```
+Case 1: (0, 0) ==> (i-1, j) ==> (i, j) ==> (i-1, j) ==> (0, 0)
+Case 2: (0, 0) ==> (i, j-1) ==> (i, j) ==> (i, j-1) ==> (0, 0)
+Case 3: (0, 0) ==> (i-1, j) ==> (i, j) ==> (i, j-1) ==> (0, 0)
+Case 4: (0, 0) ==> (i, j-1) ==> (i, j) ==> (i-1, j) ==> (0, 0)
+```
+
+By definition, Case 1 is equivalent to `S(i-1, j) + grid[i][j]` and Case 2 is equivalent to `S(i, j-1) + grid[i][j]`. However, our definition of `S(i,j)` doesn't cover the last two cases. This suggests that we should include more information in our state and hence use `S(i, j, p, q)` as DP state, where the path is `(0, 0) ==> (i, j); (p, q) ==> (0, 0)` without modifying the grid matrix.
+
+
+Recurrence relations for `S(i, j, p, q)`
+```
+Case 1: (0, 0) ==> (i-1, j) ==> (i, j); (p, q) ==> (p-1, q) ==> (0, 0)
+Case 2: (0, 0) ==> (i-1, j) ==> (i, j); (p, q) ==> (p, q-1) ==> (0, 0)
+Case 3: (0, 0) ==> (i, j-1) ==> (i, j); (p, q) ==> (p-1, q) ==> (0, 0)
+Case 4: (0, 0) ==> (i, j-1) ==> (i, j); (p, q) ==> (p, q-1) ==> (0, 0)
+```
+
+by definition,
+
+```
+Case 1 is equivalent to T(i-1, j, p-1, q) + grid[i][j] + grid[p][q];
+Case 2 is equivalent to T(i-1, j, p, q-1) + grid[i][j] + grid[p][q];
+Case 3 is equivalent to T(i, j-1, p-1, q) + grid[i][j] + grid[p][q];
+Case 4 is equivalent to T(i, j-1, p, q-1) + grid[i][j] + grid[p][q];
+```
+
+Therefore, the recurrence relations can be written as:
+
+```T(i, j, p, q) = grid[i][j] + grid[p][q] + max{T(i-1, j, p-1, q), T(i-1, j, p, q-1), T(i, j-1, p-1, q), T(i, j-1, p, q-1)}```
