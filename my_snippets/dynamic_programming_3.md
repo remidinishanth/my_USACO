@@ -823,9 +823,9 @@ Therefore, the recurrence relations can be written as:
 
 Now to make it work, we need to impose the aforementioned constraint. As mentioned above, since we already counted `grid[i][j]` and `grid[p][q]` towards `T(i, j, p, q)`, to avoid duplicate counting, both of them should NOT be counted for any of `T(i-1, j, p-1, q)`,` T(i-1, j, p, q-1)`, `T(i, j-1, p-1, q)` and `T(i, j-1, p, q-1)`.
 
-Note that every step we take from `(i, j)` or `(p, q)`, the distance from `(N-1, N-1)` to `(i, j)` reduces by `1`, similarly for `(p, q)`. `(i - 0) + (j - 0)` is the number of steps taken so far, this suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. `c` is the total number of steps moved from `(0, 0)`.
-
 ![image](https://user-images.githubusercontent.com/19663316/118618334-21f28a80-b7e1-11eb-897d-c2913f88c46a.png)
+
+Note that every step we take from `(i, j)` or `(p, q)`, the distance from `(N-1, N-1)` to `(i, j)` reduces by `1`, similarly for `(p, q)`. Also we can just move right or down, with every move right `i` increases and with every down move `j` increases and `(i - 0) + (j - 0)` is the number of steps taken so far, this suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. `c` is the total number of steps moved from `(0, 0)`. Thus reducing the dimension of dp.
 
 With the new conditions in place, we can now redefine our `T(i, j, p, q)` such that `c = i + j = p + q`, which can be rewritten, in terms of independent variables, as `T(c, i, p)`, where `T(c, i, p)` = `T(i, c-i, p, c-p)`. Note that under this definition, we have:
 
