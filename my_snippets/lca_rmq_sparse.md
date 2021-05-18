@@ -431,7 +431,7 @@ int LCA(int u, int v){
  
     if(v == u) return v;
  
-    for(int k = L-1; k >=0; k--){
+    for(int k = L-1; k >= 0; k--){
         if(par[v][k] != par[u][k]){
             v = par[v][k];
             u = par[u][k];
@@ -443,7 +443,7 @@ int LCA(int u, int v){
 void solve(){
     scanf("%d", &n);
     Adj = vector<vii>(n, vii());
-    for(int i=0;i<n-1;i++){
+    for(int i = 0; i < n-1; i++){
         int a, b, c;
         scanf("%d%d%d", &a, &b, &c);
         a--;b--;
