@@ -833,7 +833,7 @@ Then from the recurrence relation for `T(i, j, p, q)`, we obtain the recurrence 
 
 ```T(c, i, p) = grid[i][c-i] + grid[p][c-p] + max{T(c-1, i-1, p-1), T(c-1, i-1, p), T(c-1, i, p-1), T(c-1, i, p)}```.
 
-Of course, in the recurrence relation above, only one of `grid[i][c-i]` and `grid[p][c-p]` will be taken if `i == p` (i.e., when the two positions overlap). Also note that all four indices, `i`, `j`, `p` and `q`, are in the range `[0, N)`, meaning `n` will be in the range `[0, 2N-1)` (remember it is the sum of `i` and `j`). Lastly we have the base case given by `T(0, 0, 0) = grid[0][0]`.
+Of course, in the recurrence relation above, only one of `grid[i][c-i]` and `grid[p][c-p]` will be taken if `i == p` (i.e., when the two positions overlap). Also note that all four indices, `i`, `j`, `p` and `q`, are in the range `[0, N)`, meaning `c` will be in the range `[0, 2N-1)` (remember it is the sum of `i` and `j`). Lastly we have the base case given by `T(0, 0, 0) = grid[0][0]`.
 
 Now using the recurrence relation for `T(n, i, p)`, it is straightforward to code for the `O(N^3)` time and `O(N^3)` space solution. However, if you notice that `T(c, i, p)` only depends on those subproblems with `c - 1`, we can iterate on this dimension and cut down the space to `O(N^2)`.
 
