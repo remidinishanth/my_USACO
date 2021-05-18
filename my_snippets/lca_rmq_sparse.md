@@ -428,9 +428,7 @@ int LCA(int u, int v){
     if(h[v] > h[u]) swap(u,v);
     // v is at higher node
     u = up(u, h[u] - h[v]);
- 
     if(v == u) return v;
- 
     for(int k = L-1; k >= 0; k--){
         if(par[v][k] != par[u][k]){
             v = par[v][k];
