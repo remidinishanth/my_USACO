@@ -369,6 +369,129 @@ function dfs(v, dist) {
 This will compute `distance[v]` for all vertices. We can now extend this to work for arbitrary paths in the tree. First, if our our tree is not already rooted, we can pick an aribtrary root, and perform the preprocessing step above to compute all root-to-vertex path lengths. Then, to compute the length of the path from `u` to `v`, we just notice that it is equal to 
 
 	δ ( u , v ) = distance [ u ] + distance [ v ] − 2 × distance [ L C A ( u , v ) ] .
+	
+#### SPOJ QTREE2
+
+You are given a tree (an undirected acyclic connected graph) with `N` nodes, and edges numbered `1, 2, 3...N-1`. Each edge has an integer value assigned to it, representing its length.
+
+We will ask you to perfrom some instructions of the following form:
+
+* `DIST a b` : ask for the distance between node a and node b (or)
+* `KTH a b k` : ask for the k-th node on the path from node a to node b
+
+<details>
+	<summary>CPP solution</summary>
+	
+```cpp
+#define CLR(a) memset(a,0,sizeof(a))
+#define SET(a,b) memset(a,b,sizeof(a))
+
+vector<vii> Adj;
+int n;
+ 
+const int nax = 10004;
+const int L = 15;
+ 
+int depth[nax], par[nax][L], h[nax];
+ 
+void dfs(int u, int p){
+    if(p == -1){
+        depth[u] = 0;
+        h[u] = 0;
+        par[u][0] = -1;
+    }
+    for(ii x:Adj[u]){
+        int v = x.F, c = x.S;
+        if(v == p) continue;
+        depth[v] = depth[u] + c;
+        h[v] = h[u] + 1;
+        par[v][0] = u;
+        for(int k = 1; k < L; k++){
+            int w = par[v][k - 1];
+            if(w == -1) break;
+            par[v][k] = par[w][k-1];
+        }
+        dfs(v, u);
+    }
+}
+ 
+int up(int v, int dh){
+    for(int k = L-1; k >= 0; k--){
+        if(dh < ( 1 << k)) continue;
+        v = par[v][k];
+        dh -= (1 << k);
+    }
+    return v;
+}
+ 
+int LCA(int u, int v){
+    if(h[v] > h[u]) swap(u,v);
+    // v is at higher node
+    u = up(u, h[u] - h[v]);
+ 
+    if(v == u) return v;
+ 
+    for(int k = L-1; k >=0; k--){
+        if(par[v][k] != par[u][k]){
+            v = par[v][k];
+            u = par[u][k];
+        }
+    }
+    return par[v][0];
+}
+ 
+void solve(){
+    scanf("%d", &n);
+    Adj = vector<vii>(n, vii());
+    for(int i=0;i<n-1;i++){
+        int a, b, c;
+        scanf("%d%d%d", &a, &b, &c);
+        a--;b--;
+        Adj[a].push_back(ii(b, c));
+        Adj[b].push_back(ii(a, c));
+    }
+    SET(par, -1);
+    SET(h, 0);
+    SET(depth, 0);
+    dfs(0, -1);
+    int a, b, k, ans, d, l;
+    while(true){
+        char c[10];
+        scanf("%s", c);
+        if(c[1] == 'O') return;
+        scanf("%d %d", &a, &b);
+        a--;b--;
+        l = LCA(a,b);
+        if(c[1] == 'I'){
+            d = depth[a] + depth[b] - 2*depth[l];
+            printf("%d\n", d);
+        }else{
+            scanf("%d", &k);
+            k--;
+            if(k <= h[a] - h[l]){
+                ans = up(a, k);
+                printf("%d\n", ans + 1);
+            }else{
+                k -= (h[a] - h[l]);
+                int bh = (h[b] - h[l]);
+                ans = up(b, bh - k);
+                printf("%d\n", ans + 1);
+            }
+        }
+    }
+}
+ 
+int main(){
+    int TC;
+    scanf("%d", &TC);
+    while(TC--){
+        solve();
+        printf("\n");
+    }
+    return 0;
+}
+```
+</details>	
 
 ## Reduction from LCA to RMQ
 
