@@ -859,7 +859,7 @@ public int cherryPickup(int[][] grid) {
         if (p > 0) dp[i][p] = Math.max(dp[i][p], dp[i][p - 1]);
         if (i > 0 && p > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p - 1]);
 	
-	// cherries < 0 => No viable way to arrive at (i,j) (p,q)
+	// dp[i][p] < 0 => No viable way to arrive at (i,j) (p,q)
         if (dp[i][p] >= 0) dp[i][p] += grid[i][j] + (i != p ? grid[p][q] : 0)
       }
     }
