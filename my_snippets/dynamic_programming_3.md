@@ -821,18 +821,9 @@ Therefore, the recurrence relations can be written as:
 
 ```T(i, j, p, q) = grid[i][j] + grid[p][q] + max{T(i-1, j, p-1, q), T(i-1, j, p, q-1), T(i, j-1, p-1, q), T(i, j-1, p, q-1)}```
 
-Now to make it work, we need to impose the aforementioned constraint. As mentioned above, since we already counted `grid[i][j]` and `grid[p][q]` towards `T(i, j, p, q)`, to avoid duplicate counting, both of them should NOT be counted for any of `T(i-1, j, p-1, q)`,` T(i-1, j, p, q-1)`, `T(i, j-1, p-1, q)` and `T(i, j-1, p, q-1)`. It is obvious that the position `(i, j)` won't appear on the paths of the trips `(0, 0) ==> (i-1, j)` or `(0, 0) ==> (i, j-1)`, and similarly the position `(p, q)` won't appear on the paths of the trips `(p-1, q) ==> (0, 0)` or `(p, q-1) ==> (0, 0)`. Therefore, if we can guarantee that `(i, j)` won't appear on the paths of the trips `(p-1, q) ==> (0, 0)` or `(p, q-1) ==> (0, 0)`, and `(p, q)` won't appear on the paths of the trips `(0, 0) ==> (i-1, j)` or `(0, 0) ==> (i, j-1)`, then no duplicate counting can ever happen.
+Now to make it work, we need to impose the aforementioned constraint. As mentioned above, since we already counted `grid[i][j]` and `grid[p][q]` towards `T(i, j, p, q)`, to avoid duplicate counting, both of them should NOT be counted for any of `T(i-1, j, p-1, q)`,` T(i-1, j, p, q-1)`, `T(i, j-1, p-1, q)` and `T(i, j-1, p, q-1)`.
 
-Ff we make sure that the position (p, q) is lying outside the rectangle formed by `(0,0)` and `(i,j)` except for the case where `(p, q) == (i, j)`, it will never appear on the trips `(0,0) => (i-1, j`) or `(0,0) => (i, j-1)`. Similarly, If `(i,j)` lies outside of rectangle `(p,q)` then we don't double count.
-
-If we have these constraints
-```
-i < p && j > q
-i == p && j == q
-i > p && j < q
-```
-
-Now our state `T(i, j, p, q)` is valid only for above constraints. We have constrained DP states. So our goal now is to select a subset of the conditions that can restore the self-consistency of `T(i, j, p, q)` so we can have a working recurrence relation. The key observation comes from the fact that when `i (p)` increases, we need to decrease `j (q)` in order to make the above conditions hold, and vice versa -- they are anti-correlated. Note that every step we take from `(i, j)` or `(p, q)`, the distance from `(N-1, N-1)` to `(i, j)` reduces by `1`, similarly for `(p, q)`. `(i - 0) + (j - 0)` is the number of steps taken so far, this suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. `c` is the total number of steps moved from `(0, 0)`.
+Note that every step we take from `(i, j)` or `(p, q)`, the distance from `(N-1, N-1)` to `(i, j)` reduces by `1`, similarly for `(p, q)`. `(i - 0) + (j - 0)` is the number of steps taken so far, this suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. `c` is the total number of steps moved from `(0, 0)`.
 
 ![image](https://user-images.githubusercontent.com/19663316/118618334-21f28a80-b7e1-11eb-897d-c2913f88c46a.png)
 
