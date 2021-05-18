@@ -840,11 +840,13 @@ Of course, in the recurrence relation above, only one of `grid[i][c-i]` and `gri
 
 Now using the recurrence relation for `T(n, i, p)`, it is straightforward to code for the `O(N^3)` time and `O(N^3)` space solution. However, if you notice that `T(c, i, p)` only depends on those subproblems with `c - 1`, we can iterate on this dimension and cut down the space to `O(N^2)`.
 
+dp holds maximum # of cherries two c-length paths can pickup. The two c-length paths arrive at `(i, c - i)` and `(p, c - p)` respectively.
+
 ```java
 public int cherryPickup(int[][] grid) {
   int N = grid.length, M = (N << 1) - 1; // M = 2*N - 1
   int[][] dp = new int[N][N];
-  dp[0][0] = grid[0][0];
+  dp[0][0] = grid[0][0]; // length c = 0
 
   for (int c = 1; c < M; c++) {
     for (int i = N - 1; i >= 0; i--) {
@@ -859,7 +861,8 @@ public int cherryPickup(int[][] grid) {
         if (i > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p]);
         if (p > 0) dp[i][p] = Math.max(dp[i][p], dp[i][p - 1]);
         if (i > 0 && p > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p - 1]);
-
+	
+	// cherries < 0 => No viable way to arrive at (i,j) (p,q)
         if (dp[i][p] >= 0) dp[i][p] += grid[i][j] + (i != p ? grid[p][q] : 0)
       }
     }
