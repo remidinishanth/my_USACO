@@ -842,30 +842,30 @@ Now using the recurrence relation for `T(n, i, p)`, it is straightforward to cod
 
 ```java
 public int cherryPickup(int[][] grid) {
-    int N = grid.length, M = (N << 1) - 1; // M = 2*N - 1
-    int[][] dp = new int[N][N];
-    dp[0][0] = grid[0][0];
-	    
-    for (int c = 1; c < M; c++) {
-		for (int i = N - 1; i >= 0; i--) {
-			for (int p = N - 1; p >= 0; p--) {
-				int j = c - i, q = c - p;
-                
-				if (j < 0 || j >= N || q < 0 || q >= N || grid[i][j] < 0 || grid[p][q] < 0) {
-                    			dp[i][p] = -1;
-                    			continue;
-                 		}
-		 
-				 if (i > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p]);
-				 if (p > 0) dp[i][p] = Math.max(dp[i][p], dp[i][p - 1]);
-				 if (i > 0 && p > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p - 1]);
-		 
-				 if (dp[i][p] >= 0) dp[i][p] += grid[i][j] + (i != p ? grid[p][q] : 0)
-             		}
-		 }
+  int N = grid.length, M = (N << 1) - 1; // M = 2*N - 1
+  int[][] dp = new int[N][N];
+  dp[0][0] = grid[0][0];
+
+  for (int c = 1; c < M; c++) {
+    for (int i = N - 1; i >= 0; i--) {
+      for (int p = N - 1; p >= 0; p--) {
+        int j = c - i, q = c - p;
+
+        if (j < 0 || j >= N || q < 0 || q >= N || grid[i][j] < 0 || grid[p][q] < 0) {
+          dp[i][p] = -1;
+          continue;
+        }
+
+        if (i > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p]);
+        if (p > 0) dp[i][p] = Math.max(dp[i][p], dp[i][p - 1]);
+        if (i > 0 && p > 0) dp[i][p] = Math.max(dp[i][p], dp[i - 1][p - 1]);
+
+        if (dp[i][p] >= 0) dp[i][p] += grid[i][j] + (i != p ? grid[p][q] : 0)
+      }
     }
-    
-    return Math.max(dp[N - 1][N - 1], 0);
+  }
+
+  return Math.max(dp[N - 1][N - 1], 0);
 }
 ```
 
