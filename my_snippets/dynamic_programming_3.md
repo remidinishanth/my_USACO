@@ -762,7 +762,7 @@ The total number of cherries picked up is 5, and this is the maximum possible.
 
 **Attempt 1**
 
-Why not break into two paths from `(0,0)` to `(n-1, n-1)` and then `(n-1, n-1)` to `(0,0)` and solve both of them independently. Once we pickup the cherry on the path from `(0,0)` from `(n-1,n-1)` then we cannot pick it again on the way back from `(n-1, n-1)` to `(0,0)`. Even though we remove the cherries once we pick it up, this idea will not work. Here is a counter example:
+Why not break into two paths from `(0,0)` to `(N-1, N-1)` and then `(N-1, N-1)` to `(0,0)` and solve both of them independently. Once we pickup the cherry on the path from `(0,0)` from `(N-1,N-1)` then we cannot pick it again on the way back from `(N-1, N-1)` to `(0,0)`. Even though we remove the cherries once we pick it up, this idea will not work. Here is a counter example:
 
 ```
 grid = [[1,1,1,0,1],
@@ -793,7 +793,11 @@ Case 3: (0, 0) ==> (i-1, j) ==> (i, j) ==> (i, j-1) ==> (0, 0)
 Case 4: (0, 0) ==> (i, j-1) ==> (i, j) ==> (i-1, j) ==> (0, 0)
 ```
 
-By definition, Case 1 is equivalent to `S(i-1, j) + grid[i][j]` and Case 2 is equivalent to `S(i, j-1) + grid[i][j]`. However, our definition of `S(i,j)` doesn't cover the last two cases. This suggests that we should include more information in our state and hence use `T(i, j, p, q)` as DP state, where the path is `(0, 0) ==> (i, j); (p, q) ==> (0, 0)` without modifying the grid matrix.
+By definition, Case 1 is equivalent to `S(i-1, j) + grid[i][j]` and Case 2 is equivalent to `S(i, j-1) + grid[i][j]`. However, our definition of `S(i,j)` doesn't cover the last two cases. 
+
+**Attempt 3**
+
+This suggests that we should include more information in our state and hence use `T(i, j, p, q)` as DP state, where the path is `(0, 0) ==> (i, j); (p, q) ==> (0, 0)` without modifying the grid matrix.
 
 
 Recurrence relations for `T(i, j, p, q)`
@@ -819,7 +823,7 @@ Therefore, the recurrence relations can be written as:
 
 Now to make it work, we need to impose the aforementioned constraint. As mentioned above, since we already counted `grid[i][j]` and `grid[p][q]` towards `T(i, j, p, q)`, to avoid duplicate counting, both of them should NOT be counted for any of `T(i-1, j, p-1, q)`,` T(i-1, j, p, q-1)`, `T(i, j-1, p-1, q)` and `T(i, j-1, p, q-1)`. It is obvious that the position `(i, j)` won't appear on the paths of the trips `(0, 0) ==> (i-1, j)` or `(0, 0) ==> (i, j-1)`, and similarly the position `(p, q)` won't appear on the paths of the trips `(p-1, q) ==> (0, 0)` or `(p, q-1) ==> (0, 0)`. Therefore, if we can guarantee that `(i, j)` won't appear on the paths of the trips `(p-1, q) ==> (0, 0)` or `(p, q-1) ==> (0, 0)`, and `(p, q)` won't appear on the paths of the trips `(0, 0) ==> (i-1, j)` or `(0, 0) ==> (i, j-1)`, then no duplicate counting can ever happen.
 
-Ff we make sure that the position (p, q) is lying outside the rectangle formed by `(0,0)` and `(i,j)` except for the case where `(p,q) == (i,j)`, it will never appear on the trips `(0,0) => (i-1, j`) or `(0,0) => (i, j-1)`. Similarly, If `(i,j)` lies outside of rectangle `(p,q)` then we don't double count.
+Ff we make sure that the position (p, q) is lying outside the rectangle formed by `(0,0)` and `(i,j)` except for the case where `(p, q) == (i, j)`, it will never appear on the trips `(0,0) => (i-1, j`) or `(0,0) => (i, j-1)`. Similarly, If `(i,j)` lies outside of rectangle `(p,q)` then we don't double count.
 
 If we have these constraints
 ```
@@ -828,7 +832,7 @@ i == p && j == q
 i > p && j < q
 ```
 
-Now our state `T(i, j, p, q)` is valid only for above constraints. We have constrained DP states. So our goal now is to select a subset of the conditions that can restore the self-consistency of `T(i, j, p, q)` so we can have a working recurrence relation. The key observation comes from the fact that when `i (p)` increases, we need to decrease `j (q)` in order to make the above conditions hold, and vice versa -- they are anti-correlated. This suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. 
+Now our state `T(i, j, p, q)` is valid only for above constraints. We have constrained DP states. So our goal now is to select a subset of the conditions that can restore the self-consistency of `T(i, j, p, q)` so we can have a working recurrence relation. The key observation comes from the fact that when `i (p)` increases, we need to decrease `j (q)` in order to make the above conditions hold, and vice versa -- they are anti-correlated. Note that every step we take from `(i, j)` or `(p, q)`, the distance from `(N-1, N-1)` to `(i, j)` reduces by `1`, similarly for `(p, q)`. `(i - 0) + (j - 0)` is the number of steps taken so far, this suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. `c` is the total number of steps moved from `(0, 0)`.
 
 With the new conditions in place, we can now redefine our `T(i, j, p, q)` such that `c = i + j = p + q`, which can be rewritten, in terms of independent variables, as `T(c, i, p)`, where `T(c, i, p)` = `T(i, c-i, p, c-p)`. Note that under this definition, we have:
 
