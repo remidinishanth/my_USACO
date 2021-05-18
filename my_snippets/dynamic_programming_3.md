@@ -834,6 +834,8 @@ i > p && j < q
 
 Now our state `T(i, j, p, q)` is valid only for above constraints. We have constrained DP states. So our goal now is to select a subset of the conditions that can restore the self-consistency of `T(i, j, p, q)` so we can have a working recurrence relation. The key observation comes from the fact that when `i (p)` increases, we need to decrease `j (q)` in order to make the above conditions hold, and vice versa -- they are anti-correlated. Note that every step we take from `(i, j)` or `(p, q)`, the distance from `(N-1, N-1)` to `(i, j)` reduces by `1`, similarly for `(p, q)`. `(i - 0) + (j - 0)` is the number of steps taken so far, this suggests we can set the sum of `i (p)` and `j (q)` to some constant, `c = i + j = p + q`. `c` is the total number of steps moved from `(0, 0)`.
 
+![image](https://user-images.githubusercontent.com/19663316/118618334-21f28a80-b7e1-11eb-897d-c2913f88c46a.png)
+
 With the new conditions in place, we can now redefine our `T(i, j, p, q)` such that `c = i + j = p + q`, which can be rewritten, in terms of independent variables, as `T(c, i, p)`, where `T(c, i, p)` = `T(i, c-i, p, c-p)`. Note that under this definition, we have:
 
 Then from the recurrence relation for `T(i, j, p, q)`, we obtain the recurrence relation for `T(n, i, p)` as:
