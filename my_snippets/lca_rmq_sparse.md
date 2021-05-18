@@ -372,7 +372,7 @@ This will compute `distance[v]` for all vertices. We can now extend this to work
 	
 #### SPOJ QTREE2
 
-You are given a tree (an undirected acyclic connected graph) with `N` nodes, and edges numbered `1, 2, 3...N-1`. Each edge has an integer value assigned to it, representing its length.
+You are given a tree (an undirected acyclic connected graph) with `N (2 ≤ N ≤ 10^4)` nodes, and edges numbered `1, 2, 3...N-1`. Each edge has an integer value assigned to it, representing its length.
 
 We will ask you to perfrom some instructions of the following form:
 
