@@ -1090,6 +1090,94 @@ We will ask you to perfrom some instructions of the following form:
 
 To answer `KTH a b k`, we will check whether `k-th` node from `a` is on 1) the path from `a` to `lca(a,b)` or 2) the path from `lca(a,b)` to `b`. To find this we can use `dist[a, lca(a,b)] = depth[a] - depth[lca(a,b)]`, once we know on which vertical path it lies we can do move between heavy-chains and find the `k-th` in `log n` time. This is similar to binary lifting algorithm.
 
+#### SPOJ QTREE3
+
+<details>
+	<summary> CPP solution using set instead of Segment tree</summary>
+	
+```cpp
+const int nax = 100005;
+
+int n, nchain;
+int chain[nax], par[nax], sz[nax], depth[nax], top[nax];
+set<pair<int,int>> st[nax]; // pair(height, node) of black nodes in this chain
+
+vvi Adj;
+
+int dfs(int u, int p){
+    sz[u] = 1;
+    par[u] = p;
+    for(int &v:Adj[u]){
+        if(v==p) continue;
+        depth[v] = depth[u] + 1;
+        sz[u] += dfs(v, u);
+        if(sz[v] > sz[Adj[u][0]])
+            swap(v, Adj[u][0]);
+    }
+    return sz[u];
+}
+
+void hld(int u, int p){
+    chain[u] = nchain;
+    for(int v:Adj[u]){
+        if(v == p) continue;
+        top[v] = (v == Adj[u][0] ? top[u] : v);
+        if(v != Adj[u][0]) nchain++;
+        hld(v, u);
+    }
+}
+
+void update(int u){
+    pair<int, int> X = {depth[u], u};
+    if(st[chain[u]].count(X))
+        st[chain[u]].erase(X);
+    else st[chain[u]].insert(X);
+}
+
+int query(int u){
+    int ans = -1;
+    while(u != -1){
+        if(st[chain[u]].size() > 0){
+            int temp = st[chain[u]].begin() -> second;
+            // If u and temp belong in same chain
+            // consider higher above u only
+            if(depth[temp] <= depth[u]) ans = temp;
+        }
+        u = par[top[u]];
+    }
+    return ans;
+}
+
+int main(){
+    int q;
+    scanf("%d%d", &n, &q);
+    Adj = vvi(n, vi());
+    for(int i=0;i<n-1;i++){
+        int a, b;
+        scanf("%d%d", &a, &b);
+        a--;b--;
+        Adj[a].push_back(b);
+        Adj[b].push_back(a);
+    }
+    dfs(0, -1);
+    hld(0, -1);
+    while(q--){
+        int type, node;
+        scanf("%d %d", &type, &node);
+        node--;
+        if(type == 0){
+            update(node);
+        }else{
+            int ans = query(node);
+            if(ans == -1) printf("%d\n", ans);
+            else printf("%d\n", ans + 1);
+        }
+    }
+    return 0;
+}
+```
+</details>
+
 #### SPOJ QTREE6
 
 TODO: https://discuss.codechef.com/t/qtree6-editorial/3906
