@@ -1222,7 +1222,9 @@ int query(int node, int tl, int tr, int l, int r){
 
 // While building hld, we should store node_at_pos[i] along with pos[node]
 ```
-</details>	
+</details>
+
+We can even speed up the above solution by storing the value of left most index whose color is black.
 
 #### SPOJ QTREE6
 
