@@ -441,6 +441,18 @@ source: https://codeforces.com/blog/entry/22072 & https://codeforces.com/contest
 
 *Extra care must be taken in processPath if the binary operation isn't commutative, you'll need two segment trees, one for downward sums and one for upward sums.*
 
+### Applications
+
+**Dynamic distance query**
+
+Consider the following problem: A weighted, rooted tree is given followed by a large number of queries and modifications interspersed with each other. A query asks for the distance between a given pair of nodes and a modification changes the weight of a specified edge to a new (specified) value. How can the queries and modifications be performed efficiently?
+
+First of all, we notice that the distance between nodes u and v is given by `dist(u,v) = dist(root,u) + dist(root, v) - 2* dist(root, LCA(u,v))`. There are a number of techniques for efficiently answering lowest common ancestor queries, so if we can efficiently solve queries of a node's distance from the root, a solution to this problem follows trivially.
+
+To solve this simpler problem of querying the distance from the root to a given node, we augment our walk procedure as follows: when following a light edge, simply add its distance to a running total; when following a heavy path, add all the distances along the edges traversed to the running total (as well as the distance along the light edge at the top, if any). The latter can be performed efficiently, along with modifications, if each heavy path is augmented with a data structure such as a **segment tree** or **binary indexed tree** (in which the individual array elements correspond to the weights of the edges of the heavy path).
+
+This gives `O(log^2 n)` time for queries. It consists of two "skips" and a LCA query. In the "skips", we may have to ascend logarithmically many heavy paths each of which takes logarithmic time, and so we need `O(log^2 n)` time. An update, merely an update to the underlying array structure, takes `O(log n)` time.
+
 ### Adamant's implementation trick
 
 This tries to combine the ideas from Euler tour tree, so that we can query subtrees while we query subpaths. Here `nxt[v]` is the top vertex in the heavy chain from `v`.
