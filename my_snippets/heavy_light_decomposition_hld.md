@@ -1189,6 +1189,41 @@ int main(){
 ```
 </details>
 
+We can also solve this problem by using Segment tree by storing {height[i], i} in each black node and using `minimum` to combine nodes for building the tree. In this case we will need to make height[i] = INF in case the node is white color.
+
+Another way to solve this problem is to use `true` or `false` based on the color of nodes in each tree node return `node` value in case it is true. Use `0` for white color and `1` for black color.
+
+<details>
+	<summary> Solution using Segment Tree </summary>
+	
+```cpp
+void update(int node, int l, int r, int i, int val){
+    if(l>i || r<i) return;
+    if(l==r){
+    	tree[node]^=val;
+	return;
+    }
+    int mid = (l+r)/2;
+    update(node*2, l, mid, i, val);
+    update(node*2+1, mid+1, r, i, val);
+    tree[node] = tree[node*2] | tree[node*2+1];
+}
+
+int query(int node, int tl, int tr, int l, int r){
+    if(tl>r || tr<l) return -1;
+    if(tree[node]==false) return -1; // no black node
+    if(tl==tr) return node_at_pos[tl];
+    int mid = (tl+tr)/2;
+    int d = query(node*2, tl, mid, l, r);
+    // d == -1 => no black node in left subtree (tl, mid)
+    if(d == -1) return query(node*2+1, mid+1, tr, l, r);
+    return d;
+}
+
+// While building hld, we should store node_at_pos[i] along with pos[node]
+```
+</details>	
+
 #### SPOJ QTREE6
 
 TODO: https://discuss.codechef.com/t/qtree6-editorial/3906
