@@ -48,6 +48,7 @@ This can be done in `O(log N)`. Then we process each segment separately. Process
 source: <https://ipsc.ksp.sk/2009/real/solutions/l.html> IPSC 2009 problem L in http://ipsc.ksp.sk/archive
 
 We can solve problems involving queries on Trees
+
 ![image](https://user-images.githubusercontent.com/19663316/118310655-8a551980-b50c-11eb-9a1a-4a9be778e349.png)
 
 
