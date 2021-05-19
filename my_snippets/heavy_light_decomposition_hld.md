@@ -1099,8 +1099,7 @@ We will ask you to perfrom some instructions of the following form:
 * `0 i` : change the color of the i-th node (from white to black, or from black to white); or
 * `1 v `: ask for the id of the first black node on the path from node `1` to node `v`. if it doesn't exist, you may return `-1` as its result.
 
-**Solution**
-To answer type `2` queries fastly, we will need to go through path from `v` to `1` querying the topmost black node in each heavy path. In the following solution, instead of segment tree, we have used `set<pair<height[node], node>>` to store the black nodes seperately for each heavy chain. This way we can find the topmost black node in heavy chain in `O(1)` time, so the total time for queries of the form `1 v` is `O(log n)`. Only important thing is consider the node above node `v` by checking the `height` of nodes in query(This `if(depth[temp] <= depth[u]) ans = temp;` in code takes care of this).
+**Solution:** To answer type `2` queries fastly, we will need to go through path from `v` to `1` querying the topmost black node in each heavy path. In the following solution, instead of segment tree, we have used `set<pair<height[node], node>>` to store the black nodes seperately for each heavy chain. This way we can find the topmost black node in heavy chain in `O(1)` time, so the total time for queries of the form `1 v` is `O(log n)`. Only important thing is consider the node above node `v` by checking the `height` of nodes in query(This `if(depth[temp] <= depth[u]) ans = temp;` in code takes care of this).
 
 Queries of the form `0 i` can also be done in `O(log n)` time by adding(if node color is changed from white to black) the node to set or removing(if node color changes from black to white) the node from the set of this heavy chain.
 
