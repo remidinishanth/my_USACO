@@ -13,6 +13,7 @@ A sequence `b` is a subsegment of a sequence `a` if `b` can be obtained from `a`
 For each subsegment, we have `i` possible choices for starting position of the subsegment and `(n - j + 1)` for ending position of the subsegment. For each element `a[i]` it is counted towards weight for any segment which start with index less than `i`, hence we can maintain a map to count how many times can it be included `m[a[i]] += i`. Now for every segment whose end is greater than `i` we count the sum of weight of all segments till this index `i` as follows.
 
 ```cpp
+#define int long long
 const int N = 1e5 + 5;
  
 int n;
@@ -38,5 +39,5 @@ int32_t main()
 	}
 	return 0;
 }
-
 ```
+source: https://codeforces.com/contest/1527/submission/116770682
