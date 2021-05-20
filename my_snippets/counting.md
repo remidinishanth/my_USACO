@@ -19,7 +19,7 @@ const int N = 1e5 + 5;
 int n;
 int a[N];
  
-int32_t main()
+int main()
 {
 	int t;
 	cin >> t;
