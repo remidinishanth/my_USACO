@@ -16,7 +16,6 @@
 #include <cstring>
 #include <chrono>
 #include <random>
-#include <queue>
 #include <bitset>
 using namespace std;
 
@@ -56,7 +55,6 @@ using str = string; // yay python!
 #define POSU(x,v) (upper_bound(x.begin(),x.end(),v)-x.begin())
 
 #define FOR(i,a,b) for (int i = int(a); i < int(b); i++)
-#define FORD(i,a,b) for(int i=int(b)-1; i>=int(a); i--)
 #define REP(i, n) for (int i = 0; i < int(n); i++)
 #define REP1(i,n) for (int i = 1; i <= int(n); i++)
 #define REV(i, n) for (int i = int(n)-1; i >=0 ; i--)
@@ -75,11 +73,8 @@ using str = string; // yay python!
 #define dsl2(a,b) ll a,b; scanf("%lld%lld",&a,&b)
 #define sl3(a,b,c) scanf("%lld%lld%lld",&a,&b,&c)
 #define dsl3(a,b,c) ll a,b,c; scanf("%lld%lld%lld",&a,&b,&c)
-#define pl(n) printf("%lld\n",n)	
-#define pls(n) printf("%lld ",n)	
-#define PR(a,n) { REP(_,n) cout<<a[_]<<' '; cout<<"\n"; }
-#define PR1(a,n) { REP1(_,n) cout<<a[_]<<' '; cout<<"\n"; }
-#define trace(x) cerr << " [" << #x << ": " << x << "]\n"
+#define pl(n) printf("%lld\n",n)  
+#define pls(n) printf("%lld ",n)  
 
 #define sim template < class c
 #define ris return * this
@@ -126,12 +121,13 @@ int cmp(double x, double y = 0, double tol = EPS) {
     return (x <= y + tol) ? (x + tol < y) ? -1 : 0 : 1;
 }
 
+int gcd(int a, int b) { return b ? gcd(b, a%b) : a; }
+
 template<class T> bool uin(T &a,T b) {return a > b ? (a=b, true):false;}
 template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-/* const int nax = 2e5+10; */
 
 int main(){
     return 0;
