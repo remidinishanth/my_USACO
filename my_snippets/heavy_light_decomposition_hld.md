@@ -1228,7 +1228,7 @@ We can even speed up the above solution by storing the value of left most index 
 
 #### SPOJ QTREE6
 
-TODO: https://discuss.codechef.com/t/qtree6-editorial/3906 & https://www.codechef.com/viewsolution/3054419
+TODO: https://discuss.codechef.com/t/qtree6-editorial/3906 & https://www.codechef.com/viewsolution/3054419 & https://www.codechef.com/viewsolution/3050051
 
 ## REF
 
