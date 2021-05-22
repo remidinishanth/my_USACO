@@ -78,6 +78,7 @@ source: https://codeforces.com/blog/entry/90793 Problem C
   * `vector<int> odd_nos = {1, 3, 5, 7, 9};`
   * `pair<int, string> p = {1, “Hi”}; // Equiv. to p=make_pair(1, "Hi")`
   * `map<int, string> m = { {1, “This”}, {2, “is”}, {3, “awesome”} };`
+  * `for(parity : {0,1}){ ... }`
 * Finding min and max of multiple variables:
 ```cpp
 // Long Way: 
