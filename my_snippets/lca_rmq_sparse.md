@@ -668,7 +668,7 @@ We assume that all queries are known in advance, and we therefore answer the que
 
 So let's assume we are currently at node `v`, we have already made recursive DFS calls, and also already visited the second node `u` from the query `(u,v)`. Let's learn how to find the LCA of these two nodes. Note that `LCA(u,v)` is either the node `v` or one of its ancestors. So we need to find the lowest node among the ancestors of `v` (including `v`), for which the node `u` is a descendant. Also note that for a fixed `v` the visited nodes of the tree split into a set of disjoint sets. Each ancestor `p` of node `v` has his own set containing this node and all subtrees with roots in those of its children who are not part of the path from `v` to the root of the tree. The set which contains the node `u` determines the `LCA(u,v)`: the LCA is the representative of the set, namely the node on lies on the path between v and the root of the tree.
 
-![image](https://user-images.githubusercontent.com/19663316/119238082-016a5d80-bb5e-11eb-9516-0e6ec66639c3.png)
+![image](https://user-images.githubusercontent.com/19663316/119238097-1d6dff00-bb5e-11eb-9be7-c47e1283b2f1.png)
 
 ```cpp
 vector<vector<int>> adj;
