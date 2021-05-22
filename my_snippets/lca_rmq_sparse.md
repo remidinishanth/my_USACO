@@ -578,3 +578,86 @@ Conceptually this idea is quite easy, but in terms of implementation it could be
 source: <https://codeforces.com/blog/entry/67138>, <https://codeforces.com/contest/986/submission/38947175>
 
 KACTL: <https://codeforces.com/contest/1304/submission/71134293> , <https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/LCA.h>
+
+### Counting Descendants
+
+We have a rooted tree with `N` vertices, numbered `1, 2, …, N`. Vertex `1` is the root, and the parent of Vertex `i ( 2 ≤ i ≤ N )` is Vertex `Pi` . You are given `Q` queries. In the `i`-th query `( 1 ≤ i ≤ Q )`, given integers `Ui` and `Di`, find the number of vertices u that satisfy all of the following conditions: 
+* Vertex `Ui` is in the shortest path from `u` to the root (including the endpoints). 
+* There are exactly `Di` edges in the shortest path from `u` to the root.
+
+**Solution**
+
+For first condition to satisfy, `Ui` has to be on the path from `1` to `u`. For the second condition to satisfy, `u` has to be at `depth[Di]` assumming that `depth[root] = 0`. So we need to find all the children in the subtree rooted at `Ui` whose `depth[Di] = Ui`.
+
+Perform a Depth-First search (DFS) from the root and record the timestamp when entering a vertex, `in_u` , and when exitting a vertex, `out_u`. For the Sample Input, it will be as follows:
+
+![image](https://user-images.githubusercontent.com/19663316/119229614-80e43680-bb36-11eb-8baf-d1f57be5f408.png)
+![image](https://user-images.githubusercontent.com/19663316/119229276-d15a9480-bb34-11eb-8543-5280d51b9046.png)
+
+Here, the following property is important:
+* `x` is a descendant of `y` <=> `in_y ≤ in_x < out_y`.
+
+Here, `x` is said to be a descendant of y if and only if the shortest path from the root to `x` contains `y`.
+
+That “`x` is a descendant of `y` <=> `in_y ≤ in_x < out_y`” is obvious by the progression of DFS; if `x` is a descendant of `y` , then it enters `x` after entering `y` , and exits `x` before exiting `y`. Therefore, it is sufficient to show “`in_y ≤ in_x < out_y => x is a descendant of y`”.
+
+We will show the contraposition. Assume that `x` is not a descendant of `y`. If `y` is a descendant of `x`, then `in_x ≤ in_y < out_x`, and since `x ≠ y`, `in_x ≠ in_y`, so we can see that “it does not hold that `in_y ≤ in_x < out_y`.” Now we also assume that `y` is not a descendant of `x`.
+
+Let `z` be the lowest common ancestor (LCA) of `x` and `y`. By the assumption, `x ≠ z` and `y ≠ z`.
+
+Let `c_x` be a child of `z` such that its subtree contains `x`, and let us define `c_y` similarly. Here, `c_x ≠ c_y`; if `c_x = c_y`, it contradicts to the fact `z` is the LCA.
+
+![image](https://user-images.githubusercontent.com/19663316/119229406-91e07800-bb35-11eb-9624-f575be93dde4.png)
+
+Considering the progression of the DFS, we can see that one of the following holds:
+* `in_c_x < out_c_x < in_c_y < out_c_y`
+* `in_c_y < out_c_y < in_c_x < out_c_x`
+
+In any case, `[ in_x , out_x ]` and `[ in_y , out_y ]` have nothing in common, since `x` is a descendant of `c_x` and `y` is a descendant of `c_y`. Therefore, we have shown that it does not hold that `in_y ≤ in_x < out_y`.
+
+The proof above can be understood intuitively by considering the rooted tree as a parenthesis sequence.
+
+This problem can be solved easily by applying the property we proved. For each depth, record the values of `in` of vertices of that depth. For a query `(U , D)` , it is sufficient to answer the number of such elements associated with depth `D` that is more than or equal to `in_U`, and less than `out_U`. This can be accomplished by binary search. In C++, we can use a function such as `std::lower_bound`.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+std::vector<std::vector<int>> children, list;
+std::vector<int> in, out, depth;
+int timer;
+
+void dfs(const int u) {
+    in[u] = timer++;
+    list[depth[u]].push_back(in[u]);
+    for (const int v : children[u]) {
+        depth[v] = depth[u] + 1;
+        dfs(v);
+    }
+    out[u] = timer++;
+}
+
+int main() {
+    int N;
+    std::cin >> N;
+    children = list = std::vector<std::vector<int>>(N);
+    in = out = depth = std::vector<int>(N);
+    for (int i = 1; i < N; ++i) {
+        int p;
+        std::cin >> p;
+        children[p - 1].push_back(i);
+    }
+    dfs(0);
+    int Q;
+    std::cin >> Q;
+    while (Q--) {
+        int u, d;
+        std::cin >> u >> d;
+        u -= 1;
+        const auto& v = list[d];
+        std::cout << std::lower_bound(v.cbegin(), v.cend(), out[u]) - std::lower_bound(v.cbegin(), v.cend(), in[u]) << '\n';
+    }
+    return 0;
+}
+```
