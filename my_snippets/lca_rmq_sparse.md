@@ -687,8 +687,7 @@ void dfs(int v)
     }
     for (int other_node : queries[v]) {
         if (visited[other_node])
-            cout << "LCA of " << v << " and " << other_node
-                 << " is " << ancestor[find_set(other_node)] << ".\n";
+            LCA[{v, other_node}] = ancestor[find_set(other_node)];
     }
 }
 
