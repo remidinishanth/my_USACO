@@ -661,3 +661,6 @@ int main() {
     return 0;
 }
 ```
+
+## LCA - Tarjan's Offline Algorithm
+
