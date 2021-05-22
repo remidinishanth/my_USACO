@@ -664,6 +664,8 @@ int main() {
 
 ## LCA - Tarjan's Offline Algorithm
 
+We assume that all queries are known in advance, and we therefore answer the queries in any order we like. 
+
 ```cpp
 vector<vector<int>> adj;
 vector<vector<int>> queries;
