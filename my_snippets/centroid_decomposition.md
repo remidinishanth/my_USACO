@@ -143,7 +143,9 @@ TODO - https://codeforces.com/blog/entry/52492?locale=en
 Implementation: https://codeforces.com/contest/321/submission/3973635, https://codeforces.com/contest/321/submission/45791725, https://usaco.guide/plat/centroid?lang=cpp
 
 
-
+**Difference between HLD and CD**
+* If we want to compute something on paths then we use HLD
+* If we want to compute something on an area, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
 
 REF: 
 * https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
