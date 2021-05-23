@@ -42,7 +42,7 @@ components using DFS.
 An ‘Articulation Point’ is defined as a vertex in a graph G whose removal (all edges
 incident to this vertex are also removed) disconnects G. A graph without any articulation
 point is called ‘Biconnected’. Similarly, a ‘Bridge’ is defined as an edge in a graph G whose
-removal disconnects G. These two problems are usually defined for undirected graphs.
+removal disconnects G. These two problems are usually defined for **undirected graphs**.
 
 We maintain two numbers `dfs_num(u)` and `dfs_low(u)`. Here, `dfs_num(u)` stores the iteration counter when the vertex u is 
 visited *for the first time*, `dfs_low(u)` stores the lowest `dfs_num` rechable from the current DFS spanning subtree of u.
