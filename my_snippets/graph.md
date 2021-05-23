@@ -1,3 +1,11 @@
+## DFS Tree
+
+![DFS Animation](images/dfs_animation.png)
+
+![image](https://user-images.githubusercontent.com/19663316/119249604-761db600-bbb7-11eb-9f86-6516d90c4288.png)
+
+source: https://codeforces.com/blog/entry/68138
+
 ## Finding cycle in (directed) graph
 
 Use colors, for example, white, grey and black.
