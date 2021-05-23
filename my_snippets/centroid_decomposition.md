@@ -100,9 +100,16 @@ int main() {
 
 ```
 
-Using only one DFS
+Pavel marvin
 
 ```python
+def dfs_size(x, p):
+    s = 1
+    for y in Adj[x]:
+        if y != p:
+	    s += dfs_size(y, p)
+    return s
+    
 def dfs_centroid(x, p):
     s = 1
     ok = True
@@ -118,6 +125,10 @@ def dfs_centroid(x, p):
     if ok:
         centroid = x
     return s
+    
+# To compute centroid
+n = dfs_size(v, -1)
+dfs_centroid(v, -1)
 ```
 
 **Centroid Decomposition**
