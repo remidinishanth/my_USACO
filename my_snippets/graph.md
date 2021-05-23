@@ -270,7 +270,7 @@ Once this has been done, the longest path in the whole DAG may be obtained by st
 You do not need to do the DFS (topological sort) and DP separately. Just do the DP in recursive
 manner. The situation where the recursive DP is good is exactly when the order of the DP is hidden.
 
-DFS in case of longest path for a DAG: What you can do is use `in_degree[x]==0` before you call `dfs(x)`, that is 
+DFS in case of longest path for a DAG: What you can do is use `in_degree[x] == 0` before you call `dfs(x)`, that is 
 ```cpp
 for(int v:Adj[u]){
     in_degree[v]--;
