@@ -65,7 +65,7 @@ vector <int> adj[maxn];
 int subtree_size[maxn];
 
 int get_subtree_size(int node, int par = -1) {
-	int& res = subtree_size[node];
+    int& res = subtree_size[node];
 	res = 1;
 	for (int i : adj[node]) {
 		if (i == par) continue;
