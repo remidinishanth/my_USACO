@@ -148,6 +148,10 @@ Suppose that there are`n` persons numbered `1,2,...n`. Let there be `n` hats als
 * Person `i` does not take the hat `1`. This case is equivalent to solving the problem with `n - 1` persons `n - 1` hats: each of the remaining `n - 1` people has precisely `1` forbidden choice from among the remaining `n - 1` hats (`i`'s forbidden choice is hat `1`).
 * Person `i` takes the hat `1`. Now the problem reduces to `n - 2` persons and `n - 2` hats.
 
+![image](https://user-images.githubusercontent.com/19663316/119258203-56ea4d00-bbe6-11eb-93b4-46ab3a0836dd.png)
+
+source: https://contest.cs.cmu.edu/295/s20/tutorials/counting.mark
+
 ## Modular multiplicative inverse
 
 Getting back to the formula for combination, we can rearrange so that
