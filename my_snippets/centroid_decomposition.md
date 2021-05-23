@@ -53,11 +53,6 @@ Centroid of the tree is different than centre of tree(centre of a tree is simply
 **Finding the centroid of a tree:** One way to find the centroid is to pick an arbitrary root, then run a depth-first search computing the size of each subtree, and then move starting from root to the largest subtree until we reach a vertex where no subtree has size greater than N/2. This vertex would be the centroid of the tree.
 
 
-TODO - https://robert1003.github.io/2020/01/16/centroid-decomposition.html & https://github.com/miguelAlessandro/robert1003.github.io/blob/master/_posts/2020-01-16-centroid-decomposition.md
-
-TODO - https://robert1003.github.io/tag/algorithm.html
-
-TODO - https://iq.opengenus.org/centroid-decomposition-of-tree/
 
 TODO - https://codeforces.com/blog/entry/52492?locale=en
 
@@ -67,4 +62,7 @@ Implementation: https://codeforces.com/contest/321/submission/3973635, https://c
 ![image](https://user-images.githubusercontent.com/19663316/119269676-81ec9500-bc16-11eb-9448-ab4e7968c6b9.png)
 
 
-REF: https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
+REF: 
+* https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
+* https://robert1003.github.io/2020/01/16/centroid-decomposition.html 
+
