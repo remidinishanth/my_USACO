@@ -10,9 +10,10 @@ Let us fix one node of Tree by picking a vertex of the tree and call it `c`. Now
 1) Some of the paths may not include this vertex `c`, then it will be completely inside one of the subtrees formed after removing `c`.
 2) If the path includes node `c`, then we can break into two segments `u to c` and `c to v`.
 
-![image](https://user-images.githubusercontent.com/19663316/119270576-ff1a0900-bc1a-11eb-9261-84c847174bf0.png)
-![image](https://user-images.githubusercontent.com/19663316/119270572-f88b9180-bc1a-11eb-9c00-522ebc7ffb8e.png)
-![image](https://user-images.githubusercontent.com/19663316/119270570-f0cbed00-bc1a-11eb-9657-fa2d98855f5f.png)
+![image](https://user-images.githubusercontent.com/19663316/119270642-5029fd00-bc1b-11eb-8d9c-9143a631b52e.png)
+![image](https://user-images.githubusercontent.com/19663316/119270647-57510b00-bc1b-11eb-8fb4-08779a76f9a9.png)
+![image](https://user-images.githubusercontent.com/19663316/119270631-3e485a00-bc1b-11eb-9722-7521a300f3af.png)
+
 
 
 
