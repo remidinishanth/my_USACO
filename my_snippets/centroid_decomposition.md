@@ -100,6 +100,25 @@ int main() {
 
 ```
 
+Using only one DFS
+
+```python
+def dfs_centroid(x, p):
+    s = 1
+    ok = True
+    for y in Adj[x]:
+    	if y == p:
+	    continue
+	sz_y = dfs_centroid(y, x)
+	if sz_y > n/2:
+	    ok = False
+	s += sz_y
+    if s < n/2: # checking for n - s ≤ n/2
+        ok = False
+    if ok:
+        centroid = x
+    return s
+```
 
 TODO - https://codeforces.com/blog/entry/52492?locale=en
 
