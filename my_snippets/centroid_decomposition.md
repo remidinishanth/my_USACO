@@ -42,11 +42,13 @@ Centroid of the tree is different than centre of tree(centre of a tree is simply
 
 **Existence: Is there always a centroid?** Yes. Every tree has at least one centroid.
 
-How do we find centroid of the tree? Start search at some node, if each subtree of that node has size `≤ ⌊n/2⌋`, then this node is centroid of the tree. If not there is a subtree with size `> n/2` (Note that there cannot exists two subtrees such that size `> n/2`, if so then size of tree is `> n`) go to the child of that subtree and continue. That's how we find centroid of the tree.
+**Theorem (Jordan, 1869):** Given a tree with `N` nodes, there exists a vertex whose removal partitions the tree into components, each with at most `N/2` nodes. (i.e. For any given tree, the centroid always exists)
+
+**Proof:** Let us chose any arbitrary vertex `a` in the tree, if `a` satisfies the property of the centroid, then we are done, else there exists one (and only one - if two such nodes exists then size of tree is `> N`) component with more than `N/2` vertices. We now consider the vertex `b` adjacent to `a` in that component and apply the same argument for `b` . We continue the same procedure unless we find the required vertex. Also, we never go back to any old vertices because the component containing them must have less than `N/2` vertices(because the subtree of `b` contains size `> N/2`). Since the no of vertices are finite, and we visit each vertex at most once, the procedure must end and hence the centroid must exist.
 
 ![image](images/centroid_decomposition2.gif)
 
-
+**Finding the centroid of a tree:** One way to find the centroid is to pick an arbitrary root, then run a depth-first search computing the size of each subtree, and then move starting from root to the largest subtree until we reach a vertex where no subtree has size greater than N/2. This vertex would be the centroid of the tree.
 
 
 TODO - https://robert1003.github.io/2020/01/16/centroid-decomposition.html & https://github.com/miguelAlessandro/robert1003.github.io/blob/master/_posts/2020-01-16-centroid-decomposition.md
