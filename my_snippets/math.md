@@ -115,6 +115,25 @@ Sometimes, the denominator 𝑘!(𝑛−𝑘)! is very large, but we can't modul
 	C(n, 0) = C(n, n) = 1 // base cases.
 
 	C(n, k) = C(n − 1, k − 1) + C(n − 1, k) // take or ignore nth item, n > k > 0.
+	
+## Combinatorial Enumeration (aka Counting Stuff)
+
+### Subfactorials - Counting derangements
+A derangement of a sequence of distinct elements is a permutation such that no element ends up in its original position. The number of derangements of a sequence of length `n` is called the subfactorial of `n` , written `! n` . Derrangements can be computed using the following recurrence relation
+
+	! n = ( n − 1 ) ( ! ( n − 1 ) + ! ( n − 2 ) ) 
+	
+Like factorials, it is often useful to precompute subfactorials before using them in order to save on redundant computation time.
+
+**Proof:**
+Combinatorial argument to prove the recurrence relation for number of derangements
+
+	d𝑛 = (n -1)(d𝑛−1 + d𝑛−2)
+	
+Suppose that there are`n` persons numbered `1,2,...n`. Let there be `n` hats also numbered `1,2,...n`. We have to find the number of ways in which no one gets the hat having same number as his/her number. Let us assume that the first person takes hat `i`. There are `n−1` ways for the first person to make such a choice. There are now two possibilities, depending on whether or not person `i` takes hat `1` in return:
+
+* Person `i` does not take the hat `1`. This case is equivalent to solving the problem with `n - 1` persons `n - 1` hats: each of the remaining `n - 1` people has precisely `1` forbidden choice from among the remaining `n - 1` hats (`i`'s forbidden choice is hat `1`).
+* Person `i` takes the hat `1`. Now the problem reduces to `n - 2` persons and `n - 2` hats.
 
 ## Modular multiplicative inverse
 
