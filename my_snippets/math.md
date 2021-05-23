@@ -116,6 +116,19 @@ Sometimes, the denominator 𝑘!(𝑛−𝑘)! is very large, but we can't modul
 
 	C(n, k) = C(n − 1, k − 1) + C(n − 1, k) // take or ignore nth item, n > k > 0.
 	
+```cpp
+// Compute Binomial(n,k) mod m for all n <= max_n and k <= max_k
+function precompute(max_n, max_k, m) {
+  binom = table of size (max_n+1) * (max_k+1)
+  for (n = 0; n <= max_n; n++) binom[n][0] = 1
+  for (n = 1; n <= max_n; n++) {
+    for (k = 1; k <= n && k <= max_k; k++) {
+      binom[n][k] = (binom[n-1][k] + binom[n-1][k-1]) % m
+    }
+  }
+}
+```
+	
 ## Combinatorial Enumeration (aka Counting Stuff)
 
 ### Subfactorials - Counting derangements
