@@ -147,6 +147,8 @@ Implementation: https://codeforces.com/contest/321/submission/3973635, https://c
 * If we want to compute something on paths then we use HLD
 * If we want to compute something on an area, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
 
+Solve this problem https://codeforces.com/contest/1174/problem/F
+
 REF: 
 * https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
 * https://robert1003.github.io/2020/01/16/centroid-decomposition.html 
