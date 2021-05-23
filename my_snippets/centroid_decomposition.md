@@ -52,6 +52,53 @@ Centroid of the tree is different than centre of tree(centre of a tree is simply
 
 **Finding the centroid of a tree:** One way to find the centroid is to pick an arbitrary root, then run a depth-first search computing the size of each subtree, and then move starting from root to the largest subtree until we reach a vertex where no subtree has size greater than N/2. This vertex would be the centroid of the tree.
 
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int maxn = 200010;
+
+int n;
+vector <int> adj[maxn];
+int subtree_size[maxn];
+
+int get_subtree_size(int node, int par = -1) {
+	int& res = subtree_size[node];
+	res = 1;
+	for (int i : adj[node]) {
+		if (i == par) continue;
+		res += get_subtree_size(i, node);
+	}
+	return res;
+}
+
+int get_centroid(int node, int par = -1) {
+	for (int i : adj[node]) {
+		if (i == par) continue;
+
+		if (subtree_size[i] * 2 > n) {
+			return get_centroid(i, node);
+		}
+	}
+	return node;
+}
+
+int main() {
+	cin >> n;
+	for (int i = 0; i < n - 1; i++) {
+		int a, b;
+		cin >> a >> b;
+		a--; b--;
+		adj[a].push_back(b);
+		adj[b].push_back(a);
+	}
+
+	get_subtree_size(0);
+	cout << get_centroid(0) + 1 << endl;
+}
+```
 
 
 TODO - https://codeforces.com/blog/entry/52492?locale=en
