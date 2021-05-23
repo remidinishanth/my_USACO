@@ -29,11 +29,25 @@ Then add the elements of second subtree to binary search tree and continue. Each
 2. Another way to calculate is to subtract the values we don't want to include. For a node `u` calculate all the nodes `v` of tree such that `d[v] ≤ D - d[u]` and then subtract the number of nodes which are in the same subtree as `u`.
 
 
+Important thing is how to choose node `c`. Time complexity depends on how good is the node `c`, when we use divide and conquer technique we want to divide our problem into subproblems of equal size. We choose our vertex to be centroid of the tree.
+
+A centroid is defined as a vertex such that when removed, all of the resulting subtrees have a size of at most half that of the original tree (that is, `⌊n/2⌋`).
+
+![image](images/centorid_decomposition.gif)
+
+Centroid of the tree is different than centre of tree(centre of a tree is simply the middle vertex/vertices of the diameter of the tree). Centre of the tree is the node such that if rooted minimizes the height of the rooted tree. The centre of the tree in the middle of the largest path in the tree. In the following image `blue` node is the centre of the tree whereas the `red` node is the centroid of the tree.
+
+![image](https://user-images.githubusercontent.com/19663316/119272034-c3367200-bc21-11eb-9a8f-25e2805ff07e.png)
+
+
+**Existence: Is there always a centroid?** Yes. Every tree has at least one centroid.
+
+How do we find centroid of the tree? Start search at some node, if each subtree of that node has size `≤ ⌊n/2⌋`, then this node is centroid of the tree. If not there is a subtree with size `> n/2` (Note that there cannot exists two subtrees such that size `> n/2`, if so then size of tree is `> n`) go to the child of that subtree and continue. That's how we find centroid of the tree.
+
+![image](images/centroid_decomposition2.gif)
 
 
 
-
-We can use Centroid decomposition technique to solve this problem. Centroid Decomposition is just a divide and conquer technique which is used on trees and turns out useful in many problems.
 
 TODO - https://robert1003.github.io/2020/01/16/centroid-decomposition.html & https://github.com/miguelAlessandro/robert1003.github.io/blob/master/_posts/2020-01-16-centroid-decomposition.md
 
@@ -48,3 +62,6 @@ Implementation: https://codeforces.com/contest/321/submission/3973635, https://c
 ![image](https://user-images.githubusercontent.com/19663316/119269663-6aada780-bc16-11eb-8d91-051c2db7fbe3.png)
 
 ![image](https://user-images.githubusercontent.com/19663316/119269676-81ec9500-bc16-11eb-9448-ab4e7968c6b9.png)
+
+
+REF: https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
