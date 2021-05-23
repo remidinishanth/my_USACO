@@ -1,3 +1,14 @@
+# Centroid Decomposition
+
+## Task
+
+Given a tree, we are asked to find all the number of pairs `(u, v)` such that `dist(u, v) ≤ D`.
+
+We can use Centroid decomposition technique to solve this problem. Centroid Decomposition is just a divide and conquer technique which is used on trees and turns out useful in many problems.
+
+
+
+
 TODO - https://robert1003.github.io/2020/01/16/centroid-decomposition.html & https://github.com/miguelAlessandro/robert1003.github.io/blob/master/_posts/2020-01-16-centroid-decomposition.md
 
 TODO - https://robert1003.github.io/tag/algorithm.html
