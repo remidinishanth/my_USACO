@@ -6,6 +6,8 @@ Given a tree, we are asked to find all the number of pairs `(u, v)` such that `d
 
 **Solution**
 
+Note: This problem can also be solved by Small-To-Large Merging https://usaco.guide/plat/merging?lang=cpp
+
 Let us fix one node of Tree by picking a vertex of the tree and call it `c`. Now let us split all the possible paths into classes: 
 1) Some of the paths may not include this vertex `c`, then it will be completely inside one of the subtrees formed after removing `c`.
 2) If the path includes node `c`, then we can break into two segments `u to c` and `c to v`.
