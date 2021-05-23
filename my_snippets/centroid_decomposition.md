@@ -110,6 +110,10 @@ On removing the centroid, the given tree decomposes into a number of different t
 
 ![image](https://user-images.githubusercontent.com/19663316/119269676-81ec9500-bc16-11eb-9448-ab4e7968c6b9.png)
 
+Centroid Decomposition works by repeated splitting the tree and each of the resulting subgraphs at the centroid, producing `O(log N)` layers of subgraphs.
+
+
+
 
 TODO - https://codeforces.com/blog/entry/52492?locale=en
 
