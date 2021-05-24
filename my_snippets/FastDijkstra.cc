@@ -83,6 +83,9 @@ Expected:
 // This complexity is optimal for dense graph, i.e. when m≈n^2. However in sparse graphs, when m is much smaller than the maximal number of edges O(n^2), 
 // the problem can be solved in O(nlogn+m) complexity using the above implementation.
 
+// Here the graph adj is stored as adjacency list: for each vertex v adj[v] contains the list of edges going from this vertex, 
+// i.e. the list of pair<int,int> where the first element in the pair is the vertex at the other end of the edge, and the second element is the edge weight.
+
 const int INF = 1000000000;
 vector<vector<pair<int, int>>> adj;
 
@@ -115,6 +118,25 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
         }
     }
 }
+
+// After performing all the iterations array d[] stores the lengths of the shortest paths to all vertices, 
+// and array p[] stores the predecessors of all vertices (except starting vertex s). 
+
+
+//The path to any vertex t can be restored in the following way:
+
+vector<int> restore_path(int s, int t, vector<int> const& p) {
+    vector<int> path;
+
+    for (int v = t; v != s; v = p[v])
+        path.push_back(v);
+    path.push_back(s);
+
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+
 
 /*
 In a directed graph, if we apply Dijkstra’s algorithm from vertex i, we can obtain the distance from vertex i to each vertex j. 
