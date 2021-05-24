@@ -112,7 +112,7 @@ On removing the centroid, the given tree decomposes into a number of different t
 
 Centroid Decomposition works by repeated splitting the tree and each of the resulting subgraphs at the centroid, producing `O(log N)` layers of subgraphs. Since at each step, the new trees formed by removing the centroid have size at-most `N/2`, the maximum no of levels would be `O(log N)`. Hence, the height of the centroid tree would be at most `O(log N)`.
 
-Time Complexity of Centroid decomposition:
+Time Complexity of Centroid decomposition: `O(N logN)`
 
 ![image](https://user-images.githubusercontent.com/19663316/119274243-8cb22480-bc2c-11eb-9d6f-b47e3b881e5b.png)
 
