@@ -128,6 +128,17 @@ function precompute(max_n, max_k, m) {
   }
 }
 ```
+
+## Factors
+
+```cpp
+factors[i] -> list of factors of i
+for 1 <= i <= M:
+     j = i
+     while j <= M:
+          factors[j].add(i)
+          j += i
+```  
 	
 ## Combinatorial Enumeration (aka Counting Stuff)
 
