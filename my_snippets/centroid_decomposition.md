@@ -134,15 +134,18 @@ Centroid Decomposition works by repeated splitting the tree and each of the resu
 * Using some DS, we maintain the required information (based on the problem) about these `O(NlogN)` different paths chosen such that any other path can be decomposed into 2 different paths from this set and these two paths can be found in `O(logN)` time, by finding the LCA in the centroid tree (since height of centroid tree is at most `O(logN)`, we can find the LCA by just moving up from the deeper node).
 * Each path from `a` to `b` in the original tree can be represented path from `a -> lca(a, b)` and `lca(a, b) -> b`. For each node we have `O(logN)` ancestors becuase the height of tree is `O(logN)`. There are `N` nodes in total and hence number of paths in `O(NlogN)`, that is there are only `O(NlogN)` paths from every node to its ancestors.
 
+## Problems & Analysis
+
+**Difference between HLD and CD**
+* If we want to compute something on paths then we use HLD
+* If we want to compute something on an area, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
+
 
 TODO - https://codeforces.com/blog/entry/52492?locale=en
 
 Implementation: https://codeforces.com/contest/321/submission/3973635, https://codeforces.com/contest/321/submission/45791725, https://usaco.guide/plat/centroid?lang=cpp, https://codeforces.com/contest/1303/submission/76216413, neal https://codeforces.com/contest/1303/submission/70880989
 
 
-**Difference between HLD and CD**
-* If we want to compute something on paths then we use HLD
-* If we want to compute something on an area, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
 
 Solve this problem https://codeforces.com/contest/1174/problem/F
 
