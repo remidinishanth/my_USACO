@@ -436,7 +436,7 @@ We will need,
 
 * If m+n is odd, let's assume median in left part, then `i + j = (m - i) + (n - j) + 1 => j = (m + n + 1)/2 - i`
 
-These two cases can be clubbed into `j = (m + n + 1)/2 - i`
+Under Integer division, these two cases can be clubbed into `j = (m + n + 1)/2 - i`
 
 Hence we will need to have 
 ```
