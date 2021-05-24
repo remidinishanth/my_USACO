@@ -467,7 +467,6 @@ We have `j = (m + n + 1)/2 - i`, since `0 <= i <= m`, `(m + n + 1)/2 - m <= j <=
             imax = i - 1
         else:
             # i is perfect
-
             if i == 0: max_of_left = B[j-1]
             elif j == 0: max_of_left = A[i-1]
             else: max_of_left = max(A[i-1], B[j-1])
