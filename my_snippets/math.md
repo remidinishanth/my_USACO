@@ -799,3 +799,6 @@ double pow(double a, int n) {
 ◮ Compute the determinant of a matrix
 
 ◮ All of the above can be done with Gaussian elimination
+
+
+TODO: Look at https://github.com/ta7uw/atcoder-cpp/tree/master/lib/number
