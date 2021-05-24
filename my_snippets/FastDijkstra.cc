@@ -68,11 +68,60 @@ Expected:
 */
 
 
+// Dijsktra's algorithm in O(n^2 + m)
+
+// Dijkstra's algorithm performs n iterations. On each iteration it selects an unmarked vertex v with the lowest value d[v], 
+// marks it and checks all the edges (v,to) attempting to improve the value d[to].
+
+// The running time of the algorithm consists of:
+// n searches for a vertex with the smallest value d[v] among O(n) unmarked vertices
+// m relaxation attempts
+
+// For the simplest implementation of these operations on each iteration vertex search requires O(n) operations, 
+// and each relaxation can be performed in O(1). Hence, the resulting asymptotic behavior of the algorithm is: O(n^2+m)
+
+// This complexity is optimal for dense graph, i.e. when m≈n^2. However in sparse graphs, when m is much smaller than the maximal number of edges O(n^2), 
+// the problem can be solved in O(nlogn+m) complexity using the above implementation.
+
+const int INF = 1000000000;
+vector<vector<pair<int, int>>> adj;
+
+void dijkstra(int s, vector<int> & d, vector<int> & p) {
+    int n = adj.size();
+    d.assign(n, INF);
+    p.assign(n, -1);
+    vector<bool> u(n, false);
+
+    d[s] = 0;
+    for (int i = 0; i < n; i++) {
+        int v = -1;
+        for (int j = 0; j < n; j++) {
+            if (!u[j] && (v == -1 || d[j] < d[v]))
+                v = j;
+        }
+
+        if (d[v] == INF)
+            break;
+
+        u[v] = true;
+        for (auto edge : adj[v]) {
+            int to = edge.first;
+            int len = edge.second;
+
+            if (d[v] + len < d[to]) {
+                d[to] = d[v] + len;
+                p[to] = v;
+            }
+        }
+    }
+}
+
+/*
 In a directed graph, if we apply Dijkstra’s algorithm from vertex i, we can obtain the distance from vertex i to each vertex j. 
 	
 Also, if we reverse all the directions of edges and similarly apply Dijkstra’s algorithm from vertex i, we can find the minimum distance from each 
 vertex j to vertex i in the original graph.
-
+*/
 	
 
 // source: https://github.com/ta7uw/atcoder-cpp/blob/master/lib/graph/dijkstra.cpp	
