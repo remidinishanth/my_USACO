@@ -168,3 +168,116 @@ vector<int> find_topsort(const digraph<T> &g) {
 }
 
 // Usage: digraph<int> g(n); edge g.add(x, y); vector<int> order = find_topsort(g);
+
+
+// Given an array of sorted words in the alien language (or a dictionary of words in the alien language), 
+// return a string containing the correct order of alphabets used in the alien language.
+// If many consistent orderings are possible, return the lexicographically smallest ordering.
+
+// We can use "Topological sort" (or Topsort) algorithm to answer this question. 
+// Given a directed graph, topsort answers the question of "What comes after what".
+
+// In question we are asked to find the alphabetical order of an Alien language and we are given a dictionary of words 
+// in the alien language. Hence we can form a directed graph (like a->b->c..->z) using the dictionary and 
+// then find the topological order of that graph and we have the alphabetical order in alien language!
+
+// To produce the graph from dictionary,
+// Compare first and second word, during the first instance of mismatch of letters in first and second, 
+// or when first[i]!=second[i], we can form an edge from first[i] to second[i], because first[i] has more priority than second[i]. 
+// The same process is done till second last-last. (If there is only 1 word, no edge is formed)
+
+// For implementing topsort, We use an algorithm called Kahn's Algorithm. The algorithm is implemented by selecting a node with in-degree equal to 0, 
+// pushing the node into the topological order and removing all edges attached to it. 
+// (In-degree is the number of edges that come into a node). The process is repeated until all nodes are added into the topological order.
+// If the process terminates before all nodes are added then it means there is a cycle in the graph.
+
+// Since we want lexicographicaly smallest ordering, we will always remove edges from the lexicographically smallest node with in-degree 0.
+
+#include<vector>  // For vector
+#include<string>  // For string
+#include<set>	  // For set
+
+class AlienAlphabetsOrder {
+    private:
+        std::set < int > adj[26]; // Adjacency list
+    //std::set is used so that no duplicate edges are formed. (Adjacency matrix may also be used)
+
+    std::string answer = ""; // Final answer
+    int addEdge(std::string a, std::string b) {
+        //Function to add edge given two words 'a' and 'b' where 'a' appears before 'b'
+        //in the dictionary
+
+        int mn = std::min(a.length(), b.length());
+        for (int i = 0; i < mn; i++) {
+            if (a[i] != b[i]) {
+                //As stated in editorial, we will add edge at the first instance of mismatch
+                //of letters between the words
+                adj[int(a[i] - 'a')].insert(int(b[i] - 'a'));
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    int kahn() {
+        //Kahn's algorithm for topological sorting
+        int inDegree[26] = { 0 };
+        //Array to store in-degree of nodes
+
+        for (int i = 0; i < 26; i++) {
+            for (int x: adj[i]) {
+                inDegree[x]++;
+                // If there is an edge from i to x then in-degree of x should increase by 1
+            }
+        }
+
+        std::set < int > st;
+        for (int i = 0; i < 26; i++) {
+            if (inDegree[i] == 0) {
+                // Picking all nodes with in-degree = 0 for kahn's algorithm
+                // We will then choose the lexicographically smallest node
+                // Since set will automatically sort in ascending order we can easily choose the smallest node.
+                st.insert(i);
+            }
+        }
+
+        while (!st.empty()) {
+            int cur = * st.begin();
+            answer += char(cur + 'a');
+            //Selected node added to topological ordering (answer string is our topological order)
+            st.erase(st.find(cur));
+            //Selected(smallest) node removed
+            for (int x: adj[cur]) {
+                //in-degree will decrease by 1 since we are removing all edges from the chosen node
+                inDegree[x]--;
+
+                if (inDegree[x] == 0) {
+                    //As stated in editorial we again take all elements with indegree 0 and choose the smallest node
+                    st.insert(x);
+                }
+            }
+        }
+
+        for (int i = 0; i < 26; i++) {
+            //If all nodes are taken then all nodes will finally have in-degree 0 
+            //Else all nodes arent taken which means there is a cycle in the graph
+            if (inDegree[i] > 0) return -1;
+        }
+        return 0;
+    }
+
+    public:
+        std::string getAlphabetOrder(std::vector < std::string > sortedWords) {
+            int sz = sortedWords.size();
+            for (int i = 0; i < sz - 1; i++) {
+                addEdge(sortedWords[i], sortedWords[i + 1]);
+            }
+            if (kahn() != -1) {
+                // If kahn() != -1 then it means there is no cycle in the graph and we should return answer
+                return answer;
+            } else {
+                // If kahn() == -1 then it means there is a cycle in the graph and we should return empty string
+                return "";
+            }
+        }
+};
