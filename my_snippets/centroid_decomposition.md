@@ -136,6 +136,21 @@ Centroid Decomposition works by repeated splitting the tree and each of the resu
 
 ## Problems & Analysis
 
+### CF 199 Div 2 E. Xenia and Tree 
+
+https://codeforces.com/contest/342/problem/E
+
+Given a tree of `n` nodes indexed from `1` to `n`. The first node is initially painted red, and the other nodes are blue. 
+
+We should execute two types of queries:
+* paint a specified blue node to red
+* calculate which red node is the closest to the given one and print the shortest distance to the closest red node.
+
+**Solution**
+
+# TODO
+
+
 **Difference between HLD and CD**
 * If we want to compute something on paths then we use HLD
 * If we want to compute something on an area, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
