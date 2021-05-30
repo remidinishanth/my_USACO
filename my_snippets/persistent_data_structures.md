@@ -30,9 +30,10 @@
   
 * Persistent Segment Tree
 
-  We want to save all the versions of the segment tree. If we do naively we require `O(NQ)` memory. We can do better because every time we do a modify in segment tree, we change only `O(log N)` nodes. Example Say we modify element `[4:4]` in the segment tree.
+  We want to save all the versions of the segment tree. If we do naively we require `O(NQ)` memory. We can do better because every time we do a modify in segment tree, we change only `O(log N)` nodes. Example Say we modify element `[5:5]` in the segment tree with sum as combine operation.
   
-  ![image](https://user-images.githubusercontent.com/19663316/120119696-ccda4f80-c1b6-11eb-9e3b-a1c141a8d5aa.png)
+  ![image](https://user-images.githubusercontent.com/19663316/120120417-acac8f80-c1ba-11eb-8203-451fd2ec3d81.png)
+
 
 ### Making segment tree persistent
 
