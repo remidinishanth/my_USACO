@@ -546,6 +546,8 @@ for(i = 0; i < n; i++)
 cout<<st.size()<<endl;
 ```
 
+### TODO: https://codeforces.com/contest/1526/problem/C2
+
 ### 0-1 Knapsack
 
 Problem: Given n items, each with its own value Vi and weight Wi, ∀i ∈ [0..n-1], and a maximum knapsack size S, compute the maximum value of the items that we can carry, if we can either ignore or take a particular item (hence the term 0-1 for ignore/take).
