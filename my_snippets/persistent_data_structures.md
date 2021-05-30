@@ -53,6 +53,9 @@
 // Author: Tanuj Khattar (Baba)
 // Code for https://www.spoj.com/problems/KQUERY/
 // Accepted via both Path Copying and Fat Node persistence.
+
+// Range sum for [L, R)
+
 #include <bits/stdc++.h>
 
 using namespace std;
