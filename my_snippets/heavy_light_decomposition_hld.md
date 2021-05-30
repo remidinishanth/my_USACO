@@ -1195,6 +1195,8 @@ We can also solve this problem by using Segment tree by storing {height[i], i} i
 
 Another way to solve this problem is to use `true` or `false` based on the color of nodes in each tree node return `node` value in case it is true. Use `0` for white color and `1` for black color.
 
+Segment tree should answer the following: index of left most black node in a range.
+
 <details>
 	<summary> Solution using Segment Tree </summary>
 	
