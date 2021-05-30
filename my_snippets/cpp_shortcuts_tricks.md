@@ -49,6 +49,19 @@ sort(ord.begin(), ord.end(), [&a](int x, int y){
 
 source: https://codeforces.com/blog/entry/90793 Problem C
 
+### Random shuffle
+
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
+// inside main
+  vector<int> order(n);
+  iota(order.begin(), order.end(), 0);
+  shuffle(order.begin(), order.end(), rng);
+```
+
+source: https://codeforces.com/contest/1523/submission/117881477
+
 ### Printing with precision in CPP, Faster IO
 ```cpp
   // Fast IO
