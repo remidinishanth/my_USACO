@@ -104,7 +104,6 @@ namespace fat_node_segtree {
   vector<pair<int, int>> ST[N * LOGN];
 
   // sparse persistent-segtree. range sum, initially 0
-
   int latest_value_or_zero(int id) {
     return (ST[id].empty() ? 0 : ST[id].back().second);
   }
