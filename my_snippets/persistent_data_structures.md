@@ -1,3 +1,41 @@
+## What is persistence?
+* Keep all versions of DS.
+* DS operations relative to specified version
+* Update creates(& returns) new version (never modify a version)
+
+## Types of Persistence
+* Partial persistence
+  * Update only the latest version - versions are linearly ordered
+  * Query any versoin of the data structure
+* Full persistence
+  * Update any version - versions form a tree
+  * Query any version of the data structure
+
+## Motivating Problem (Spoj KQUERY)
+
+**Problem:** Given an array `A` with `N` elements, answer `Q` queries of the form:
+* Range query: Given `L, R, K` - Find the number of elements in `[L, R]` which are greater than `K`
+
+**Solution**
+
+* Observation: Answer = (Number of numbers `> K` in `[1:R]`) - (Number of numbers `> K` in `[1:L-1]`)
+
+* Modified question: Given an index `i`, query number of elements `> K` in `[1:i]`
+
+  Given `i, K`: We can maintain have a frequency of elements in the array from `[1:i]` and return Sum of `F[p]` for `p > K`. 
+  
+  For a fixed `i` this can be done by segment tree range sum and point update.
+  
+  If we have a way to maintain this segment tree for all `i` then we are done. Observation: Segment tree for `i+1` will differ segment tree of position `i` only in `logN` nodes because we only increment `Frequency[A[i+1]]`.
+  
+* Persistent Segment Tree
+
+  We want to save all the versions of the segment tree. If we do naively we require `O(NQ)` memory. We can do better because every time we do a modify in segment tree, we change only `O(log N)` nodes. Example Say we modify element `[4:4]` in the segment tree.
+  
+  ![image](https://user-images.githubusercontent.com/19663316/120119696-ccda4f80-c1b6-11eb-9e3b-a1c141a8d5aa.png)
+
+
+
 ```cpp
 // Author: Tanuj Khattar (Baba)
 // Code for https://www.spoj.com/problems/KQUERY/
