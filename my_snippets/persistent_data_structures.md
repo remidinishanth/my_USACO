@@ -241,3 +241,7 @@ int main()
 ```
 
 source: https://codeforces.com/blog/entry/45428?#comment-304665
+
+
+### Implementation
+TODO: https://discuss.codechef.com/t/persistence-made-simple-tutorial/14915
