@@ -150,3 +150,6 @@ ll modinv(ll a, ll m) {
 
 
 // Nice blog https://discuss.codechef.com/t/guide-to-modular-arithmetic-plus-tricks-codechef-edition-there-is-no-other-edition/67424
+
+
+// tourist https://codeforces.com/contest/1523/submission/117878219
