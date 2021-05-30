@@ -173,7 +173,7 @@ void make_root()
  
 void add(int pos, int x, int v = root[rt - 1], int l = 0, int r = maxn)
 {
-	sum[v] += x;
+    sum[v] += x;
     if(r - l == 1)
         return;
     int m = (l + r) / 2;
