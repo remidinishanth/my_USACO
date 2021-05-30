@@ -94,6 +94,7 @@ namespace path_copying_segree {
 
 }  // namespace path_copying_segree
 
+
 namespace fat_node_segtree {
 
   int L[N * LOGN], R[N * LOGN], blen, root;
