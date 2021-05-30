@@ -34,6 +34,18 @@
   
   ![image](https://user-images.githubusercontent.com/19663316/120119696-ccda4f80-c1b6-11eb-9e3b-a1c141a8d5aa.png)
 
+### Making segment tree persistent
+
+* Fat node persistence
+  * Add modification history to node, thus each node knows what it's value was at any previous point in time. 
+  * We can use a vector(version_number, value) in every node of segment tree. Whenever we want to update a node, we push_back (current_version, value) into the vector of this node.
+  * Querying a node will take `O(log m)` time if we have made `m` modifications. Since we’ve arranged the modifications by increasing time, you can find the right version by binary search on the modification history, using the timestamp as key. So query on segment tree takes `O(log^2 m)` time: one log for traversing the segment tree and the other for searching value in the fat node.
+
+* Path copying persistence
+  * Create a copy for every affected node and update necessary links to old / new nodes.
+  ![image](https://user-images.githubusercontent.com/19663316/120120158-2e032280-c1b9-11eb-9b8d-d17a66e1b298.png)
+  * From version's root since we can move to the node, query on segment tree costs just `O(log m)`.
+  
 
 
 ```cpp
