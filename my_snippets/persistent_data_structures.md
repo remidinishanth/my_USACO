@@ -243,5 +243,94 @@ int main()
 source: https://codeforces.com/blog/entry/45428?#comment-304665
 
 
-### Implementation
+### Implementation and comparision with normal segment tree
+
+#### Build
+
+Segment Tree
+
+```cpp
+int n, t[4*MAXN];
+int a[MAXN];
+
+// call this function with parameters v = 1, tl = 0, tr = n-1
+void build(int v = 1, int tl = 0, int tr = n - 1) {
+    if (tl == tr)
+        t[v] = a[tl];
+    else {
+        int tm = (tl + tr) / 2;
+        build(v * 2, tl, tm);
+        build(v * 2 + 1, tm + 1, tr);
+        t[v] = t[v * 2] + t[v * 2 + 1];
+    }
+}
+```
+
+Persistent Segment Tree
+
+```cpp
+int build(int tl, int tr){
+    if (tl == tr) return newleaf(a[tl]); // construct as leaf
+
+    int tm = (tl + tr) / 2;
+    return newparent(build(tl, tm), build(tm+1, tr)); // construct as parent 
+}
+
+// Usage:
+int root = build(0, n - 1);
+```
+
+Creating New nodes
+
+```cpp
+int l[SIZE], r[SIZE], st[SIZE], NODES = 0;
+int newleaf(int value) {
+    int p = ++NODES;
+    l[p] = r[p] = 0; // null
+    st[p] = value;
+    return p;
+}
+int newparent(int lef, int rig) {
+    int p = ++NODES;
+    l[p] = lef;
+    r[p] = rig;
+    st[p] = st[lef] + st[rig]; // immediately update value from children
+    return p;
+}
+```
+
+#### Point Update
+
+Segment tree
+
+```cpp
+void update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr)
+        t[v] = new_val;
+    else {
+        int tm = (tl + tr) / 2;
+        if (pos <= tm)
+            update(v * 2, tl, tm, pos, new_val);
+        else
+            update(v * 2 + 1, tm + 1, tr, pos, new_val);
+        t[v] = t[v * 2] + t[v * 2 + 1];
+    }
+}
+```
+
+Persistent Segment Tree
+```cpp
+int update(int v, int tl, int tr, int pos, int new_val) {
+    if (tl == tr) return newleaf(new_val);
+    
+    int tm = (tl + tr) / 2;
+    if (pos <= tm) return newparent(update(l[v], tl, tm, pos, new_val), r[v]);
+    else return newparent(l[v], update(r[v], tm + 1, tr, pos, new_val));
+}
+
+// Usage:
+int new_version_root = update(root, 0, n - 1, pos, val);
+// Both roots are valid, you can query from both of them!
+```
+
 TODO: https://discuss.codechef.com/t/persistence-made-simple-tutorial/14915
