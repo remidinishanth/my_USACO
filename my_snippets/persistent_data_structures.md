@@ -166,7 +166,10 @@ int main() {
 }
 ```
 
-### Adamant's implementation
+### Adamant's implementation of DQUERY.
+
+<details>
+ 
 ```cpp
 #include <bits/stdc++.h>
  
@@ -242,6 +245,7 @@ int main()
 
 source: https://codeforces.com/blog/entry/45428?#comment-304665
 
+</details>
 
 ### Implementation and comparision with normal segment tree
 
