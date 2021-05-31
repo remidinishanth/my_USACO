@@ -357,3 +357,24 @@ int reverted_root = rangecopy(a, b, root, old_version_root);
 We pass in two roots: the current tree root and the old version root. We traverse both side-by-side, and replace only the relevant nodes during our traversal. This meek five-lined function is the foundation of efficient version-control, which is but one of the many operations you can do with a persistent segment tree.
 
 REF: https://discuss.codechef.com/t/persistence-made-simple-tutorial/14915
+
+### Lazy propogation
+
+This is just a straightforward combination of both ideas.
+
+If you know both concepts individually and you don’t see how to combine them, try thinking about it in the other direction: instead of adding lazy propagation to persistent segment trees, take a segment tree with lazy propagation and think about how to make it persistent.
+
+Note the following:
+
+* When using lazy propagation in segment trees, you just store some additional information in each node: data on the update that has been lazily postponed and thus still has to be applied to its subtree.
+* In lazy segment trees each individual update still runs in logarithmic time, and thus in each individual update we only access (and possibly modify) at most a logarithmic number of nodes in the tree.
+* When you have a segment tree and you add persistence using path copying, the asymptotic time complexity of your implementation remains the same, it’s only the space complexity that will increase. This is because in the non-persistent tree you did access all the nodes you also copied in the persistent version.
+
+Now you just do both the lazy updates and path copying, and you are done.
+
+That is, whenever you perform an update on a persistent lazy segment tree, do exactly the same thing you would do in the non-persistent version, but instead of overwriting data always create a new copy of the node you want to modify (and also of all nodes who are their ancestors in the tree, even if you aren’t modifying those). Then:
+
+* As I explained above, doing this does not change the asymptotic time complexity of that particular update. (It does increase the space complexity by a logarithmic number of new nodes per query, but that’s usually still within all reasonable limits.)
+* The new nodes you added make the structure persistent: the tree as seen from the new root you created at the end of the update does exactly correspond to the new state of the original tree, and you didn’t destroy any previous information.
+
+Quora: Misof https://qr.ae/pGsx2K
