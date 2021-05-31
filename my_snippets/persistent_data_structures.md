@@ -337,4 +337,23 @@ int new_version_root = update(root, 0, n - 1, pos, val);
 // Both roots are valid, you can query from both of them!
 ```
 
-TODO: https://discuss.codechef.com/t/persistence-made-simple-tutorial/14915
+#### Range revert / Range copy
+
+(Bonus) This is the ultimate version control technique one can pull off with regards to reverting a range back to a certain version. Imagine doing a range reset back to initial values - what a breakthrough! Although I find it rare to see problems that need range copy (e.g. [OAK](https://www.codechef.com/problems/OAK)), it’s one of those operations that can come in handy. Fortunately, for a persistent tree, this can easily be achieved a few lines of code:
+
+```cpp
+// revert range [a:b] of p
+int rangecopy(int a, int b, int p, int revert, int L=0, int R=n-1) {
+    if (b < L || R < a) return p; // keep version
+    if (a <= L && R <= b) return revert; // reverted version
+    return newparent(rangecopy(a, b, l[p], l[revert], L, M),
+                     rangecopy(a, b, r[p], r[revert], M+1, R));
+}
+
+// Usage: (revert a range [a:b] back to an old version)
+int reverted_root = rangecopy(a, b, root, old_version_root);
+```
+
+We pass in two roots: the current tree root and the old version root. We traverse both side-by-side, and replace only the relevant nodes during our traversal. This meek five-lined function is the foundation of efficient version-control, which is but one of the many operations you can do with a persistent segment tree.
+
+REF: https://discuss.codechef.com/t/persistence-made-simple-tutorial/14915
