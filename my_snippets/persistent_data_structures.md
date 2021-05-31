@@ -325,7 +325,7 @@ void update(int v, int tl, int tr, int pos, int new_val) {
 Persistent Segment Tree
 ```cpp
 int update(int v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr) return newleaf(new_val);
+    if (tl == tr) return newleaf(new_val); // or newleaf(st[v] + val) in addition
     
     int tm = (tl + tr) / 2;
     if (pos <= tm) return newparent(update(l[v], tl, tm, pos, new_val), r[v]);
