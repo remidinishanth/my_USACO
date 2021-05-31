@@ -358,7 +358,7 @@ We pass in two roots: the current tree root and the old version root. We travers
 
 REF: https://discuss.codechef.com/t/persistence-made-simple-tutorial/14915
 
-### Lazy propogation
+### Lazy propogation in Persistent Segment Tree
 
 This is just a straightforward combination of both ideas.
 
