@@ -441,7 +441,7 @@ Quora: Misof https://qr.ae/pGsx2K
 Given a sequence of `n (1 ≤ n ≤ 30000)` numbers `1, a2, ..., an (1 ≤ ai ≤ 10^9)` and a number of `k` queries. A `k-query` is a triple `(i, j, k) (1 ≤ i ≤ j ≤ n, 1 ≤ k ≤ 10^9)`. For each k-query `(i, j, k)`, you have to return the number of elements greater than `k` in the subsequence `ai, ai+1, ..., aj`.
 
 <details>
- <summary> Offline solution using Segment Tree in O(Q logN) time</summary>
+ <summary> Offline solution using Segment Tree, O(log N) per query</summary>
 
 Offline Approach: We find answer for queries in increasing order of `k`. Intially store `1` in all the indicies in the segment tree. For each value of `k`, remove indicies of elements which are less than `k` in the segment tree. The answer to any query will be number of `1`'s in the range from `i:j`
 
@@ -527,7 +527,7 @@ int main(){
 </details> 
 
 <details>
-  <summary> Online solution using Merge Sort Tree in O(Q log^2 N) time</summary>
+  <summary> Online solution using Merge Sort Tree, O(log^2 N) per query</summary>
  
 Instead of storing aggregate values like sum, min or max, we can save the entire subarrays in each vertex of segment tree. The space used will be `O(NlogN)` because we have `N` elements and each element will appear in `O(logN)` nodes. If we store the elements in the sorted order, then we can it Merge sort tree, because it is similar to Merge sort algorithm.
 ```cpp
@@ -580,7 +580,7 @@ int main() {
 </details> 
 
 <details>
- <summary> Online solution using Persistent Segment Tree in O(Q logN) time</summary>
+ <summary> Online solution using Persistent Segment Tree,  O(logN) per query</summary>
  
 ```cpp
 const int nax = 30020;
