@@ -48,7 +48,9 @@
   * From version's root since we can move to the node, query on segment tree costs just `O(log m)`.
   
 
-
+<details>
+ <summary> SPOJ KQUERY using Path Copying and Fat Node persistence </summary>
+ 
 ```cpp
 // Author: Tanuj Khattar (Baba)
 // Code for https://www.spoj.com/problems/KQUERY/
@@ -165,6 +167,10 @@ int main() {
   }
 }
 ```
+
+source: Codechef Indian Programming Camp IPC 2020
+
+</details>
 
 ### Adamant's implementation of DQUERY.
 
