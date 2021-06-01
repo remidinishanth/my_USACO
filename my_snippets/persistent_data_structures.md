@@ -800,3 +800,11 @@ Solution Idea:
 
 </details>
 
+<details>
+  <summary>Using Persistent Segment Tree, O(logN) per query </summary>
+	
+Let's our numbers are in range [1, N], if not we can re-index(use coordindate compression) the numbers, the size will not exceed N. Say we build a segment tree on range `[i:j]` using the frequence of numbers. To find the `k-th` element, we will descend the Segment Tree, starting at the root vertex, and moving each time to either the left or the right child, depending on which segment contains `k-th` element. So if we have segment tree for the range `[i, j]` then we can answer the query in `O(log N)` time per query.
+
+If we build persistent segment trees, incrementing frequency[i] for every i. Then value of `node[i, j]` can be computed by using `node[1, j] - node[1, i-1]`, traversing the j-th version tree and (i-1)-th version tree simultaneously.
+
+</details>
