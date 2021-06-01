@@ -671,6 +671,9 @@ You are given an array of integers and a set of queries. Each query consists of 
 
 If we build merge sort tree on the elements of the array, then we can find the number of integers less than the given one in `O(log^2 N)` time by splitting the query segment into segtree segments and doing a binary search in each of them. Now for middle element we need to check whether the number of elements less than are equal to the required amount which would become `O(log^3 N)` per query.
 
-For `O(log^2 N)` per query, we can sort the integers and save their positions in the merge sort tree and then apply a trick we have in finding the K-th order statistics in the segtree with nonnegative integers. Since the numbers are sorted and we store the positions in the segment tree, all the numbers in positions of the left half are strictly less than numbers at positions in right half. So now we need to check whether the number of positions in the left subtree from `[L, R]` are less than equal to `K`(this can be calculated by two binary searches query(R) - query(L-1)), if so then our answer is in the left half, if not we go to the right child of segment tree.
+For `O(log^2 N)` per query, we can sort the integers and save their positions in the merge sort tree and then apply a trick we have in finding the K-th order statistics in the segtree with nonnegative integers. Since the numbers are sorted and we store the positions in the segment tree, all the numbers in positions of the left half are strictly less than numbers at positions in right half. So now we need to check whether the number of positions in the left subtree from `[L, R]` are less than equal to `K`(this can be calculated by two binary searches query(R) - query(L-1)), if so then our answer is in the left half, if not we go to the right child of segment tree. The time complexity will be `O(log^2 N)` because depth of segment tree is `O(log N)` and we need two binary searches for each node.
+
+![image](https://user-images.githubusercontent.com/19663316/120347119-a1bc4100-c319-11eb-867f-38fa793e7465.png)
+
 
 </details> 
