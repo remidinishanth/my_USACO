@@ -8,14 +8,14 @@ This makes it easier to, say, use the coordinates as indices into an array. If w
 Performing coordinate compression is easy. You just make a list of all the coordinates and sort them in ascending order. 
 This gives you the rank of each coordinate. You then replace each coordinate by its rank. This takes `O(N log N)` time, so it's pretty efficient.
 
-A simple problem that can be solved using coordinate compression is the problem of finding the volume of the union of N axis-aligned(every box coincides 
-with the x, y and z axis) boxes in three dimensions `(1 <= N <= 100)`. The coordinates can be arbitrary real numbers between `0` and `10^9`.
+A simple problem that can be solved using coordinate compression is the problem of finding the volume of the union of N axis-aligned(every box is aligned 
+with the same `x`, `y` and `z` axis) boxes in three dimensions `(1 <= N <= 100)`. The coordinates can be arbitrary real numbers between `0` and `10^9`.
 
 The shape of this union can be complicated, but observe that if we compress the coordinates, then all coordinates will lie between `0` and `199`, 
 since each box has two coordinates along each dimension. In the compressed coordinate system, the unit cube `[x, x+1] × [y, y+1] × [z, z+1]` will either 
 be completely full or completely empty, since each box's coordinates are integers. 
 
-So the idea is to compute a `200 x 200 x 200` array, in which each entry is 1 if the corresponding unit cube is full, or 0 of it's empty. 
+So the idea is to compute a `200 x 200 x 200` array, in which each entry is `1` if the corresponding unit cube is full, or `0` of it's empty. 
 To actually compute this array in linear time can be done by first forming the difference array and then integrating. After that, 
 iterate through each filled cube, and map it back to the original coordinates, and add its volume to the total volume. The overall running time is `O(N^3)`.
 
