@@ -378,3 +378,91 @@ That is, whenever you perform an update on a persistent lazy segment tree, do ex
 * The new nodes you added make the structure persistent: the tree as seen from the new root you created at the end of the update does exactly correspond to the new state of the original tree, and you didn’t destroy any previous information.
 
 Quora: Misof https://qr.ae/pGsx2K
+
+## Problems
+
+#### KQUERY - SPOJ
+
+Given a sequence of `n (1 ≤ n ≤ 30000)` numbers `1, a2, ..., an (1 ≤ ai ≤ 10^9)` and a number of `k` queries. A `k-query` is a triple `(i, j, k) (1 ≤ i ≤ j ≤ n, 1 ≤ k ≤ 10^9)`. For each k-query `(i, j, k)`, you have to return the number of elements greater than `k` in the subsequence `ai, ai+1, ..., aj`.
+
+<details>
+ 
+```cpp
+const int nax = 30020;
+const int lg = 20;
+
+int NODES, MX;
+int st[lg*nax], L[lg*nax], R[lg*nax], root[lg*nax];
+
+int leaf(int value){
+    int p = ++NODES;
+    L[p] = R[p] = 0;
+    st[p] = value;
+    return p;
+}
+
+int parent(int l, int r){
+    int p = ++NODES;
+    L[p] = l;
+    R[p] = r;
+    st[p] = st[l] + st[r];
+    return p;
+}
+
+int update(int v, int tl, int tr, int pos, int val){
+    if(tl == tr) return leaf(st[v] + 1);
+
+    int tm = (tl + tr)/2;
+    if(pos <= tm) return parent(update(L[v], tl, tm, pos, val), R[v]);
+    else return parent(L[v], update(R[v], tm+1, tr, pos, val));
+}
+
+int build(int tl, int tr){
+    if(tl == tr) return leaf(0);
+    int tm = (tl + tr)/2;
+    return parent(build(tl, tm), build(tm+1, tr));
+}
+
+int query(int p, int tl, int tr, int l, int r){
+    if(l > r) return 0;
+    if(tl == l && tr == r) return st[p];
+    int tm = (tl + tr)/2;
+    return query(L[p], tl, tm, l, min(tm, r)) + query(R[p], tm+1, r, max(l, tm+1), r);
+}
+
+// numbers greater than k between i and j
+int query(int l, int r, int k){
+    return query(root[r], 0, MX, k, MX) - query(root[l-1], 0, MX, k, MX);
+}
+
+int main(){
+    int n, q;
+    scanf("%d", &n);
+    // coordinate compression
+    map<int,int> M;
+    vi V(n), A(n);
+    for(int i=0;i<n;i++) scanf("%d", &V[i]);
+    for(int i=0;i<n;i++) A[i] = V[i];
+    sort(A.begin(), A.end());
+    int cnt = 0, inf = 1e9 + 5;
+    for(int a:A){ cnt++; M[a] = cnt; }
+    MX = M[A.back()] + 2;
+    M[inf] = MX; // keep inf value
+
+    // build persistent segment tree
+    root[0] = build(0, MX);
+    for(int i=1;i<=n;i++)
+        root[i] = update(root[i-1], 0, MX, M[V[i-1]], 1);
+
+    scanf("%d", &q);
+    while(q--){
+        int i, j, k;
+        scanf("%d %d %d", &i, &j, &k);
+        int x = M.upper_bound(k) -> S;
+        printf("%d\n", query(i, j, x));
+    }
+    return 0;
+}
+```
+ 
+</details> 
