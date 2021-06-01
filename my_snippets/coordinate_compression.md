@@ -47,6 +47,16 @@ we can just call something like `M[A[i] — 1]`, `M[A[i]]`, `M[A[i] + 1]` instea
 
 source: https://codeforces.com/blog/entry/3976?#comment-80407
 
+Using map and range based for-loops
+
+```cpp
+vector<int> A(N);
+map<int,int> M;
+for(int a:A) M[a]++; // sorting
+
+int pt = 0;
+for(pair<int,int> X:M) M[X.second] = pt++;
+```
 
 Without using map
 ```cpp
