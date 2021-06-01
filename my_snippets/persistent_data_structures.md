@@ -671,6 +671,61 @@ You are given an array of integers and a set of queries. Each query consists of 
 
 If we build merge sort tree on the elements of the array, then we can find the number of integers less than the given one in `O(log^2 N)` time by splitting the query segment into segtree segments and doing a binary search in each of them. Now for middle element we need to check whether the number of elements less than are equal to the required amount which would become `O(log^3 N)` per query.
 
+```cpp
+const int MAX_N = 1e5 + 10;
+
+int a[MAX_N];
+vector<int> t[4*MAX_N];
+ 
+void build(int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = vector<int>(1, a[tl]);
+    } else { 
+        int tm = (tl + tr) / 2;
+        build(v*2, tl, tm);
+        build(v*2+1, tm+1, tr);
+        // merges two sorted vectors and inserts at back of t[v]
+        merge(t[v*2].begin(), t[v*2].end(), t[v*2+1].begin(), t[v*2+1].end(),
+              back_inserter(t[v]));
+    }
+}
+ 
+int query(int v, int tl, int tr, int l, int r, int x) {
+    if (l > r)
+        return 0;
+    if (l == tl && r == tr) {
+        // number of elements <= x in [tl, tr]
+        return upper_bound(t[v].begin(), t[v].end(), x) - t[v].begin();
+    }
+    int tm = (tl + tr) / 2;
+    return query(v*2, tl, tm, l, min(r, tm), x) + 
+               query(v*2+1, tm+1, tr, max(l, tm+1), r, x);
+}
+
+int main() {
+    int n, q;
+    scanf("%d %d", &n, &q);
+    for(int i=0;i<n;i++) scanf("%d", a+i);
+    build(1, 0, n-1); // build merge sort tree
+    sort(a, a+n);
+    while(q--){
+        int i, j, k;
+        scanf("%d %d %d", &i, &j, &k);
+        i--;j--;
+        // find small a[x] such that, a[x] >= atleast k elements in [L, R]
+        // Do binary search searching min index of T: F, F, ..., F, T, T, ...
+        int low = 0, high = n-1;
+        while(low < high){
+            int mid = (low + high)/2;
+            if(query(1, 0, n-1, i, j, a[mid]) < k) low = mid + 1;
+            else high = mid;
+        }
+        printf("%d\n", a[low]);
+    }
+	return 0;
+}
+```
+
 For `O(log^2 N)` per query, we can sort the integers and save their positions in the merge sort tree and then apply a trick we have in finding the K-th order statistics in the segtree with nonnegative integers. Since the numbers are sorted and we store the positions in the segment tree, all the numbers in positions of the left half are strictly less than numbers at positions in right half. So now we need to check whether the number of positions in the left subtree from `[L, R]` are less than equal to `K`(this can be calculated by two binary searches query(R) - query(L-1)), if so then our answer is in the left half, if not we go to the right child of segment tree. The time complexity will be `O(log^2 N)` because depth of segment tree is `O(log N)` and we need two binary searches for each node.
 
 ![image](https://user-images.githubusercontent.com/19663316/120347119-a1bc4100-c319-11eb-867f-38fa793e7465.png)
