@@ -664,7 +664,7 @@ int main(){
 
 #### MKTHNUM - SPOJ
 
-You are given an array of integers and a set of queries. Each query consists of two integer numbers `L R K`, denoting that you’re asked to find the K-th order statistics on the segment `[L; R]`. (Kth element in sorted range `[i, j]`)
+Given an array `a[1 … N]` of different integer numbers and a set of queries. Each query consists of two integer numbers `L R K`, denoting that you’re asked to find the K-th order statistics on the segment `[L; R]` (What would be the k-th number in `a[i … j]` segment, if this segment was sorted?).
 
 <details>
  <summary> Using Merge sort tree, O(log^3 N) per query </summary>
