@@ -390,6 +390,8 @@ If we add one more element to the array `[1, 3, −2, 8, −7, 5]`, in this case
 
 ![image](https://user-images.githubusercontent.com/53462873/118101476-491e1600-b3f5-11eb-9775-e740ec5b473c.png)
 
+The first level of the tree contains a single node (the root), the second level will contain two vertices, in the third it will contain four vertices, until the number of vertices reaches n. Thus the number of vertices in the worst case can be estimated by the sum `1 + 2 + 4 + ⋯ + 2^⌈log2n⌉ = 2^(⌈log2n⌉+1) < 4n`.
+
 ### OOP style CP4
 
 ```cpp
