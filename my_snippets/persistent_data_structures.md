@@ -441,6 +441,93 @@ Quora: Misof https://qr.ae/pGsx2K
 Given a sequence of `n (1 ≤ n ≤ 30000)` numbers `1, a2, ..., an (1 ≤ ai ≤ 10^9)` and a number of `k` queries. A `k-query` is a triple `(i, j, k) (1 ≤ i ≤ j ≤ n, 1 ≤ k ≤ 10^9)`. For each k-query `(i, j, k)`, you have to return the number of elements greater than `k` in the subsequence `ai, ai+1, ..., aj`.
 
 <details>
+ <summary> Offline solution using Segment Tree </summary>
+
+Offline Approach: We find answer for queries in increasing order of `k`. Intially store `1` in all the indicies in the segment tree. For each value of `k`, remove indicies of elements which are less than `k` in the segment tree. The answer to any query will be number of `1`'s in the range from `i:j`
+
+```cpp
+const int nax = 3e4 + 10;
+
+int st[4*nax];
+
+void build(int v,int tl,int tr){
+    if(tl==tr){
+        st[v]=1;
+        return;
+    }
+    int tm=tl+(tr-tl)/2;
+    build(v*2,tl,tm);
+    build(v*2+1,tm+1,tr);
+    st[v]=st[v*2]+st[v*2+1];
+}
+ 
+int sum(int v,int tl,int tr,int l,int r){
+    if(l>r)
+        return 0;
+    if(l==tl && r==tr)
+        return st[v];
+    int tm=tl+(tr-tl)/2;
+    return sum(v*2,tl,tm,l,min(r,tm))+sum(v*2+1,tm+1,tr,max(l,tm+1),r);
+}
+ 
+void update(int v,int tl,int tr,int pos,int new_val){
+    if(tl==tr){
+        st[v]=new_val;
+        return;
+    }
+    int tm=(tl+tr)/2;
+    if(pos<=tm)
+        update(v*2,tl,tm,pos,new_val);
+    else
+        update(v*2+1,tm+1,tr,pos,new_val);
+    st[v]=st[v*2]+st[v*2+1];
+}
+
+int main(){
+    int n, q;
+    scanf("%d", &n);
+    vector<pair<int,int>> V(n);
+    for(int i=0;i<n;i++){
+        scanf("%d", &V[i].F);
+        V[i].S = i;
+    }
+    sort(V.begin(), V.end());
+
+    scanf("%d", &q);
+    vector<int> I(q), J(q), K(q), Ans(q);
+    vector<pair<int,int>> Q;
+    for(int x=0;x<q;x++){
+        scanf("%d %d %d", &I[x], &J[x], &K[x]);
+        Q.push_back({K[x], x});
+    }
+    // Sort queries based on K
+    sort(Q.begin(), Q.end());
+
+    // Initially fill all the values
+    build(1, 0, n-1);
+
+    int pos = 0;
+
+    for(pair<int,int> X:Q){
+        int k = X.first, idx = X.second; // index
+
+        // remove elements less than k
+        while(pos < n && V[pos].first <= k){
+            update(1, 0, n-1, V[pos].second, 0);
+            pos++;
+        }
+
+        Ans[idx] = sum(1, 0, n-1, --I[idx], --J[idx]);
+    }
+
+    for(int ans:Ans) printf("%d\n", ans);
+    return 0;
+}
+```
+</details> 
+
+<details>
+ <summary> Online solution using Persistent Segment Tree </summary>
  
 ```cpp
 const int nax = 30020;
