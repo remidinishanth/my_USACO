@@ -667,7 +667,7 @@ int main(){
 You are given an array of integers and a set of queries. Each query consists of two integer numbers `L R K`, denoting that you’re asked to find the K-th order statistics on the segment `[L; R]`. (Kth element in sorted range `[i, j]`)
 
 <details>
- <summary> Using Merge sort tree </summary>
+ <summary> Using Merge sort tree, O(log^3 N) per query </summary>
 
 If we build merge sort tree on the elements of the array, then we can find the number of integers less than the given one in `O(log^2 N)` time by splitting the query segment into segtree segments and doing a binary search in each of them. Now for middle element we need to check whether the number of elements less than are equal to the required amount which would become `O(log^3 N)` per query.
 
@@ -726,6 +726,64 @@ int main() {
 }
 ```
 
+Iterative version
+
+```cpp
+const int MAX_N = 1e5 + 10;
+
+int n, q;
+int a[MAX_N];
+vector<int> t[4*MAX_N];
+ 
+void build() {
+    for(int i=0;i<n;i++) t[i+n] = vector<int>(1, a[i]);
+    for(int i=n-1;i>0;i--) 
+        merge(t[i*2].begin(), t[i*2].end(), t[i*2+1].begin(), t[i*2+1].end(),
+              back_inserter(t[i]));
+}
+ 
+int query(int l, int r, int x) { // [l, r)
+    int res = 0;
+    for(l+=n, r+=n; l<r; l>>=1, r>>=1){
+        if(l&1){
+            res += upper_bound(t[l].begin(), t[l].end(), x) - t[l].begin();
+            l++;
+        }
+        if(r&1){
+            r--;
+            res += upper_bound(t[r].begin(), t[r].end(), x) - t[r].begin();
+        }
+    }
+    return res;
+}
+
+int main() {
+    scanf("%d %d", &n, &q);
+    for(int i=0;i<n;i++) scanf("%d", a+i);
+    build(); // build merge sort tree
+    sort(a, a+n);
+    while(q--){
+        int i, j, k;
+        scanf("%d %d %d", &i, &j, &k);
+        i--; // query for [i, j)
+        // find small a[x] such that, a[x] >= atleast k elements in [L, R]
+        // Do binary search searching min i for true F, F, ..., F, T, T, ...
+        int low = 0, high = n-1;
+        while(low < high){
+            int mid = (low + high)/2;
+            if(query(i, j, a[mid]) < k) low = mid + 1;
+            else high = mid;
+        }
+        printf("%d\n", a[low]);
+    }
+	return 0;
+}
+```
+</details> 
+
+<details>
+  <summary> Using Merge sort tree, O(log^2 N) per query </summary>
+	
 For `O(log^2 N)` per query, we can sort the integers and save their positions in the merge sort tree and then apply a trick we have in finding the K-th order statistics in the segtree with nonnegative integers. Since the numbers are sorted and we store the positions in the segment tree, all the numbers in positions of the left half are strictly less than numbers at positions in right half. So now we need to check whether the number of positions in the left subtree from `[L, R]` are less than equal to `K`(this can be calculated by two binary searches query(R) - query(L-1)), if so then our answer is in the left half, if not we go to the right child of segment tree. The time complexity will be `O(log^2 N)` because depth of segment tree is `O(log N)` and we need two binary searches for each node.
 
 ![image](https://user-images.githubusercontent.com/19663316/120347119-a1bc4100-c319-11eb-867f-38fa793e7465.png)
@@ -740,5 +798,5 @@ Solution Idea:
     go to left subtree of current node with k. Otherwise we will go to right subtree of current node with k-x;
   - In this manner when we reach to a leaf node we can say that this node contains the index of our answer.
 
+</details>
 
-</details> 
