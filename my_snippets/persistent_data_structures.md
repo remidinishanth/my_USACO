@@ -527,7 +527,7 @@ int main(){
 </details> 
 
 <details>
-  <summary> Online solution using Merge Sort Tree in O(Q log^N) time</summary>
+  <summary> Online solution using Merge Sort Tree in O(Q log^2 N) time</summary>
  
 Instead of storing aggregate values like sum, min or max, we can save the entire subarrays in each vertex of segment tree. The space used will be `O(NlogN)` because we have `N` elements and each element will appear in `O(logN)` nodes. If we store the elements in the sorted order, then we can it Merge sort tree, because it is similar to Merge sort algorithm.
 ```cpp
