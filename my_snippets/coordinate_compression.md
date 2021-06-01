@@ -46,3 +46,5 @@ That's good way because if we need to put points in some special cases, like the
 we can just call something like `M[A[i] — 1]`, `M[A[i]]`, `M[A[i] + 1]` instead of thinking what we should put as `A[i]`, what as `A[i] + 1` etc...
 
 source: https://codeforces.com/blog/entry/3976?#comment-80407
+
+### TODO: https://qr.ae/pGs3Wi
