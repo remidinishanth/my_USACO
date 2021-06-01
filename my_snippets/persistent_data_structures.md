@@ -527,6 +527,59 @@ int main(){
 </details> 
 
 <details>
+  <summary> Online solution using Merge Sort Tree </summary>
+ 
+Instead of storing aggregate values like sum, min or max, we can save the entire subarrays in each vertex of segment tree. The space used will be `O(NlogN)` because we have `N` elements and each element will appear in `O(logN)` nodes. If we store the elements in the sorted order, then we can it Merge sort tree, because it is similar to Merge sort algorithm.
+```cpp
+const int MAX_N = 3e4 + 10;
+
+int a[MAX_N];
+vector<int> t[4*MAX_N];
+ 
+void build(int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = vector<int>(1, a[tl]);
+    } else { 
+        int tm = (tl + tr) / 2;
+        build(v*2, tl, tm);
+        build(v*2+1, tm+1, tr);
+        // merges two sorted vectors and inserts at back of t[v]
+        merge(t[v*2].begin(), t[v*2].end(), t[v*2+1].begin(), t[v*2+1].end(),
+              back_inserter(t[v]));
+    }
+}
+ 
+int query(int v, int tl, int tr, int l, int r, int x) {
+    if (l > r)
+        return 0;
+    if (l == tl && r == tr) {
+        // number of elements > x in [tl, tr]
+        return t[v].end() - upper_bound(t[v].begin(), t[v].end(), x);
+    }
+    int tm = (tl + tr) / 2;
+    return query(v*2, tl, tm, l, min(r, tm), x) + 
+               query(v*2+1, tm+1, tr, max(l, tm+1), r, x);
+}
+ 
+int main() {
+    int n, m;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++) scanf("%d",a+i);
+    build(1,0,n-1);
+    scanf("%d",&m);
+    while(m--){
+        int l, r, k;
+        scanf("%d %d %d",&l,&r,&k);
+        l--;r--;
+        int ans = query(1,0,n-1,l,r,k);
+        printf("%d\n",ans);
+    }
+    return 0;
+}
+```
+</details> 
+
+<details>
  <summary> Online solution using Persistent Segment Tree </summary>
  
 ```cpp
