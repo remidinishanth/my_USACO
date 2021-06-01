@@ -675,5 +675,15 @@ For `O(log^2 N)` per query, we can sort the integers and save their positions in
 
 ![image](https://user-images.githubusercontent.com/19663316/120347119-a1bc4100-c319-11eb-867f-38fa793e7465.png)
 
+Solution Idea:
+  - At first take input and store the input in a pair array where first element of i_th pair is the value a_i  and second
+     element of i_th pair is i.
+  - Sort the pair array with with ascending order of a_i
+  - Build a merge sort tree using the second element of each pair of sorted pair array.
+  - Now for each query i,j,k at first check how many number in range i to j inclusive are present in left subtree of current
+    node in merge sort tree. Let the value is x. So if x<=k then it's sure that the answer is in the left subtree. So we will
+    go to left subtree of current node with k. Otherwise we will go to right subtree of current node with k-x;
+  - In this manner when we reach to a leaf node we can say that this node contains the index of our answer.
+
 
 </details> 
