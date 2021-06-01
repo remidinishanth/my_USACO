@@ -798,6 +798,60 @@ Solution Idea:
     go to left subtree of current node with k. Otherwise we will go to right subtree of current node with k-x;
   - In this manner when we reach to a leaf node we can say that this node contains the index of our answer.
 
+```cpp
+const int MAX_N = 1e5 + 10;
+
+int a[MAX_N];
+vector<int> t[4*MAX_N];
+ 
+void build(int v, int tl, int tr) {
+    if (tl == tr) {
+        t[v] = vector<int>(1, a[tl]);
+    } else { 
+        int tm = (tl + tr) / 2;
+        build(v*2, tl, tm);
+        build(v*2+1, tm+1, tr);
+        // merges two sorted vectors and inserts at back of t[v]
+        merge(t[v*2].begin(), t[v*2].end(), t[v*2+1].begin(), t[v*2+1].end(),
+              back_inserter(t[v]));
+    }
+}
+
+int query(int v, int tl, int tr, int l, int r, int k){
+    if(tl == tr) return a[tl];
+    // number of positions <= index r in left subtree
+    int val = upper_bound(t[2*v].begin(), t[2*v].end(), r) - t[v*2].begin();
+    // remove positions <= l-1
+    val -= upper_bound(t[2*v].begin(), t[2*v].end(), l-1) - t[v*2].begin();
+    int tm = (tl+tr)/2;
+    if(val >= k) return query(v*2, tl, tm, l, r, k);
+    else return query(v*2+1, tm+1, tr, l, r, k-val);
+}
+
+int main() {
+    int n, m;
+    scanf("%d%d", &n, &m);
+    vector<pair<int, int>> V(n);
+    vector<int> A(n);
+    for(int i=0;i<n;i++){
+        scanf("%d", &V[i].first);
+        V[i].second = i;
+        A[i] = V[i].first;
+    }
+    sort(V.begin(), V.end());
+    for(int i=0;i<n;i++) a[i] = V[i].second;
+    build(1, 0, n-1);
+
+    while(m--){
+        int i, j, k;
+        scanf("%d %d %d", &i, &j, &k);
+        i--;j--;
+        int idx = query(1, 0, n-1, i, j, k);
+        printf("%d\n", A[idx]);
+    }
+	return 0;
+}
+```
 </details>
 
 <details>
