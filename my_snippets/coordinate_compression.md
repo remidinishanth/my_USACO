@@ -47,4 +47,36 @@ we can just call something like `M[A[i] — 1]`, `M[A[i]]`, `M[A[i] + 1]` instea
 
 source: https://codeforces.com/blog/entry/3976?#comment-80407
 
+
+Without using map
+```cpp
+vector<int> d = a;
+sort(d.begin(), d.end());
+d.resize(unique(d.begin(), d.end()) - d.begin());
+for (int i = 0; i < n; ++i) {
+  a[i] = lower_bound(d.begin(), d.end(), a[i]) - d.begin();
+}
+//original value of a[i] can be obtained through d[a[i]]
+```
+
+source: https://codeforces.com/blog/entry/84164?#comment-716574
+
+It might be even faster to sort pairs (value, index) to avoid binary search. This requires iterating the sorted sequence and doing nxt++ when we have value different than previous value. Longer implementation, better runtime (I think).
+
+```cpp
+int n = a.size();
+vector<pair<int, int>> pairs(n);
+for(int i = 0; i < n; ++i) {
+	pairs[i] = {a[i], i};
+}
+sort(pairs.begin(), pairs.end());
+int nxt = 0;
+for(int i = 0; i < n; ++i) {
+	if(i > 0 && pairs[i-1].first != pairs[i].first) nxt++;
+	a[pairs[i].second] = nxt;
+}
+```
+
+source: https://codeforces.com/blog/entry/84164?#comment-716682
+
 ### TODO: https://qr.ae/pGs3Wi
