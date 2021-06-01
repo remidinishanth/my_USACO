@@ -661,3 +661,7 @@ int main(){
 ```
  
 </details> 
+
+#### MKTHNUM - SPOJ
+
+You are given an array of integers and a set of queries. Each query consists of two integer numbers `L R K`, denoting that you’re asked to find the K-th order statistics on the segment `[L; R]`. (Kth element in sorted range `[i, j]`)
