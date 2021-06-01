@@ -807,4 +807,79 @@ Let's our numbers are in range [1, N], if not we can re-index(use coordindate co
 
 If we build persistent segment trees, incrementing frequency[i] for every i. Then value of `node[i, j]` can be computed by using `node[1, j] - node[1, i-1]`, traversing the j-th version tree and (i-1)-th version tree simultaneously.
 
+```cpp
+const int nax = 1e5 + 10;
+const int lg = 21;
+
+int st[lg*nax], L[lg*nax], R[lg*nax], root[lg*nax];
+int node;
+
+int leaf(int val){
+    int i = ++node;
+    st[i] = val;
+    L[i] = R[i] = 0; // null
+    return i;
+}
+
+int parent(int l, int r){
+    int i = ++node;
+    L[i] = l; R[i] = r;
+    st[i] = st[l] + st[r];
+    return i;
+}
+
+int build(int l, int r){
+    if(l == r) return leaf(0);
+    int m = (l+r)/2;
+    return parent(build(l, m), build(m+1, r));
+}
+
+int update(int v, int tl, int tr, int pos){
+    if(tl == tr) return leaf(st[v] + 1); // increment the value
+    int tm = (tl + tr)/2;
+    if(pos <= tm) return parent(update(L[v], tl, tm, pos), R[v]);
+    else return parent(L[v], update(R[v], tm+1, tr, pos));
+}
+
+// node2 is r, node1 is l-1
+int query(int node1, int node2, int tl, int tr, int k){
+    if(tl == tr) return tl;
+    int tm = (tl + tr)/2;
+    int val = st[L[node2]] - st[L[node1]];
+    if(k <= val)
+        return query(L[node1], L[node2], tl, tm, k);
+    else
+        return query(R[node1], R[node2], tm+1, tr, k - val);
+}
+
+int main() {
+    int n, m;
+    scanf("%d%d", &n, &m);
+    vector<int> V(n);
+
+    // Coordinate compression or Re-indexing
+    map<int,int> M, N;
+    for(int i=0;i<n;i++){
+        scanf("%d", &V[i]);
+        M[V[i]] = 0;
+    }
+    int pos = 1;
+    for(pair<int,int> x:M) M[x.first] = pos++;
+    for(pair<int,int> x:M) N[x.second] = x.first; // pos to original value
+
+    // build persistent segment tree
+    root[0] = build(0, n-1);
+    for(int i=1;i<=n;i++){
+        root[i] = update(root[i-1], 1, n, M[V[i-1]]);
+    }
+
+    while(m--){
+        int i, j, k;
+        scanf("%d %d %d", &i, &j, &k);
+        pos = query(root[i-1], root[j], 1, n, k);
+        printf("%d\n", N[pos]);
+    }
+	return 0;
+}
+```
 </details>
