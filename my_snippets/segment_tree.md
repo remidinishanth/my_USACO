@@ -55,7 +55,7 @@ void update(int v, int tl, int tr, int pos, int new_val) {
 }
 ```
 
-**Note:** If we want to build segment tree on range `[1, n]` instead of range `[0, n-1]` then we need to call the build with `build(1, 1, n)`, we also need to make sure that we have enought size in segment tree array `t[4*MAXN]`.
+**Note:** If we want to build segment tree on range `[1, n]` instead of range `[0, n-1]` then we need to call the build with `args(1, 1, n)` as `build(1, 1, n)`, we also need to make sure that we have enought size in segment tree array `t[4*MAXN]`.
 
 In case of search of max/min and no. of times it occurs
 
