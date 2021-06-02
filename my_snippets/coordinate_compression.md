@@ -65,18 +65,18 @@ int num = 0;
 map<int, int> comp, rcomp;
 
 // inside main
-	for(int i=1;i<=n;i++)
-	{
-		cin>>a[i];
-		comp[a[i]];
-	}
-	for(auto &it:comp)
-	{
-		it.second = ++num; // re-index
-		rcomp[num] = it.first; // storing reverse mapping
-	}
-	for(int i=1;i<=n;i++)
-		a[i] = comp[a[i]];
+    for(int i=1;i<=n;i++)
+    {
+        cin>>a[i];
+        comp[a[i]];
+    }
+    for(auto &it:comp)
+    {
+        it.second = ++num; // re-index
+        rcomp[num] = it.first; // storing reverse mapping
+    }
+    for(int i=1;i<=n;i++)
+        a[i] = comp[a[i]];
 ```
 
 Without using map
