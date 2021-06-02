@@ -58,6 +58,27 @@ int pt = 0;
 for(pair<int,int> X:M) M[X.second] = pt++;
 ```
 
+Ashishgup code source: http://p.ip.fi/KLiG
+
+```cpp
+int num = 0;
+map<int, int> comp, rcomp;
+
+// inside main
+	for(int i=1;i<=n;i++)
+	{
+		cin>>a[i];
+		comp[a[i]];
+	}
+	for(auto &it:comp)
+	{
+		it.second = ++num; // re-index
+		rcomp[num] = it.first; // storing reverse mapping
+	}
+	for(int i=1;i<=n;i++)
+		a[i] = comp[a[i]];
+```
+
 Without using map
 ```cpp
 vector<int> d = a;
