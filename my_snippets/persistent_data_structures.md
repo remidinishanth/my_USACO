@@ -436,6 +436,30 @@ Quora: Misof https://qr.ae/pGsx2K
 
 ## Problems
 
+Most of the problems use this application of segment trees: Counting the number of zeros, searching for the k-th zero.
+
+In this problem we want to find the number of zeros in a given range, and additionally find the index of the k-th zero using a second function. 
+
+In the segment tree, we will store the number of zeros in each segment in `t[]`. It is pretty clear, how to implement the build, update and count_zero functions, we can simply use the ideas from the sum query problem. Now to find the the `k-th` zero we will descend the Segment Tree, starting at the root vertex, and moving each time to either the left or the right child, depending on which segment contains the k-th zero.
+
+```cpp
+int find_kth(int v, int tl, int tr, int k) {
+    if (k > t[v])
+        return -1;
+    if (tl == tr)
+        return tl;
+    int tm = (tl + tr) / 2;
+    if (t[v*2] >= k)
+        return find_kth(v*2, tl, tm, k);
+    else 
+        return find_kth(v*2+1, tm+1, tr, k - t[v*2]);
+}
+```
+
+In the implementation we can handle the special case, `a[]` containing less than k zeros, by returning `-1`.
+
+With this idea, say our segment tree stores the frequency of numbers in the array in range of elements only from `[L, R]` then we can find the `k-th` order statistics.
+
 #### KQUERY - SPOJ
 
 Given a sequence of `n (1 ≤ n ≤ 30000)` numbers `1, a2, ..., an (1 ≤ ai ≤ 10^9)` and a number of `k` queries. A `k-query` is a triple `(i, j, k) (1 ≤ i ≤ j ≤ n, 1 ≤ k ≤ 10^9)`. For each k-query `(i, j, k)`, you have to return the number of elements greater than `k` in the subsequence `ai, ai+1, ..., aj`.
