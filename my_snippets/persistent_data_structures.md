@@ -961,3 +961,142 @@ int main() {
 }
 ```
 </details>
+
+#### COT - SPOJ
+
+Given a Tree, We have to answer Q queries of the form : Find `k-th` minimum weight on the path from node `u` to node `v`.
+
+<details>
+	<summary>Persistent Segment Tree, O(log N) per query </summary>
+
+Note that the technique used in MKTHNUM of finding k-th order statistics will also work for trees.
+
+Suppose that we root the tree at x, then we can find the k-th order statistic by constructing persistent segment tree on each node - using the frequency of elements from root to u. Then we can find whether answer is present in left subtree by using `f(u, x) + f(v, x) – f(lca(u, v), x) – f(parent(lca(u, v)), x) ≤ k`
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int nax = 1e5 + 10;
+const int LG = 18;
+
+int node = 0, n;
+vector<int> V(nax); // value on node
+vector<int> Adj[nax];
+int depth[nax], par[nax][LG];
+int st[21*nax], L[21*nax], R[21*nax], root[21*nax];
+
+void dfs(int u, int p){
+    depth[u] = depth[p] + 1;
+    par[u][0] = p;
+    for(int i=0; par[u][i]!=0; i++){
+        par[u][i+1] = par[par[u][i]][i];
+    }
+
+    for(int v:Adj[u]) if(v != p) dfs(v, u);
+}
+
+int up(int v, int dh){
+    for(int k=LG-1;k>=0;k--){
+        if(dh < (1<<k)) continue;
+        v = par[v][k];
+        dh -= 1 << k;
+    }
+    return v;
+}
+
+int LCA(int u, int v){
+    if(depth[v] > depth[u]) swap(u, v);
+    u = up(u, depth[u] - depth[v]);
+    if(v==u) return v;
+    for(int k=LG-1;k>=0;k--){
+        if(par[v][k] != par[u][k]){
+            v = par[v][k];
+            u = par[u][k];
+        }
+    }
+    return par[v][0];
+}
+
+int leaf(int val){
+    int v = ++node;
+    L[v] = R[v] = 0; // null
+    st[v] = val;
+    return v;
+}
+
+int parent(int l, int r){
+    int v = ++node;
+    L[v] = l; R[v] = r;
+    st[v] = st[l] + st[r];
+    return v;
+}
+
+int build(int l, int r){
+    if(l == r) return leaf(0);
+    int m = (l+r)/2;
+    return parent(build(l, m), build(m+1, r));
+}
+
+int update(int v, int l, int r, int pos, int val = 1){
+    if(l == r){
+        return leaf(st[v] + 1);
+    }
+    int m = (l+r)/2;
+    if(pos <= m) return parent(update(L[v], l, m, pos, val), R[v]);
+    else return parent(L[v], update(R[v], m+1, r, pos, val));
+}
+
+// build persistent segment tree
+void seg_dfs(int u, int p){
+    root[u] = update(root[p], 1, n, V[u]); // increase counter of value at u
+    for(int v:Adj[u]) if(v != p) seg_dfs(v, u);
+}
+
+int query(int u, int v, int lca, int plca, int l, int r, int k){
+    if(l==r) return l;
+    // number of children in left subchild
+    int t = st[L[u]] + st[L[v]] - st[L[lca]] - st[L[plca]];
+    int m = (l+r)/2;
+    if(k <= t) return query(L[u], L[v], L[lca], L[plca], l, m, k);
+    else return query(R[u], R[v], R[lca], R[plca], m+1, r, k-t);
+}
+
+int main() {
+    int m;
+    scanf("%d %d", &n, &m);
+
+    // coordinate compression
+    map<int,int> M, rM; // re-index
+    for(int i=1;i<=n;i++){ scanf("%d", &V[i]); M[V[i]] = 1; }
+    int id = 1;
+    for(auto &it: M){
+        it.second = id++;
+        rM[it.second] = it.first;
+    }
+    for(int i=1;i<=n;i++) V[i] = M[V[i]];
+
+    for(int i=1;i<n;i++){
+        int u, v;
+        scanf("%d %d", &u, &v);
+        Adj[u].push_back(v);
+        Adj[v].push_back(u);
+    }
+    dfs(1, 0); // root the tree at 1
+
+    // build persistent segment tree
+    root[0] = build(1, n);
+    seg_dfs(1, 0);
+
+    while(m--){
+        int u, v, k;
+        scanf("%d %d %d", &u, &v, &k);
+        int lca = LCA(u, v), plca = par[lca][0];
+        u = root[u], v = root[v], lca = root[lca], plca = root[plca];
+        int ans = query(u, v, lca, plca, 1, n, k);
+        printf("%d\n", rM[ans]);
+    }
+	return 0;
+}
+```
+</details>
