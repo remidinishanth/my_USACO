@@ -1124,6 +1124,8 @@ procedure Sort(list A) defined as:
 
 And now we are interested in the number of comparisons that will be made during the sorting of the given permutation of integers A with the provided code. So, we ask you to find the value of the variable comparison_count after such a sorting.
 
+source: https://discuss.codechef.com/t/sorting-editorial/3048
+
 <details>
 	<summary> Using Persistent Segment Tree</summary>
 	
@@ -1178,3 +1180,47 @@ Since N is as large as 5 * 10^5, the recursion stack would be too large, to over
 In fact, since the [L; R] intervals being queried are independent of each other (subproblems don’t even overlap), we need not worry about in which order we query the intervals, just that we need to query all the relevant ones. Thus, we can modify our DFS-like recursive implementation into a BFS-like version using queues. 
 
 </details>	
+
+<details>
+	<summary> Without using a persistent data structures.</summary>
+
+By alex_2oo8
+
+We will maintain the same segment tree like in above solution, but not persistent. When we will sort a range [L,R] we will have a segment tree for the Set(L,R).
+So, the pseudocode looks like this:
+
+```python
+sort(L, R, Root):
+    if (R - L + 1 <= 1) return 0;
+    ans = R - L + 1;
+    pivot = getKth(Root, (R-L+2)/2);
+    if (pivot - L < R - pivot)
+        for i = L to pivot
+            Root.remove(Pos[i]);
+        ans += sort(pivot + 1, R, Root);
+        Root = Empty Segment Tree
+        for i = L to pivot - 1
+            Root.add(Pos[i]);
+        ans += sort(L, pivot - 1, Root);
+    else
+        for i = pivot to R
+            Root.remove(Pos[i]);
+        ans += sort(L, pivot - 1, Root);
+        Root = Empty Segment Tree
+        for i = pivot + 1 to R
+            Root.add(Pos[i]);
+        ans += sort(pivot + 1, R, Root);
+    return ans;
+```    
+
+The worst case is when the pivot is (R-L+2)/2 all the time and the complexity is O(N log^2 N).
+
+Why is worst case `O(N log^2 N)`:
+
+I can prove, that each position will be inserted and removed at most O(log N) times. At the very beginning all positions are in range of size N (Range [1,N]), if we remove some position - it means that at the next step it will be in part of size at most N/2, after second removing - N/4, after Kth - N/(2^K), so, K <= log N.
+
+When the pivot is in the middle all the time, this algorithm will perform exactly NlogN insertions and removing from the Segment Tree, so, it is the worst case.
+
+Here we need to implement dynamic Segment Tree (we will create nodes only when we need them), i.e. this line just creates a single node.
+
+</details>
