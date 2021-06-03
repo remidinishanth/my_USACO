@@ -3,6 +3,8 @@
 * DS operations relative to specified version
 * Update creates(& returns) new version (never modify a version)
 
+Persistence is the ability to return to any of the former states of the data structure. If you see “rollbacks” in the problem statement - this is 99.9% a reference to persistence problem.
+
 ## Types of Persistence
 * Partial persistence
   * Update only the latest version - versions are linearly ordered
