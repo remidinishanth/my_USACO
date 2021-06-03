@@ -257,6 +257,8 @@ source: https://codeforces.com/blog/entry/45428?#comment-304665
 
 ### Implementation and comparision with normal segment tree
 
+One of the key things to note in persistence, and in persistent segment trees, is that there is no child-parent reference. All references and traversals are one-way: down the tree. Also, node numbers are dynamic and not the standard left-child = `2i`, right-child = `2i+1`.
+
 #### Build
 
 Segment Tree
@@ -1102,3 +1104,77 @@ int main() {
 }
 ```
 </details>
+
+#### SORTING - CodeChef
+
+Alice uses the following pseudocode when she needs to sort a permutation of N positive integers:
+
+```pascal
+procedure Sort(list A) defined as:
+   list less, greater
+   if length(A) <= 1 then return A
+   pivot := A(length(A)+1) / 2
+   for i := 1 to length(A) do:
+      Increment(comparison_count)
+      if Ai < pivot then append Ai to less else if Ai > pivot append Ai to greater
+      end if
+   end for
+   return concatenate(Sort(less), pivot, Sort(greater) )
+```
+
+And now we are interested in the number of comparisons that will be made during the sorting of the given permutation of integers A with the provided code. So, we ask you to find the value of the variable comparison_count after such a sorting.
+
+<details>
+	<summary> Using Persistent Segment Tree</summary>
+	
+Observation: every time the list `A[]` is given to the sorting function, `A[]` always consists of the permutation of the numbers in some range `[L; R]`. Initially, it’s `[1; N]`, then it’s `[1; pivot-1]` and `[pivot+1; N]` and so on.
+
+Another observation: the relative order of numbers in every possible list A[] given to the sorting will not change.
+
+So, we just have to calculate the middle number by position (i.e. `(R-L+2)/2-th` number) among all the numbers with values in the range `[L; R]` in order to get pivot.
+
+For this, we generally use the concept of the “rank-query”. The rank query basically asks, what is the k-th least element in a given set, for a queried k. If the set contained the positions of the elements in `[L; R]`, then the `(R-L+2)/2-th` element is what we are looking for.
+
+This is generally done by using a `‘1’` at the value of the element in the set, and then the k-th element is got by just asking what is the first position to have `k 1’s` to the left of it (inclusive). This data structure is generally implemented by a BIT or a segment tree, but in this problem we will see how using a segment tree is of use to us.
+
+Lets define `Pos(x)` = position in original array where element x is,
+
+	Set(a, b) = the set {Pos(a), Pos(a+1), …, Pos(b)}.
+	
+We are generally interested in `Set(L, R)` and finding the `(R-L+2)/2-th` element, but notice: `Set(1, a-1)` is a subset of `Set(1, b)` and `Set(a, b) = Set(1, b) \ Set(1, a-1)`
+
+Thus, if just define `S(x) = Set(1, x)`, we would get that given `(L, R)`, we need to find the `(R-L+2)/2-th` element in `S(b) \ S(a-1)`.
+
+Using our concept of ones to denote positions, set difference where one set is subset of the other is now just finding the first position x where `(number of 1’s to the left of x in S) - (number of 1’s to the left of x in S(L-1)) = (R-L+2)/2` !!
+
+Notice now, that once we have N+1 segment trees (each segment tree corresponds to a set S(x)), we would be done, because traversal for a given query (L, R, k) is merely : go to left child with (L, R, k) if number of ones in left child® - number of ones in left child(L) <= k, else go to right child with query (L, R, k - #ones).
+
+Pseudo Code
+
+```python
+Root[0] = Empty segment Tree
+for i in 1 to N
+	Root[i] = Root[i-1].insert(Pos[i])
+Answer = f(1, N)
+
+f(L, R)
+	if(R <= L) return 0
+	x = getKth(Root[L-1], Root[R], (R-L+2)/2)
+	pivot = A[x]
+	return (R-L+1) + f(L, pivot-1) + f(pivot+1, R)
+
+getKth(Lnode, Rnode, k)
+	if(Lnode is a single position)
+		return Lnode's position
+	ones = Rnode.leftchild.ones - Lnode.leftchild.ones
+	if(ones <= k)
+		return getKth(Lnode.leftchild, Rnode.leftchild, k)
+	else
+		return getKth(Lnode.rightchild, Rnode.rightchild, k - ones)
+```
+
+Since N is as large as 5 * 10^5, the recursion stack would be too large, to overcome this issue we convert the implementation to a non-recursive manner.
+
+In fact, since the [L; R] intervals being queried are independent of each other (subproblems don’t even overlap), we need not worry about in which order we query the intervals, just that we need to query all the relevant ones. Thus, we can modify our DFS-like recursive implementation into a BFS-like version using queues. 
+
+</details>	
