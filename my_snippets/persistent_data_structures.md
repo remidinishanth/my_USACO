@@ -1127,8 +1127,9 @@ And now we are interested in the number of comparisons that will be made during 
 source: https://discuss.codechef.com/t/sorting-editorial/3048
 
 <details>
-	<summary> Using Persistent Segment Tree</summary>
-	
+  <summary> Using Persistent Segment Tree</summary>
+
+
 Observation: every time the list `A[]` is given to the sorting function, `A[]` always consists of the permutation of the numbers in some range `[L; R]`. Initially, it’s `[1; N]`, then it’s `[1; pivot-1]` and `[pivot+1; N]` and so on.
 
 Another observation: the relative order of numbers in every possible list A[] given to the sorting will not change.
