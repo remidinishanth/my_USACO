@@ -1259,8 +1259,94 @@ int main (int argc, char * const argv[]) {
     return 0;
 }
 ```
-
 </details>	
+
+<details>
+	<summary> O(log^2 N) per query</summary>
+	
+```cpp
+// Problem SORTING, another setter's 100-point solution
+// O(log^2N)-per-query, O(N log^2 N) overall complexity
+// Merge sort tree is used
+
+#include <cstdio>
+
+#define maxn 500010
+
+long long ret;
+int sr[20][maxn],a[maxn],n,i;
+struct node{
+	int l,r;
+}tree[maxn*4];
+
+void init(int lv,int pos,int l,int r){ // build the merge sort tree
+	tree[pos].l=l,tree[pos].r=r;
+	if(l<r){ 
+		int mid=(l+r)/2; // like in the usual segment tree
+		init(lv+1,pos+pos,l,mid); // build the left son
+		init(lv+1,pos+pos+1,mid+1,r); // build the right son
+		int j,hl=l,hr=mid+1;
+		for(j=l;j<=r;j++)if(hr>r||(hl<=mid&&sr[lv+1][hl]<sr[lv+1][hr]))sr[lv][j]=sr[lv+1][hl++];else sr[lv][j]=sr[lv+1][hr++]; // do the MergeSort
+	}else sr[lv][l]=a[l];
+}
+
+int getbs(int lv,int pL,int pR,int L,int R){ // calculate amount of numbers in the range [L; R] on the sorted segment [lv][pL..pR]
+	if(sr[lv][pL]>R)return 0; // if the smallest number is too big
+	if(sr[lv][pR]<L)return 0; // if the biggest number is too small
+	int l=pL,r=pR,mid;
+	while(l<r){ // find the first number in the segment
+		mid=(l+r)/2;
+		if(sr[lv][mid]<L)l=mid+1;else r=mid;
+	}
+	if(sr[lv][l]>R)return 0; // if there're no numbers in the segment [L; R]
+	int rt=l;
+	l=pL,r=pR;
+	while(l<r){ // find the last number in the segment
+		mid=(l+r+1)/2;
+		if(sr[lv][mid]>R)r=mid-1;else l=mid;
+	}
+	if(l<rt)return 0; // if there're no numbers in the segment [L; R]
+	return l-rt+1; // return the amount of numbers
+}
+
+int query(int lv,int pos,int L,int R,int kth){ // get the k-th number in the range [L; R] in the segment
+	if(tree[pos].l==tree[pos].r)return tree[pos].l; // if we have detected the number, return it
+	int lf=getbs(lv+1,tree[pos+pos].l,tree[pos+pos].r,L,R); // the amount of the numbers in the range [L; R] in the left son
+	if(lf>=kth)return query(lv+1,pos+pos,L,R,kth);else return query(lv+1,pos+pos+1,L,R,kth-lf); // if the amount in the left son is enough, we go to the left son. otherwise we go to the right son
+}
+
+int q1,q2,qL[maxn*4],qR[maxn*4];
+
+void solve(int l,int r){ // simulate the sorting
+	qL[q1]=l,qR[q1]=r;q1=1;q2=0;
+	while(q1!=q2){ // here, we use BFS instead of the DFS
+		l=qL[q2];r=qR[q2];++q2;
+		ret+=r-l+1;
+		int pivot=a[query(0,1,l,r,(r-l+2)/2)]; // calculating the pivot in O(log^2N)
+		// now, split the segment into two small segments: 
+		if(l<pivot-1){ // [L; pivot)
+			qL[q1]=l;
+			qR[q1]=pivot-1;
+			++q1;
+		}
+		if(pivot+1<r){ // (pivot; R]
+			qL[q1]=pivot+1;
+			qR[q1]=r;
+			++q1;
+		}
+	}
+}
+
+int main(){
+	scanf("%d",&n); // size of the permutation
+	for(i=1;i<=n;i++)scanf("%d",&a[i]); // the permutation itself
+	init(0,1,1,n); // building the segment tree
+	solve(1,n); 
+	printf("%lld\n",ret);
+	return 0;
+}
+```
+</details>
 
 <details>
 	<summary> Without using a persistent data structures.</summary>
