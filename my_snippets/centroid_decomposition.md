@@ -344,7 +344,7 @@ We should execute two types of queries:
 
 * Let `ans[a]` be the distance to the closest rose node to `a` in the component where node a is centroid. Initially, `ans[a] = ∞` because all nodes are blue (we’ll update the first node before reading the operations).
 * For each update(a), we do `ans[b] = min(ans[b], dist(a, b))` for every ancestor b of a in centroid tree, where `dist(a,b)` is the distance in the original tree. 
-* The time complexity of update is `O(lg²(n))` because we are moving up on the tree of height `lg(n)` and for each step we evaluate `dist(a,b)` in `O(lg(n))`.
+* The time complexity of update is `O(lg²(n))` because we are moving up on the tree of height `lg(n)` and for each step we evaluate `dist(a,b)` in `O(lg(n))`. We can do it in `O(lg(n))`, see Baba's implementation above.
 * For each query(a), we take the minimum of `dist(a,b) + ans[b]` for every ancestor `b` of `a`, where `dist(a,b)` is the distance in the original tree.
 
 </details>
