@@ -155,6 +155,60 @@ Let's mark the centroid with label 0, and remove it. After removing the centroid
 * Using some DS, we maintain the required information (based on the problem) about these `O(NlogN)` different paths chosen such that any other path can be decomposed into 2 different paths from this set and these two paths can be found in `O(logN)` time, by finding the LCA in the centroid tree (since height of centroid tree is at most `O(logN)`, we can find the LCA by just moving up from the deeper node).
 * Each path from `a` to `b` in the original tree can be represented path from `a -> lca(a, b)` and `lca(a, b) -> b`. For each node we have `O(logN)` ancestors becuase the height of tree is `O(logN)`. There are `N` nodes in total and hence number of paths in `O(NlogN)`, that is there are only `O(NlogN)` paths from every node to its ancestors.
 
+<details>
+	<summary>Carpanese implementation</summary>
+
+Using vector<set<int>> for Adjacency list, see Baba's implementation below for Distance in the Tree for better implementation.
+	
+```cpp
+struct CentroidDecomposition {
+	vector<set<int>> tree; // it's not vector<vector<int>>!
+	vector<int> dad;
+	vector<int> sub;
+
+	CentroidDecomposition(vector<set<int>> &tree) : tree(tree) {
+		int n = tree.size();
+		dad.resize(n);
+		sub.resize(n);
+		build(0, -1);
+	}
+
+	void build(int u, int p) {
+		int n = dfs(u, p); // find the size of each subtree
+		int centroid = dfs(u, p, n); // find the centroid
+		if (p == -1) p = centroid; // dad of root is the root itself
+		dad[centroid] = p;
+
+		// for each tree resulting from the removal of the centroid
+		for (auto v : tree[centroid])
+			tree[centroid].erase(v), // remove the edge to disconnect
+			tree[v].erase(centroid), // the component from the tree
+			build(v, centroid);
+	}
+
+	int dfs(int u, int p) {
+		sub[u] = 1;
+
+		for (auto v : tree[u])
+			if (v != p) sub[u] += dfs(v, u);
+
+		return sub[u];
+	}
+
+	int dfs(int u, int p, int n) {
+		for (auto v : tree[u])
+			if (v != p and sub[v] > n/2) return dfs(v, u, n);
+
+		return u;
+	}
+
+	int operator[](int i) {
+		return dad[i];
+	}
+};
+```
+</details>
+
 ## Problems & Analysis
 
 ### Distance in the Tree - Timus
