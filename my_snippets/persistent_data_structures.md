@@ -2004,3 +2004,20 @@ int main (int argc, char * const argv[]) {
 }
 ```
 </details>
+
+#### Problem SEGSUMQ from Snackdown 2016 Elim.
+
+* Note that you can sort the pairs as the fractions.
+* Make use of persistent segment tree.
+
+#### Problem Cat-Cation Rentals from WoC-20
+
+* Given a set of ranges belonging to the segment [1; K].
+* For every L <= K let’s get rid of the segments shorter than L.
+* Then, let’s greedily pick the independent set of these segments which can’t be extended.
+* Find the size of such set for every L <= K.
+
+#### Persistent Arrays and Deques
+
+* You can make random-access array persistent by building a segment tree on it. It would work in O(log N) per query.
+* For stacks, queues and deques there is a way to make them persistent in O(1) per query.
