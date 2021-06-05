@@ -1542,3 +1542,464 @@ When the pivot is in the middle all the time, this algorithm will perform exactl
 Here we need to implement dynamic Segment Tree (we will create nodes only when we need them), i.e. this line just creates a single node.
 
 </details>
+
+#### QUERY - Codechef
+
+You are given a tree of N vertices. Each vertex is initialized to value 0. Further you are given 3 kinds of operations:
+* `c X Y A B` - the “Change” operation: Along the path from X to Y increment the values by A, A+B, A+2B, etc.
+* `q X Y` - the “Query” operation: Find the sum of values along the path from X to Y
+* `l X` - the “Rollback” operation: Return the tree to the state it was after the X’th Change query.
+
+The input is given in a manner that we require an online solution for the problem.
+
+source: https://www.codechef.com/problems/QUERY
+
+<details>
+	<summary> Offline solution </summary>
+	
+The requirement of lastans in the input format ensured that offline solutions would not work here. There is a offline solution to the problem which does not use persistence.
+
+Imagine versions as nodes of a graph. Now, when you have an update operation, that amounts to creating a new version-child of the current node. If you had no rollbacks, then your graph would be a chain. Now that there are rollbacks, you may branch out from an earlier version. In this case you have a tree.
+
+Note that, if you went from a version to its child using the operation X Y A B, then you can go back from the child to its parent using the operation X Y -A -B. Thus, first you build this version-tree, and then you traverse it using a DFS. When you are in a version-node n, then solve all queries that pertain to that node before moving on.
+</details>	
+
+<details>
+	<summary> Using HLD and Persistent Segment Trees </summary>
+
+The solution describes using segment trees, heavy light decomposition, and persistence over a tree. To avoid confusion in terminology, “node” refers to the data structure component (segment tree or persistence), whereas “vertex” refers to the vertex of the Tree given in the Problem.
+
+We develop the solution by analyzing the problem under various special cases, as follows:
+
+1. The Tree is a chain, there are no rollback queries
+2. You have a chain, but there are rollback queries
+3. You have a tree, there are no rollback queries
+4. Overall solution.
+
+**Tree is a chain, there are no rollbacks**
+
+Here, we have a segment - lets use a segment tree. Now, we wish to update the values of vertices from X to Y. Suppose we have two such operations on the same vertices: X Y A B followed by X Y C D. Then the values will be (going along the path from X to Y)
+
+	A, A+B, A+2B, ...
+	
+after the first operation, and
+
+	A + C, A+B + C+D, A+2B + C+2D, ...
+	
+after the second operation.
+
+Clearly, this is equivalent to the single operation X Y A+C B+D.
+
+Thus, let us store in our segment tree the pairs (A,B) associated with the operation. Now, when we get to a segtree-node which is completely contained in our X-Y path, we just update the A, B value of that node.
+
+Further, while querying, we would like to return an answer when our query-node is completely contained in our required segment. Thus, we also need to store a field “sum” in our segtree which basically stores the sum of the left subtree + right subtree.
+
+Pseduo Code
+
+```cpp
+update(node cur, 	//current node in segtree we wish to update
+	int X, 		//X-val of update-segment wrt current node
+	int Y,		//Y-val of update-segment wrt current node
+	int A,		//A-val of operation
+	int B)		//B-val of operation
+	if(cur.left == X && cur.right == Y)
+		cur.A += A, cur.B += B;
+		return;
+	mid = (cur.left + cur.right)/2;
+	if(X <= min(Y, mid))
+		update(ret.left, X, min(Y, mid), A, B)
+	if(max(X, mid+1) <= Y)
+		update(ret.right, max(X, mid+1), Y, A + max(0, mid-X+1) * B, B);
+	cur.sum = findSum(cur.left) + findSum(cur.right);
+
+findSum(node cur)
+	n = cur.right - cur.left + 1;	//#elements in node
+	a = cur.A;
+	b = cur.B;
+	return cur.sum + calc(a, b, n);
+
+calc(a, b, n)	//returns sum of a, a+b, a+2b, a+(n-1)b
+	return (n * (2 * a + (n-1) * b))/2;
+
+query(node cur, int X, int Y, int accumA, int accumB)
+// similar to update: here accumA and accumB store the sum of A-values and B-values along the path from root to the node, as this is required in finding the overall value of a node at a depth.
+	if(cur.left == X && cur.right == Y)
+		return cur.sum + calc(accumA, accumB, (Y-X)+1);
+	ret = 0
+	mid = (X+Y)/2;
+	if (X <= min(mid, Y))
+		ret += query(cur.left, X, min(Y, mid), accumA+cur.left.A, accumB + cur.left.B)
+	if (max(mid+1, X) <= Y)
+		ret += query(cur.right, max(mid+1, X), Y, accumA + cur.right.A + accumB * (size-of-left-subtree), accumB + cur.right.B)
+	return ret;
+```
+
+This can be found in Setter’s Solution (lines 24 - 54), if you ignore the persistence that is introduced in the modify() function.
+
+**You have a chain, but there are rollback queries**
+
+Now, how does this apply to our generalization? We can imagine our segment tree as a binary tree with links to left and right children. In this setting, what would a modification to the tree look like?
+
+It would just be a path starting from the root upto a particular node! What we need to do here, is clone just the path from the root to the node, and associate the new root with the new version. Here, when the tree has N nodes, a path of length atmost log(N) is being cloned. If you compare with the linked list example, over there, in the worst case we could clone a path of size O(N). Thus, there is a huge improvement in the case of the segment tree.
+
+So, if we were to have a global array of Version-roots, and perform our updation of the tree with cloning, we get exactly what we desire. Refer to Setter’s code : lines 42 - 62 for the description of this.
+
+**You have a tree, and no rollback queries**
+
+↳ Heavy-light Decomposition of Tree (HLDoT)
+
+The heavy-light decomposition is used to break up a Tree into s set of disjoint paths, with certain useful properties. First, root the tree. Then, for each vertex x, we find the child of x having the largest subtree. Lets call that vertex y. Then the edge x-y is a heavy edge, and all other x-child_vertex edges are light edges.
+
+The most important property of this is, from any vertex x, the path from x to the root goes through at most logN different light-edges. This is because, on this path, whenever you take a light edge, you are atleast doubling the size of the subtree rooted at the new vertex. Hence you cannot perform this “doubling” effect more than `logN` times.
+
+If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLDoT. Indeed, if you make segment trees over the heavy edges, then the answer for your path X-Y can be broken up into two paths from X to LCA(X, Y) and from Y to LCA(X, Y). Then, using that you make only logN shifts from one heavy-chain to another, you are actually making only log(N) segment-tree queries.
+
+↳ Applying HLDoT here
+
+Let us perform Heavy Light Decomposition of the tree here. We make chains consisting only of heavy edges. We also need to find LCA efficiently. This can be done in O(N log N) time by storing information up[x][i] = the ancestor of x which is at a height of 2^i above x. Clearly, up[x][i] = up[up[x][i-1]][i-1] (take a 2^(i-1) upward jump from the 2^(i-1)'th ancestor of x). Then,
+
+```cpp
+LCA(x, y):
+if(x is ancestor of y) return x;
+for(i = logN; i >= 0; i--) 
+	if (up[x][i] is not an ancestor of y) x = up[x][i];
+return up[x][0];
+```
+
+Now, given an update query, from X to Y, first find L = LCA(X, Y). Then, update path from X to L and from L to Y.
+
+This is accomplished in the Setter’s code lines 195-220. Pseudocode follows. Let chain[vertex] = an identifier for the particular segment tree’s root that we require.
+
+```cpp
+
+change(L, x, y, a, b):	// Perform the operation X Y A B, where L = LCA(X, Y)
+dist = depth[x] + depth[y] - 2depth[L] + 1
+lift(x, L, a, b);	// update path x to L with parameters (a, b)
+if(y is not L)
+	find pL = child of L that is ancestor of y
+	//update path from y to pL with parameters (a + b * (dist-1), -b)
+	lift(y, pL, a + b * (dist-1), -b)
+
+lift(low, high, a, b):
+if(chain[low] = chain[high])
+	Modify the chain[low]'th segtree along the path from low to high as required
+else
+	Let H = Head of the chain[low]'th segtree (i.e. the one nearest to the root)
+	Let n = number of nodes on path from low to H
+	Modify the chain[low]'th segtree along the path from low to its Head as required
+	lift (parent of Head, high, a + (n-1) * b, b)
+```
+
+**Overall Solution**
+
+The overall solution merges persistence with Heavy Light Decomposition. At the high level, it goes as follows:
+
+1. Perform heavy-light decomposition to give you information regarding ancestry-relation between nodes, LCA, depth, and mapping vertices to chain-numbers
+2. For a change operation between X and Y, for every chain along the path from X to Y, perform a persistent-change to the corresponding segment trees. For each segment tree, you have an array of the root-nodes that map versions to roots.
+3. For every query operation between X and Y, do the same as step 2, except you need to accumulate queries over various segment trees, and don’t perform any modifications
+4. For every rollback operation, set a global variable (that denotes your version number) to the required version.
+
+**Complexity Analysis:**
+
+Memory: Each update operation on a segment tree takes atmost O(logN) memory. Each update operation on the tree affects atmost O(logN) chains. Hence, memory complexity is O(N log^2 N).
+
+Time: Updates on each segment tree take O(logN) time. There are atmost O(logN) segment trees to update on an Update Operation. Hence, O(log^2N) per update operation.
+Queries behave similarly: O(log^2N) for queries as well.
+Rollback operation: O(1) time to update global version-number.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+#define maxn 220000 // maximal number of nodes
+
+struct node{ // node of the first persistent tree
+	int add2; // add2 is the sum of all Bs, added to this node, according to the statement, B<=1000, M<=100000, so int is ok
+	long long add1,sum; // sum of all As for the node, sum in the subtree
+	node*l,*r; // left and right sons
+};
+
+node*init(int l,int r){ // creates the progressions persistent tree like an ordinary segtree
+	node*ret=new node;
+	ret->add1=ret->add2=ret->sum=0;
+	if(l<r){
+		ret->l=init(l,(l+r)/2);
+		ret->r=init((l+r)/2+1,r);
+	}
+	return ret;
+}
+
+inline long long calc(long long a,long long b,long long c){ // calculate the sum a+(a+b)+(a+2*b)...+(a+(c-1)*b)
+	return a*c+((c*(c-1))/2)*b;
+}
+
+long long query(node*me,int cL,int cR,int l,int r,long long sa1,long long sa2){ // query on the progressions persistent tree, quite standard
+	if(cL==l&&cR==r)return me->sum+calc(sa1,sa2,cR-cL+1);
+	long long ret=0;
+	int mid=(cL+cR)>>1;
+	if(l<=min(mid,r))ret+=query(me->l,cL,mid,l,min(mid,r),sa1+me->l->add1,sa2+me->l->add2);
+	if(max(mid+1,l)<=r)ret+=query(me->r,mid+1,cR,max(mid+1,l),r,sa1+me->r->add1+sa2*(mid-cL+1),sa2+me->r->add2);
+	return ret;
+}
+
+inline long long get(node*me,int cL,int cR){ // calculates the sum of the subtree for some node
+	return me->sum+calc(me->add1,me->add2,cR-cL+1);
+}
+
+node*modify(node*me,int cL,int cR,int l,int r,long long a,long long b){ // progressions persistent tree modify
+	node*ret=new node; // clone the current vertice
+	ret->l=me->l,ret->r=me->r; // clone the current vertice
+	ret->sum=me->sum,ret->add1=me->add1,ret->add2=me->add2; //clone the current vertice
+	if(cL==l&&cR==r){ // then, usual segment tree modifying follow
+		ret->add1+=a,ret->add2+=b;
+		return ret;
+	}
+	int mid=(cL+cR)>>1;
+	if(l<=min(r,mid))ret->l=modify(ret->l,cL,mid,l,min(r,mid),a,b);
+	if(max(l,mid+1)<=r)ret->r=modify(ret->r,mid+1,cR,max(l,mid+1),r,a+max(0,mid-l+1)*b,b);
+	ret->sum=get(ret->l,cL,mid)+get(ret->r,mid+1,cR);
+	return ret; // clonned node should be returned
+}
+
+struct infNode{ // persistent array
+	int l,r,x;
+	infNode*le,*ri;
+};
+
+infNode*changeRoot[maxn];
+
+infNode*initInfNode(int l,int r){ // create the persistent array like an ordinary segtree
+	infNode*ret=new infNode;
+	ret->l=l,ret->r=r,ret->x=0;
+	if(l!=r){
+		ret->le=initInfNode(l,(l+r)/2);
+		ret->ri=initInfNode((l+r)/2+1,r);
+	}
+	return ret;
+}
+
+int infnodeGet(infNode*me,int j){ // query on a persistent array, doesn't differ from a query on a segtree
+	if(me->l==me->r)return me->x;
+	if(me->le->r>=j)return infnodeGet(me->le,j);else return infnodeGet(me->ri,j);
+}
+
+infNode*infnodeUpdate(infNode*me,int j,int x){ // updates some value in the persistent array and returns the new version
+	infNode*ret=new infNode;  // clone the current vertice
+	ret->l=me->l,ret->r=me->r; // clone the current vertice
+	ret->le=me->le,ret->ri=me->ri; // clone the current vertice
+	ret->x=me->x; // clone the current vertice
+	if(ret->l==ret->r){ // then, ordinary modifying follows
+		ret->x=x;
+		return ret;
+	}
+	if(ret->le->r>=j)ret->le=infnodeUpdate(ret->le,j,x);else ret->ri=infnodeUpdate(ret->ri,j,x);
+	return ret; // the return clonned vertice
+}
+
+vector<node*>root[maxn];
+vector<int>version[maxn],refreshed[maxn],chg;
+vector<pair<int,int> >queries[maxn],precalc[maxn];
+int n,m,i,j,x,y,f[maxn*2],t[maxn*2],p[maxn*2],ii,up[maxn][20],subtree[maxn],chain[maxn],chains,chainSize[maxn],go_back=-1,lnk[maxn],modifies;
+int tin[maxn],tout[maxn],timer,place[maxn],aa,bb,L,depth[maxn],pred[maxn],ver,changes,old_ver,pr[maxn],X[maxn],Y[maxn],AA[maxn],BB[maxn];
+pair<int,int>a[maxn];
+bool changing;
+long long lastans;
+char ch[maxn];
+
+void addedge(int x,int y){ // add an edge to the tree
+	t[++ii]=y;
+	p[ii]=f[x];
+	f[x]=ii;
+}
+
+int ex[maxn],ey[maxn],o[maxn];
+
+void readIn(){
+	scanf("%d%d",&n,&m); // amount of vertices and queries
+	for(i=1;i<n;i++)scanf("%d%d",&ex[i],&ey[i]);
+	for(i=1;i<n;i++)o[i]=i;
+	for(i=1;i<n;i++){
+		j=rand()%(n-1)+1;
+		swap(o[i],o[j]);
+	}
+	for(i=1;i<n;i++){
+		addedge(ex[o[i]],ey[o[i]]);
+		addedge(ey[o[i]],ex[o[i]]);
+	}
+}
+
+void dfs(int k){ // DFS, used to build LCA, and calculate sizes of subtrees.
+	subtree[k]=1;
+	tin[k]=++timer; // important for LCA calculation
+	int q=f[k];
+	while(q){
+		if(!subtree[t[q]]){
+			depth[t[q]]=1+depth[k]; 
+			up[t[q]][0]=k; // important for LCA calculation
+			for(int j=1;j<20;j++)up[t[q]][j]=up[up[t[q]][j-1]][j-1]; // important for LCA calculation
+			dfs(t[q]);
+			subtree[k]+=subtree[t[q]]; // calculate the size of the subtree, it will be used in hldot construction
+		}
+		q=p[q];
+	}
+	a[k]=make_pair(subtree[k],k);
+	tout[k]=++timer; // important for LCA calculation
+}
+
+void givechain(int k){ // greedily build the hldot. take the son with the heaviest subtree
+	chain[k]=chains;
+	place[k]=++chainSize[chains];
+	int q=f[k],mx=0;
+	while(q){
+		if(subtree[t[q]]<subtree[k])mx=max(mx,subtree[t[q]]);
+		q=p[q];
+	}
+	q=f[k];
+	while(q){
+		if(subtree[t[q]]==mx){
+			givechain(t[q]);
+			break;
+		}
+		q=p[q];
+	}
+}
+
+void build_dot(){
+	for(i=0;i<20;i++)up[1][i]=1;
+	dfs(1); // at first, run the DFS
+	sort(a+1,a+n+1);
+	reverse(a+1,a+n+1);
+	for(i=1;i<=n;i++)if(!chain[a[i].second]){ // lauch the hldot building
+		pred[++chains]=up[a[i].second][0];
+		givechain(a[i].second);
+		root[chains].push_back(init(1,chainSize[chains])); 
+		version[chains].push_back(0);
+	}
+}
+
+inline bool anc(int x,int y){ // checks whether X is ancestor of Y
+	return (tin[x]<=tin[y]&&tout[x]>=tout[y]);
+}
+
+inline int LCA(int x,int y){ // compute the LCA for X and Y
+	if(anc(x,y))return x;
+	for(int i=19;i+1;i--)if(!anc(up[x][i],y))x=up[x][i];
+	return up[x][0];
+}
+
+node*getCurrentRoot(int chain){ // returns actual version for the chain
+	if(version[chain].back()==changes&&changing)return root[chain][version[chain].size()-1]; // if we're modifying now, and it was already changed, then take the last version
+	if(version[chain].back()>go_back)return root[chain].back(); // also, if it's clear that the last version can be taken
+	int now=infnodeGet(changeRoot[ver],chain); // otherwise, we use the persistent array (persistent arrays form the tree, btw) to get the current last version
+	int l=0,r=version[chain].size()-1,mid; // index of the version is now known, we should find the root with this index
+	while(l<r){
+		mid=(l+r+1)>>1;
+		if(version[chain][mid]>now)r=mid-1;else l=mid;
+	}
+	return root[chain][l]; // ... and return this root
+}
+
+void lift(int low,int high,long long a,long long b){ // modifying for the case when high is the ancestor of low
+	if(chain[low]==chain[high]){ // case when it's necessary to modify only one chain
+		long long amount=place[low]-place[high];
+		node*newroot=modify(getCurrentRoot(chain[low]),1,chainSize[chain[low]],place[high],place[low],a+amount*b,-b);
+		root[chain[low]].push_back(newroot); // remember the new version
+		version[chain[low]].push_back(changes); // remember the new version
+		chg.push_back(chain[low]); // remember the new version
+	}else{ // otherwise, the whole prefix should be modified, and then lift should be called again
+		long long amount=place[low]-1;
+		node*newroot=modify(getCurrentRoot(chain[low]),1,chainSize[chain[low]],1,place[low],a+amount*b,-b);
+		root[chain[low]].push_back(newroot); // again, remember the new version
+		version[chain[low]].push_back(changes); // remember the new version	
+		lift(pred[chain[low]],high,a+b*place[low],b); // run lift again. generally, it will be called till the moment chain[a]=chain[b]
+		chg.push_back(chain[low]); // remember the new version
+	}
+}
+
+void change(int L,int x,int y,long long a,long long b){ // more general version of changing. it's not necessary for the X to be an ancestor for Y
+	// split it to the two cases: [x; L], [y; L)
+	long long dist=depth[x]+depth[y]-2*depth[L]+1;
+	lift(x,L,a,b); // [x; L]
+	if(y!=L){ // [y; L)
+		int pL=y,remain=depth[y]-depth[L]-1;
+		for(j=19;j+1;j--)if(remain&(1<<j))pL=up[pL][j];
+		lift(y,pL,a+b*(dist-1),-b);
+	}
+}
+
+long long getsum(int low,int high){ // question query for the case when high is an ancestor of low
+	// same logic as in lift
+	if(chain[low]==chain[high]){
+		node*root=getCurrentRoot(chain[low]);
+		return query(root,1,chainSize[chain[low]],place[high],place[low],root->add1,root->add2);
+	}else{
+		node*root=getCurrentRoot(chain[low]);		
+		return query(root,1,chainSize[chain[low]],1,place[low],root->add1,root->add2)+getsum(pred[chain[low]],high);
+	}
+	// notice, that you don't have to save any versions because you don't change anything
+}
+
+long long query(int L,int x,int y){ // more general case for quetion query
+	if(L==x)return getsum(y,L); // if x is LCA
+	if(L==y)return getsum(x,L); // or if y is LCA
+	// otherwise, split it into two queries: [x; L] and [y; L)
+	long long ret=getsum(x,L); // [x; L]
+	int pL=y,remain=depth[y]-depth[L]-1;
+	for(j=19;j+1;j--)if(remain&(1<<j))pL=up[pL][j];
+	return ret+getsum(y,pL); // [y; L)
+}
+
+void upd_changed(){ // write all the updates in the persistent array
+	for(j=0;j<chg.size();j++){
+		infNode*tmp=infnodeUpdate(changeRoot[changes],chg[j],changes);
+		changeRoot[changes]=tmp;
+	}
+}
+
+int used[maxn],visited;
+
+int main (int argc, char * const argv[]) {
+	srand(time(NULL));
+	readIn(); // read data
+	build_dot(); // build the decomposition
+	changeRoot[0]=initInfNode(1,chains); // build the version 0 of the persistent array
+	for(i=1,changes=0,ver=0;i<=m;i++){
+		ch[i]=getchar(); // get the type of the query
+		while(ch[i]!='c'&&ch[i]!='q'&&ch[i]!='l')ch[i]=getchar(); // get the type of the query
+		changing=false;
+		if(ch[i]=='c'){ // changing query
+			scanf("%d%d%d%d",&X[i],&Y[i],&AA[i],&BB[i]);
+			X[i]=(X[i]+lastans)%n+1; // get actual X
+			Y[i]=(Y[i]+lastans)%n+1; // get actual Y
+			pr[++changes]=ver; 	
+			changeRoot[changes]=new infNode; // create a new node in versions tree
+			changeRoot[changes]=changeRoot[ver]; // create a new node in versions tree
+			changing=true;
+			x=X[i],y=Y[i],aa=AA[i],bb=BB[i];
+			L=LCA(x,y); // get LCA
+			chg.clear();
+			change(L,x,y,aa,bb); // do the change
+			upd_changed(); // update persistent array
+			ver=changes; // update the current version's index
+			++modifies;
+		}else if(ch[i]=='q'){
+			scanf("%d%d",&X[i],&Y[i]);
+			X[i]=(X[i]+lastans)%n+1; // get actual X
+			Y[i]=(Y[i]+lastans)%n+1; // get actual Y
+			x=X[i],y=Y[i];
+			L=LCA(x,y); // get LCA
+			lastans=query(L,x,y); // answer the query
+			printf("%lld\n",lastans);
+		}else if(ch[i]=='l'){
+			scanf("%d",&X[i]);
+			X[i]=(X[i]+lastans)%(modifies+1); // get actual version
+			ver=X[i]; 
+			go_back=changes;
+		}
+	}
+	return 0;
+}
+```
+</details>
