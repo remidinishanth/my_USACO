@@ -396,6 +396,8 @@ Original Problem: Given a weighted tree and a sequence `a_1, a_2, ..., a_n (perm
 
 ![image](https://user-images.githubusercontent.com/19663316/120901187-f67ff480-c656-11eb-8012-581b409e3620.png)
 
+We need to binarize the original tree and not centroid tree. If we binarize the cetroid tree, then height of centroid tree would increase, may not be be O(log N).
+
 
 **Conclusion**
 Hence we perform centroid decomposition of this transformed tree T'. The centroid tree formed would have the following properties.
