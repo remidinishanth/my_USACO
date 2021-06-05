@@ -1747,7 +1747,7 @@ inline long long get(node*me,int cL,int cR){ // calculates the sum of the subtre
 	return me->sum+calc(me->add1,me->add2,cR-cL+1);
 }
 
-node*modify(node*me,int cL,int cR,int l,int r,long long a,long long b){ // progressions persistent tree modify
+node* modify(node*me,int cL,int cR,int l,int r,long long a,long long b){ // progressions persistent tree modify
 	node*ret=new node; // clone the current vertice
 	ret->l=me->l, ret->r=me->r; // clone the current vertice
 	ret->sum=me->sum, ret->add1=me->add1, ret->add2=me->add2; //clone the current vertice
@@ -1767,9 +1767,9 @@ struct infNode{ // persistent array
 	infNode*le,*ri;
 };
 
-infNode*changeRoot[maxn];
+infNode* changeRoot[maxn];
 
-infNode*initInfNode(int l,int r){ // create the persistent array like an ordinary segtree
+infNode* initInfNode(int l,int r){ // create the persistent array like an ordinary segtree
 	infNode*ret=new infNode;
 	ret->l=l, ret->r=r, ret->x=0;
 	if(l!=r){
@@ -1784,7 +1784,7 @@ int infnodeGet(infNode*me,int j){ // query on a persistent array, doesn't differ
 	if(me->le->r>=j) return infnodeGet(me->le,j);else return infnodeGet(me->ri,j);
 }
 
-infNode*infnodeUpdate(infNode*me,int j,int x){ // updates some value in the persistent array and returns the new version
+infNode* infnodeUpdate(infNode*me,int j,int x){ // updates some value in the persistent array and returns the new version
 	infNode*ret=new infNode;  // clone the current vertice
 	ret->l=me->l, ret->r=me->r; // clone the current vertice
 	ret->le=me->le, ret->ri=me->ri; // clone the current vertice
@@ -1891,13 +1891,13 @@ inline int LCA(int x,int y){ // compute the LCA for X and Y
 }
 
 node*getCurrentRoot(int chain){ // returns actual version for the chain
-	if(version[chain].back()==changes&&changing)return root[chain][version[chain].size()-1]; // if we're modifying now, and it was already changed, then take the last version
-	if(version[chain].back()>go_back)return root[chain].back(); // also, if it's clear that the last version can be taken
+	if(version[chain].back()==changes&&changing) return root[chain][version[chain].size()-1]; // if we're modifying now, and it was already changed, then take the last version
+	if(version[chain].back()>go_back) return root[chain].back(); // also, if it's clear that the last version can be taken
 	int now=infnodeGet(changeRoot[ver],chain); // otherwise, we use the persistent array (persistent arrays form the tree, btw) to get the current last version
 	int l=0,r=version[chain].size()-1,mid; // index of the version is now known, we should find the root with this index
 	while(l<r){
 		mid=(l+r+1)>>1;
-		if(version[chain][mid]>now)r=mid-1;else l=mid;
+		if(version[chain][mid]>now) r=mid-1;else l=mid;
 	}
 	return root[chain][l]; // ... and return this root
 }
@@ -1925,7 +1925,7 @@ void change(int L,int x,int y,long long a,long long b){ // more general version 
 	lift(x,L,a,b); // [x; L]
 	if(y!=L){ // [y; L)
 		int pL=y,remain=depth[y]-depth[L]-1;
-		for(j=19;j+1;j--)if(remain&(1<<j))pL=up[pL][j];
+		for(j=19;j+1;j--) if(remain&(1<<j)) pL=up[pL][j];
 		lift(y,pL,a+b*(dist-1),-b);
 	}
 }
