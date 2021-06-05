@@ -211,6 +211,116 @@ struct CentroidDecomposition {
 
 ## Problems & Analysis
 
+### CF 199 Div 2 E. Xenia and Tree 
+
+https://codeforces.com/contest/342/problem/E
+
+Given a tree of `n` nodes indexed from `1` to `n`. The first node is initially painted red, and the other nodes are blue. 
+
+We should execute two types of queries:
+* paint a specified blue node to red
+* calculate which red node is the closest to the given one and print the shortest distance to the closest red node.
+
+<details>
+	<summary>Using Centroid decomposition</summary>
+
+* Let `ans[a]` be the distance to the closest rose node to `a` in the component where node a is centroid. Initially, `ans[a] = ∞` because all nodes are blue (we’ll update the first node before reading the operations).
+* For each update(a), we do `ans[b] = min(ans[b], dist(a, b))` for every ancestor b of a in centroid tree, where `dist(a,b)` is the distance in the original tree. 
+* The time complexity of update is `O(lg²(n))` because we are moving up on the tree of height `lg(n)` and for each step we evaluate `dist(a,b)` in `O(lg(n))`. We can do it in `O(lg(n))`, see Baba's implementation above.
+* For each query(a), we take the minimum of `dist(a,b) + ans[b]` for every ancestor `b` of `a`, where `dist(a,b)` is the distance in the original tree.
+
+The below solution is not efficient as it uses set for Adjacency list and map for distance. See Tanuj's implementation.
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+const int N = (int)1e5 + 5;
+const int inf = (int)1e9;
+
+struct CentroidDecomposition {
+  set<int> G[N];
+  map<int, int> dis[N];
+  int sz[N], pa[N], ans[N];
+
+  void init(int n) {
+    for(int i = 1 ; i <= n ; ++i) G[i].clear(), dis[i].clear(), ans[i] = inf;
+  }
+  void addEdge(int u, int v) {
+    G[u].insert(v); G[v].insert(u);
+  }
+  int dfs(int u, int p) {
+    sz[u] = 1;
+    for(auto v : G[u]) if(v != p) {
+      sz[u] += dfs(v, u);
+    }
+    return sz[u];
+  }
+  int centroid(int u, int p, int n) {
+    for(auto v : G[u]) if(v != p) {
+      if(sz[v] > n / 2) return centroid(v, u, n);
+    }
+    return u;
+  }
+  void dfs2(int u, int p, int c, int d) { // build distance 
+    dis[c][u] = d;
+    for(auto v : G[u]) if(v != p) {
+      dfs2(v, u, c, d + 1);
+    }
+  }
+  void build(int u, int p) {
+    int n = dfs(u, p);
+    int c = centroid(u, p, n);
+    if(p == -1) p = c;
+    pa[c] = p;
+    dfs2(c, p, c, 0);
+
+    vector<int> tmp(G[c].begin(), G[c].end());
+    for(auto v : tmp) {
+      G[c].erase(v); G[v].erase(c);
+      build(v, c);
+    }
+  }
+  void modify(int u) {
+    for(int v = u ; v != 0 ; v = pa[v]) ans[v] = min(ans[v], dis[v][u]);
+  }
+  int query(int u) {
+    int mn = inf;
+    for(int v = u ; v != 0 ; v = pa[v]) mn = min(mn, ans[v] + dis[v][u]);
+    return mn;
+  }
+} cd;
+
+int n, q;
+
+void init() {
+  cin >> n >> q;
+  cd.init(n);
+  for(int i = 0 ; i < n - 1 ; ++i) {
+    int a, b; cin >> a >> b; cd.addEdge(a, b);
+  }
+  cd.build(1, 0);
+}
+void solve() {
+  cd.modify(1);
+  int t, u;
+  while(q--) {
+    cin >> t >> u;
+    if(t == 1) cd.modify(u);
+    else cout << cd.query(u) << '\n';
+  }
+}
+
+int main() {
+  ios_base::sync_with_stdio(0), cin.tie(0);
+  init();
+  solve();
+}
+```
+</details>
+
+
 ### Distance in the Tree - Timus
 
 A weighted tree is given. You must find the distance between two given nodes.
@@ -226,7 +336,7 @@ The first line contains the number of nodes of the tree n (1 ≤ n ≤ 50000). T
 
 Given a tree with N nodes and Q queries of the form `u` `v` - Return the sum of elements on the path from `u` to `v`.
 
-Instead of using `set<int> Adj` and deleting the actual edges, if we use `deleted[v]` marker then it is easy to delete.
+Instead of using `set<int> Adj` and deleting the actual edges, if we use `deleted[v]` marker then it is easy to delete. Also note instead of using `map<int,int>` for `dist` function, we can use `dist[lvl][maxn]` and store distance to of it's ancestor and get rid of one log factor.
 	
 ```cpp
 // Accepted code for https://acm.timus.ru/problem.aspx?space=1&num=1471
@@ -382,27 +492,6 @@ subtree as follows
 * Time complexity: O(n log n)
 	
 </details>
-
-### CF 199 Div 2 E. Xenia and Tree 
-
-https://codeforces.com/contest/342/problem/E
-
-Given a tree of `n` nodes indexed from `1` to `n`. The first node is initially painted red, and the other nodes are blue. 
-
-We should execute two types of queries:
-* paint a specified blue node to red
-* calculate which red node is the closest to the given one and print the shortest distance to the closest red node.
-
-<details>
-	<summary>Using Centroid decomposition</summary>
-
-* Let `ans[a]` be the distance to the closest rose node to `a` in the component where node a is centroid. Initially, `ans[a] = ∞` because all nodes are blue (we’ll update the first node before reading the operations).
-* For each update(a), we do `ans[b] = min(ans[b], dist(a, b))` for every ancestor b of a in centroid tree, where `dist(a,b)` is the distance in the original tree. 
-* The time complexity of update is `O(lg²(n))` because we are moving up on the tree of height `lg(n)` and for each step we evaluate `dist(a,b)` in `O(lg(n))`. We can do it in `O(lg(n))`, see Baba's implementation above.
-* For each query(a), we take the minimum of `dist(a,b) + ans[b]` for every ancestor `b` of `a`, where `dist(a,b)` is the distance in the original tree.
-
-</details>
-
 
 
 ### 757G — Can Bash Save the Day? CodeCraft 17
