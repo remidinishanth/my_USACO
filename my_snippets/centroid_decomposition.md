@@ -157,6 +157,129 @@ Let's mark the centroid with label 0, and remove it. After removing the centroid
 
 ## Problems & Analysis
 
+### Distance in the Tree - Timus
+
+A weighted tree is given. You must find the distance between two given nodes.
+
+**Input**
+
+The first line contains the number of nodes of the tree n (1 ≤ n ≤ 50000). The nodes are numbered from 0 to n – 1. Each of the next n – 1 lines contains three integers u, v, w, which correspond to an edge with weight w (0 ≤ w ≤ 1000) connecting nodes u and v. The next line contains the number of queries m (1 ≤ m ≤ 75000). In each of the next m lines there are two integers.
+
+
+<details>
+	<summary> Using centroid decomposition </summary>
+
+
+Given a tree with N nodes and Q queries of the form `u` `v` - Return the sum of elements on the path from `u` to `v`.
+
+Instead of using `set<int> Adj` and deleting the actual edges, if we use `deleted[v]` marker then it is easy to delete.
+	
+```cpp
+// Accepted code for https://acm.timus.ru/problem.aspx?space=1&num=1471
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int N = 1e5 + 10;
+const int LOGN = 20;
+// Original Tree
+vector<int> g[N];
+int sub[N], nn, U[N], V[N], W[N], deleted[N];
+// Centroid Tree
+int par[N], level[N], dist[LOGN][N];
+// dist[LOGN][N] : dist[lvl][x] :  Distance between C and x in the original tree, when node C becomes a centroid at level "lvl". 
+// G[u] --> [v1, v2, v3] ... Not doing this.
+// G[u] --> [e1, e1, e3 ..] 
+int adj(int x, int e) { return U[e] ^ V[e] ^ x; } // find the other end of this edge
+void dfs1(int u, int p) { // to calculate size of subtrees
+  sub[u] = 1;
+  nn++; // global variable
+  for (auto e : g[u]) {
+    int w = adj(u, e);
+    if (w != p && !deleted[e]) dfs1(w, u), sub[u] += sub[w];
+  }
+}
+int find_centroid(int u, int p) {
+  for (auto e : g[u]) {
+    if (deleted[e]) continue;
+    int w = adj(u, e);
+    if (w != p && sub[w] > nn / 2) return find_centroid(w, u);
+  }
+  return u;
+}
+void add_edge_centroid_tree(int parent, int child) {
+  // this func depends on the information to store in the question
+  par[child] = parent;
+  level[child] = level[parent] + 1; // level in centroid tree
+}
+void dfs2(int u, int p, int lvl) {
+  for (auto e : g[u]) {
+    int w = adj(u, e);
+    if (w == p || deleted[e]) continue;
+    dist[lvl][w] = dist[lvl][u] + W[e]; // key to make implementation efficient
+    dfs2(w, u, lvl);
+  }
+}
+
+// unordered_map<int, int> dist[N]; -- inefficient.
+// all the nn nodes which lie in the component of "centroid"
+// dist[centroid][x] = <value>
+// int dist[LOGN][N]; (centroid,x) --> one to one mapping --> (level[centroid], x);
+void decompose(int root, int p = -1) {
+  nn = 0; // size of subtree of which this decompose is being called
+  // Compute subtree sizes and no. of nodes (nn) in this tree.
+  dfs1(root, root);
+  // Find the centroid of the tree and make it the new root.
+  int centroid = find_centroid(root, root);
+  // Construct the Centroid Tree
+  if (p == -1) p = root;
+  add_edge_centroid_tree(p, centroid);
+  // Process the O(N) paths from centroid to all leaves in this component.
+  dfs2(centroid, centroid, level[centroid]);
+  // Delete the adjacent edges and recursively decompose the adjacent subtrees.
+  for (auto e : g[centroid]) {
+    if (deleted[e]) continue;
+    deleted[e] = 1;
+    int w = adj(centroid, e);
+    decompose(w, centroid);
+  }
+}
+
+int compute_distance(int x, int y) {
+  // We need to compute the LCA(x, y) in the centroid tree. 
+  // Height of centroid tree is O(logN), so can compute in brute force way.
+  int lca_level = 0;
+  for (int i = x, j = y; (lca_level = level[i]) && i != j;
+       level[i] < level[j] ? (j = par[j]) : (i = par[i]))
+    ;
+  return dist[lca_level][x] + dist[lca_level][y];
+}
+
+int main() {
+  int n;
+  scanf("%d", &n);
+  for (int i = 1; i < n; i++) {
+    // Adj List & Edge list representation
+    // i-th edges goes from U[i] to V[i] and has weight W[i]
+    scanf("%d %d %d", U + i, V + i, W + i);
+    U[i]++; V[i]++; // one based indexing
+    g[U[i]].push_back(i); // pushing edge number instead of vertex
+    g[V[i]].push_back(i);
+  }
+  decompose(1); // calling centroid decomposition on arbitrary vertex
+  int m;
+  scanf("%d", &m);
+  while (m--) {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    printf("%d\n", compute_distance(x + 1, y + 1));
+  }
+}
+```
+</details>
+
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
 
 Problem D. LWDB, ICL’2015 - main event Russia, Kazan, 15.05.2015
