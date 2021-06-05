@@ -112,6 +112,20 @@ On removing the centroid, the given tree decomposes into a number of different t
 
 Centroid Decomposition works by repeated splitting the tree and each of the resulting subgraphs at the centroid, producing `O(log N)` layers of subgraphs. Since at each step, the new trees formed by removing the centroid have size at-most `N/2`, the maximum no of levels would be `O(log N)`. Hence, the height of the centroid tree would be at most `O(log N)`.
 
+Decomposing the Original Tree to get Centroid Tree
+
+```python
+def decompose(root, centroid_parent = -1):
+    centroid = find_centroid(root)
+    if centroid_parent != -1:
+    	add_edge_in_centroid_tree(centroid_parent, centroid)
+    for (adjacent_edge, adjacent_vertex) in G[centroid]:
+    	delete_edge(adjacent_edge)
+	decompose(adjacent_vertex, centroid)
+```
+
+source: Indian Programming Camp 2020, Thanuj Khattar
+
 **Observation 1:** Time Complexity of Centroid decomposition: `O(NlogN)`
 
 ![image](https://user-images.githubusercontent.com/19663316/119274243-8cb22480-bc2c-11eb-9d6f-b47e3b881e5b.png)
