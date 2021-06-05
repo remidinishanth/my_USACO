@@ -157,7 +157,9 @@ Let's mark the centroid with label 0, and remove it. After removing the centroid
 
 ## Problems & Analysis
 
-### Open Cup 2014-15 Grand Prix of Tatarsta
+### Open Cup 2014-15 Grand Prix of Tatarsta 
+
+Problem D. LWDB, ICL’2015 - main event Russia, Kazan, 15.05.2015
 
 You are given a tree with at most 10^5 vertices, where each edge has an integer length, and a sequence of 10^5 updates and queries. Each update tells to color all vertices in the tree that are at most the given distance from the given vertex with the given color. Each query requires you to output the current color of a given vertex.
 
