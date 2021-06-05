@@ -279,7 +279,7 @@ The most well-known hash in competitive programming is probably the rolling-hash
 
 **Problem 1.** You are given two strings s, t of lengths N (<= 10^5) that consist of lowercase letters. Determine if they are the same.
 
-Let `MOD = 10^9+7`. Choose an integer `r` uniformly at random from the interval `[0, MOD)`. Compute the sum of `r^i * s[i]` over all `i`. This is called the rolling hash of `s`. We can consider it as a polynomial of `r`, let's denote it as `S(r)`. Similarly, define `T(r)`. The hash collision happens when `s` and `t` are different strings (thus S and T are different polynomials), but unluckily S(r) = T(r). Here we use [Schwartz-Zippel lemma](https://en.wikipedia.org/wiki/Schwartz%E2%80%93Zippel_lemma): 
+Let `MOD = 10^9+7`. Choose an integer `r` uniformly at random from the interval `[0, MOD)`. Compute the sum of `r^i * s[i]` over all `i`. This is called the rolling hash of `s`. We can consider it as a polynomial of `r`, let's denote it as `S(r)`. Similarly, define `T(r)`. The hash collision happens when `s` and `t` are different strings (thus S and T are different polynomials), but unluckily `S(r) = T(r)`. Here we use [Schwartz-Zippel lemma](https://en.wikipedia.org/wiki/Schwartz%E2%80%93Zippel_lemma): 
 
 Let `P(x_1, ..., x_k)` be a non-zero (multi-variable) polynomial on a finite field `F_MOD`. If the variables are chosen independently and uniformly at random, the probability that `P(x_1, ..., x_k) = 0` is at most `D/MOD`, where `D` is the total degree of the polynomial.
 
@@ -287,19 +287,18 @@ In the case of rolling hash, we are only interested in single-variable polynomia
 
 **Problem 2.** You are given two graphs G, H with N (<= 10^3) vertices and M (<= 10^4) edges. Determine if they are isomorphic.
 
-For each vertex v in the graph and an integer d, define the level-d hash for v, h(d, v). When d = 0, define h(0, v) = 1. Otherwise, let x_1, ..., x_k be the sorted list of level-(d-1) hashes of vertices adjacent to v, and define h(d, v) as the sum of x_i * r^i modulo MOD. Compute the level-N hashes of the two graphs for each vertex, sort them, and compare them.
+For each vertex `v` in the graph and an integer `d`, define the `level-d` hash for `v`, `h(d, v)`. When `d = 0`, define `h(0, v) = 1`. Otherwise, let `x_1, ..., x_k` be the sorted list of `level-(d-1)` hashes of vertices adjacent to `v`, and define `h(d, v)` as the sum of `x_i * r^i modulo MOD`. Compute the `level-N` hashes of the two graphs for each vertex, sort them, and compare them.
 
 Petr: For graph isomorphism, it's easy to break such hashing: take two non-isomorphic regular (all degrees the same) graphs.
 ![image](https://user-images.githubusercontent.com/19663316/118253744-e47fbb80-b4c7-11eb-9c40-b66b01283fe8.png)
-
 
 However there's no theoretical guarantee under this hash and I think most people agree that this doesn't look valid as an intended solution of a problem in a contest (graph isomorphism is a well-known difficult problem). I'd say this is a "bad hash".
 
 OK, now we want to construct a good hash for rooted trees. Before that, let's try an easier version. Hashes for (multi)sets.
 
-**Problem 3.** You are given two (multi)sets A = {a_1, ...., a_n} and B = {b_1, ..., b_n}. n <= 10^5 and each element is in the interval `[0, MOD)`. Determine if they are the same.
+**Problem 3.** You are given two (multi)sets `A = {a_1, ...., a_n}` and `B = {b_1, ..., b_n}`. `n <= 10^5` and each element is in the interval `[0, MOD)`. Determine if they are the same.
 
-One possible solution is to sort the input and then compute the rolling hash of it. Can you find a linear-time hash? The solution is indeed very simple. Let's take a random integer r from the interval `[0, MOD)`, and compute the hash (r+a_1)(r+a_2)...(r+a_n). This is a polynomial of r of degree n, so again from Schwartz-Zippel lemma, the collision probability is at most n/MOD.
+One possible solution is to sort the input and then compute the rolling hash of it. Can you find a linear-time hash? The solution is indeed very simple. Let's take a random integer r from the interval `[0, MOD)`, and compute the hash `(r+a_1)(r+a_2)...(r+a_n)`. This is a polynomial of `r` of degree `n`, so again from Schwartz-Zippel lemma, the collision probability is at most `n/MOD`.
 
 **Problem 4.** You are given two rooted trees with n vertices. Determine if they are isomorphic.
 
