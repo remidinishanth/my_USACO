@@ -341,12 +341,310 @@ We should execute two types of queries:
 
 **Solution**
 
-# TODO
+TODO
 
+### 757G — Can Bash Save the Day? CodeCraft 17
+
+https://codeforces.com/contest/757/problem/G
+
+Simpler question: Given a weighted tree, initially all the nodes of the given tree are inactive. We need to support the following operations fast:
+* Query v : Report the sum of distances of all active nodes from node v in the given tree.
+* Activate v : Mark node v to be an active node.
+
+<details>
+	<summary>Centroid Decomposition</summary>
+
+For any such questions, we should think about the following:
+* What information do we need to maintain to answer the query efficiently?
+* How would the update impact the information we have maintained?
+
+At each centroid vertex, we will store the sum of distances to all activates nodes in the centroid subtree. We will need to store some more information to make sure that we don't count some values more than once.
+
+Let us store the following information:
+* Let `sum[i]` deonote the sum of distances to all activated nodes for the centroid `i` in its corresponding part.
+* Let `contribution[i]` deonote contribution of all activated nodes in the subtree of `i` to `sum[par[i]]` in centroid tree. What is this subtree at `i` contributing to it's parents.
+* let `cnt[i]` deonote the number of activated nodes in the subtree of `i` in the centroid tree.
+* For each update, to activate a node `u`, we  move up to all the ancestors `x` of `u` in the centroid tree and update their `sum[x] += dist(x,y);`, `contribution[x] += dist(par[x], u);` and `cnt[x] += 1;`
+* For each query on u, we compute `sum[u]` + `(sum[par[x]] - contribution[x] + (cnt[par[x]] - cnt[x]) * dist(par[x], u))` for all ancestors `x` of `u`.
+</details>
+
+Original Problem: Given a weighted tree and a sequence `a_1, a_2, ..., a_n (permutation of 1 .. n)`. We need to answer `Q` queries of the form:
+* Query l, r, v: Report Sum(dist(a_i, v)) for l ≤ i ≤ r
+* Update x: Swap(a_x, a_{x+1}) in the given input sequence.
+
+<details>
+  <summary>Using Persistent Centroid Decomposition </summary>
+
+**Solution Idea for query:**
+* Each query of the form (L, R, v) can be divided into two queries of the form (1, R, v) - (1, L-1, v). Hence it is sufficient if we can support the following query: (i, v): Report the answer to query (1, i, v).
+* To answer a single query of the form (i, v) we can think of it as what is the sum of distance of all active nodes from v, if we consider the first i nodes to be active.
+* Hence initially if we can preprocess the tree such that we activate nodes from 1 to n and after each update, store a copy of the centroid tree, then for each query (i, v) we can lookup the centroid tree corresponding to i, which would have the first i nodes activated, and query for node v in O(log N) time by looking at it's ancestors.
+* To store a copy of the centroid tree for each i, we need to make it persistent.
+
+**Persistent Centroid Tree : Key Ideas**
+* Important thing to note is that single update in the centroid tree affects only the ancestors of the node in the tree.
+* Since height of the centroid tree is O(log N), each update affects only O(log N) other nodes in the centroid tree.
+* The idea is very similar to that of a persistent segment tree BUT unlike segtree, here *each node of the centroid tree can have *arbitrarily many children and hence simply creating a new copy of the affected nodes would not work* because linking them to the children of old copy would take O(number of children) for each affected node and this number could be as large as N, hence it could take O(N) time in total!
+
+**Binarizing the Input Tree**
+* To overcome the issue, we convert the given tree T into an equivalent binary tree T' by adding extra dummy nodes such that degree of each node in the transformed tree T' is  ≤ 3, and the number of dummy nodes added is bounded by O(N).
+* The dummy nodes are added such that the structure of the tree is preserved and weights of the edges added are set to 0.
+* To do this, consider a node x with degree d > 3 and let c1, c2...cd be it's adjacent nodes. Add a new node y and change the edges as follows :
+* Delete the edges (x - c3), (x - c4) ... (x - cd) and add the edge (x - y) such that degree of node x reduces to 3 from d.
+* Add edges (y - c3), (y - c4) ... (y - cd) such that degree of node y is d - 1. Recursively call the procedure on node y.
+* Since degree of node y is d - 1 instead of original degree d of node x, it can be proved that we need to add at most O(N) new nodes before degree of each node in the tree is  ≤ 3.
+
+![image](https://user-images.githubusercontent.com/19663316/120901187-f67ff480-c656-11eb-8012-581b409e3620.png)
+
+
+**Conclusion**
+Hence we perform centroid decomposition of this transformed tree T'. The centroid tree formed would have the following properties.
+
+The height of the centroid tree is O(logN)
+
+Each node in the centroid tree has ≤ 3 children.
+
+Now we can easily make this tree persistent by path-copying approach.
+
+To handle the updates,
+* Way-1 : Observe that swapping A[i] and A[i + 1] would affect only the i'th persistent centroid tree, which can be rebuilt from the tree of i - 1 by a single update query. In this approach, for each update we add  new nodes. See author's code below for more details.
+* Way-2 : First we go down to the lca of A[x] and A[x + 1] in the x'th persistent tree, updating the values as we go. Now, let cl be the child of lca which is an ancestor of A[x], and let cr be the child which is an ancestor of A[x + 1]. Now, we replace cr of x'th persistent tree with cr of (x + 1)'th persistent tree. Similarly, we replace cl of x + 1'th persistent tree with cl of x'th persistent tree. So now A[x + 1] is active in x'th persistent tree and both A[x] and A[x + 1] are active in (x + 1)'th persistent tree.To deactivate A[x] in x'th persistent tree we replace cl of x'th persistent tree with cl of (x - 1)'th persistent tree. Hence in this approach we do not need to create new O(log N) nodes for each update. See testers's code below for more details.
+
+```cpp
+//Tanuj Khattar
+#include<bits/stdc++.h>
+
+using namespace std;
+
+typedef pair<int,int>   II;
+typedef vector< II >      VII;
+typedef vector<int>     VI;
+typedef vector< VI > 	VVI;
+typedef long long int 	LL;
+
+#define PB push_back
+#define MP make_pair
+#define F first
+#define S second
+#define SZ(a) (int)(a.size())
+#define ALL(a) a.begin(),a.end()
+#define SET(a,b) memset(a,b,sizeof(a))
+
+#define si(n) scanf("%d",&n)
+#define dout(n) printf("%d\n",n)
+#define sll(n) scanf("%lld",&n)
+#define lldout(n) printf("%lld\n",n)
+#define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
+
+#define TRACE
+
+#ifdef TRACE
+#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1){
+  cerr << name << " : " << arg1 << std::endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args){
+  const char* comma = strchr(names + 1, ',');cerr.write(names, comma - names) << " : " << arg1<<" | ";__f(comma+1, args...);
+}
+#else
+#define trace(...)
+#endif
+
+//FILE *fin = freopen("in","r",stdin);
+//FILE *fout = freopen("out","w",stdout);
+const int MAXN = int(2e5)+10;
+const int MAXQ = int(2e5)+10;
+const int N = 2*MAXN;
+const int M = 2*N;
+int A[N]; //the permutation given
+int last[N],prv[M],nxt[M],to[M],deg[N],W[M],root[N];
+namespace tree{
+  int sz,edge,vis[N];
+  void addEdge(int u,int v,int w = 0){
+    prv[edge] = last[u];W[edge] = w;
+    if(last[u]!=-1)nxt[last[u]] = edge;
+    last[u] = edge;
+    to[edge] = v;
+    edge++;
+  }
+  void addEdge1(int u,int v,int e){
+    prv[e] = last[u];nxt[e] = -1;
+    if(last[u]!=-1)nxt[last[u]] = e;
+    last[u] = e;
+    to[e] = v;
+  }
+  void deleteEdge(int u,int e){
+    if(nxt[e]!=-1)prv[nxt[e]] = prv[e];
+    if(prv[e]!=-1)nxt[prv[e]] = nxt[e];
+    if(last[u] == e) last[u] = prv[e];
+  }
+  void changeEdge(int u,int v,vector<int> edges){
+    //assert(SZ(edges) == 3);assert(deg[u] > 3);
+    sort(ALL(edges));reverse(ALL(edges));
+    for(auto e : edges)
+      deleteEdge(u,e);
+    last[v] = last[u];
+    last[u] = -1;
+    for(auto e : edges)
+      addEdge1(u,to[e],e);
+  }
+  void pre(){
+    SET(last,-1);SET(nxt,-1);
+    SET(prv,-1);SET(to,-1);
+  }
+  //binarize the give tree.should be called from a leaf node.
+  void binarize(int u,int p,int edge){
+    vis[u]=1;
+    if(deg[u] > 3){
+      addEdge(u,++sz);
+      deg[sz] = deg[u] - 1;
+      set<int> temp;temp.insert(edge^1);
+      int e = last[u];
+      while(SZ(temp) < 3){
+        temp.insert(e);
+        e = prv[e];
+      }
+      changeEdge(u,sz,vector<int>(temp.begin(),temp.end()));
+      deg[u] = 3;
+      addEdge(sz,u);
+    }
+    for(int e = last[u];e >= 0; e = prv[e]){
+      if(!vis[to[e]])
+        binarize(to[e],u,e);
+      else to[e] = p;
+    }
+  }
+}
+namespace Centroid{
+  const int LOGN = 19;
+  const int MAXC = N + (MAXN + MAXQ)*LOGN;
+  int sub[N],nn,done[M],C[MAXC][3],L[N],R[N],idx[N],len[N],T,cnt[MAXC],lvl,IDX[MAXC];
+  LL sum[MAXC],cntbn[MAXC],dist[LOGN][N];
+  void dfs1(int u,int p){
+    sub[u]=1;nn++;
+    for(int e = last[u];e >= 0; e = prv[e]){
+      int w = to[e];
+      if(w!=p && !done[e])
+        dfs1(w,u),sub[u]+=sub[w];
+    }
+  }
+  int dfs2(int u,int p){
+    for(int e = last[u];e >= 0; e = prv[e]){
+      if(done[e])continue;int w = to[e];
+      if(w!=p && sub[w]>nn/2)
+        return dfs2(w,u);
+    }return u;
+  }
+  void dfs(int u,int p){
+    for(int e = last[u];e >= 0; e = prv[e]){
+      if(done[e] || to[e]==p)continue;
+      dist[lvl][to[e]] = dist[lvl][u] + W[e];
+      dfs(to[e],u);
+    }
+  }
+  int decompose(int root,int p,int l = 0){
+    nn=0;dfs1(root,root);
+    root=dfs2(root,root);
+    lvl = l;dfs(root,root);
+    idx[root] = ++T;
+    int id = idx[root];IDX[T] = T;
+    L[id] = T;
+    for(int e = last[root];e >= 0;e = prv[e]){
+      if(done[e])continue;
+      assert(!done[e^1]);
+      done[e]=done[e^1]=1;
+      int c = decompose(to[e],root,l+1);
+      assert(len[id] < 3);
+      C[id][len[id]++] = idx[c];
+    }
+    R[id] = T;
+    return root;
+  }
+  int update(int x,int id,int lvl=0){
+    int ID = ++T;
+    cnt[ID] = cnt[id] + 1;
+    sum[ID] = sum[id] + dist[lvl][x];
+    IDX[ID] = IDX[id];
+    for(int i=0;i<len[IDX[id]];i++)
+      if(L[IDX[C[id][i]]] <= idx[x] && idx[x] <= R[IDX[C[id][i]]]){
+        C[ID][i] = update(x,C[id][i],lvl+1);
+        cntbn[C[ID][i]] = cntbn[C[id][i]] + dist[lvl][x];
+      }
+      else C[ID][i] = C[id][i];
+    return ID;
+  }
+  LL query(int x,int id,int lvl=0){
+    LL ret = sum[id];
+    for(int i=0;i<len[IDX[id]];i++)
+      if(L[IDX[C[id][i]]] <= idx[x] && idx[x] <= R[IDX[C[id][i]]])
+        ret += query(x,C[id][i],lvl+1) - cntbn[C[id][i]] + (cnt[id] - cnt[C[id][i]])*dist[lvl][x];
+    return ret;
+  }
+}
+void binarize(int n){
+  int root = -1;
+  for(int i=1;i<=n;i++)
+    if(deg[i] == 1)
+      root = i;
+  tree::binarize(root,root,-1);
+}
+int main()
+{
+  tree::pre();
+  int n,q;
+  si(n);si(q);
+  tree::sz = n;
+  for(int i=1;i<=n;i++)si(A[i]);
+  for(int i=1;i<n;i++){
+    int u,v,w;
+    si(u);si(v);si(w);
+    tree::addEdge(u,v,w);
+    tree::addEdge(v,u,w);
+    deg[u]++;deg[v]++;
+  }
+  //binarize the given tree
+  binarize(n);
+  //build the centroid tree.
+  Centroid::decompose(1,-1);
+  root[0] = 1;
+  //make it persistent and handle the queries.
+  for(int i=1;i<=n;i++)
+    root[i] = Centroid::update(A[i],root[i-1]);
+  const int MOD = (1 << 30);
+  LL ans = 0;
+  while(q--){
+    int t;si(t);
+    if(t==1){
+      int l,r,v;
+      si(l);si(r);si(v);
+      l = l ^ ans;
+      r = r ^ ans;
+      v = v ^ ans;
+      ans = Centroid::query(v,root[r])-Centroid::query(v,root[l-1]);
+      lldout(ans);
+      ans = ans % MOD;
+    }
+    else{
+      int x;si(x);x = x ^ ans;
+      root[x] = Centroid::update(A[x+1],root[x-1]);
+      swap(A[x],A[x+1]);
+    }
+  }
+  return 0;
+}
+```
+
+Another approach: https://codeforces.com/blog/entry/49743?#comment-337109, http://codeforces.com/contest/757/submission/23772311
+
+![image](https://user-images.githubusercontent.com/19663316/120901066-28448b80-c656-11eb-8fe0-a80eedef2d7f.png)
+
+</details>
 
 **Difference between HLD and CD**
 * If we want to compute something on paths then we use HLD
-* If we want to compute something on an area, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
+* If we want to compute something on an area surrounding node, we use CD. For example: Say we are given node `u` and distance `D` and we want to compute something on nodes `v` such that `dist(u, v) ≤ D`, something around node `u`.
 
 
 TODO - https://codeforces.com/blog/entry/52492?locale=en
