@@ -161,7 +161,8 @@ Let's mark the centroid with label 0, and remove it. After removing the centroid
 
 You are given a tree with at most 10^5 vertices, where each edge has an integer length, and a sequence of 10^5 updates and queries. Each update tells to color all vertices in the tree that are at most the given distance from the given vertex with the given color. Each query requires you to output the current color of a given vertex.
 
-**Solution**
+<details> 
+  <summary> Solution </summary>
 
 ![image](https://user-images.githubusercontent.com/19663316/120893226-c709c180-c62f-11eb-9db2-baa6d7b50b2c.png)
 
@@ -172,6 +173,36 @@ Whenever we need to color all vertices `B` at distance at most `D` from the give
 When we need to handle the second type of query, in other words when we know vertex `B` but not `A`, we can also iterate over possible candidate `C`'s. For each `C`, we need to find the latest update recorded there where the distance is at least `dist(B, C)`. After finding the latest update for each `C`, we just find the latest update affecting `B` by comparing them all, and thus learn the current color of `B`.
 
 Finally, in order to find the last update for each `C` efficiently, we will keep the updates for each `C` in a stack where the distance decreases and the time increases (so the last item in the stack is always the last update, the previous item is the last update before that one that had larger distance, and so on). Finding the latest update with at least the given distance is now a matter of simple binary search.
+
+</details> 
+
+### IOI 2011
+
+Given a weighted tree with N(1 ≤ N ≤ 200000) nodes, find the minimum number of edges in a path of length K(1 ≤ K ≤ 1000000), or return −1 if such a path does not exist.
+1 ≤ length(i, j) ≤ 1000000 (integer weights)
+
+<details>
+	<summary> Brute force solution</summary>
+	
+* For every node, perform DFS to find distance and number of edges to every other node.
+* Time complexity: O(n^2)
+* Obviously fails because N = 200000.
+</details>	
+
+<details>
+	<summary> Centroid Decomposition </summary>
+
+* Perform centroid decomposition to get a “tree of subtrees”
+* Start at the root of the decomposition, solve the problem for each
+subtree as follows
+  * Solve the problem for each “child tree” of the current subtree
+  * Perform DFS from the centroid on the current subtree to compute the minimum edge count for paths that include the centroid
+    * Two cases: centroid at the end or in the middle of path
+    * Use a timestamped array of size 1000000 to keep track of which distances from centroid are possible and the minimum edge count for that distance
+  * Take the minimum of the above two
+* Time complexity: O(n log n)
+	
+</details>
 
 ### CF 199 Div 2 E. Xenia and Tree 
 
