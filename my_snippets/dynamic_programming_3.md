@@ -4,6 +4,8 @@ TODO https://apps.topcoder.com/forums/?module=Thread&threadID=700080&start=0
 
 TODO https://codeforces.com/blog/entry/8219
 
+TODO https://www.students.cs.ubc.ca/~cs-490/2017W2/lec06.pdf & DP optimizations https://sites.google.com/site/ubcprogrammingteam/educational?authuser=0
+
 ### Things to watch out
 1. Whether your subproblem array indicies become negative or will exceed bounds.
 
