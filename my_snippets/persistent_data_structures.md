@@ -1646,7 +1646,7 @@ So, if we were to have a global array of Version-roots, and perform our updation
 
 **You have a tree, and no rollback queries**
 
-↳ Heavy-light Decomposition of Tree (HLDoT)
+➜ Heavy-light Decomposition of Tree (HLDoT)
 
 The heavy-light decomposition is used to break up a Tree into s set of disjoint paths, with certain useful properties. First, root the tree. Then, for each vertex x, we find the child of x having the largest subtree. Lets call that vertex y. Then the edge x-y is a heavy edge, and all other x-child_vertex edges are light edges.
 
@@ -1654,7 +1654,7 @@ The most important property of this is, from any vertex x, the path from x to th
 
 If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLDoT. Indeed, if you make segment trees over the heavy edges, then the answer for your path X-Y can be broken up into two paths from X to LCA(X, Y) and from Y to LCA(X, Y). Then, using that you make only logN shifts from one heavy-chain to another, you are actually making only log(N) segment-tree queries.
 
-↳ Applying HLDoT here
+➜ Applying HLDoT here
 
 Let us perform Heavy Light Decomposition of the tree here. We make chains consisting only of heavy edges. We also need to find LCA efficiently. This can be done in O(N log N) time by storing information up[x][i] = the ancestor of x which is at a height of 2^i above x. Clearly, up[x][i] = up[up[x][i-1]][i-1] (take a 2^(i-1) upward jump from the 2^(i-1)'th ancestor of x). Then,
 
