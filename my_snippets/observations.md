@@ -3,3 +3,4 @@
   * Problem: https://codeforces.com/contest/1523/problem/D , Solution: https://codeforces.com/contest/1523/submission/117881477
   ![image](https://user-images.githubusercontent.com/19663316/120113940-6f380a00-c19a-11eb-8a77-b3c4c761a32d.png)
 * If you see “rollbacks” in the problem statement - this is 99.9% a reference to persistence problem.
+* If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLD.
