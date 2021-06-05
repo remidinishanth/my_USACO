@@ -207,7 +207,7 @@ int find_centroid(int u, int p) {
     int w = adj(u, e);
     if (w != p && sub[w] > nn / 2) return find_centroid(w, u);
   }
-  return u;
+  return u; // if not subtree has size > nn/2, then u is the centroid
 }
 void add_edge_centroid_tree(int parent, int child) {
   // this func depends on the information to store in the question
