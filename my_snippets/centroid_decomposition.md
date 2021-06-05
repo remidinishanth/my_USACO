@@ -181,4 +181,4 @@ Solve this problem https://codeforces.com/contest/1174/problem/F
 REF: 
 * https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
 * https://robert1003.github.io/2020/01/16/centroid-decomposition.html 
-
+* https://threadsiiithyderabad.quora.com/Centroid-Decomposition-of-a-Tree
