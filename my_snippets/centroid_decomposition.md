@@ -163,8 +163,8 @@ Using vector<set<int>> for Adjacency list, see Baba's implementation below for D
 ```cpp
 struct CentroidDecomposition {
 	vector<set<int>> tree; // it's not vector<vector<int>>!
-	vector<int> dad;
-	vector<int> sub;
+	vector<int> dad; // parent in centroid tree
+	vector<int> sub; // subtree size in original tree
 
 	CentroidDecomposition(vector<set<int>> &tree) : tree(tree) {
 		int n = tree.size();
@@ -195,7 +195,7 @@ struct CentroidDecomposition {
 		return sub[u];
 	}
 
-	int dfs(int u, int p, int n) {
+	int dfs(int u, int p, int n) { // find centroid in the subtree of size n
 		for (auto v : tree[u])
 			if (v != p and sub[v] > n/2) return dfs(v, u, n);
 
