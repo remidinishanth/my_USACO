@@ -446,6 +446,8 @@ source: https://codeforces.com/blog/entry/22072 & https://codeforces.com/contest
 
 ### Applications
 
+If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLD
+
 **Dynamic distance query**
 
 Consider the following problem: A weighted, rooted tree is given followed by a large number of queries and modifications interspersed with each other. A query asks for the distance between a given pair of nodes and a modification changes the weight of a specified edge to a new (specified) value. How can the queries and modifications be performed efficiently?
