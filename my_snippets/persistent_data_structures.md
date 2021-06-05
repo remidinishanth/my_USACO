@@ -1648,15 +1648,15 @@ So, if we were to have a global array of Version-roots, and perform our updation
 
 ➜ Heavy-light Decomposition of Tree (HLDoT)
 
-The heavy-light decomposition is used to break up a Tree into s set of disjoint paths, with certain useful properties. First, root the tree. Then, for each vertex x, we find the child of x having the largest subtree. Lets call that vertex y. Then the edge x-y is a heavy edge, and all other x-child_vertex edges are light edges.
+The heavy-light decomposition is used to break up a Tree into s set of disjoint paths, with certain useful properties. First, root the tree. Then, for each vertex x, we find the child of `x` having the largest subtree. Lets call that vertex `y`. Then the edge `x-y` is a heavy edge, and all other `x-child_vertex` edges are light edges.
 
-The most important property of this is, from any vertex x, the path from x to the root goes through at most logN different light-edges. This is because, on this path, whenever you take a light edge, you are atleast doubling the size of the subtree rooted at the new vertex. Hence you cannot perform this “doubling” effect more than `logN` times.
+The most important property of this is, from any vertex x, the path from x to the root goes through at most `logN` different light-edges. This is because, on this path, whenever you take a light edge, you are atleast doubling the size of the subtree rooted at the new vertex. Hence you cannot perform this “doubling” effect more than `logN` times.
 
-If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLDoT. Indeed, if you make segment trees over the heavy edges, then the answer for your path X-Y can be broken up into two paths from X to LCA(X, Y) and from Y to LCA(X, Y). Then, using that you make only logN shifts from one heavy-chain to another, you are actually making only log(N) segment-tree queries.
+If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLDoT. Indeed, if you make segment trees over the heavy edges, then the answer for your path `X-Y` can be broken up into two paths from `X` to `LCA(X, Y)` and from `Y` to `LCA(X, Y)`. Then, using that you make only `logN` shifts from one heavy-chain to another, you are actually making only `log(N)` segment-tree queries.
 
 ➜ Applying HLDoT here
 
-Let us perform Heavy Light Decomposition of the tree here. We make chains consisting only of heavy edges. We also need to find LCA efficiently. This can be done in O(N log N) time by storing information up[x][i] = the ancestor of x which is at a height of 2^i above x. Clearly, up[x][i] = up[up[x][i-1]][i-1] (take a 2^(i-1) upward jump from the 2^(i-1)'th ancestor of x). Then,
+Let us perform Heavy Light Decomposition of the tree here. We make chains consisting only of heavy edges. We also need to find `LCA` efficiently. This can be done in `O(N log N)` time by storing information `up[x][i]` = the ancestor of `x` which is at a height of `2^i` above `x`. Clearly, `up[x][i]` = `up[up[x][i-1]][i-1]` (take a `2^(i-1)` upward jump from the `2^(i-1)'th` ancestor of `x`). Then,
 
 ```cpp
 LCA(x, y):
@@ -1666,12 +1666,11 @@ for(i = logN; i >= 0; i--)
 return up[x][0];
 ```
 
-Now, given an update query, from X to Y, first find L = LCA(X, Y). Then, update path from X to L and from L to Y.
+Now, given an update query, from `X` to `Y`, first find` L = LCA(X, Y)`. Then, update path from `X` to `L` and from `L` to `Y`.
 
 This is accomplished in the Setter’s code lines 195-220. Pseudocode follows. Let chain[vertex] = an identifier for the particular segment tree’s root that we require.
 
 ```cpp
-
 change(L, x, y, a, b):	// Perform the operation X Y A B, where L = LCA(X, Y)
 dist = depth[x] + depth[y] - 2depth[L] + 1
 lift(x, L, a, b);	// update path x to L with parameters (a, b)
@@ -1694,18 +1693,18 @@ else
 
 The overall solution merges persistence with Heavy Light Decomposition. At the high level, it goes as follows:
 
-1. Perform heavy-light decomposition to give you information regarding ancestry-relation between nodes, LCA, depth, and mapping vertices to chain-numbers
-2. For a change operation between X and Y, for every chain along the path from X to Y, perform a persistent-change to the corresponding segment trees. For each segment tree, you have an array of the root-nodes that map versions to roots.
-3. For every query operation between X and Y, do the same as step 2, except you need to accumulate queries over various segment trees, and don’t perform any modifications
+1. Perform heavy-light decomposition to give you information regarding ancestry-relation between nodes, `LCA`, depth, and mapping vertices to chain-numbers
+2. For a change operation between `X` and `Y`, for every chain along the path from `X` to `Y`, perform a persistent-change to the corresponding segment trees. For each segment tree, you have an array of the root-nodes that map versions to roots.
+3. For every query operation between `X` and `Y`, do the same as step 2, except you need to accumulate queries over various segment trees, and don’t perform any modifications
 4. For every rollback operation, set a global variable (that denotes your version number) to the required version.
 
 **Complexity Analysis:**
 
-Memory: Each update operation on a segment tree takes atmost O(logN) memory. Each update operation on the tree affects atmost O(logN) chains. Hence, memory complexity is O(N log^2 N).
+Memory: Each update operation on a segment tree takes atmost `O(logN)` memory. Each update operation on the tree affects atmost `O(logN)` chains. Hence, memory complexity is `O(N log^2 N)`.
 
-Time: Updates on each segment tree take O(logN) time. There are atmost O(logN) segment trees to update on an Update Operation. Hence, O(log^2N) per update operation.
-Queries behave similarly: O(log^2N) for queries as well.
-Rollback operation: O(1) time to update global version-number.
+Time: Updates on each segment tree take `O(logN)` time. There are atmost `O(logN)` segment trees to update on an Update Operation. Hence, `O(log^2N)` per update operation.
+Queries behave similarly: `O(log^2N)` for queries as well.
+Rollback operation: `O(1)` time to update global version-number.
 
 ```cpp
 #include <iostream>
