@@ -126,6 +126,13 @@ def decompose(root, centroid_parent = -1):
 
 source: Indian Programming Camp 2020, Thanuj Khattar
 
+![image](https://user-images.githubusercontent.com/19663316/120892968-5dd57e80-c62e-11eb-9a66-0c057bab04f6.png)
+![image](https://user-images.githubusercontent.com/19663316/120892971-61690580-c62e-11eb-8a43-5d3979b430b7.png)
+![image](https://user-images.githubusercontent.com/19663316/120892975-6928aa00-c62e-11eb-92ed-2d424389452e.png)
+![image](https://user-images.githubusercontent.com/19663316/120892979-6d54c780-c62e-11eb-8e36-3789b3b48c3a.png)
+
+Let's mark the centroid with label 0, and remove it. After removing the centroid the tree separates into several parts of size at most N/2. Naturally, now we do the same recursively for each part, only marking the new centroids with label 1, then we get even more parts of size at most N/4, mark their centroids with label 2, and so on, until we reach parts of size 1. Since the size decreases at least twice with each step, the labels will be at most log(N).
+
 **Observation 1:** Time Complexity of Centroid decomposition: `O(NlogN)`
 
 ![image](https://user-images.githubusercontent.com/19663316/119274243-8cb22480-bc2c-11eb-9d6f-b47e3b881e5b.png)
@@ -149,6 +156,22 @@ source: Indian Programming Camp 2020, Thanuj Khattar
 * Each path from `a` to `b` in the original tree can be represented path from `a -> lca(a, b)` and `lca(a, b) -> b`. For each node we have `O(logN)` ancestors becuase the height of tree is `O(logN)`. There are `N` nodes in total and hence number of paths in `O(NlogN)`, that is there are only `O(NlogN)` paths from every node to its ancestors.
 
 ## Problems & Analysis
+
+### Open Cup 2014-15 Grand Prix of Tatarsta
+
+You are given a tree with at most 10^5 vertices, where each edge has an integer length, and a sequence of 10^5 updates and queries. Each update tells to color all vertices in the tree that are at most the given distance from the given vertex with the given color. Each query requires you to output the current color of a given vertex.
+
+**Solution**
+
+![image](https://user-images.githubusercontent.com/19663316/120893226-c709c180-c62f-11eb-9db2-baa6d7b50b2c.png)
+
+Consider any two vertices `A` and `B` in the tree and the path connecting them, and let's find the vertex `C` with the smallest label on that path. It's not hard to see that the path connecting `A` and `B` lies entirely in the part that vertex `C` was the centroid of in the above process, and that `A` and `B` lie in different parts that appear after removing `C`. So our path is concatenation of two paths: from `C` to `A`, and from `C` to `B`.
+
+Whenever we need to color all vertices `B` at distance at most `D` from the given vertex `A` with color `X`, we will group possible `B`'s by `C` - the vertex with the smallest label on the path from A to B - Centroid. To find all possible `C`'s, we just need to follow the "decomposition parent" links from `A`, and there are at most `O(logN)` such `C`'s. For each candidate `C`, we will remember that all vertices in its part with distance at most `D-dist(A,C)` from `C` need to be colored with color `X`.
+
+When we need to handle the second type of query, in other words when we know vertex `B` but not `A`, we can also iterate over possible candidate `C`'s. For each `C`, we need to find the latest update recorded there where the distance is at least `dist(B, C)`. After finding the latest update for each `C`, we just find the latest update affecting `B` by comparing them all, and thus learn the current color of `B`.
+
+Finally, in order to find the last update for each `C` efficiently, we will keep the updates for each `C` in a stack where the distance decreases and the time increases (so the last item in the stack is always the last update, the previous item is the last update before that one that had larger distance, and so on). Finding the latest update with at least the given distance is now a matter of simple binary search.
 
 ### CF 199 Div 2 E. Xenia and Tree 
 
@@ -182,3 +205,5 @@ REF:
 * https://medium.com/carpanese/an-illustrated-introduction-to-centroid-decomposition-8c1989d53308
 * https://robert1003.github.io/2020/01/16/centroid-decomposition.html 
 * https://threadsiiithyderabad.quora.com/Centroid-Decomposition-of-a-Tree
+* https://petr-mitrichev.blogspot.com/2015/03/this-week-in-competitive-programming_22.html
+* https://codeforces.com/blog/entry/10533#comment-159119
