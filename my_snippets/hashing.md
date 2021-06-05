@@ -28,6 +28,142 @@ long long compute_hash(string const& s) {
 
 Precomputing the powers of p might give a performance boost.
 
+<details>
+	<summary> Codechef IPC 2020 Intermediate track</summary>
+
+**String Hashing**
+
+The goal is to be able to have a “fast” method to map any string to an integer, such that 
+* If s1 != s2, then H(s1) != H(s2)
+* If s1 == s2, then H(s1) == H(s2)
+* Given s, we should be able to compute H(s) fast (i.e. in O(1) or O(logN))
+* H(s) should be an integer/long long/pair of ints/pair of long long
+
+* Let’s say we consider all alphabet-based strings of length 100 and boiling them down to an integer.
+* How many unique strings can we have? (26^100)
+* And how many different integers do we have? (2^32 ~ 109)
+
+But you can see 26^100 >> 10^9
+
+So how can we ensure that “if s1 != s2, then H(s1) != H(s2)”
+
+The goal is to be able to have a “fast” method to map any string to an integer, such that 
+* If s1 != s2, then H(s1) != H(s2) **(with high probability)**
+* If s1 == s2, then H(s1) == H(s2) **(with 100% probability)**
+* Given s, we should be able to compute H(s) fast (i.e. in O(1) or O(logN))
+* H(s) should be an integer/long long/pair of ints/pair of long long
+
+![image](https://user-images.githubusercontent.com/19663316/120886888-cfe99b80-c60d-11eb-9b15-228167a0f457.png) 
+
+![image](https://user-images.githubusercontent.com/19663316/120886891-d415b900-c60d-11eb-9239-f7d63b92a576.png)
+
+
+
+Given two random string A != B, what is the probability that H(A) == H(B) ? `1/MOD`
+
+So for any given comparison the probability that we will get a false positive is 1/MOD.
+
+If we do K such comparisons in our algorithm, then on average (i.e. in expectation) K/MOD of them will give us false positive.
+
+**Example where it might break**
+
+- Let’s say your MOD = 10^9 + 7
+- Maybe you hashed a string S of length 10^6 and put all the 100 length substrings of S in a set to find the number of distinct 100 length substrings
+- How many comparisons did you do?
+- Umm, roughly (10^6 - 100 + 1)^2 ~ 10^12
+- And each comparison had a fail probability of ~ 10^(-9)
+- So roughly how many failed comparisons did you do? 10^(12 - 9) = 1000 > 0.
+
+This is bad...
+
+**How to fix?**
+
+- Use two (or more) mods. 
+- Let H(S) = (H1(S), H2(S)) using two different modulos
+ 	Ex. MOD1 = 10^9 + 7, MOD2 = 10^9 + 9
+- Now probability of accidentally matching for two strings is roughly 10^(-18).
+- So # of false positive ~ 10^(12 - 18) ~ 10^(-6) (super low)
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 6;
+const int mod = 1e9 + 7;
+const int base = 33;
+
+int add(int a, int b, int mod){
+	int res = (a + b) % mod;
+	if(res < 0)
+		res += mod;
+	return res;
+}
+
+int mult(int a, int b, int mod){
+	int res = (a * 1LL * b) % mod;
+	if(res < 0)
+		res += mod;
+	return res;
+}
+
+int power(int a, int b, int mod){
+	int res = 1;
+	while(b){
+		if((b % 2) == 1)
+			res = mult(res, a, mod);
+		a = mult(a, a, mod);
+		b /= 2;
+	}
+	return res;
+}
+
+int pw[N];
+int inv[N];
+int H[N];
+
+void precalc() {
+	pw[0] = 1;
+	for(int i = 1; i < N; i++)
+		pw[i] = mult(pw[i - 1], base, mod);
+	
+	int pw_inv = power(base , mod - 2 , mod);
+	inv[0] = 1;
+	for(int i = 1; i < N; i++)
+		inv[i] = mult(inv[i - 1], pw_inv, mod);
+}
+
+void build(string s){
+	int n = s.length();
+	for(int i = 0; i < n ; ++i){
+		H[i] = add((i == 0) ? 0 : H[i - 1], mult(pw[i], s[i] - 'a' + 1, mod), mod);
+	}
+}
+
+int getHash(int x , int y){
+	int res = add(H[y], (x == 0) ? 0 : -H[x - 1], mod);
+	res = mult(res , (x == 0) ? 1 : inv[x], mod);
+	return res;
+}
+
+int main() {
+	precalc();
+	string s = "ABCDEFGABCDEFGH";
+	build(s);
+	cout<< getHash(2, 5) << " == " << getHash(9, 12) << endl;
+}
+```
+
+Futher readings:
+* https://codeforces.com/blog/entry/60445 (More in-depth)
+* https://www.quora.com/q/threadsiiithyderabad/String-Hashing-for-competitive-programming (Quora Post)
+* https://cp-algorithms.com/string/string-hashing.html (CP Algorithms)
+
+
+* https://codeforces.com/blog/entry/4898 (Anti-Hash tests)
+* https://codeforces.com/blog/entry/60442 (Extensive discussion on anti-hash testing)
+* http://rng-58.blogspot.com/2017/02/hashing-and-probability-of-collision.html (Hashing for unordered elements)
+</details>	
+
 ## Problems
 
 #### 1 Palindromic substring
