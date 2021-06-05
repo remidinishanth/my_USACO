@@ -1638,7 +1638,7 @@ This can be found in Setter’s Solution (lines 24 - 54), if you ignore the pers
 
 **You have a chain, but there are rollback queries**
 
-Now, how does this apply to our generalization? We can imagine our segment tree as a binary tree with links to left and right children. In this setting, what would a modification to the tree look like?
+Use Persistent Segment Trees, We can imagine our segment tree as a binary tree with links to left and right children. In this setting, what would a modification to the tree look like?
 
 It would just be a path starting from the root upto a particular node! What we need to do here, is clone just the path from the root to the node, and associate the new root with the new version. Here, when the tree has N nodes, a path of length atmost log(N) is being cloned. If you compare with the linked list example, over there, in the worst case we could clone a path of size O(N). Thus, there is a huge improvement in the case of the segment tree.
 
