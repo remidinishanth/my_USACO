@@ -1735,11 +1735,11 @@ inline long long calc(long long a,long long b,long long c){ // calculate the sum
 }
 
 long long query(node*me,int cL,int cR,int l,int r,long long sa1,long long sa2){ // query on the progressions persistent tree, quite standard
-	if(cL==l&&cR==r)return me->sum+calc(sa1,sa2,cR-cL+1);
+	if(cL==l&&cR==r) return me->sum+calc(sa1,sa2,cR-cL+1);
 	long long ret=0;
 	int mid=(cL+cR)>>1;
-	if(l<=min(mid,r))ret+=query(me->l,cL,mid,l,min(mid,r),sa1+me->l->add1,sa2+me->l->add2);
-	if(max(mid+1,l)<=r)ret+=query(me->r,mid+1,cR,max(mid+1,l),r,sa1+me->r->add1+sa2*(mid-cL+1),sa2+me->r->add2);
+	if(l<=min(mid,r)) ret+=query(me->l,cL,mid,l,min(mid,r),sa1+me->l->add1,sa2+me->l->add2);
+	if(max(mid+1,l)<=r) ret+=query(me->r,mid+1,cR,max(mid+1,l),r,sa1+me->r->add1+sa2*(mid-cL+1),sa2+me->r->add2);
 	return ret;
 }
 
@@ -1749,15 +1749,15 @@ inline long long get(node*me,int cL,int cR){ // calculates the sum of the subtre
 
 node*modify(node*me,int cL,int cR,int l,int r,long long a,long long b){ // progressions persistent tree modify
 	node*ret=new node; // clone the current vertice
-	ret->l=me->l,ret->r=me->r; // clone the current vertice
-	ret->sum=me->sum,ret->add1=me->add1,ret->add2=me->add2; //clone the current vertice
-	if(cL==l&&cR==r){ // then, usual segment tree modifying follow
-		ret->add1+=a,ret->add2+=b;
+	ret->l=me->l, ret->r=me->r; // clone the current vertice
+	ret->sum=me->sum, ret->add1=me->add1, ret->add2=me->add2; //clone the current vertice
+	if(cL==l && cR==r){ // then, usual segment tree modifying follow
+		ret->add1+=a, ret->add2+=b;
 		return ret;
 	}
 	int mid=(cL+cR)>>1;
-	if(l<=min(r,mid))ret->l=modify(ret->l,cL,mid,l,min(r,mid),a,b);
-	if(max(l,mid+1)<=r)ret->r=modify(ret->r,mid+1,cR,max(l,mid+1),r,a+max(0,mid-l+1)*b,b);
+	if(l<=min(r,mid)) ret->l=modify(ret->l,cL,mid,l,min(r,mid),a,b);
+	if(max(l,mid+1)<=r) ret->r=modify(ret->r,mid+1,cR,max(l,mid+1),r,a+max(0,mid-l+1)*b,b);
 	ret->sum=get(ret->l,cL,mid)+get(ret->r,mid+1,cR);
 	return ret; // clonned node should be returned
 }
@@ -1771,7 +1771,7 @@ infNode*changeRoot[maxn];
 
 infNode*initInfNode(int l,int r){ // create the persistent array like an ordinary segtree
 	infNode*ret=new infNode;
-	ret->l=l,ret->r=r,ret->x=0;
+	ret->l=l, ret->r=r, ret->x=0;
 	if(l!=r){
 		ret->le=initInfNode(l,(l+r)/2);
 		ret->ri=initInfNode((l+r)/2+1,r);
@@ -1780,20 +1780,20 @@ infNode*initInfNode(int l,int r){ // create the persistent array like an ordinar
 }
 
 int infnodeGet(infNode*me,int j){ // query on a persistent array, doesn't differ from a query on a segtree
-	if(me->l==me->r)return me->x;
-	if(me->le->r>=j)return infnodeGet(me->le,j);else return infnodeGet(me->ri,j);
+	if(me->l==me->r) return me->x;
+	if(me->le->r>=j) return infnodeGet(me->le,j);else return infnodeGet(me->ri,j);
 }
 
 infNode*infnodeUpdate(infNode*me,int j,int x){ // updates some value in the persistent array and returns the new version
 	infNode*ret=new infNode;  // clone the current vertice
-	ret->l=me->l,ret->r=me->r; // clone the current vertice
-	ret->le=me->le,ret->ri=me->ri; // clone the current vertice
+	ret->l=me->l, ret->r=me->r; // clone the current vertice
+	ret->le=me->le, ret->ri=me->ri; // clone the current vertice
 	ret->x=me->x; // clone the current vertice
 	if(ret->l==ret->r){ // then, ordinary modifying follows
 		ret->x=x;
 		return ret;
 	}
-	if(ret->le->r>=j)ret->le=infnodeUpdate(ret->le,j,x);else ret->ri=infnodeUpdate(ret->ri,j,x);
+	if(ret->le->r>=j) ret->le=infnodeUpdate(ret->le,j,x);else ret->ri=infnodeUpdate(ret->ri,j,x);
 	return ret; // the return clonned vertice
 }
 
@@ -1818,9 +1818,9 @@ int ex[maxn],ey[maxn],o[maxn];
 
 void readIn(){
 	scanf("%d%d",&n,&m); // amount of vertices and queries
-	for(i=1;i<n;i++)scanf("%d%d",&ex[i],&ey[i]);
-	for(i=1;i<n;i++)o[i]=i;
-	for(i=1;i<n;i++){
+	for(i=1;i<n;i++) scanf("%d%d",&ex[i],&ey[i]);
+	for(i=1;i<n;i++) o[i]=i;
+	for(i=1;i<n;i++){ // creating a random permuation of edges
 		j=rand()%(n-1)+1;
 		swap(o[i],o[j]);
 	}
@@ -1833,33 +1833,34 @@ void readIn(){
 void dfs(int k){ // DFS, used to build LCA, and calculate sizes of subtrees.
 	subtree[k]=1;
 	tin[k]=++timer; // important for LCA calculation
-	int q=f[k];
+	int q=f[k]; // from final edge
 	while(q){
-		if(!subtree[t[q]]){
+		if(!subtree[t[q]]){ // vertex still not visited
 			depth[t[q]]=1+depth[k]; 
 			up[t[q]][0]=k; // important for LCA calculation
 			for(int j=1;j<20;j++)up[t[q]][j]=up[up[t[q]][j-1]][j-1]; // important for LCA calculation
 			dfs(t[q]);
 			subtree[k]+=subtree[t[q]]; // calculate the size of the subtree, it will be used in hldot construction
 		}
-		q=p[q];
+		q=p[q]; // go to previous edge
 	}
 	a[k]=make_pair(subtree[k],k);
 	tout[k]=++timer; // important for LCA calculation
 }
 
 void givechain(int k){ // greedily build the hldot. take the son with the heaviest subtree
-	chain[k]=chains;
-	place[k]=++chainSize[chains];
+	chain[k]=chains; // chain number of vertex k
+	place[k]=++chainSize[chains]; // position of vertx k in the chain
 	int q=f[k],mx=0;
 	while(q){
-		if(subtree[t[q]]<subtree[k])mx=max(mx,subtree[t[q]]);
+		// if condition if to search in children
+		if(subtree[t[q]]<subtree[k]) mx=max(mx,subtree[t[q]]);
 		q=p[q];
 	}
 	q=f[k];
 	while(q){
 		if(subtree[t[q]]==mx){
-			givechain(t[q]);
+			givechain(t[q]); // go to heavy child
 			break;
 		}
 		q=p[q];
@@ -1867,11 +1868,11 @@ void givechain(int k){ // greedily build the hldot. take the son with the heavie
 }
 
 void build_dot(){
-	for(i=0;i<20;i++)up[1][i]=1;
-	dfs(1); // at first, run the DFS
-	sort(a+1,a+n+1);
+	for(i=0;i<20;i++) up[1][i]=1;
+	dfs(1); // at first, run the DFS to calculate subtree sizes
+	sort(a+1,a+n+1); // sort by subtree sizes
 	reverse(a+1,a+n+1);
-	for(i=1;i<=n;i++)if(!chain[a[i].second]){ // lauch the hldot building
+	for(i=1;i<=n;i++) if(!chain[a[i].second]){ // launch the hldot building
 		pred[++chains]=up[a[i].second][0];
 		givechain(a[i].second);
 		root[chains].push_back(init(1,chainSize[chains])); 
@@ -1880,12 +1881,12 @@ void build_dot(){
 }
 
 inline bool anc(int x,int y){ // checks whether X is ancestor of Y
-	return (tin[x]<=tin[y]&&tout[x]>=tout[y]);
+	return (tin[x]<=tin[y] && tout[x]>=tout[y]);
 }
 
 inline int LCA(int x,int y){ // compute the LCA for X and Y
-	if(anc(x,y))return x;
-	for(int i=19;i+1;i--)if(!anc(up[x][i],y))x=up[x][i];
+	if(anc(x,y)) return x;
+	for(int i=19;i+1;i--) if(!anc(up[x][i],y)) x=up[x][i];
 	return up[x][0];
 }
 
