@@ -1807,10 +1807,11 @@ bool changing;
 long long lastans;
 char ch[maxn];
 
+// Edge list representation
 void addedge(int x,int y){ // add an edge to the tree
-	t[++ii]=y;
-	p[ii]=f[x];
-	f[x]=ii;
+	t[++ii]=y; // edge goes to y
+	p[ii]=f[x]; // previous edge of x
+	f[x]=ii; // final edge of x
 }
 
 int ex[maxn],ey[maxn],o[maxn];
