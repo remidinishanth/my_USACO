@@ -8,4 +8,5 @@ We will look at different data structures for trees and when to use them:
   * Path and Subtree queries: We can even combine Euler tour into HLD construction, first go to heavy child and then other children. [REF](https://codeforces.com/blog/entry/53170)
 * Centroid Decomposition
 * Reachability tree (Used rarely)
-  * Update (x, d, v) - Start at x, traverse all the edges whose length ≤ d, add v to all the nodes visited. 
+  * Update (x, d, v) - Start at x, traverse all the edges whose length ≤ d, add v to all the nodes visited. [REF](https://discuss.codechef.com/t/tulips-editorial/12281)
+  * Query (x, d) - Sum of all values reachable from x if we only traverse edges of length ≤ d
