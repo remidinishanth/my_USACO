@@ -54,6 +54,8 @@ GOAL: Given a polynomial A of degree < m, evaluate A at m points of our choosing
 
 ## The FFT
 
+![image](https://user-images.githubusercontent.com/19663316/120915767-42688300-c6c3-11eb-8fde-41c8630fdf08.png)
+
 Let's first develop it through an example.  Say m=8 so we have a polynomial 
 
     A(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4 + a_5 x^5 + a_6x^6 + a_7x^7.
