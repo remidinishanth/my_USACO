@@ -1236,6 +1236,9 @@ We can even speed up the above solution by storing the value of left most index 
 
 TODO: https://discuss.codechef.com/t/qtree6-editorial/3906 & https://www.codechef.com/viewsolution/3054419 & https://www.codechef.com/viewsolution/3050051
 
+Non - recursive implementation
+https://codeforces.com/blog/entry/67149
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
