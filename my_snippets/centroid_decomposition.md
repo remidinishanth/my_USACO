@@ -149,6 +149,7 @@ Let's mark the centroid with label 0, and remove it. After removing the centroid
 
 * It is not hard to see that given any arbitray vertices `a` and `b` and their `lca(a, b)` in the centroid tree, both `a` and `b` lie inside the part which the vertex `lca(a, b)` was centroid of, and they were first separated into different parts when the vertex `lca(a, b)` was removed.
 * Both `a` and `b` belong to the component(subtree) where the node `lca(a,b)` is the centroid. Suppose, by contradiction, that `lca(a,b)` doesn’t divide the path from `a` to `b` into two disjoint parts. It means that both `a` and `b` will be in the same component(subtree) after the removal of `lca(a,b)` in the original tree. Consequently, the centroid of that component would be a common ancestor of `a` and `b` lower than `lca(a,b)` which is contradiction.
+* Another way to think about it is that, any path from `a` to `b` can be split into `a` to `c` and `c` to `b`, where `c` is some centroid. How to find this vertex `c`? Consider the centroid at level `0`, if `a` and `b` are in the same component then go to that component, if not then this centroid divides path `a` and `b` into two parts.
 
 **Observation 4:** We decompose the given tree into `O(NlogN)` different paths (from each centroid to all the vertices in the corresponding part) such that any path in the original tree is a concatenation of two different paths from this set. (This is the most important/new/extra part in this Data Structure(DS) that should be focused on).
 
