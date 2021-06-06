@@ -57,6 +57,7 @@ Centroid of the tree is different than centre of tree(centre of a tree is simply
 Pavel marvin
 
 ```python
+# To calculate size of this component
 def dfs_size(x, p):
     s = 1
     for y in Adj[x]:
@@ -68,16 +69,15 @@ def dfs_centroid(x, p):
     s = 1
     ok = True
     for y in Adj[x]:
-    	if y == p:
-	    continue
-	sz_y = dfs_centroid(y, x)
-	if sz_y > n/2:
-	    ok = False
-	s += sz_y
+    	if y != p:
+	    sz_y = dfs_centroid(y, x)
+	    if sz_y > n/2:
+	        ok = False
+	    s += sz_y
     if s < n/2: # checking for n - s ≤ n/2
         ok = False
     if ok:
-        centroid = x
+        centroid = x # global variable
     return s
     
 # To compute centroid
@@ -85,6 +85,7 @@ n = dfs_size(v, -1)
 dfs_centroid(v, -1)
 ```
 
+The following is simpler
 ```cpp
 vector<int> Adj[maxn];
 int sub[maxn]; // subtree size
