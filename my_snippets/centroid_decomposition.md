@@ -156,6 +156,49 @@ Let's mark the centroid with label 0, and remove it. After removing the centroid
 * Each path from `a` to `b` in the original tree can be represented path from `a -> lca(a, b)` and `lca(a, b) -> b`. For each node we have `O(logN)` ancestors becuase the height of tree is `O(logN)`. There are `N` nodes in total and hence number of paths in `O(NlogN)`, that is there are only `O(NlogN)` paths from every node to its ancestors.
 
 <details>
+	<summary> Pavel Marvin Implementation</summary>
+
+```python
+# To calculate size of this component
+def dfs_size(x, p):
+    if deleted[x]:
+    	return 0
+    s = 1
+    for y in Adj[x]:
+        if y != p:
+	    s += dfs_size(y, p)
+    return s
+    
+def dfs_centroid(x, p):
+    if deleted[x]:
+    	return 0
+    s = 1
+    ok = True
+    for y in Adj[x]:
+    	if y != p:
+	    sz_y = dfs_centroid(y, x)
+	    if sz_y > n/2:
+	        ok = False
+	    s += sz_y
+    if s < n/2: # checking for n - s ≤ n/2
+        ok = False
+    if ok:
+        centroid = x # global variable
+    return s
+    
+def solve(v):
+    n = dfs_size(v, -1) # size of this subtree
+    dfs_centroid(v, -1) # find centroid of this subtree
+    c = centroid
+    deleted[c] = True
+    calculate(c) # depends on problem, what info to store
+    for u in Adj[c]:
+        if not deleted[u]:
+	    solve(u) # recursively decompose
+```
+</details>
+
+<details>
 	<summary>Carpanese implementation</summary>
 
 Using vector<set<int>> for Adjacency list, see Baba's implementation below for Distance in the Tree for better implementation.
