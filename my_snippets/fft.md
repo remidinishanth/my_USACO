@@ -1,5 +1,10 @@
 # Polynomials and the Fast Fourier Transform (FFT)
 
+![image](https://user-images.githubusercontent.com/19663316/120927322-34842380-c6fe-11eb-8078-5b4aeb417b51.png)
+
+![image](https://user-images.githubusercontent.com/19663316/120927341-4960b700-c6fe-11eb-9321-4a1c9c11fcb8.png)
+
+
 ## MULTIPLYING POLYNOMIALS
 
 E.g., multiply (x^2 + 2x + 3)(2x^2 + 5) = 
