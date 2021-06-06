@@ -54,8 +54,7 @@ Centroid of the tree is different than centre of tree(centre of a tree is simply
 
 **Finding the centroid of a tree:** One way to find the centroid is to pick an arbitrary root, then run a depth-first search computing the size of each subtree, and then move starting from root to the largest subtree until we reach a vertex where no subtree has size greater than N/2. This vertex would be the centroid of the tree.
 
-Pavel marvin
-
+Without storing size of subtrees, saving memory. source: Pavel marvin
 ```python
 # To calculate size of this component
 def dfs_size(x, p):
@@ -85,7 +84,7 @@ n = dfs_size(v, -1)
 dfs_centroid(v, -1)
 ```
 
-The following is simpler
+The following stores subtree sizes and makes code simpler
 ```cpp
 vector<int> Adj[maxn];
 int sub[maxn]; // subtree size
