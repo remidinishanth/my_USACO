@@ -1239,6 +1239,8 @@ TODO: https://discuss.codechef.com/t/qtree6-editorial/3906 & https://www.codeche
 Non - recursive implementation
 https://codeforces.com/blog/entry/67149
 
+Problem can be solved by both HLD and Centroid Tree: https://codeforces.com/blog/entry/67388 https://codeforces.com/contest/1174/problem/F
+
 ## REF
 
 * <https://blog.anudeep2011.com/heavy-light-decomposition/>
