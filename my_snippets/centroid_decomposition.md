@@ -373,6 +373,7 @@ int main() {
 mn = min(mn, dist(x,u) + ans[x] );
 * Why would this work ??
 Let x be the closest red node to u in the graph. If x lies in the part of u, dist(u,u) + ans[u] would give the minimum distance and all it's ancestor's would give a distance greater than this , hence the minimum would not be affected. Same argument would work if x lies in any one of the ancestors of u. Also, x must lie in the part of any one ancestor because the root node of centroid tree represents the whole tree.
+* An interesting observation/optimization to remove the extra additive O(logN) factor is that we only need distance between a node and all it's ancestors in the centroid tree. Also, if we root a tree at it's centroid, we can get distances from centroid to all other nodes in the tree. Hence, we maintain a "dist[LOGN][N]" array such that dist[i][j] is the distance of node j from the root in the i'th level of decomposition. Hence, now the distance of a node to it's ancestor can be found in O(1) using the above information but building this dist array also means an extra additive O(n) at each O(logN) levels of decomposition.
 
 ```cpp
 const int nax = 1e5 + 10;
