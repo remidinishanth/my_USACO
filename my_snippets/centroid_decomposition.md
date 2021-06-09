@@ -465,7 +465,7 @@ int main() {
 }
 ```
 
-source: Inspired from Baba's implementation https://codeforces.com/contest/342/submission/11945201 and https://pastebin.com/YPhMK9Dg(See Timus problem code below)
+source: Inspired from Baba's implementation https://codeforces.com/contest/342/submission/11945201 and https://pastebin.com/YPhMK9Dg (See Timus problem code below)
 </details>
 
 ### Distance in the Tree - Timus
