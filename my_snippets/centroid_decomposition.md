@@ -367,6 +367,13 @@ int main() {
 <details>
 	<summary>Using Centroid decomposition, O(lg(n)) per query </summary>
 
+* Let ans[i] denote the min distance to a red node for the centroid "i" in it's corresponding part. Hence initially, let ans[i]=INF, for all i.
+* For each update , to paint a node u red, we move up to all the ancestors x of u in the centroid tree and update their ans as, ans[x] = min(ans[x], dist(x,u)) because node u will be in the part of all the ancestors of u.
+* For each query, to get the closest red node to node u, we again move up to all the ancestors of u in the centroid tree and take the minimum as:
+mn = min(mn, dist(x,u) + ans[x] );
+* Why would this work ??
+Let x be the closest red node to u in the graph. If x lies in the part of u, dist(u,u) + ans[u] would give the minimum distance and all it's ancestor's would give a distance greater than this , hence the minimum would not be affected. Same argument would work if x lies in any one of the ancestors of u. Also, x must lie in the part of any one ancestor because the root node of centroid tree represents the whole tree.
+
 ```cpp
 const int nax = 1e5 + 10;
 const int LG = 20;
