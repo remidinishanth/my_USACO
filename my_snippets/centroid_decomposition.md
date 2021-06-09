@@ -266,7 +266,7 @@ We should execute two types of queries:
 * calculate which red node is the closest to the given one and print the shortest distance to the closest red node.
 
 <details>
-	<summary>Using Centroid decomposition</summary>
+	<summary>Using Centroid decomposition, O(lg²(n)) per query </summary>
 
 * Let `ans[a]` be the distance to the closest rose node to `a` in the component where node a is centroid. Initially, `ans[a] = ∞` because all nodes are blue (we’ll update the first node before reading the operations).
 * For each update(a), we do `ans[b] = min(ans[b], dist(a, b))` for every ancestor b of a in centroid tree, where `dist(a,b)` is the distance in the original tree. 
@@ -364,6 +364,109 @@ int main() {
 ```
 </details>
 
+<details>
+	<summary>Using Centroid decomposition, O(lg(n)) per query </summary>
+
+```cpp
+const int nax = 1e5 + 10;
+const int LG = 20;
+
+vector<int> Adj[nax];
+
+int deleted[nax], sub[nax];
+int par[nax], level[nax]; // centroid tree
+int dist[LG][nax]; // dist[level][node], dist to i-th level centroid
+int ans[nax]; // answer at this centroid
+
+int dfs_sz(int u, int p){
+    int sz = 1;
+    for(int v:Adj[u])
+        if(!deleted[v] && v!=p) sz += dfs_sz(v, u);
+    return sub[u] = sz;
+}
+
+int find_centroid(int u, int p, int sz){
+    for(int v:Adj[u]){
+        if(deleted[v] || v==p) continue;
+        if(sub[v] > sz/2) return find_centroid(v, u, sz);
+    }
+    return u; // no subtree has size > sz/2
+}
+
+// calcuate distances from centroid in original tree
+void calculate(int u, int p, int lvl){
+    for(int v:Adj[u]){
+        if(deleted[v] || v==p) continue;
+        dist[lvl][v] = dist[lvl][u] + 1;
+        calculate(v, u, lvl);
+    }
+}
+
+// decompose the original tree
+void decompose(int u, int p){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+    par[centroid] = p; // for level 0 centroid, parent will be 0
+    level[centroid] = level[p] + 1;
+
+    calculate(centroid, p, level[centroid]);
+
+    deleted[centroid] = true; // remove centroid
+    for(int v:Adj[centroid])
+        if(v != p && !deleted[v]) decompose(v, centroid);
+}
+
+///////// Queries //////////////
+
+// Paint a specific node red
+void paint(int u){
+    int x = u;
+    while(x != 0){
+        ans[x] = min(ans[x], dist[level[x]][u]);
+        x = par[x];
+    }
+}
+
+// find nearest red node
+int query(int u){
+    int ret = INT_MAX;
+    int x = u;
+    while(x != 0){
+        ret = min(ret, ans[x] + dist[level[x]][u]);
+        x = par[x];
+    }
+    return ret;
+}
+
+int main() {
+    int n, q;
+    scanf("%d%d", &n, &q);
+    for(int i=0;i<n-1;i++){
+        int u, v; // 1-based indexing
+        scanf("%d%d", &u, &v);
+        Adj[u].push_back(v);
+        Adj[v].push_back(u);
+    }
+    level[0] = -1;
+    decompose(1, 0);
+
+    for(int i=1;i<=n;i++) ans[i] = INF;
+    paint(1);
+    while(q--){
+        int type, v;
+        scanf("%d%d", &type, &v);
+        if(type == 1){
+            paint(v);
+        }else{
+            printf("%d\n", query(v));
+        }
+    }
+	return 0;
+}
+```
+
+source: Inspired from Baba's implementation https://codeforces.com/contest/342/submission/11945201 and https://pastebin.com/YPhMK9Dg(See Timus problem code below)
+</details>
 
 ### Distance in the Tree - Timus
 
