@@ -379,6 +379,8 @@ fft became much shorter
 
 ## Number Theoretic Transform
 
+We still want to multiply two polynomials in O(nlogn) time, but this time we want to compute the coefficients modulo some prime number p. Of course for this task we can use the normal DFT and apply the modulo operator to the result. However, doing so might lead to rounding errors, especially when dealing with large numbers. The number theoretic transform (NTT) has the advantage, that it only works with integer, and therefore the result are guaranteed to be correct.
+
 The number theoretic transform is based on generalizing the Nth primitive root of unity to a 'quotient ring' instead of the usual field of complex numbers.
 
 In a number theoretic transform, w is a integer which satisfies `w^n = 1 (mod p)` where p is a prime integer.
