@@ -22,8 +22,8 @@ MODEL: view each individual small multiplication as a unit cost operation.
 
 Karatsuba method: We do three multiplication operations instead of four
 
-    A.B = a_0b_0 + (a_0b_1+a_1b_0)x + a_1b_1x^2
-        = a_0b_0 + [(a_0+b_0)(a_1+b_1) - a_0b_0 - a_1b_1]x + a_1b+1x^2
+    A.B = a_0b_0 + (a_0b_1 + a_1b_0)x + a_1b_1x^2
+        = a_0b_0 + [(a_0 + b_0)(a_1 + b_1) - a_0b_0 - a_1b_1]x + a_1b+1x^2
 
 Straightforward computation is O(n^2) time.  Karatuba is n^{1.58..}
 
