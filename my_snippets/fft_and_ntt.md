@@ -413,6 +413,7 @@ Now the only difference between NTT and FFT will be that the nth root of unity c
 
 ![String matching using FFT](images/fft_6.png)
 
+## Benq's implementation USACO guide
 <details>
   <summary> Benq's implementation </summary>
 
