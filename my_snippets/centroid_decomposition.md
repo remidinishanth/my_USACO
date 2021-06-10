@@ -476,6 +476,133 @@ int main() {
 source: Inspired from Baba's implementation https://codeforces.com/contest/342/submission/11945201 and https://pastebin.com/YPhMK9Dg (See Timus problem code below)
 </details>
 
+### QTREE5 - SPOJ
+
+You are given a tree (an acyclic undirected connected graph) with N nodes. The tree nodes are numbered from 1 to N. We define dist(a, b) as the number of edges on the path from node a to node b.
+
+Each node has a color, white or black. All the nodes are black initially.
+
+We will ask you to perfrom some instructions of the following form:
+
+* 0 i : change the color of i-th node(from black to white, or from white to black).
+* 1 v : ask for the minimum dist(u, v), node u must be white(u can be equal to v). Obviously, as long as node v is white, the result will always be 0.
+
+<details>
+	<summary>Using centroid decomposition, O(lg²(n)) per query </summary>
+	
+* A very similar problem as above. The only difference is that now, we can even revert back to the original colour.
+* Hence we might maintain a multiset for each node instead of just one minimum distance and process the queries in a very similar way as above.	
+* Time complexity ? O(log^2 N) (with an extra "additive" O(logN) factor per query/update because of the multiset)
+	
+```cpp
+const int nax = 1e5 + 10;
+const int LG = 20;
+
+vector<int> Adj[nax];
+
+int deleted[nax], sub[nax];
+int par[nax], level[nax]; // centroid tree
+int dist[LG][nax]; // dist[level][node], dist to i-th level centroid
+multiset<int> ans[nax]; // answer at this centroid
+int col[nax];
+
+int dfs_sz(int u, int p){
+    int sz = 1;
+    for(int v:Adj[u])
+        if(!deleted[v] && v!=p) sz += dfs_sz(v, u);
+    return sub[u] = sz;
+}
+
+int find_centroid(int u, int p, int sz){
+    for(int v:Adj[u]){
+        if(deleted[v] || v==p) continue;
+        if(sub[v] > sz/2) return find_centroid(v, u, sz);
+    }
+    return u; // no subtree has size > sz/2
+}
+
+// calcuate distances from centroid in original tree
+void calculate(int u, int p, int lvl){
+    for(int v:Adj[u]){
+        if(deleted[v] || v==p) continue;
+        dist[lvl][v] = dist[lvl][u] + 1;
+        calculate(v, u, lvl);
+    }
+}
+
+// decompose the original tree
+void decompose(int u, int p){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+    par[centroid] = p; // for level 0 centroid, parent will be 0
+    level[centroid] = level[p] + 1;
+
+    calculate(centroid, p, level[centroid]);
+
+    deleted[centroid] = true; // remove centroid
+    for(int v:Adj[centroid])
+        if(v != p && !deleted[v]) decompose(v, centroid);
+}
+
+///////// Queries //////////////
+
+// Paint a specific node
+void paint(int u){
+    if(col[u] == 1){ // white
+        int x = u;
+        while(x != 0){
+            ans[x].erase(ans[x].lower_bound(dist[level[x]][u]));
+            x = par[x];
+        }
+    }else{
+        int x = u;
+        while(x != 0){
+            ans[x].insert(dist[level[x]][u]);
+            x = par[x];
+        }
+    }
+    col[u] = 1 - col[u];
+}
+
+// find nearest red node
+int query(int u){
+    int ret = INF;
+    int x = u;
+    while(x != 0){
+        if(SZ(ans[x]) > 0) ret = min(ret, *ans[x].begin() + dist[level[x]][u]);
+        x = par[x];
+    }
+    if(ret == INF) return -1;
+    return ret;
+}
+
+int main() {
+    int n, q;
+    scanf("%d", &n);
+    for(int i=0;i<n-1;i++){
+        int u, v; // 1-based indexing
+        scanf("%d%d", &u, &v);
+        Adj[u].push_back(v);
+        Adj[v].push_back(u);
+    }
+    level[0] = -1;
+    decompose(1, 0);
+
+    scanf("%d", &q);
+    while(q--){
+        int type, v;
+        scanf("%d%d", &type, &v);
+        if(type == 0){
+            paint(v);
+        }else{
+            printf("%d\n", query(v));
+        }
+    }
+	return 0;
+}
+```
+</details>	
+
 ### Distance in the Tree - Timus
 
 A weighted tree is given. You must find the distance between two given nodes.
