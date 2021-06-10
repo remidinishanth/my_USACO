@@ -726,6 +726,12 @@ int main() {
 ```
 </details>
 
+### PRIMEDST - Codechef
+
+source: https://discuss.codechef.com/t/primedst-editorial/2905
+
+
+
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
 
 Problem D. LWDB, ICL’2015 - main event Russia, Kazan, 15.05.2015
