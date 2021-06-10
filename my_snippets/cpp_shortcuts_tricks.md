@@ -69,6 +69,21 @@ s.erase(s.lower_bound(value));
 
 source: https://stackoverflow.com/questions/9167745/in-stdmultiset-is-there-a-function-or-algorithm-to-erase-just-one-sample-unic
 
+
+### Multiplying long long modulo
+
+```cpp
+scau_bi
+乘法取模优化
+inline long long multi(long long x,long long y,long long mod)//mod long long 
+{
+    long long tmp=(x*y-(long long)((long double)x/mod*y+0.5)*mod);
+    return tmp<0 ? tmp+mod : tmp;
+}
+```
+
+source: https://www.cnblogs.com/bibibi/p/9613151.html
+
 ### Random shuffle
 
 ```cpp
