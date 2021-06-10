@@ -49,6 +49,26 @@ sort(ord.begin(), ord.end(), [&a](int x, int y){
 
 source: https://codeforces.com/blog/entry/90793 Problem C
 
+### Multiset
+
+Removing one element from multiset
+
+```cpp
+auto itr = my_multiset.find(value);
+if(itr!=my_multiset.end()){
+    my_multiset.erase(itr);
+}
+```
+
+If we know element is in multiset
+
+```cpp
+multiset<int> s;
+s.erase(s.lower_bound(value));
+```
+
+source: https://stackoverflow.com/questions/9167745/in-stdmultiset-is-there-a-function-or-algorithm-to-erase-just-one-sample-unic
+
 ### Random shuffle
 
 ```cpp
