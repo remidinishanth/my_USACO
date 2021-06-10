@@ -47,10 +47,9 @@ Let m = 2n-1. [so degree of C is less than m]
 4. Now compute C(x_0),..., C(x_{m-1}), where C is A(x)*B(x)
 5. Interpolate to get the coefficients of C.
 
-This approach is based on the fact that a polynomial of degree < m is uniquely specified by its value on m points. It seems patently crazy since it looks like steps 2 and 3 should take O(n^2) time just in
-themselves.  However, the FFT will allow us to quickly move from "coefficient representation" of polynomial to the "value on m points" representation, and back, for our special set of m points.  (Doesn't work for *arbitrary* m points.  The special points will turn out to be roots of unity).
+This approach is based on the fact that a polynomial of degree < m is uniquely specified by its value on m points. It seems patently crazy since it looks like steps 2 and 3 should take O(n²) time just in themselves. However, the FFT will allow us to quickly move from "coefficient representation" of polynomial to the "value on m points" representation, and back, for our special set of m points.  (Doesn't work for *arbitrary* m points.  The special points will turn out to be roots of unity).
 
-The reason we like this is that multiplying is easy in the "value on m points" representation.  We just do: C(x_i) = A(x_i)*B(x_i).  So, only O(m) time for step 4.
+The reason we like this is that multiplying is easy in the "value on m points" representation.  We just do: `C(x_i) = A(x_i)*B(x_i)`.  So, only O(m) time for step 4.
 
 ![Outline](images/fft_1.png)
 
