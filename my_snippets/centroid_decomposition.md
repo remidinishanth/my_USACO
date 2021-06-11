@@ -812,8 +812,6 @@ const int LG = 20;
 vector<int> Adj[nax];
 
 int deleted[nax], sub[nax];
-int par[nax], level[nax]; // centroid tree
-int dist[LG][nax]; // dist[level][node], dist to i-th level centroid
 
 long long paths[nax]; // paths[i] = number of paths with distance i
 vector<long long> cnt;
@@ -845,13 +843,10 @@ void calculate(int u, int p, int d){
 void decompose(int u, int p){
     int sz = dfs_sz(u, p);
     int centroid = find_centroid(u, p, sz);
-    par[centroid] = p; // for level 0 centroid, parent will be 0
-    level[centroid] = level[p] + 1;
 
     // paths[i] = number of paths starting at this centroid and having len i
     vector<long long> c_paths = {1};
 
-    calculate(centroid, p, level[centroid]);
     for(int v:Adj[centroid]){
         if(v==p || deleted[v]) continue;
 
@@ -886,7 +881,6 @@ int main() {
         Adj[u].push_back(v);
         Adj[v].push_back(u);
     }
-    level[0] = -1;
     decompose(1, 0);
 
     vector<bool> prime(n, true);
@@ -895,7 +889,7 @@ int main() {
         if(prime[i])
             for(int j=2*i;j<n;j+=i) prime[j] = false;
 
-    ll total = 1ll*n*(n-1)/2;
+    long long total = 1ll*n*(n-1)/2;
     long double valid = 0;
     for(int i=0;i<n;i++)
         if(prime[i])
@@ -911,13 +905,10 @@ Another way of computing the same is to convolute values of previous subtrees.
 void decompose(int u, int p){
     int sz = dfs_sz(u, p);
     int centroid = find_centroid(u, p, sz);
-    par[centroid] = p; // for level 0 centroid, parent will be 0
-    level[centroid] = level[p] + 1;
-
+    
     // prev_paths[i] = centroid to v of lent i till current subtree
     vector<long long> prev_paths = {1};
 
-    calculate(centroid, p, level[centroid]);
     for(int v:Adj[centroid]){
         if(v==p || deleted[v]) continue;
 
