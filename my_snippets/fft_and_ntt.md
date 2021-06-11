@@ -355,7 +355,7 @@ for i in 1 .. N‐1:
     rev[i] = (rev[i >> 1] >> 1) + ((i & 1) << (logN ‐ 1))
 ```
 
-## Non-recursive realization
+### Non-recursive realization
 
 Now, let's write code that will run all calculations of fft ‐tree from bottom to top
 
@@ -374,6 +374,67 @@ fft(a, f): # calculate results of A and store in F
 ```
 
 fft became much shorter
+
+#### But how to quickly get root(...) ?
+
+It's too slow to run `cos` and `sin` every time. Let's precalculate them once!
+
+```python
+for i in 0 .. N‐1:
+     alp = i * 2 * PI / N
+     root[i] = (cos(alp), sin(alp))
+```
+
+Now we can just use `root[j * (N/(2*k))]` instead of `root(2*PI*j / (2*k))`
+
+<details>
+	<summary>Hardcore level</summary>
+	
+**roots: hardcore level Inside fft we have**
+
+```python
+         ...
+             for j in 0 .. k‐1:
+                 z = root[j * (N/(2*k))] * f[i + j + k]
+                 f[i + j + k] = f[i + j] ‐ z
+                 f[i + j] = f[i + j] + z
+```
+
+This access `root[j * (N/(2*k))]` provides to much memory jumps and is not cache‐efficient
+
+**roots: hardcore level**
+
+We can fix it by re‐ordering roots.
+
+First, let's notice that we don't use roots with alp >= PI
+
+Now, let's set `root[k .. 2*k‐1]` to upper roots order `2*k` ﴾from `2*PI*0 / (2*k)` to `2*PI*(k‐1) / (2*k)` ﴿
+
+Easy initialization:
+
+```python
+ for i in 0 .. N/2‐1:
+     alp = 2*PI*i / N
+     root[i+N/2] = (cos(alp), sin(alp))
+ for (i = N/2‐1; i >= 1; i = i ‐ 1):
+     root[i] = root[2 * i]
+ ```
+ 
+ **roots: hardcore level**
+ 
+ Now we can use it in fft as pretty as it can be
+ 
+ ```python
+         ...
+             for j in 0 .. k‐1:
+                 z = root[j + k] * f[i + j + k]
+                 f[i + j + k] = f[i + j] ‐ z
+                 f[i + j] = f[i + j] + z
+```
+
+cache‐efficient now, no memory jumps! 🚀 🚀 🚀
+
+</details>
 
 ## Number Theoretic Transform
 
@@ -734,4 +795,6 @@ If we are given any modulo, there there are two different approaches to sovle th
 TODO: https://csacademy.com/blog/fast-fourier-transform-and-variations-of-it/
 TODO: https://alan20210202.github.io/2020/08/07/FWHT/
 
-REF: https://www.ida.liu.se/~TDDD95/timetable/aps_le3_CSE565-F08-Lec-14.pdf
+REF: 
+* https://www.ida.liu.se/~TDDD95/timetable/aps_le3_CSE565-F08-Lec-14.pdf
+* http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf
