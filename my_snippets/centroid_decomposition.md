@@ -904,6 +904,43 @@ int main() {
     printf("%0.8Lf\n", valid/total);
 }
 ```
+
+Another way of computing the same is to convolute values of previous subtrees.
+
+```cpp
+void decompose(int u, int p){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+    par[centroid] = p; // for level 0 centroid, parent will be 0
+    level[centroid] = level[p] + 1;
+
+    // prev_paths[i] = centroid to v of lent i till current subtree
+    vector<long long> prev_paths = {1};
+
+    calculate(centroid, p, level[centroid]);
+    for(int v:Adj[centroid]){
+        if(v==p || deleted[v]) continue;
+
+        cnt.clear();
+        calculate(v, centroid, 1);
+
+        if(cnt.size() == 0) continue;
+        vector<long long> temp = fftconv(prev_paths, cnt);
+        for(int i=0;i<temp.size();i++)
+            paths[i] += temp[i];
+        
+        if(cnt.size() > prev_paths.size()) prev_paths.resize(cnt.size());
+        for(int i=0;i<cnt.size();i++) prev_paths[i] += cnt[i];
+    }
+
+    deleted[centroid] = true; // remove centroid
+    for(int v:Adj[centroid])
+        if(v != p && !deleted[v]) decompose(v, centroid);
+}
+
+// inside main
+    valid += paths[i]; // (u, v) is counted only once
+```
 </details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
