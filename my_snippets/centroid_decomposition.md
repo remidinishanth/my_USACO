@@ -739,6 +739,13 @@ We'll find number of pairs (u, v) such that dist(u, v) = i for all i = 1,2,..., 
 
 similar problem: https://judge.yosupo.jp/problem/frequency_table_of_tree_distance, https://judge.yosupo.jp/submission/28296
 
+**Divide & Conquery approach:**
+We can do centroid decomposition and solve recursively. For each child v of a centroid, we can find how many decendents are at each distance. This takes care of all the paths that start at a centroid and always move downwards, towards the decendents.
+
+For all the other paths, we can do a convolution of the arrays of values stored at each child of centroid. Of course, the fastest way to convolve is using Fast Fourier Transforms for polynomial multiplication. When doing convolution we need to be careful to make sure that we don't double count or convolute children of same subtree.
+
+Divide phase: Centroid decomposition, Conquer phase: FFT convolution
+
 ```cpp
 // Convolution by FFT (Fast Fourier Transform)
 // Algorithm based on <http://kirika-comp.hatenablog.com/entry/2018/03/12/210446>
