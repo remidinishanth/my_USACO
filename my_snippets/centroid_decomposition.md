@@ -728,9 +728,176 @@ int main() {
 
 ### PRIMEDST - Codechef
 
+You are given a tree. If we select 2 distinct nodes uniformly at random, what's the probability that the distance between these 2 nodes is a prime number?
+
 source: https://discuss.codechef.com/t/primedst-editorial/2905
 
+<details>
+	<summary> Using Centroid decomposition and FFT </summary>
 
+We'll find number of pairs (u, v) such that dist(u, v) = i for all i = 1,2,..., N -1. Then only add prime distances to our answer.
+
+similar problem: https://judge.yosupo.jp/problem/frequency_table_of_tree_distance, https://judge.yosupo.jp/submission/28296
+
+```cpp
+// Convolution by FFT (Fast Fourier Transform)
+// Algorithm based on <http://kirika-comp.hatenablog.com/entry/2018/03/12/210446>
+// Verified: ATC001C (168 ms) <https://atcoder.jp/contests/atc001/submissions/9243440>
+using cmplx = complex<double>;
+void fft(int N, vector<cmplx> &a, double dir)
+{
+    int i = 0;
+    for (int j = 1; j < N - 1; j++) {
+        for (int k = N >> 1; k > (i ^= k); k >>= 1);
+        if (j < i) swap(a[i], a[j]);
+    }
+
+    vector<cmplx> zeta_pow(N);
+    for (int i = 0; i < N; i++) {
+        double theta = M_PI / N * i * dir;
+        zeta_pow[i] = {cos(theta), sin(theta)}; // cosθ + isinθ
+    }
+
+    for (int m = 1; m < N; m *= 2) {
+        for (int y = 0; y < m; y++) {
+            cmplx fac = zeta_pow[N / m * y];
+            for (int x = 0; x < N; x += 2 * m) {
+                int u = x + y;
+                int v = x + y + m;
+                cmplx s = a[u] + fac * a[v];
+                cmplx t = a[u] - fac * a[v];
+                a[u] = s;
+                a[v] = t;
+            }
+        }
+    }
+}
+template<typename T>
+vector<cmplx> conv_cmplx(const vector<T> &a, const vector<T> &b)
+{
+    int N = 1;
+    while (N < (int)a.size() + (int)b.size()) N *= 2;
+    vector<cmplx> a_(N), b_(N);
+    for (int i = 0; i < (int)a.size(); i++) a_[i] = a[i];
+    for (int i = 0; i < (int)b.size(); i++) b_[i] = b[i];
+    fft(N, a_, 1);
+    fft(N, b_, 1);
+    for (int i = 0; i < N; i++) a_[i] *= b_[i];
+    fft(N, a_, -1);
+    for (int i = 0; i < N; i++) a_[i] /= N;
+    return a_;
+}
+// retval[i] = \sum_j a[j]b[i - j]
+// Requirement: length * max(a) * max(b) < 10^15
+template<typename T>
+vector<long long int> fftconv(const vector<T> &a, const vector<T> &b)
+{
+    vector<cmplx> ans = conv_cmplx(a, b);
+    vector<long long int> ret(ans.size());
+    for (int i = 0; i < (int)ans.size(); i++) ret[i] = floor(ans[i].real() + 0.5);
+    ret.resize(a.size() + b.size() - 1);
+    return ret;
+}
+
+const int nax = 5e4+10;
+const int LG = 20;
+
+vector<int> Adj[nax];
+
+int deleted[nax], sub[nax];
+int par[nax], level[nax]; // centroid tree
+int dist[LG][nax]; // dist[level][node], dist to i-th level centroid
+
+long long paths[nax]; // paths[i] = number of paths with distance i
+vector<long long> cnt;
+
+int dfs_sz(int u, int p){
+    int sz = 1;
+    for(int v:Adj[u])
+        if(!deleted[v] && v!=p) sz += dfs_sz(v, u);
+    return sub[u] = sz;
+}
+
+int find_centroid(int u, int p, int sz){
+    for(int v:Adj[u]){
+        if(deleted[v] || v==p) continue;
+        if(sub[v] > sz/2) return find_centroid(v, u, sz);
+    }
+    return u; // no subtree has size > sz/2
+}
+
+// calcuate distances from centroid in original tree
+void calculate(int u, int p, int d){
+    while(cnt.size() <= d) cnt.push_back(0);
+    cnt[d]++; // there exists one more path of length d from centroid
+    for(int v:Adj[u])
+        if(v != p && !deleted[v]) calculate(v, u, d+1);
+}
+
+// decompose the original tree
+void decompose(int u, int p){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+    par[centroid] = p; // for level 0 centroid, parent will be 0
+    level[centroid] = level[p] + 1;
+
+    // paths[i] = number of paths starting at this centroid and having len i
+    vector<long long> c_paths = {1};
+
+    calculate(centroid, p, level[centroid]);
+    for(int v:Adj[centroid]){
+        if(v==p || deleted[v]) continue;
+
+        cnt.clear();
+        calculate(v, centroid, 1);
+
+        if(c_paths.size() < cnt.size()) c_paths.resize(cnt.size());
+        for(int i=0;i<cnt.size();i++) c_paths[i] += cnt[i];
+        
+        if(cnt.size() == 0) continue;
+        vector<long long> cnt2 = fftconv(cnt, cnt);
+        for(int i=0;i<cnt2.size();i++)
+            paths[i] -= cnt2[i];
+    }
+
+    vector<long long> c_paths2 = fftconv(c_paths, c_paths);
+    for(int i=0;i<c_paths2.size();i++)
+        paths[i] += c_paths2[i];
+
+    deleted[centroid] = true; // remove centroid
+    for(int v:Adj[centroid])
+        if(v != p && !deleted[v]) decompose(v, centroid);
+}
+
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    for(int i=0;i<n-1;i++){
+        int u, v; // 1-based indexing
+        scanf("%d%d", &u, &v);
+        Adj[u].push_back(v);
+        Adj[v].push_back(u);
+    }
+    level[0] = -1;
+    decompose(1, 0);
+
+    vector<bool> prime(n, true);
+    prime[0] = prime[1] = false;
+    for(int i=2;i<n;i++)
+        if(prime[i])
+            for(int j=2*i;j<n;j+=i) prime[j] = false;
+
+    ll total = 1ll*n*(n-1)/2;
+    long double valid = 0;
+    for(int i=0;i<n;i++)
+        if(prime[i])
+            valid += paths[i]/2; // (u, v) and (v, u) are same
+
+    printf("%0.8Lf\n", valid/total);
+}
+```
+</details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
 
