@@ -214,6 +214,72 @@ So, the final algorithm is:
     Output C = 1/m * FFT(F_C, m, w^{-1}).         // time O(n log n)
 ```
 
+![image](https://user-images.githubusercontent.com/19663316/121730586-84535800-cb0d-11eb-9e23-e79a95027fe7.png)
+
+![image](https://user-images.githubusercontent.com/19663316/121730627-903f1a00-cb0d-11eb-90e0-44d38115d00f.png)
+
+![image](https://user-images.githubusercontent.com/19663316/121730645-99c88200-cb0d-11eb-8634-14e6135f854d.png)
+
+Pseudo code
+```python
+def fft(a, N): # computes values of polynomial (sum a_i * x^i) in roots of x^N ‐ 1 = 0
+    if N == 1:
+        return [a[0]]
+	
+    # split a to a_odd and a_even
+    a_odd = [a[0], a[2], ...]
+    a_even = [a[1], a[3], ...]
+    
+    # run fft recursively
+    f_odd = fft(a_odd, N/2)
+    f_even = fft(a_even, N/2)
+    
+    # reconstruct f values
+    for i in 0 .. N/2‐1:
+        f[i] = f_even[i] + z[i] * f_odd[i]
+	f[i+N/2] = f_even[i] + z[i+N/2] * f_odd[i]
+
+    return f
+
+def mult(a, b): # multplies {a} and {b} polynoms and returns result {c}
+    # Step 1 and 2
+    f = fft(a, N)
+    g = fft(b, N)
+    
+    # Step 3
+    for i in 0 .. N‐1:
+        h[i] = f[i] * g[i]
+	
+    # Step 4
+    reverse h[1 .. N‐1]
+    c = fft(h, N)
+    
+    # finishing touches
+    for i in 0 .. N‐1:
+        c[i] = c[i] / N
+	
+    return c
+```
+
+Can be simplified to
+
+```python
+def mult(a, b): # multplies {a} and {b} polynoms and returns result {c}
+    # Step 1 and 2
+    f = fft(a, N)
+    g = fft(b, N)
+    
+    # Step 3
+    for i in 0 .. N‐1:
+        h[i] = f[i] * g[i] / N
+	
+    # Step 4
+    reverse h[1 .. N‐1]
+    c = fft(h, N)
+    
+    return c
+```
+
 ## Applications
 
 FFT allows us to do a convolution of two vectors of length n in time O(n log n).
