@@ -956,6 +956,101 @@ void decompose(int u, int p){
 // inside main
     valid += paths[i]; // (u, v) is counted only once
 ```
+</details>
+
+<details>
+	<summary> Small to Large Merging </summary>
+	
+**Problem:** You are given a rooted tree consisting of n nodes. The nodes are numbered 1,2,…,n, and node 1 is the root. Each node has a color.
+
+Your task is to determine for each node the number of distinct colors in the subtree of the node.
+
+For each node, let's store a set containing only that node, and we want to merge the sets in the nodes subtree together such that each node has a set consisting of all colors in the nodes subtree. Doing this allows us to solve a variety of problems, such as query the number of distinct colors in each subtree.
+
+**How to merge two vectors/sets efficiently?**
+
+**Naive solution**
+
+Suppose that we want merge two sets `a` and `b` of sizes `n` and `m`,
+respectively. One possiblility is the following:
+
+```cpp
+for (int x: b) a.insert(x);
+```
+
+which runs in `O(m log(m+n))` time, yielding a runtime of `O(N²log N)` in the worst case. If we instead maintain `a` and `b` as sorted vectors, we can merge them in `O(n+m)` time, but `O(N²)` is also too slow.
+
+**Better solution**
+
+
+With just one additional line of code, we can significantly speed this up.
+
+```cpp
+if (a.size() < b.size()) swap(a,b);
+for (int x: b) a.insert(x);
+```
+
+Note that swap exchanges two sets in `O(1)` time. Thus, merging a smaller set of size `m` into the
+larger one of size `n` takes `O(m log n)` time.
+
+**Claim:** The solution runs in `O(N log²N)` time.
+
+**Proof:** When merging two sets, you move from the smaller set to the larger set. If the size of the smaller set is `X`, then the size of the resulting set
+is at least `2X`. Thus, an element that has been moved `Y` times will be in a set of size at least `2^Y`, and since the maximum size of a set is `N` (the
+root), each element will be moved at most `O(log N)` times.
+
+Full Code
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int MX = 200005;
+
+vector<int> adj[MX]; set<int> col[MX]; long long ans[MX];
+void dfs(int v, int p){
+	for(int e : adj[v]){
+		if(e != p){
+		   dfs(e, v);
+		   if(col[v].size() < col[e].size()){
+			   swap(col[v], col[e]);
+		   }
+		   for(int a : col[e]){
+			   col[v].insert(a);
+		   }
+		   col[e].clear();
+		}
+	}
+	ans[v] = col[v].size();
+}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	int n; cin >> n;
+	for(int i = 0; i < n; i++){
+		int x; cin >> x;
+		col[i].insert(x);
+	}
+	for(int i = 0; i < n - 1; i++){
+		int u,v; cin >> u >> v;
+		u--; v--;
+		adj[u].push_back(v); adj[v].push_back(u);
+	}
+	dfs(0,-1);
+	for(int i = 0; i < n; i++){
+		cout << ans[i] << " ";
+	}
+}
+```
+	
+source: https://usaco.guide/plat/merging?lang=cpp, https://codeforces.com/blog/entry/63353?#comment-472816
+
+You don't need to do any decomposition. Root the tree arbitrarily, and for each vertex `u` let `Su` be the multiset of lengths of paths starting in the subtree of `u` and ending in `u`. To compute it, initially `Su = {0}` (the empty path), and then for each child `v` of `u` we take `l` in `Sv` and add `l + 1` to `Su`. If you merge small sets into larger sets this will run in O(n log²n) time (and O(nlogn) if you can resolve the `+ 1` by maintaining some additive constant for each `Su`).
+
+Then, to count the number of paths, notice that each path has some highest vertex it passes through, so in `u` we can compute all paths whose highest vertex is `u`. When we take a value `l` in `Sv` we would like to find all paths coming from earlier subtrees of `u` that add up to a path of length at least `k`. But this is just a range query (count all values in the multiset `Su` that are at least `k - (l + 1)`). Note: do all range queries for `Sv` before merging it into `Su`. So our set should support order statistics queries. You can use a treap or the GNU order statistics tree for this.
+
+Actually you can do it in O(n): you don't need sets, you can just return a vector (have depth 0 in the last element, so you can increase depth by pushing an element to the back). When we merge a smaller set to a larger set, the size of the larger set doesn't increase. Thus, every vertex contributes to only one merge. We can maintain prefix sums on counts at depths while merging.
+
 </details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
