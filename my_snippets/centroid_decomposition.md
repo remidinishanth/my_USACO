@@ -746,6 +746,30 @@ For all the other paths, we can do a convolution of the arrays of values stored 
 
 Divide phase: Centroid decomposition, Conquer phase: FFT convolution
 
+How to compute FFT?
+
+![image](https://user-images.githubusercontent.com/19663316/121737997-3fccba00-cb17-11eb-8418-f1b79cec572a.png)
+
+Let `A[i]` be number of nodes have a distance `i` from centroid in subtree `A`, we can define `B` and `C` similarly. Then in polynomial form
+
+![image](https://user-images.githubusercontent.com/19663316/121738382-c7b2c400-cb17-11eb-8933-ed143b4a6ed0.png)
+
+The the number of paths of length `i` which pass through centroid can be computed as 
+
+![image](https://user-images.githubusercontent.com/19663316/121739066-b918dc80-cb18-11eb-9f5b-dd8f5d437583.png)
+
+Polynomial `1` is for counting the number of paths starting or ending in centroid. We need to remove `A^2` because paths connecting nodes in `A` doesn't pass through the centroid. This way each path from `(u, v)` is counted twice, once by `u` and once by `v`.
+
+Another way to compute these paths would be calculating one subtree after another, for example when we calculate the paths from subtree `C`, we will convolute polynomial `C` with nodes in `A` and `B`, this contribution would be `(1 + A + B)C`. `1` counts the paths starting at centroid and ending in `C`, `A` for couting paths starting at `A` and ending in `C`, similarly for `B`.
+
+![image](https://user-images.githubusercontent.com/19663316/121741097-a7850400-cb1b-11eb-8035-ead90865ee45.png)
+
+We can check that both the ways lead to same solution except that in first case each path is counted twice. 
+
+	(1 + A + B + C)^2 - A^2 - B^2 - C^2 =  (A^2 + B^2 + C^2 + 1 + 2AB + 2BC + 2AC + 2A + 2B + 2C) - A^2 - B^2 - C^2 
+	                                    = 1 + 2AB + 2BC + 2AC + 2A + 2B + 2C
+					    = 1 + 2(AB + BC + AC + A + B + C)
+					    = 1 + 2( A + (1+A)B + (1+A+B)C )
 ```cpp
 // Convolution by FFT (Fast Fourier Transform)
 // Algorithm based on <http://kirika-comp.hatenablog.com/entry/2018/03/12/210446>
