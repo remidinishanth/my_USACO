@@ -959,6 +959,27 @@ void decompose(int u, int p){
 </details>
 
 <details>
+	<summary> Binarizing the given tree before decomposition </summary>
+	
+The given tree is not necessarily a binary tree. If we try to find a split of nodes in such a tree, we may end up with a split that selects only `O(N / D)` vertices in one set; here `D` is the largest degree of any node(for example `D` can be `sqrt(N)`). This would mean that our divide and conquer may perform too many FFTs in the worst case. This is highly undesirable.
+
+We can convert the given tree into binary tree as follows:
+
+If a node has more than 2 chilren
+* Give the node a new right child
+* Connect the node to its right child with a 0 cost edge
+* Move all but 1 child to the children of the new right child
+* The remaining child will be the left child of the node
+
+In the final tree, the meaning of distance will be replaced by the sum of the costs of edges, instead of the number of edges.
+
+Now, we can always find a split that selects at least `O(N / 3)` nodes in one set.
+
+TODO: http://p.ip.fi/EgoG and http://p.ip.fi/n8N-
+	
+</details>	
+
+<details>
 	<summary> Small to Large Merging </summary>
 	
 **Problem:** You are given a rooted tree consisting of n nodes. The nodes are numbered 1,2,…,n, and node 1 is the root. Each node has a color.
