@@ -444,6 +444,12 @@ source: https://codeforces.com/blog/entry/22072 & https://codeforces.com/contest
 
 *Extra care must be taken in processPath if the binary operation isn't commutative, you'll need two segment trees, one for downward sums and one for upward sums.*
 
+### Remarks
+
+Note that this only works if the tree is fixed. You have to make your decomposition in advance, then put all the range trees on it.
+
+If you want to be able to modify the tree as well as one of your operations, you can use a more advanced data structure called a link-cut tree. The link-cut tree effectively maintains the special paths just as we have, but it does with splay trees, and in such a way that the paths can be spliced up and put back together in different ways. Amazingly, the link-cut tree actually achieves O(log n) time per query (no square in there!)
+
 ### Applications
 
 If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLD
