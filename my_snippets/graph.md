@@ -123,10 +123,7 @@ We are given a cactus(un-directed connected graph in which any two simple cycles
 ![image](https://user-images.githubusercontent.com/19663316/121788609-35c8bb00-cbec-11eb-9ae5-4fedb2744fb5.png)
 
 Key observations:
-* A strong cactus will only have cycles and paths of length 1. If a graph is a cactus, each of them is either a cycle or a single edge. If there are
-two single-edge components that share a vertex, the graph isn’t a strong cactus, because an edge between would lie on two cycles if we add the first edge. A more convenient form of the same statement is “a cactus is strong, iff after removing all edges lying on cycles, each connected component has at most one edge.”
-other vertices can be added. On the other hand, if there are no such components, no edge could be added,
-because a path between the ends would cover at least one edge, which already lies on cycle, and this edge
+* A strong cactus will only have cycles and paths of length 1. Consider all 2-vertex-connected components of the graph. If a graph is a cactus, each of them is either a cycle or a single edge. If there are two single-edge components that share a vertex, the graph isn’t a strong cactus, because an edge between these vertices can be added. On the other hand, if there are no such components, no edge could be added, because a path between the ends would cover at least one edge, which already lies on cycle, and this edge would lie on two cycles if we add the first edge. A more convenient form of the same statement is “a cactus is strong, iff after removing all edges lying on cycles, each connected component has at most one edge.”
 * We can solve the problem for the tree formed by Biconnected components - split by cycles into tree subcomponents.
 * We can ignore length 1 endpoints connecting to odd degree vertices. If the parent of a odd degree vertex is also odd, then other edges can be present in a cycle and hence this edge can be ignored.
 
