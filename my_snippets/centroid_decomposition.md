@@ -961,7 +961,9 @@ void decompose(int u, int p){
 <details>
 	<summary> Binarizing the given tree before decomposition </summary>
 	
-The given tree is not necessarily a binary tree. If we try to find a split of nodes in such a tree, we may end up with a split that selects only `O(N / D)` vertices in one set; here `D` is the largest degree of any node(for example `D` can be `sqrt(N)`). This would mean that our divide and conquer may perform too many FFTs in the worst case. This is highly undesirable.
+The given tree is not necessarily a binary tree. If we try to find a split of nodes in such a tree, we may end up with a split that selects only `O(N / D)` vertices in one set; here `D` is the largest degree of any node(see the below example). This would mean that our divide and conquer may perform too many FFTs in the worst case. This is highly undesirable.
+
+![image](https://user-images.githubusercontent.com/19663316/121785323-cd231380-cbd6-11eb-9cac-872647fb4bc6.png)
 
 We can convert the given tree into binary tree as follows:
 
