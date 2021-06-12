@@ -111,6 +111,104 @@ a bridge (notice that we remove the equality test ‘=’ for finding bridges).
 
 source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
 
+<details>
+    <summary> Application: Cactus Not Enough </summary>
+    
+source: 2020-2021 ICPC, NERC, Northern Eurasia Onsite https://codeforces.com/contest/1510/problem/C
+
+We are given a cactus(un-directed connected graph in which any two simple cycles have at most one vertex in common). Let's call a cactus strong if it is impossible to add an edge to it in such a way that it still remains a cactus. We want to find minimal number of edges that we can add to the given cactus to make it strong  i. e. to create a new cactus with the same vertices, so that the original cactus is a subgraph of the new one, and it is impossible to add another edge to it so that the graph remains a cactus.
+
+**Solution:** Let's look at some examples, Red edges indicate minimal edges that can be added.
+
+![image](https://user-images.githubusercontent.com/19663316/121788609-35c8bb00-cbec-11eb-9ae5-4fedb2744fb5.png)
+
+Key observations:
+* A strong cactus will only have cycles and paths of length 1.
+* We can solve the problem for the tree formed by Biconnected components - split by cycles into tree subcomponents.
+* We can ignore length 1 endpoints connecting to odd degree vertices. If the parent of a odd degree vertex is also odd, then other edges can be present in a cycle and hence this edge can be ignored.
+
+We can find the cycles on the fly by storing `low_value` lowest depth vertex that can be reached while doing DFS similar to articulation points.
+
+```cpp
+vector<vector<int>> Adj;
+vector<int> depth, deg;
+vector<pair<int,int>> paths;
+
+pair<int,int> dfs(int u, int par){
+    if(par == -1) depth[u] = 0;
+    int cur_path = -1;
+    int low_val = depth[u];
+
+    for(int v:Adj[u]){
+        if(v == par) continue;
+        if(depth[v] == -1){
+            depth[v] = depth[u] + 1;
+            auto [ch_low_val, ch_path] = dfs(v, u);
+            low_val = min(low_val, ch_low_val);
+
+            if(ch_path != -1){
+                if(cur_path != -1){
+                    paths.push_back({ch_path, cur_path});
+                    cur_path = -1;
+                }else{
+                    cur_path = ch_path;
+                }
+            }
+        }else if(depth[v] < depth[u]){ // update low_val
+            low_val = min(low_val, depth[v]);
+        }
+    }
+
+    if(low_val == depth[u] && par != -1){ // articulation point
+        if(deg[u] && deg[par]){
+            // both are odd degree, edge (par, u) can be ignored
+            deg[u]--; deg[par]--;
+        }else if(cur_path == -1){
+            cur_path = u;
+        }
+    }else{
+        if(cur_path != -1){
+            paths.push_back({cur_path, u});
+            cur_path = -1;
+        }
+    }
+    return {low_val, cur_path};
+}
+
+int main() {
+    while(true){
+        int n, m;
+        scanf("%d %d", &n, &m);
+        Adj = vector<vector<int>>(n+1, vector<int>());
+        depth = vector<int>(n+1, -1);
+        deg = vector<int>(n+1);
+        paths.clear();
+        if(n==0) break;
+        for(int i=0;i<m;i++){
+            int len, prev=-1;
+            scanf("%d", &len);
+            while(len--){
+                int x;
+                scanf("%d", &x);
+                if(prev!=-1){
+                    Adj[x].push_back(prev);
+                    Adj[prev].push_back(x);
+                }
+                prev = x;
+            }
+        }
+        for(int i=1;i<=n;i++) deg[i] = Adj[i].size() & 1;
+
+        dfs(1, -1);
+        printf("%d\n", (int)paths.size());
+        for(pair<int,int> x:paths){
+            printf("%d %d\n", x.first, x.second);
+        }
+    }
+}
+```
+
+</details>   
 
 ## Tarjan's strongly connected components algorithm
 
