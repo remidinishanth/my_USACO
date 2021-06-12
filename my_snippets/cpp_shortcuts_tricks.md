@@ -69,6 +69,18 @@ s.erase(s.lower_bound(value));
 
 source: https://stackoverflow.com/questions/9167745/in-stdmultiset-is-there-a-function-or-algorithm-to-erase-just-one-sample-unic
 
+### Pairs unpacking
+
+```cpp
+vector<tuple<int,int,int>> g(100);
+int x,y,z; tie(x,y,z) = g[19];
+
+auto[x, y, z] = g[i]; // C++17, structured binding declaration
+auto& [x, y, z] = g[i]; // to get references
+
+pair<int,int> f(); // function that returns a pair<int,int>
+auto [x, y] = f();
+```
 
 ### Multiplying long long modulo
 
