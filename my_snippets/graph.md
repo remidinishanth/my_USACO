@@ -6,6 +6,9 @@
 
 source: https://codeforces.com/blog/entry/68138
 
+![image](https://user-images.githubusercontent.com/19663316/121787675-167a5f80-cbe5-11eb-8126-4cfb02bf68ff.png)
+
+
 ## Finding cycle in (directed) graph
 
 Use colors, for example, white, grey and black.
