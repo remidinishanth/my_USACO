@@ -3,6 +3,12 @@
 * Edge-disjoint paths
 * Node-disjoint paths
 
+## Flow Algorithms
+* Ford-Fulkerson Algorithm
+* Edmonds-Karp Algorithm
+* Push-relabel Algorithm
+* Scaling Algorithm
+
 ```cpp
 struct TEdge{
     int from,to,cap,f;
