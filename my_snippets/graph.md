@@ -49,24 +49,18 @@ removal disconnects G. These two problems are usually defined for **undirected g
 
 ![image](images/Articulation_points_bridges_1.jpg)
 
+A simple approach to find bridges/articulation points would be to remove each point and check whether the graph is disconnected but it would take `O(E(V+E))` time.
+
 We maintain two numbers `dfs_num(u)` and `dfs_low(u)`. Here, `dfs_num(u)` stores the iteration counter when the vertex u is 
 visited *for the first time*, `dfs_low(u)` stores the lowest `dfs_num` rechable from the current DFS spanning subtree of u.
-At the beginning, `dfs_low(u) = dfs_num(u)` when vertex u is visited for the first time. Then, `dfs_low(u)` can only be made 
-smaller if there is cycle(a back edge exists). Note that we do not update `dfs_low(u)` with a back edge (u, v) if v is a direct parent of u.
+At the beginning, `dfs_low(u) = dfs_num(u)` when vertex `u` is visited for the first time. Then, `dfs_low(u)` can only be made 
+smaller if there is cycle(a back edge exists). Note that we do not update `dfs_low(u)` with a back edge `(u, v)` if `v` is a direct parent of `u`.
 
-* When we are in a vertex u with v as its neighbor and `dfs_low(v) ≥ dfs_num(u)`, then
-u is an articulation vertex. This is because the fact that `dfs_low(v)` is *not smaller* than
-`dfs_num(u)` implies that there is no back edge from vertex v that can reach another vertex w
-with a lower dfs_num(w) than dfs_num(u).
+* When we are in a vertex u with v as its neighbor and `dfs_low(v) ≥ dfs_num(u)`, then `u` is an articulation vertex. This is because the fact that `dfs_low(v)` is *not smaller* than `dfs_num(u)` implies that there is no back edge from vertex `v` that can reach another vertex `w` with a lower `dfs_num(w)` than `dfs_num(u)`.
 
-* A vertex w with lower `dfs_num(w)` than vertex
-u with `dfs_num(u)` implies that w is the ancestor of u in the DFS spanning tree. This
-means that to reach the ancestor(s) of u from v, one must pass through vertex u. Therefore,
-removing vertex u will disconnect the graph.
+* A vertex w with lower `dfs_num(w)` than vertex u with `dfs_num(u)` implies that `w` is the ancestor of u in the DFS spanning tree. This means that to reach the ancestor(s) of `u` from `v`, one must pass through vertex `u`. Therefore, removing vertex `u` will disconnect the graph.
 
-However, there is one special case: The root of the DFS spanning tree (the vertex
-chosen as the start of DFS call) is an articulation point only if it has more than one children
-in the DFS spanning tree (a trivial case that is not detected by this algorithm).
+However, there is one special case: The root of the DFS spanning tree (the vertex chosen as the start of DFS call) is an articulation point only if it has more than one children in the DFS spanning tree (a trivial case that is not detected by this algorithm).
 
 ```cpp
 vi dfs_low;       // additional information for articulation points/bridges/SCCs
