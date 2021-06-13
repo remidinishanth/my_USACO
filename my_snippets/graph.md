@@ -116,6 +116,11 @@ a bridge (notice that we remove the equality test ‘=’ for finding bridges).
 
 source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
 
+
+A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes lowpoint.
+
+![](images/TarjanAPDemoDepth.gif)
+
 <details>
     <summary> Application: Cactus Not Enough </summary>
     
@@ -164,7 +169,7 @@ pair<int,int> dfs(int u, int par){
         }
     }
 
-    if(low_val == depth[u] && par != -1){ // articulation point
+    if(low_val == depth[u] && par != -1){ // vertex v is on a brige
         if(deg[u] && deg[par]){
             // both are odd degree, edge (par, u) can be ignored
             deg[u]--; deg[par]--;
