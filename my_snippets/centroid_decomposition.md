@@ -965,7 +965,13 @@ The given tree is not necessarily a binary tree. If we try to find a split of no
 
 ![image](https://user-images.githubusercontent.com/19663316/121785323-cd231380-cbd6-11eb-9cac-872647fb4bc6.png)
 
-For example: In the above subtree, the degree of the centroid is `sqrt(N) + 1`, hence we will need to do perform FFT `sqrt(N) + 1` times and each FFT can take upto `O(NlogN)` time, because there is a subtree of size `N/2 - 1 = O(N)`. Hence the time complexity might become `O(N sqrt(N) log(N))`
+For example: In the above subtree, the degree of the centroid is `sqrt(N) + 1`, hence we will need to do perform FFT `sqrt(N) + 1` times and each FFT can take upto `O(NlogN)` time, because there is a subtree of size `N/2 - 1 = O(N)`. Hence the time complexity might become `O(N sqrt(N) log(N))`.
+
+To overcome this issue, we convert the given tree T into an equivalent binary tree T' by adding extra dummy nodes such that degree of each node in the transformed tree T' is  ≤ 3, and the number of dummy nodes added is bounded by O(N).
+
+Hence we perform centroid decomposition of this transformed tree T'. The centroid tree formed would have the following properties.
+* The height of the centroid tree is O(logN)
+* Each node in the centroid tree has ≤ 3 children
 
 We can convert the given tree into binary tree as follows:
 
@@ -977,7 +983,7 @@ If a node has more than 2 chilren
 
 In the final tree, the meaning of distance will be replaced by the sum of the costs of edges, instead of the number of edges.
 
-Now, we can always find a split that selects at least `O(N / 3)` nodes in one set.
+Now, we can always find a split that selects at least `O(N/3)` nodes in one set.
 
 TODO: http://p.ip.fi/EgoG and http://p.ip.fi/n8N-
 	
