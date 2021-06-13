@@ -40,7 +40,7 @@ disconnects G. A biconnected component of G is a maximal set of edges such
 that any two edges in the set lie on a common simple cycle, We can determine articulation points, bridges, and biconnected
 components using DFS.
     
-## Articulation Points
+## Articulation Points/Cut Vertices and Bridges
 
 An ‘Articulation Point’ is defined as a vertex in a graph G whose removal (all edges
 incident to this vertex are also removed) disconnects G. A graph without any articulation
