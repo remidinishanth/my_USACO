@@ -6,6 +6,7 @@
 ## Flow Algorithms
 * Ford-Fulkerson Algorithm
 * Edmonds-Karp Algorithm
+* Dinic Algorithm
 * Push-relabel Algorithm
 * Scaling Algorithm
 
