@@ -24,7 +24,7 @@ The Catalan numbers are a remarkable sequence of numbers that “solve” a numb
   
   **Bertrand's ballot problem** is the question: "In an election where candidate A receives p votes and candidate B receives q votes with p > q, what is the probability that A will be strictly ahead of B throughout the count?" The answer is  (p - q)/(p + q). The number of favourable ways `(p+q-1 choose p-1)` - `(p+q-1 choose p)`. Proof: First vote should always go to candidate A, now we are left with `(p-1)` A's votes and `q` B's votes and now ties are allowed, so by reflection trick we get `(p+q-1 choose p-1)` - `(p+q-1 choose p)`. If ties are allowed in the original problem then the answer would be `(p+q choose q) - (p+q choose q-1)`.
   
-  Application: CHNBGMT https://discuss.codechef.com/t/chnbgmt-editorial/12438
+  Application: CHNBGMT https://discuss.codechef.com/t/chnbgmt-editorial/12438, https://www.spoj.com/problems/FUNPROB/
 
 
 
