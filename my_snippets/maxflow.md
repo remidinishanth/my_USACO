@@ -10,6 +10,13 @@
 * Push-relabel Algorithm
 * Scaling Algorithm
 
+## Problems
+* https://www.codechef.com/problems/GNUM
+* https://www.codechef.com/problems/CHEFAFD
+* https://www.codechef.com/problems/RIN
+* https://www.codechef.com/problems/CHEFKC
+* https://www.codechef.com/problems/BIBOARD
+
 ```cpp
 struct TEdge{
     int from,to,cap,f;
