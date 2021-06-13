@@ -255,6 +255,23 @@ Yes\
 <img src="images/Articulation_points_bridges_2.jpg"  width="300">
 </details>
 
+Properties of the Bridge Tree
+* Each edge in the bridge tree is the one of the bridge edges in the original graph. Each edge in the normal graph G, is either a bridge tree edge or part of one of the bridge components.
+* Since each node in the bridge tree is formed by shrinking the bridge components of original graph, therefore the bridge tree of a graph with N vertices can have at most N nodes (and N-1 edges).
+* Bridge tree by construction is a tree, it cannot have cycles(No edge in a cylce cannot be a bridge).
+* From the above point, it directly follows that a graph with N vertices can have at most N-1 bridges(because tree can have atmost N-1 edges).
+* Within a bridge component, there is at least one way to orient all the edges such that there is a simple path from any node to any node within the component. (Non-trivial)
+* Within a bridge component, for any pair of nodes (u, v) there must be a simple cycle between these two nodes. (Non-trivial)
+
+
+How to build bridge tree efficiently?
+* Run bridge finding algorithm to find all the bridges. O(V + E)
+* Remove all the bridges from G
+* In the resulting graph, the nodes in two different bridge components now look disjoint. So just label all the nodes with their component id.
+* Let the total number of these components be K
+* Now add back the bridges into a new graph with these K nodes and you get B = (K, bridges) as your bridge tree
+* Runtime: O(V + E) or O((V + E)logE) depending on how you implement it.
+
 REF: https://tanujkhattar.wordpress.com/2016/01/10/the-bridge-tree-of-a-graph/, http://compalg.inf.elte.hu/~tony/Oktatas/TDK/FINAL/Chap%205.PDF
 
 ## Tarjan's strongly connected components algorithm
