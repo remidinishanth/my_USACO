@@ -2017,6 +2017,8 @@ int main (int argc, char * const argv[]) {
 * Then, let’s greedily pick the independent set of these segments which can’t be extended.
 * Find the size of such set for every L <= K.
 
+#### TODO: Take atmost K values of a particular value in a range): https://codeforces.com/contest/813/problem/E, https://www.codechef.com/ICMT2019/problems/ICM05
+
 #### Persistent Arrays and Deques
 
 * You can make random-access array persistent by building a segment tree on it. It would work in O(log N) per query.
