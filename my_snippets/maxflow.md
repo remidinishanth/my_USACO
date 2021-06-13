@@ -1,3 +1,8 @@
+## Problems where flow is used
+* Maximum matching in Bipartite graphs(mostly used)
+* Edge-disjoint paths
+* Node-disjoint paths
+
 ```cpp
 struct TEdge{
     int from,to,cap,f;
