@@ -47,6 +47,8 @@ incident to this vertex are also removed) disconnects G. A graph without any art
 point is called ‘Biconnected’. Similarly, a ‘Bridge’ is defined as an edge in a graph G whose
 removal disconnects G. These two problems are usually defined for **undirected graphs**.
 
+![image](images/Articulation_points_bridges_1.jpg)
+
 We maintain two numbers `dfs_num(u)` and `dfs_low(u)`. Here, `dfs_num(u)` stores the iteration counter when the vertex u is 
 visited *for the first time*, `dfs_low(u)` stores the lowest `dfs_num` rechable from the current DFS spanning subtree of u.
 At the beginning, `dfs_low(u) = dfs_num(u)` when vertex u is visited for the first time. Then, `dfs_low(u)` can only be made 
@@ -209,6 +211,48 @@ int main() {
 ```
 
 </details>   
+
+### Bi-connected components/ 2-connected components
+A biconnected component of a given graph is the maximal(as big as possible - not possible to make it larger) connected subgraph which doesn't contain any aritculation vertices, meaning that if any one vertex were to be removed, the graph will remain connected. 
+
+In the following diagram, different colours represent different biconnected components of the graph.
+
+<img src="images/Articulation_points_bridges_3.png"  width="500">
+
+Any connected graph decomposes into a tree of biconnected components called the block-cut tree of the graph. The blocks are attached to each other at shared vertices called cut vertices or articulation points.
+
+**Block Cut Tree:** If each biconnected component of a given graph is shrinked into / represented as a single node called a block, and these blocks are attached to each other at shared vertices (articulation points), then the resulting tree formed is called a Block-Cut tree. 
+
+The following would be the block-cut tree of the above graph, where A,B,C are blocks attached to the articulation vertices 3 and 4.
+
+<img src="images/Articulation_points_bridges_4.png"  width="500">
+
+A = represents vertices 1,2,3
+B = represents vertices 3,4
+C = represents vertices 4,5,6
+
+### Bridge components
+
+A bridge component of a given graph is the maximal connected subgraph which does not contain any bridge edges.
+
+In the following graph, different coloured vertices lie in different bridge components. The black edges are the normal edges and blue edge represents the bridge edge separating different components.
+
+<img src="images/Articulation_points_bridges_5.jpeg"  width="500">
+
+**Bridge Tree:** If each bridge component of a given graph is shrinked into/represented as a single node, and these nodes are connected to each other by the bridge edges which separated these components, then the resulting tree formed is called a Bridge Tree. 
+
+The following would be the bridge tree formed by shrinking the bridge components of the above given graph.
+
+<img src="images/Articulation_points_bridges_6.jpeg"  width="500">
+
+<details>
+    <summary>Can a bridge component have an articulation point? </summary>
+
+Yes\
+<img src="images/Articulation_points_bridges_2.jpg"  width="300">
+</details>
+
+REF: https://tanujkhattar.wordpress.com/2016/01/10/the-bridge-tree-of-a-graph/, http://compalg.inf.elte.hu/~tony/Oktatas/TDK/FINAL/Chap%205.PDF
 
 ## Tarjan's strongly connected components algorithm
 
