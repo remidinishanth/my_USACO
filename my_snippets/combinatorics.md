@@ -20,8 +20,11 @@ The Catalan numbers are a remarkable sequence of numbers that “solve” a numb
   ![image](https://user-images.githubusercontent.com/19663316/121806851-2f2f5780-cc6f-11eb-9a63-df2c741ceb28.png)
   ![image](https://user-images.githubusercontent.com/19663316/121807149-9bf72180-cc70-11eb-8c3f-7d08a4350c77.png)
   
+  Similarly if cashier initally has `k` 5 rupee denominations then the diagonal moves up `k` units and we can use reflection priniciple.
+  
   **Bertrand's ballot problem** is the question: "In an election where candidate A receives p votes and candidate B receives q votes with p > q, what is the probability that A will be strictly ahead of B throughout the count?" The answer is  (p - q)/(p + q). The number of favourable ways `(p+q-1 choose p-1)` - `(p+q-1 choose p)`. Proof: First vote should always go to candidate A, now we are left with `(p-1)` A's votes and `q` B's votes and now ties are allowed, so by reflection trick we get `(p+q-1 choose p-1)` - `(p+q-1 choose p)`. If ties are allowed in the original problem then the answer would be `(p+q choose q) - (p+q choose q-1)`.
-  source: CHNBGMT https://discuss.codechef.com/t/chnbgmt-editorial/12438
+  
+  Application: CHNBGMT https://discuss.codechef.com/t/chnbgmt-editorial/12438
 
 
 
