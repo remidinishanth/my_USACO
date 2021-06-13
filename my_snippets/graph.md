@@ -117,7 +117,7 @@ a bridge (notice that we remove the equality test ‘=’ for finding bridges).
 source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
 
 
-A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes lowpoint. [REF](https://en.wikipedia.org/wiki/Biconnected_component#Block-cut_tree)
+A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes lowpoint. [Wiki](https://en.wikipedia.org/wiki/Biconnected_component#Block-cut_tree)
 
 ![](images/TarjanAPDemoDepth.gif)
 
