@@ -8,6 +8,8 @@ source: https://codeforces.com/blog/entry/68138
 
 ![image](https://user-images.githubusercontent.com/19663316/121787675-167a5f80-cbe5-11eb-8126-4cfb02bf68ff.png)
 
+In a depth-first search of an undirected graph G, every edge of G is either a tree edge or a back edge. Cross edges, Forward edges doesn't exist in un-directed graphs. Ref: CLRS
+
 
 ## Finding cycle in (directed) graph
 
