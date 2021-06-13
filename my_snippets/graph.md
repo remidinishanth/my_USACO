@@ -169,7 +169,7 @@ pair<int,int> dfs(int u, int par){
         }
     }
 
-    if(low_val == depth[u] && par != -1){ // vertex v is on a brige
+    if(low_val == depth[u] && par != -1){
         if(deg[u] && deg[par]){
             // both are odd degree, edge (par, u) can be ignored
             deg[u]--; deg[par]--;
