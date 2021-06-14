@@ -383,7 +383,16 @@ int main() {
 ```
 </details>   
 
+## Bi-connectivity
+
+**Edge Biconnectivity:** If any for pair of vertices `(u, v)` there exists two edge disjoint paths between `u` and `v` then graph is called edge biconnected. They can have common vertices in between but there should be atleast two edge disjoint paths between every `(u, v)`.
+* Given a un-weighted graph(directed or undirected), To find whether two vertices are edge biconnected, we can consider `u` to be a source vertex `v` to be sink vertex and find max-flow between `u` and `v`, if the maximum flow is `k` then there are exactly `k` edge disjoint paths between `u` and `v`.
+
+**Vertex Biconnectivity:** For vertex biconnected graphs, there exists atleast two vertex disjoint paths between `u` and `v`.
+* Given a un-weighted graph(directed or undirected), To find whether `u` and `v` are vetex biconnected, we can break every vertex `a` into `a` and `a'` and connect them with an edge. All the incoming edges of `a` go to `a` and all outgoing edges will go out from `a'`. Now we can max-flow between `u'` and `v`. Edge biconnectivity in modified graph leads to vertex biconnectivity in original graph.
+
 ### Bi-connected components/ 2-connected components
+
 A biconnected component of a given graph is the maximal(as big as possible - not possible to make it larger) connected subgraph which doesn't contain any aritculation vertices, meaning that if any one vertex were to be removed, the graph will remain connected. 
 
 In the following diagram, different colours represent different biconnected components of the graph.
@@ -401,12 +410,6 @@ The following would be the block-cut tree of the above graph, where A,B,C are bl
 A = represents vertices 1,2,3
 B = represents vertices 3,4
 C = represents vertices 4,5,6
-
-**Edge Biconnectivity:** If any for pair of vertices `(u, v)` there exists two edge disjoint paths between `u` and `v` then graph is called edge biconnected. They can have common vertices in between but there should be atleast two edge disjoint paths between every `(u, v)`.
-* Given a un-weighted graph(directed or undirected), To find whether two vertices are edge biconnected, we can consider `u` to be a source vertex `v` to be sink vertex and find max-flow between `u` and `v`, if the maximum flow is `k` then there are exactly `k` edge disjoint paths between `u` and `v`.
-
-**Vertex Biconnectivity:** For vertex biconnected graphs, there exists atleast two vertex disjoint paths between `u` and `v`.
-* Given a un-weighted graph(directed or undirected), To find whether `u` and `v` are vetex biconnected, we can break every vertex `a` into `a` and `a'` and connect them with an edge. All the incoming edges of `a` go to `a` and all outgoing edges will go out from `a'`. Now we can max-flow between `u'` and `v`. Edge biconnectivity in modified graph leads to vertex biconnectivity in original graph.
 
 ### Bridge components
 
