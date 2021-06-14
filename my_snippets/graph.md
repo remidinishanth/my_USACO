@@ -41,6 +41,9 @@ a vertex whose removal disconnects G. A bridge of G is an edge whose removal
 disconnects G. A biconnected component of G is a maximal set of edges such
 that any two edges in the set lie on a common simple cycle, We can determine articulation points, bridges, and biconnected
 components using DFS.
+
+### Implementation trick
+* If you want to store vector of edges then you can store them as vector<pair<int,int>> V, {u,v}, then it is better to store them in {min(u,v), max(u,v)}.
     
 ## Articulation Points/Cut Vertices and Bridges
 
