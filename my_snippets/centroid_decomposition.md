@@ -104,6 +104,61 @@ int centroid(int u, int p) {
 }
 ```
 
+<details>
+	<summary> Um_nik's recursive implementation </summary>
+
+```cpp
+const int N = 100100;
+vector < int > g[N];
+int sz[N];
+
+void dfs(int v) {
+    sz[v] = 1;
+    for (int u: g[v]) {
+        if (sz[u] != 0) continue;
+        dfs(u);
+        sz[v] += sz[u];
+    }
+}
+
+int getCentroid(int v) // v - any vertex of tree
+{
+    dfs(v);
+    while (true) {
+        int w = -1;
+        for (int u: g[v]) {
+            if (sz[u] > sz[v]) continue;
+            if (2 * sz[u] >= n) {
+                w = u;
+                break;
+            }
+        }
+        if (w == -1) break;
+        v = w;
+    }
+    return v;
+}
+```
+
+Since we have found a centroid, there can atmost be one more centroid with subtree size exactly O(n/2) therefore we can find it as follows
+
+```cpp
+vector<int> getCentroids(int v) // v - any vertex of tree
+{
+    v = getCentroid(v);
+    vector < int > res;
+    res.push_back(v);
+    for (int u: g[v]) {
+        if (2 * sz[u] == n)
+            res.push_back(u);
+    }
+    return res;
+}
+```
+
+source: https://um-nik.github.io/centroid
+</details>	
+
 **Centroid Decomposition**
 
 On removing the centroid, the given tree decomposes into a number of different trees, each having no of nodes < N/2 . We make this centroid the root of our centroid tree and then recursively decompose each of the new trees formed and attach their centroids as children to our root. Thus , a new centroid tree is formed from the original tree. 
