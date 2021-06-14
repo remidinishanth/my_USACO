@@ -43,9 +43,44 @@ for(int i = 0; i < n; i++)
 Given a Graph G(V, E). Find the smallest set of vertices from which all nodes in the graph are reachable.
 
 * **Undirected graph:** From each connected connected we can consider one vertex. The minimum number of vertices will be equal to number of connected components in the graph.
+
 * **Directed Acyclic graph:** All vertices with `in_degree = 0` constitute the set. All nodes with no in-degree must in the final result, because they can not be reached from any other vertex. All the other nodes can be reached from some other nodes. All nodes which have an in-degree greater than 0 are reachable from a node that has an in-degree of 0.\
- Proof: Take any node 𝑋 that does not have an in-degree of 0. Take a node 𝑌 that has an edge connecting it to 𝑋. This node must exist as 𝑋 has a positive in-degree. Now all nodes that can reach 𝑌 can also reach 𝑋. Thus, we just need to prove that 𝑌 is reachable from a node with in-degree 0 to prove that 𝑋 is reachable from a node with in-degree 0. Repeat this process on the node 𝑌, taking it as the new 𝑋. Continue to do this until 𝑋 has an in-degree of 0. This process must end and find such an 𝑋 because there are only a finite number of nodes in the graph, and any repeated node within this process would indicate that there is a cycle in the graph. However as the graph is acyclic, this can not happen. Once we have found this 𝑋, we can say that 𝑋 is reachable from a node with an in-degree of 0 as it itself is a node within in-degree 0. We can then follow the graph to prove that the first 𝑋 is reachable from a node with in-degree 0.
+ Proof: Take any node 𝑋 that does not have an in-degree of 0. Take a node 𝑌 that has an edge connecting it to 𝑋. This node must exist as 𝑋 has a positive in-degree. Now all nodes that can reach 𝑌 can also reach 𝑋. Thus, we just need to prove that 𝑌 is reachable from a node with in-degree 0 to prove that 𝑋 is reachable from a node with in-degree 0. Repeat this process on the node 𝑌, taking it as the new 𝑋. Continue to do this until 𝑋 has an in-degree of 0. This process must end and find such an 𝑋 because there are only a finite number of nodes in the graph, and any repeated node within this process would indicate that there is a cycle in the graph. However as the graph is acyclic, this can not happen. Once we have found this 𝑋, we can say that 𝑋 is reachable from a node with an in-degree of 0 as it itself is a node within in-degree 0. We can then follow the graph to prove that the first 𝑋 is reachable from a node with in-degree 0.   
+
 * **Directed graph:** To solve this, we can compress all strongly connected components in the graph (using Tarjan's Algorithm or Kosaraju's Algorithm), leaving us with a directed acyclic graph. From this graph, it is enough if we consider vertices with `in_degree = 0`.
+
+ <details>
+    <summary>DFS solution of DAG</summary>
+    
+```python
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+
+        def dfs(g, c, vis, res):
+            vis[c] = True
+            for adj in g[c]:
+                if not vis[adj]:
+                    dfs(g,adj,vis,res)
+                # adj can be visited by current vertex so we dont have to add adj in res
+                # only works in case of DAG
+                elif adj in res:res.remove(adj)
+
+        # Make a adjecency list from edge list
+        g = collections.defaultdict(list)
+        for e in edges:
+            u,v = e
+            g[u].append(v)
+
+        res = set() # smallest set of vertices
+        vis = [False]*n
+        for i in range(n):
+            if not vis[i]:
+                dfs(g, i, vis, res)
+                # add vertex from which we start traversing
+                res.add(i)
+        return list(res)
+ ```
+ </details>
 
 ## Def
 Let G = (V; E) be a connected, undirected graph. An articulation point of G is
