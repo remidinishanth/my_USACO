@@ -107,6 +107,18 @@ removal disconnects G. These two problems are usually defined for **undirected g
 
 A simple approach to find bridges/articulation points would be to remove each point and check whether the graph is disconnected but it would take `O(E(V+E))` time.
 
+**Observations:**
+
+![](images/bridge_edge_dfs.png)
+
+For edge `(u, v)` to be a bridge edge, there shouldn't be any back edge from subtree of `v` to `u` or above.
+
+![](images/Articulation_point_dfs.png)
+
+For vertex `u` to be an articulation vertex, there shouldn't be any backedge edge from subtree of some child of `u` to ancestors of `u`.
+
+**Implementation details:**
+
 We maintain two numbers `dfs_num(u)` and `dfs_low(u)`. Here, `dfs_num(u)` stores the iteration counter when the vertex u is 
 visited *for the first time*, `dfs_low(u)` stores the lowest `dfs_num` rechable from the current DFS spanning subtree of u.
 At the beginning, `dfs_low(u) = dfs_num(u)` when vertex `u` is visited for the first time. Then, `dfs_low(u)` can only be made 
