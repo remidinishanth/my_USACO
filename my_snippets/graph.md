@@ -109,6 +109,8 @@ A simple approach to find bridges/articulation points would be to remove each po
 
 **Observations:**
 
+A back-edge is never a bridge because a back-edge in an undirected graph is part of a cycle.
+
 ![](images/bridge_edge_dfs.png)
 
 For edge `(u, v)` to be a bridge edge, there shouldn't be any back edge from subtree of `v` to `u` or above.
