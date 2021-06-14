@@ -178,7 +178,7 @@ Note that this implementation malfunctions if the graph has multiple edges, sinc
 
 The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
 
-*` visited[to] = false` - the edge is part of DFS tree;
+* `visited[to] = false` - the edge is part of DFS tree;
 * `visited[to] = true && to ≠ parent` - the edge is back edge to one of the ancestors;
 * `to = parent` - the edge leads back to parent in DFS tree.
  
