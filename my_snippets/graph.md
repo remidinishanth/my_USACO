@@ -119,6 +119,116 @@ a bridge (notice that we remove the equality test ‘=’ for finding bridges).
 
 source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
 
+<details>
+    <summary> CP algorithms finding bridges </summary>
+
+The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
+
+* `visited[to] = false` - the edge is part of DFS tree;
+* `visited[to] = true && to ≠ parent` - the edge is back edge to one of the ancestors;
+* `to = parent` - the edge leads back to parent in DFS tree.
+
+To implement this, we need a depth first search function which accepts the parent vertex of the current node.
+
+```cpp
+int n; // number of nodes
+vector<vector<int>> adj; // adjacency list of graph
+
+vector<bool> visited;
+vector<int> tin, low;
+int timer;
+
+void dfs(int v, int p = -1) {
+    visited[v] = true;
+    tin[v] = low[v] = timer++;
+    for (int to : adj[v]) {
+        if (to == p) continue;
+        if (visited[to]) {
+            low[v] = min(low[v], tin[to]);
+        } else {
+            dfs(to, v);
+            low[v] = min(low[v], low[to]);
+            if (low[to] > tin[v])
+                IS_BRIDGE(v, to);
+        }
+    }
+}
+
+void find_bridges() {
+    timer = 0;
+    visited.assign(n, false);
+    tin.assign(n, -1);
+    low.assign(n, -1);
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i])
+            dfs(i);
+    }
+}
+```
+
+Main function is `find_bridges`; it performs necessary initialization and starts depth first search in each connected component of the graph.
+
+Function `IS_BRIDGE(a, b)` is some function that will process the fact that edge `(a,b)` is a bridge, for example, print it.
+
+Note that this implementation malfunctions if the graph has multiple edges, since it ignores them. Of course, multiple edges will never be a part of the answer, so `IS_BRIDGE` can check additionally that the reported bridge is not a multiple edge. Alternatively it's possible to pass to dfs the index of the edge used to enter the vertex instead of the parent vertex (and store the indices of all vertices).
+</details> 
+
+<details>
+    <summary> CP algorithms finding articulation points </summary>
+
+The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
+
+*` visited[to] = false` - the edge is part of DFS tree;
+* `visited[to] = true && to ≠ parent` - the edge is back edge to one of the ancestors;
+* `to = parent` - the edge leads back to parent in DFS tree.
+ 
+To implement this, we need a depth first search function which accepts the parent vertex of the current node.
+
+```cpp
+int n; // number of nodes
+vector<vector<int>> adj; // adjacency list of graph
+
+vector<bool> visited;
+vector<int> tin, low;
+int timer;
+
+void dfs(int v, int p = -1) {
+    visited[v] = true;
+    tin[v] = low[v] = timer++;
+    int children=0;
+    for (int to : adj[v]) {
+        if (to == p) continue;
+        if (visited[to]) {
+            low[v] = min(low[v], tin[to]);
+        } else {
+            dfs(to, v);
+            low[v] = min(low[v], low[to]);
+            if (low[to] >= tin[v] && p!=-1)
+                IS_CUTPOINT(v);
+            ++children;
+        }
+    }
+    if(p == -1 && children > 1)
+        IS_CUTPOINT(v);
+}
+
+void find_cutpoints() {
+    timer = 0;
+    visited.assign(n, false);
+    tin.assign(n, -1);
+    low.assign(n, -1);
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i])
+            dfs (i);
+    }
+}
+```
+
+Main function is find_cutpoints; it performs necessary initialization and starts depth first search in each connected component of the graph.
+
+Function IS_CUTPOINT(a) is some function that will process the fact that vertex a is an articulation point, for example, print it (Caution that this can be called multiple times for a vertex).
+</details>
+
 
 A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes lowpoint. [Wiki](https://en.wikipedia.org/wiki/Biconnected_component#Block-cut_tree)
 
