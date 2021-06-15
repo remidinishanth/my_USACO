@@ -406,6 +406,11 @@ int main() {
 **Vertex Biconnectivity:** For vertex biconnected graphs, there exists atleast two vertex disjoint paths between `u` and `v`.
 * Given a un-weighted graph(directed or undirected), To find whether `u` and `v` are vetex biconnected, we can break every vertex `a` into `a` and `a'` and connect them with an edge. All the incoming edges of `a` go to `a` and all outgoing edges will go out from `a'`. Now we can max-flow between `u'` and `v`. Edge biconnectivity in modified graph leads to vertex biconnectivity in original graph.
 
+**Bi-connected graph:** Equivalent definitions of a biconnected graph G
+* Graph G has no separation edges(bridges) and no separation vertices(articulation points)
+* For any two vertices u and v of G, there are two disjoint simple paths between u and v (i.e., two simple paths between u and v that share no other vertices or edges)
+* For any two vertices u and v of G, there is a simple cycle containing u and v 
+
 ### Bi-connected components/ 2-connected components
 
 A biconnected component of a given graph is the maximal(as big as possible - not possible to make it larger) connected subgraph which doesn't contain any aritculation vertices, meaning that if any one vertex were to be removed, the graph will remain connected. 
@@ -425,6 +430,13 @@ The following would be the block-cut tree of the above graph, where A,B,C are bl
 A = represents vertices 1,2,3
 B = represents vertices 3,4
 C = represents vertices 4,5,6
+
+Interaction of biconnected components:
+* An edge belongs to exactly one biconnected component
+* A nonseparation vertex belongs to exactly one biconnected component
+* A separation vertex belongs to two or more biconnected components 
+
+REF: https://www.ics.uci.edu/~goodrich/teach/cs260P/notes/Biconnectivity.pdf
 
 ### Bridge components
 
