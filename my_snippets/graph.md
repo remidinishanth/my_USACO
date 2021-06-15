@@ -510,6 +510,24 @@ void tarjanSCC(int u) {
 
 ## Kosaraju's Algorithm for SCC
 
+Say we are given the following directed graph
+
+![](images/kosaraju_scc_1.png)
+
+Say we start DFS from the red node, we visit all the nodes present in strongly connected component of this node.
+
+![](images/kosaraju_scc_2.png)
+
+Say we start another DFS from the green node, we visit all the nodes present in the strongly connected of this node.
+
+![](images/kosaraju_scc_3.png)
+
+But we also have the blue edges, so we visit not only this strongly connected component but more than this. We might visit more than one strongly connected component.
+
+![](images/kosaraju_scc_4.png)
+
+So we need a way to fix this, we want to start the DFS at vertices such that we only visit vertices of this strongly connected component but not others. The idea is to use two DFS on the graph. First one is to find the order of the vertices.
+
 The first DFS is done on the original directed graph and record the ‘post-order’ traversal of the vertices as in finding topological sort. The second DFS is done on the transpose of the original directed graph using the ‘post-order’ ordering found by the first DFS. This two passes of DFS is enough to find the SCCs of the directed graph.
 
 1. Perform a DFS of G and number the vertices in order of completion of the recursive calls
@@ -561,7 +579,9 @@ for (i = N-1; i >= 0; i--)
   }
 
 ```
-
+<details>
+    <summary> Brian bi t3nsor implementation </summary>
+    
 ```cpp
 struct SCC {
     int V, group_cnt;
@@ -618,7 +638,8 @@ struct SCC {
 ```
 
 source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
-
+</details>
+    
 ## Longest path in Graphs
 
 ### Acyclic graphs
