@@ -536,6 +536,219 @@ void tarjanSCC(int u) {
 } }
 ```
 
+#### Problems
+
+https://codeforces.com/contest/1534/problem/F1
+
+<details>
+    <summary> My solution using map<int,int> for storing index</summary>
+        
+```cpp
+int n, m;
+
+map<int,vector<int>> Adj;
+
+map<int,int> dfs_low, dfs_in;
+int timer;
+
+map<int, vector<int>> scc_comp;
+
+const int nax = 5e5 + 10;
+int comp_no[nax];
+
+bool on_stack[nax];
+vector<int> st; // stack
+
+void dfs(int u){
+    dfs_low[u] = dfs_in[u] = timer++;
+    st.push_back(u);
+    on_stack[u] = true;
+
+    for(int v:Adj[u]){
+        if(dfs_in.find(v) == dfs_in.end()){
+            dfs(v);
+            dfs_low[u] = min(dfs_low[u], dfs_low[v]);
+        }
+        else if(on_stack[v]){
+            dfs_low[u] = min(dfs_low[u], dfs_low[v]);
+        }
+    }
+
+    if(dfs_low[u] == dfs_in[u]){ // SCC
+        while(true){
+            int x = st.back(); st.pop_back();
+            on_stack[x] = false;
+            scc_comp[u].push_back(x);
+            comp_no[x] = u;
+            if(x == u) break;
+        }
+    }
+}
+
+int f(int i, int j){
+    return m*i + j;
+}
+
+void add(int i1, int j1, int i2, int j2){
+    Adj[f(i1, j1)].push_back(f(i2, j2));
+}
+
+int main() {
+    sd2(n,m);
+    vector<string> V(n);
+    REP(i,n) cin >> V[i];
+
+    // ignore input
+    vi temp(m);
+    REP(i,m) sd(temp[i]);
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(V[i][j] != '#') continue;
+
+            Adj[f(i,j)];
+
+            // up edge
+            if(i-1>=0 && V[i-1][j]=='#')
+                add(i, j, i-1, j);
+
+            // side edges
+            if(j-1 >= 0 && V[i][j-1]=='#') add(i, j, i, j-1);
+            if(j+1 < m  && V[i][j+1]=='#') add(i, j, i, j+1);
+
+            // down edge
+            for(int k=1;i+k<n;k++){
+                if(j-1 >=0 && V[i+k][j-1]=='#') add(i, j, i+k, j-1);
+                if(j+1 < m && V[i+k][j+1]=='#') add(i, j, i+k, j+1);
+                if(V[i+k][j] == '#'){
+                    add(i, j, i+k, j);
+                    break;
+                }
+            }
+        }
+    }
+
+    memset(comp_no,-1,sizeof(comp_no));
+    for(auto [u, G]: Adj){
+        if(comp_no[u] == -1) dfs(u);
+    }
+
+    map<int, int> in_degree;
+    for(auto [u, G]: Adj){
+        in_degree[comp_no[u]];
+        for(int v:G){
+            if(comp_no[u] != comp_no[v])
+                in_degree[comp_no[v]]++;
+        }
+    }
+
+    int ans = 0;
+    for(auto [x, deg]: in_degree) if(deg == 0) ans++;
+    printf("%d\n", ans);
+    return 0;
+}
+```
+</details>    
+
+<details>
+    <summary> Authors faster solution using arrays</summary>
+    
+Just store `in[i][j] = index++;` instead of `i*m + j`;  This way indices will start from `0` and are continuous, can store them in an array. zjust like normal graph.
+
+```cpp
+#include "bits/stdc++.h"
+using namespace std;
+using ll = long long;
+using pii = pair<int,int>;
+using pll = pair<ll,ll>;
+template<typename T>
+int sz(const T &a){return int(a.size());}
+const int MN=4e5+1;
+vector<vector<char>> arr;
+vector<vector<int>> ind;
+int am[MN];
+vector<int> adj[MN];
+int nodecnt=0;
+int id[MN],low[MN];
+bool inst[MN];
+vector<int> st;
+int et;
+int in[MN];
+vector<vector<int>> comps;
+int indeg[MN];
+void dfs(int loc){
+    id[loc]=low[loc]=et++;
+    inst[loc]=true,st.push_back(loc);
+    for(auto x:adj[loc]){
+        if(!id[x])dfs(x),low[loc]=min(low[loc],low[x]);
+        else if(inst[x])low[loc]=min(low[loc],id[x]);
+    }
+    if(id[loc]==low[loc]){
+        comps.push_back({});
+        while(1){
+            int cur=st.back();
+            st.pop_back();
+            in[cur]=sz(comps)-1;
+            inst[cur]=false;
+            comps.back().push_back(cur);
+            if(cur==loc)break;
+        }
+    }
+}
+int main(){
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    int n,m;
+    cin>>n>>m;
+    arr.resize(n+1,vector<char>(m+1));
+    ind.resize(n+1,vector<int>(m+1));
+    for(int i=1;i<=n;i++)for(int j=1;j<=m;j++)cin>>arr[i][j];
+    for(int i=1;i<=m;i++)cin>>am[i];
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(arr[i][j]=='#'){
+                ind[i][j]=++nodecnt;
+            }
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(arr[i][j]=='#'){
+                if(i-1>=1&&arr[i-1][j]=='#')adj[ind[i][j]].push_back(ind[i-1][j]);
+                for(int k=i+1;k<=n;k++){
+                    if(arr[k][j]=='#'){
+                        adj[ind[i][j]].push_back(ind[k][j]);
+                        break;
+                    }
+                }
+                bool leftdone=false,rightdone=false;
+                for(int k=i;k<=n&&(!leftdone||!rightdone)&&(arr[k][j]!='#'||k==i);k++){
+                    if(j-1>=1&&!leftdone&&arr[k][j-1]=='#'){
+                        adj[ind[i][j]].push_back(ind[k][j-1]),leftdone=true;
+                    }
+                    if(j+1<=m&&!rightdone&&arr[k][j+1]=='#'){
+                        adj[ind[i][j]].push_back(ind[k][j+1]),rightdone=true;
+                    }
+                }
+            }
+        }
+    }
+    et=1;
+    comps.push_back({});
+    for(int i=1;i<=nodecnt;i++)if(!id[i])dfs(i);
+    for(int i=1;i<sz(comps);i++){
+        for(auto x:comps[i])for(auto y:adj[x])if(in[y]!=i)indeg[in[y]]++;
+    }
+    int ans=0;
+    for(int i=1;i<sz(comps);i++){
+        if(indeg[i]==0)ans++;
+    }
+    printf("%d\n",ans);
+    return 0;
+}
+```
+</details>    
+
 ## Kosaraju's Algorithm for SCC
 
 Say we are given the following directed graph
