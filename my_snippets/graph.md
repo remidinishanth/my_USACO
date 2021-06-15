@@ -481,6 +481,34 @@ REF: https://tanujkhattar.wordpress.com/2016/01/10/the-bridge-tree-of-a-graph/, 
 
 Strong Connectivity applies only to **directed graphs**. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex. There are at least two known algorithms to find SCCs: Kosaraju’s algorithm and Tarjan’s algorithm.  In this section, we adopt Tarjan’s version, as it extends naturally from our previous discussion of finding Articulation Points and Bridges.
 
+Consider the following graph, say we start DFS from the top-left vertex.
+
+![](images/Tarjan_scc_1.png)
+
+Assume that the vertices are visited in the following order.
+
+![](images/Tarjan_scc_2.png)
+
+Let's find the low_link value(the smallest node_id reachable from that node) for each node.
+
+![](images/Tarjan_scc_3.png)
+
+If we observe at the low_link value of the nodes, all the nodes in same SCC are having same low_link values.
+
+![](images/Tarjan_scc_4.png)
+
+Can we use low_link values to find SCCs? There is a problem, low_link values depends on which vertex we start DFS, for example if the start with the bottom-middle node, then low_link values for all the nodes is same.
+
+![](images/Tarjan_scc_5.png)
+
+How to fix this? The Stack Invariant.
+* To cope with the random traversal order of the DFS, Tarjan's algorithm maintains a set(often as a stack) of valid nodes from which to update low-link values from.
+* Nodes are added to the set(stack) of valid nodes as they're explored for the first time.
+* Nodes are removed from the set(stack) each time a complete SCC is found.
+
+New low-link update condition
+* To update node u's low_link value to node v's value there has to be a path of edges from u to v and node v must be on the stack.
+
 ```cpp
 vi S, visited;                                    // additional global variables
 int numSCC;
