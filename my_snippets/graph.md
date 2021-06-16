@@ -300,6 +300,22 @@ A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes
 
 ![](images/TarjanAPDemoDepth.gif)
 
+**Applications**
+
+You are given an undirected connected graph 𝐺. Direct all of its edges so that the resulting digraph is strongly connected, or declare that this is impossible.
+source: https://codeforces.com/contest/118/problem/E
+
+<details>
+    <summary> Solution </summary>
+
+* If we have a bridge in the graph, then we can't orient the edges because say (u, v) is a bridge if we direct from u → v then there is no path from v to u.
+* If there is no bridge in the graph, then the we can orient the edges. Let's form DFS tree starting from arbitrary vertex, we can direct all the tree edges downwards and back-edges upwards. This works because
+  * There is path from root to each vertex. By moving from root via tree edges
+  * There is a path from every vertex to the root, because there are no bridges there must be back edge going from vertex to its decendant, and from descendant we will have another backedge going up. We can just follow these backedges and get to the root.
+
+source: https://codeforces.com/blog/entry/68138
+</details>
+    
 <details>
     <summary> Application: Cactus Not Enough </summary>
     
