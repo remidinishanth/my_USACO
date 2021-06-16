@@ -536,6 +536,10 @@ void tarjanSCC(int u) {
 } }
 ```
 
+![](images/Tarjan's_Algorithm_Animation.gif)
+
+source: [Wiki](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm)
+
 #### Problems
 
 https://codeforces.com/contest/1534/problem/F1
