@@ -630,6 +630,8 @@ int main() {
     return 0;
 }
 ```
+
+Bridge tree can also be computed by using stack variant of SCC algorithm https://codeforces.com/contest/231/submission/2329113
 </details>    
     
 <details>
