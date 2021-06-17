@@ -185,6 +185,10 @@ a bridge (notice that we remove the equality test ‘=’ for finding bridges).
 
 source: <https://github.com/remidinishanth/cp3files/blob/master/ch4/ch4/ch4_01_dfs.cpp>
 
+A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes lowpoint. [Wiki](https://en.wikipedia.org/wiki/Biconnected_component#Block-cut_tree)
+
+![](images/TarjanAPDemoDepth.gif)
+
 <details>
     <summary> CP algorithms finding bridges </summary>
 
@@ -295,19 +299,92 @@ Main function is find_cutpoints; it performs necessary initialization and starts
 Function IS_CUTPOINT(a) is some function that will process the fact that vertex a is an articulation point, for example, print it (Caution that this can be called multiple times for a vertex).
 </details>
 
+Another way of finding bridges is to count number of backedges going up from a vertex. Let's define `dp[𝑢]` as the number of back-edges passing over the edge between `u` and its parent. Then
 
-A demo of Tarjan's algorithm to find cut vertices. D denotes depth and L denotes lowpoint. [Wiki](https://en.wikipedia.org/wiki/Biconnected_component#Block-cut_tree)
+    dp[𝑢] = (# of back-edges going up from 𝑢) − (# of back-edges going down from 𝑢) + ∑(𝑣 is a child of 𝑢) dp[𝑣]
 
-![](images/TarjanAPDemoDepth.gif)
+* (# of back-edges going up from 𝑢) is the number of back edges starting from u and going upwards
+* (# of back-edges going down from 𝑢) is the number of backedges starting from some descendant of `u` and reaching u.
+
+<details>
+    <summary> Implementation </summary>
+    
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int MAX_N = 100005;
+
+vector < int > adj[MAX_N];
+int lvl[MAX_N];
+int dp[MAX_N];
+bool bridge;
+vector < pair < int, int >> ans;
+
+void dfs(int vertex, int parent) {
+    lvl[vertex] = lvl[parent] + 1;
+
+    for (int nxt: adj[vertex]) {
+        if (lvl[nxt] != 0) {
+            if (nxt != parent) {
+                if (lvl[nxt] > lvl[vertex]) { // edge going downwards
+                    dp[vertex]--;
+                    ans.push_back(make_pair(nxt, vertex));
+                } else if (lvl[nxt] < lvl[vertex]) { // edge going upwards
+                    dp[vertex]++;
+                }
+            }
+        } else { // tree edge
+            dfs(nxt, vertex);
+            ans.push_back(make_pair(vertex, nxt));
+            dp[vertex] += dp[nxt];
+        }
+    }
+
+    if (dp[vertex] == 0 && vertex != parent) {
+        bridge = true;
+    }
+}
+
+int main() {
+    int vertexc, edgec;
+    cin >> vertexc >> edgec;
+
+    for (int i = 0; i < edgec; i++) {
+        int u, v;
+        cin >> u >> v;
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    dfs(1, 1);
+
+    if (bridge) {
+        cout << 0 << endl;
+    } else {
+        for (pair < int, int > pr: ans) {
+            cout << pr.first << " " << pr.second << '\n';
+        }
+    }
+}
+```
+source: https://codeforces.com/contest/118/submission/60187669, https://pastebin.com/ATwq4mJa
+</details>    
 
 **Applications**
 
-You are given an undirected connected graph 𝐺. Direct all of its edges so that the resulting digraph is strongly connected, or declare that this is impossible.
-source: https://codeforces.com/contest/118/problem/E
+
 
 <details>
-    <summary> Solution </summary>
+    <summary> CF #89 Div 2E Bertown roads </summary>
 
+You are given an undirected connected graph 𝐺. Direct all of its edges so that the resulting digraph is strongly connected, or declare that this is impossible.
+source: https://codeforces.com/contest/118/problem/E    
+
+**Solution :**
 * If we have a bridge in the graph, then we can't orient the edges because say (u, v) is a bridge if we direct from u → v then there is no path from v to u.
 * If there is no bridge in the graph, then the we can orient the edges. Let's form DFS tree starting from arbitrary vertex, we can direct all the tree edges downwards and back-edges upwards. This works because
   * There is path from root to each vertex. By moving from root via tree edges
@@ -366,7 +443,7 @@ source: https://codeforces.com/blog/entry/68138
 </details>
     
 <details>
-    <summary> Application: Cactus Not Enough </summary>
+    <summary> Cactus Not Enough </summary>
     
 source: 2020-2021 ICPC, NERC, Northern Eurasia Onsite https://codeforces.com/contest/1510/problem/C
 
