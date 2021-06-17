@@ -384,7 +384,7 @@ source: https://codeforces.com/contest/118/submission/60187669, https://pastebin
 You are given an undirected connected graph 𝐺. Direct all of its edges so that the resulting digraph is strongly connected, or declare that this is impossible.
 source: https://codeforces.com/contest/118/problem/E    
 
-**Solution :**
+**Solution:**
 * If we have a bridge in the graph, then we can't orient the edges because say (u, v) is a bridge if we direct from u → v then there is no path from v to u.
 * If there is no bridge in the graph, then the we can orient the edges. Let's form DFS tree starting from arbitrary vertex, we can direct all the tree edges downwards and back-edges upwards. This works because
   * There is path from root to each vertex. By moving from root via tree edges
@@ -443,6 +443,28 @@ int main() {
 
 source: https://codeforces.com/blog/entry/68138
 </details>
+
+<details>
+    <summary> CF #143 Div 2E Cactus </summary>
+
+A cactus is a graph where every edge (or sometimes, vertex) belongs to at most one simple cycle. The first case is called an edge cactus, the second case is a vertex cactus. Cacti have a simpler structure than general graphs, as such it is easier to solve problems on them than on general graphs. But only on paper: cacti and cactus algorithms can be very annoying to implement if you don't think about what you are doing.
+
+In the DFS tree of a cactus, for any span-edge, at most one back-edge passes over it. This puts cycles to an one-to-one correspondence with simple cycles:
+* each back-edge forms a simple cycle together with the span-edges it passes over;
+* there are no other simple cycles.
+
+**Problem:** You are given a connected vertex cactus with 𝑁 vertices. Answer queries of the form "how many distinct simple paths exist from vertex 𝑝 to vertex 𝑞?".
+
+**Solution:**
+* If you learn the structure of these graphs, it is not hard to see, that if we’ll squeeze each cycle in one vertex, we get a tree. Let's mark the vertices in a cyle as black.
+* Let's root the tree and for each vertex `u`, calculate the number of black vertices on the path from the root to `u`; denote this `cnt[𝑢]`.
+* the answer to query (𝑝,𝑞) is either `2^(cnt[𝑝]+cnt[𝑞]−2cnt[lca(𝑝,𝑞)])` or `2^(cnt[𝑝]+cnt[𝑞]−2cnt[lca(𝑝,𝑞)]+1)` depending on the color of lca(𝑝,𝑞). Both of the cases can be combined to `2^(cnt[𝑝]+cnt[𝑞]−cnt[lca(𝑝,𝑞)]-cnt[par[lca(𝑝,𝑞)]])`
+
+It's not hard to see why this approach works, the hard part is implementation
+
+![](images/Cactus_graph_problem.png)
+
+</details>    
     
 <details>
     <summary> Cactus Not Enough </summary>
