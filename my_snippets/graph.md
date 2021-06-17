@@ -484,6 +484,150 @@ def visit(u):
 ```
 
 We can solve this problem by constructing bridge tree.
+
+```cpp
+const int nax = 1e5 + 10;
+
+vector<vector<int>> Adj;
+int U[nax], V[nax]; // i-th edge is from U[i] to V[i]
+
+int low[nax], depth[nax];
+int bridge[nax];
+
+int cnt[nax]; // number of elements in this bridge component
+int comp[nax]; // bridge component id
+int group = 1;
+bool color[nax]; // 1 denotes black
+int black[nax]; // number of black nodes from root
+
+vector<vector<int>> Bdj; // bridge tree
+
+const int LG = 20;
+int par[nax][LG];
+
+int adj(int e, int u){ // find other end of this edge
+    return U[e] ^ V[e] ^ u;
+}
+
+void find_bridges(int u, int p){
+    low[u] = depth[u] = depth[p] + 1;
+    for(int e: Adj[u]){
+        int v = adj(e, u);
+        if(v == p) continue;
+        if(depth[v] == 0){ // tree edge
+            find_bridges(v, u);
+            low[u] = min(low[u], low[v]);
+            if(low[v] > depth[u]){
+                bridge[e] = true;
+            }
+        }else{ // back edge
+            low[u] = min(low[u], depth[v]);
+        }
+    }
+}
+
+void find_bridge_components(int u){
+    cnt[comp[u] = group]++;
+    for(int e:Adj[u]){
+        if(bridge[e]) continue;
+        int v = adj(e, u);
+        if(comp[v] == 0){
+            find_bridge_components(v);
+        }
+    }
+}
+
+void bridge_tree_dfs(int u, int p){
+    depth[u] = depth[p] + 1;
+    black[u] = black[p] + color[u];
+    for(int v:Bdj[u]){
+        if(v == p) continue;
+        par[v][0] = u;
+        for(int i=0; par[v][i]; i++){
+            int vpar = par[v][i];
+            par[v][i+1] = par[vpar][i];
+        }
+        bridge_tree_dfs(v, u);
+    }
+}
+
+int jump(int u, int d){
+    for(int i=LG-1; i>=0; i--){
+        if(d >= (1 << i)){
+            u = par[u][i];
+            d -= (1 << i);
+        }
+    }
+    return u;
+}
+
+int lca(int u, int v){
+    if(depth[u] > depth[v]) swap(u, v);
+    v = jump(v, depth[v] - depth[u]);
+    if(u == v) return u;
+    for(int i=LG-1; i>=0; i--){
+        if(par[u][i] != par[v][i]){
+            u = par[u][i];
+            v = par[v][i];
+        }
+    }
+    return par[u][0];
+}
+
+int main() {
+    int n, m;
+    scanf("%d %d", &n, &m);
+    Adj = vector<vector<int>>(n+1, vector<int>());
+    for(int i=1; i<=m; i++){
+        int u, v;
+        scanf("%d %d", &u, &v);
+        U[i] = u; V[i] = v;
+        Adj[u].push_back(i);
+        Adj[v].push_back(i);
+    }
+
+    // Construct bridge tree
+    find_bridges(1, 0);
+    for(int i=1; i<=n; i++){
+        if(comp[i] == 0){
+            find_bridge_components(i);
+            color[group] = cnt[group] - 1;
+            group++;
+        }
+    }
+    Bdj = vector<vector<int>>(group+1, vector<int>());
+    for(int e=1; e<=m; e++){
+        if(bridge[e]){
+            int u = U[e], v = V[e];
+            int a = comp[u], b = comp[v];
+            Bdj[a].push_back(b);
+            Bdj[b].push_back(a);
+        }
+    }
+
+    bridge_tree_dfs(1, 0);
+
+    int md = 1e9 + 7;
+    vector<int> pow2(group+2, 1);
+    for(int i=1; i<group+2; i++){
+        pow2[i] = (pow2[i-1] * 2) % md;
+    }
+
+    int q;
+    scanf("%d", &q);
+    while(q--){
+        int u, v;
+        scanf("%d %d", &u, &v);
+        u = comp[u];
+        v = comp[v];
+        int l = lca(u, v);
+        int t = black[u] + black[v] - 2*black[l] + color[l];
+        printf("%d\n", pow2[t]);
+    }
+
+    return 0;
+}
+```
 </details>    
     
 <details>
