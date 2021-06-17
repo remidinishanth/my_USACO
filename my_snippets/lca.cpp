@@ -68,6 +68,11 @@ dfs(0, 1);
 
 // source: https://codeforces.com/contest/191/submission/1726763
 
+// In case of one based indexing we can do the following
+    jmp[now][0] = p;
+    for(int i=0;jmp[p][i];i++)
+	jmp[now][i+1] = jmp[jmp[now][i]][i];
+
 
 // Um_nik
 // source: https://codeforces.com/contest/191/standings/friends/true
