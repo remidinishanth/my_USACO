@@ -483,6 +483,7 @@ def visit(u):
                cycleId[u] = cycleId[v]
 ```
 
+We can solve this problem by constructing bridge tree.
 </details>    
     
 <details>
