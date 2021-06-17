@@ -306,6 +306,8 @@ Another way of finding bridges is to count number of backedges going up from a v
 * (# of back-edges going up from 𝑢) is the number of back edges starting from u and going upwards
 * (# of back-edges going down from 𝑢) is the number of backedges starting from some descendant of `u` and reaching u.
 
+The edge between 𝑢 and its parent is a bridge if and only if `dp[𝑢] = 0`.
+
 <details>
     <summary> Implementation </summary>
     
