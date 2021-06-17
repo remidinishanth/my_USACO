@@ -464,6 +464,25 @@ It's not hard to see why this approach works, the hard part is implementation
 
 ![](images/Cactus_graph_problem.png)
 
+Since the given graph is vertex cactus, there can be atmost one back-edge going up from each vertex, because each edge/vertex is part of only one cycle. So we can do the following:
+* give each back-edge an unique index starting from 𝑁+1;
+* for each vertex 𝑢, calculate the index of the back-edge 𝑢 is under; call that cycleId[𝑢]; if 𝑢 isn't in a cycle then cycleId[𝑢]=𝑢;
+* form a new adjacency list where for each 𝑢, each instance of 𝑢 is replaced by cycleId[𝑢].
+
+```python
+def visit(u):
+    for v in children[u]:
+        visit(v)
+
+    if there is a back-edge going up from u:
+        cycleId[u] = the index of that back-edge
+    else:
+        cycleId[u] = u
+        for each vertex v among the children of u:
+           if cycleId[v] != v and there is no back-edge going down from v:
+               cycleId[u] = cycleId[v]
+```
+
 </details>    
     
 <details>
