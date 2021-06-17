@@ -378,8 +378,6 @@ source: https://codeforces.com/contest/118/submission/60187669, https://pastebin
 
 **Applications**
 
-
-
 <details>
     <summary> CF #89 Div 2E Bertown roads </summary>
 
@@ -391,6 +389,8 @@ source: https://codeforces.com/contest/118/problem/E
 * If there is no bridge in the graph, then the we can orient the edges. Let's form DFS tree starting from arbitrary vertex, we can direct all the tree edges downwards and back-edges upwards. This works because
   * There is path from root to each vertex. By moving from root via tree edges
   * There is a path from every vertex to the root, because there are no bridges there must be back edge going from vertex to its decendant, and from descendant we will have another backedge going up. We can just follow these backedges and get to the root.
+
+![](images/DFS_tree_level_graph.png)
 
 ```cpp
 vector<vector<int>> Adj;
