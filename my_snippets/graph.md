@@ -313,6 +313,55 @@ source: https://codeforces.com/contest/118/problem/E
   * There is path from root to each vertex. By moving from root via tree edges
   * There is a path from every vertex to the root, because there are no bridges there must be back edge going from vertex to its decendant, and from descendant we will have another backedge going up. We can just follow these backedges and get to the root.
 
+```cpp
+vector<vector<int>> Adj;
+vector<bool> visited;
+vector<int> depth;
+vector<int> low;
+vector<pair<int,int>> E;
+bool ans = true; // true => there is no bridge
+
+void dfs(int u, int p){
+    visited[u] = 1;
+    low[u] = depth[u] = depth[p] + 1;
+    for(int v:Adj[u]){
+        if(v == p) continue; // skip parent edge
+        if(visited[v]){ // back edge
+            if(depth[v] > depth[u])
+                E.push_back({v, u}); // orient upwards
+            low[u] = min(low[u], depth[v]);
+        }
+        else{
+            E.push_back({u, v}); // tree edge, orient downwards
+            dfs(v, u);
+            low[u] = min(low[u], low[v]); // update low value
+            if(low[v] > depth[u]){ // bridge exists
+                ans = false;
+            }
+        }
+    }
+}
+
+int main() {
+    int n, m;
+    scanf("%d%d", &n, &m);
+    Adj = vector<vector<int>>(n+1, vector<int>());
+    visited = vector<bool>(n+1);
+    depth = vector<int>(n+1);
+    low = vector<int>(n+1);
+    for(int i=0;i<m;i++){
+        int u, v;
+        scanf("%d%d", &u, &v);
+        Adj[u].push_back(v);
+        Adj[v].push_back(u);
+    }
+    dfs(1, 0);
+    if(ans == false) return !printf("0\n");
+    for(auto [u, v]: E) printf("%d %d\n", u, v);
+    return 0;
+}
+```
+
 source: https://codeforces.com/blog/entry/68138
 </details>
     
