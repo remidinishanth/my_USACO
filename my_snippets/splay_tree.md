@@ -29,7 +29,7 @@ Splay trees have become the most widely used basic data structure invented in
 the last 30 years, because they're the fastest type of balanced search tree for
 many applications.
 
-* Balanced binary search tree
+* Balanced binary search tree with the additional property that recently accessed elements are quick to access again.
 * All operations: O(log n) time on average(Note: there is not randomization involved)
 * Single operation: θ(n) worst-case time, where n is # of items in tree
 * Any sequence of k ops, starting from empty tree, never > n items in tree, all operations takes O(k log n) worst-case time. Few operations might be slow but many operations are faster and hence they balance out.
