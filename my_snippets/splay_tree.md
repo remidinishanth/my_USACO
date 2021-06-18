@@ -125,11 +125,11 @@ rotate G and P left, then P and X left.  Both the case illustrated above and its
 ![](images/Splay_tree_2.png)
 
 ```
-      z            [x]
+      z             x
      / \           / \
     y   D         A   y
    / \      <->      / \                (A < x < B < y < C < z < D)
- [x]  C             B   z
+ [x]  C             B  [z]
  / \                   / \
 A   B                 C   D
 ```
@@ -151,9 +151,9 @@ root (and we're done), or X will become the child of the root. One more case han
 ![](images/Splay_tree_3.png)
 
 ```
-    y            [x]
+    y             x
    / \           / \   
- [x]  C   <->   A   y
+ [x]  C   <->   A  [y]
  / \               / \
 A   B             B   C
 ```
