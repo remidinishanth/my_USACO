@@ -93,6 +93,8 @@ The mirror image of this case-- where X is a left child and P is a right child--
    /B\/C\      /A\/B\     Zig-Zag
 ```
 
+![](images/Splay_tree_1.png)
+
 **Case 2:** X is the left child of a left child (or the right child of a right child):  the ORDER of the rotations is REVERSED from case 1.  We   
 start with the grandparent, and rotate G and P right.Then, we rotate P and X right.(Note: In case 1, we rotated X and P first) 
 
@@ -110,6 +112,7 @@ rotate G and P left, then P and X left.  Both the case illustrated above and its
    /A\/B\                       Zig-Zig     /C\/D\
 
 ```
+![](images/Splay_tree_2.png)
 
 We repeatedly apply zig-zag and zig-zig rotations to X; each pair of rotations raises X two levels higher in the tree. Eventually, either X will reach the
 root (and we're done), or X will become the child of the root. One more case handles the latter circumstance, this happens when our node is odd number of levels down from root.
@@ -124,6 +127,8 @@ root (and we're done), or X will become the child of the root. One more case han
   ^  ^               ^  ^ 
  /A\/B\     Zig     /B\/C\
 ```
+
+![](images/Splay_tree_3.png)
 
 Here's an example of "find(7)".  Note how the tree's balance improves.
 
