@@ -305,6 +305,13 @@ time, so the average for this example is O(1) time per operation.     2
                                                                     1
 ```
 
+Why Splaying Works
+* Claim: After doing a splay at x, the average depth of any nodes on the access path to x is halved.
+* Intuitively, splaying x benefits nodes near x, not just x itself.
+* Each rotation done only slightly penalizes each other part of the tree (say, adding +1 or +2 depth).
+* Each splay rapidly cuts down the height of each node on the access path.
+* Slow growth in height, combined with rapid drop in height, is a hallmark of amortized efficiency.
+
 The fastest implementations of splay trees don't use the bottom-up splaying
 strategy discussed here.  Splay trees, like 2-3-4 trees, come in bottom-up and
 top-down versions.  Instead of doing one pass down the tree and another pass
@@ -331,6 +338,39 @@ the total time for all n operations is O(n), and not O(n log n) as you might
 expect.
 
 
+Splay trees provide make it extremely easy to perform the following operations:
+* lookup
+* insert
+* delete
+* predecessor / successor
+* join
+* split
+
+**Lookups:** To do a lookup in a splay tree:
+* Search for that item as usual BST.
+* If it's found, splay it up to the root.
+* Otherwise, splay the last-visited node to the root.
+
+**Insertions:** To insert a node into a splay tree:
+* Insert the node as usual.
+* Splay it up to the root.
+
+**Join:** To join two trees T₁ and T₂, where all keys in T₁ are less than the keys in T₂:
+* Splay the max element of T₁ to the root.
+* Make T₂ a right child of T₁.
+
+**Split:** To split T at a key k:
+* Splay the successor of k up to the root.
+* Cut the link from the root to its left child.
+
+**Delete:** To delete a key k from the tree:
+* Splay k to the root.
+* Delete k.
+* Join the two resulting subtrees.
+
+Contrast this with red/black trees:
+* No need to store any kind of balance information.
+* Only three rules to memorize.
 
 TODO: https://codeforces.com/contest/899/submission/44463457
 
