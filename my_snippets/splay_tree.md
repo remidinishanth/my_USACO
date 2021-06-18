@@ -372,7 +372,7 @@ Contrast this with red/black trees:
 * No need to store any kind of balance information.
 * Only three rules to memorize.
 
-TODO: https://codeforces.com/contest/899/submission/44463457
+TODO: https://codeforces.com/contest/899/submission/44463457, https://codeforces.com/blog/entry/60499
 
 REF: 
 * https://people.eecs.berkeley.edu/~jrs/61b/lec/36
