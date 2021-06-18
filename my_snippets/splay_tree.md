@@ -78,7 +78,7 @@ tree, the splay operation will improve the balance along that branch.
 When we splay a node to the root of the tree, there are three cases that
 determine the rotations we use.
 
-**Case 1:**  X is the right child of a left child (or the left child of a right child):  let P be the parent of X, and let G be the grandparent of X.  We first rotate X and P left, and then rotate X and G right, as illustrated at right.    
+**Case 1: Zig-Zag**  X is the right child of a left child (or the left child of a right child):  let P be the parent of X, and let G be the grandparent of X.  We first rotate X and P left, and then rotate X and G right, as illustrated at right.    
                                       
 The mirror image of this case-- where X is a left child and P is a right child--uses the same rotations in mirror image:  rotate X and P right, then X and G left.  Both the case illustrated below and its mirror image are called the "zig-zag" case.
 
@@ -95,8 +95,18 @@ The mirror image of this case-- where X is a left child and P is a right child--
 
 ![](images/Splay_tree_1.png)
 
-**Case 2:** X is the left child of a left child (or the right child of a right child):  the ORDER of the rotations is REVERSED from case 1.  We   
-start with the grandparent, and rotate G and P right.Then, we rotate P and X right.(Note: In case 1, we rotated X and P first) 
+```
+
+       z               [x]               y
+      / \              / \              / \
+     y   D            /   \            A   z       (A < y < B < x < z < D)
+    / \         ->   y     z    <-        / \
+   A  [x]           / \   / \           [x]  D
+      / \          A   B C   D          / \
+     B   C                             B   C
+```
+
+**Case 2: Zig-Zig** X is the left child of a left child (or the right child of a right child):  the ORDER of the rotations is REVERSED from case 1.  We start with the grandparent, and rotate G and P right.Then, we rotate P and X right.(Note: In case 1, we rotated X and P first) 
 
 The mirror image of this case-- where X and P are both right children--uses the same rotations in mirror image:
 rotate G and P left, then P and X left.  Both the case illustrated above and its mirror image are called the "zig-zig" case.
@@ -114,6 +124,16 @@ rotate G and P left, then P and X left.  Both the case illustrated above and its
 ```
 ![](images/Splay_tree_2.png)
 
+```
+      z            [x]
+     / \           / \
+    y   D         A   y
+   / \      <->      / \                (A < x < B < y < C < z < D)
+ [x]  C             B   z
+ / \                   / \
+A   B                 C   D
+```
+
 We repeatedly apply zig-zag and zig-zig rotations to X; each pair of rotations raises X two levels higher in the tree. Eventually, either X will reach the
 root (and we're done), or X will become the child of the root. One more case handles the latter circumstance, this happens when our node is odd number of levels down from root.
 
@@ -129,6 +149,14 @@ root (and we're done), or X will become the child of the root. One more case han
 ```
 
 ![](images/Splay_tree_3.png)
+
+```
+    y            [x]
+   / \           / \   
+ [x]  C   <->   A   y
+ / \               / \
+A   B             B   C
+```
 
 Here's an example of "find(7)".  Note how the tree's balance improves.
 
