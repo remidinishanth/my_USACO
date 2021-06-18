@@ -99,11 +99,6 @@ start with the grandparent, and rotate G and P right.Then, we rotate P and X rig
 The mirror image of this case-- where X and P are both right children--uses the same rotations in mirror image:
 rotate G and P left, then P and X left.  Both the case illustrated above and its mirror image are called the "zig-zig" case.
 
-We repeatedly apply zig-zag and zig-zig rotations to X; each pair of rotations raises X two levels higher in the tree. Eventually, either X will reach the
-root (and we're done), or X will become the child of the root.  One more case handles the latter 
-circumstance.
-
-
 ```
           G               P               X       
          / \             / \             / \      
@@ -115,6 +110,9 @@ circumstance.
    /A\/B\                       Zig-Zig     /C\/D\
 
 ```
+
+We repeatedly apply zig-zag and zig-zig rotations to X; each pair of rotations raises X two levels higher in the tree. Eventually, either X will reach the
+root (and we're done), or X will become the child of the root. One more case handles the latter circumstance, this happens when our node is odd number of levels down from root.
 
 **Case 3:** X's parent P is the root:  we rotate X and P so that X becomes the root.  This is called the "zig" case.
 
