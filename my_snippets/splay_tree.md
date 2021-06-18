@@ -127,6 +127,24 @@ circumstance.
  /A\/B\     Zig     /B\/C\
 ```
 
+Here's an example of "find(7)".  Note how the tree's balance improves.
+
+```
+    11                     11                      11                  [7]     
+   /  \                   /  \                    /  \                 / \     
+  1    12                1    12                [7]   12              1   11   
+ / \                    / \                     / \                  /\   / \  
+0   9                  0   9                   1   9                0 5   9  12
+   / \                    / \                 / \ / \                / \ / \   
+  3   10  =zig-zig=>    [7]  10  =zig-zag=>  0  5 8  10   =zig=>    3  6 8  10 
+ / \                    / \                    / \                 / \         
+2   5                  5   8                  3   6               2   4        
+   / \                / \                    / \                 
+  4  [7]             3   6                  2   4                
+     / \            / \                                                      
+    6   8          2   4
+```    
+
 TODO: https://codeforces.com/contest/899/submission/44463457
 
 REF: https://people.eecs.berkeley.edu/~jrs/61b/lec/36
