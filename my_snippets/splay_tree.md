@@ -143,34 +143,36 @@ Here's an example of "find(7)".  Note how the tree's balance improves.
     6   8          2   4
 ```
 
-Let's see Why we rotate through Grandparent first during zig-zig step?
-
-Say what happens when we insert 1 to 8 inorder in the splay tree? When we insert value 2, 2 becomes right child of 1 but when after splaying at 2, 2 becomes root. So splay tree becomes very unbalanced. But while building this tree, we just used only constant time per insert.
-
 By inspecting each of the three cases (zig-zig, zig-zag, and zig), you can observe a few interesting facts.  First, in none of these three cases does the depth of a subtree increase by more than two.  Second, every time X takes two steps toward the root (zig-zig or zig-zag), every node in the subtree rooted at X moves at least one step closer to the root.  As more and more nodes enter X's subtree, more of them get pulled closer to the root.
                                            
 ```
- 
-                    9
-                   / \
-                  8   10
-                 /
-                7
-               /
-              6           1
-             /           / \
-            5           0   8
-           /               / \
-          4               6   9
-         /               / \   \
-        3  ==========>  4   7   10
-       /     find(1)   / \
-      2               2   5
-     /                 \
-    1                   3
-   /
-  0
+                    9                           1       
+                   / \                         / \      
+                  8   10                      0   8     
+                 /                               / \    
+                7            =========>         6   9   
+               /              find(1)          / \   \  
+              6                               4   7  10 
+             /                               / \        
+            5                               2   5       
+           /                                 \          
+          4                                   3         
+         /                               
+        3                                
+       /                                 
+      2                                  
+     /                                   
+    1                                    
+   /                                     
+  0                                      
+
 ```
+
+A node that initially lies at depth d on the access path from the root to X moves to a final depth no greater than 3 + d/2.  In other words, all the nodes deep down the search path have their depths roughly halved.  This tendency of nodes on the access path to move toward the root prevents a splay tree from staying unbalanced for long (as the example at right illustrates).
+
+Note: Let's see Why we rotate through Grandparent first during zig-zig step?
+
+Say what happens when we insert 1 to 8 inorder in the splay tree? When we insert value 2, 2 becomes right child of 1 but when after splaying at 2, 2 becomes root. So splay tree becomes very unbalanced. But while building this tree, we just used only constant time per insert.
 
 If in zig-zig step, if we didn't rotate first at the Grandparent, then our tree would've looked like
 
@@ -195,9 +197,6 @@ If in zig-zig step, if we didn't rotate first at the Grandparent, then our tree 
    /                                          /     
   0                                          2
 ```
-
-A node that initially lies at depth d on the access path from the root to X moves to a final depth no greater than 3 + d/2.  In other words, all the nodes deep down the search path have their depths roughly halved.  This tendency of nodes on the access path to move toward the root prevents a splay tree from staying unbalanced for long (as the example at right illustrates).
-
 
 [2]  Entry min();                        
      Entry max();
@@ -230,20 +229,78 @@ illustrating the operation remove(2).
                     4
 ```
 
-In this example, the key 4 moves up to replace the key 2 at the root.  After
-the node containing 4 is removed, its parent (containing 5) splays to the root.
+In this example, the key 4 moves up to replace the key 2 at the root.  After the node containing 4 is removed(Note that node 2 is not removed, 
+value of 2's node is replaced with value 4, not the node), its parent (containing 5) splays to the root.
 
-If the key k is not in the tree, splay the node where the search ended to the
-root, just like in a find() operation.
+If the key k is not in the tree, splay the node where the search ended to the root, just like in a find() operation.
 
+Note that it is important to splay the tree after delete, because say we want to delete node 9, and we want to find min in left tree, which is 0, now say we want to delete node 0, If we don't splay we might need to travel down to 1 again. So it might be linear again. Hence we need to splay for delete operation.
 
+```
+                   9   
+                  / \  
+                 8   10
+                /      
+               7       
+              /        
+             6         
+            /          
+           5           
+          /            
+         4             
+        /              
+       3               
+      /                
+     2                 
+    /                  
+   1                   
+  /                    
+ 0                     
+```
 
+Running time:
+```
+                                                                             .
+                                                                            .
+When do operations occur that take more than O(log n) time?                /
+Consider inserting a long sequence of numbers in order:  1, 2, 3,         4   
+etc.  The splay tree will become a long chain of left children (as       /    
+illustrated at right).  Now, find(1) will take Theta(n) time.           3     
+However, each of the n insert() operations before the find took O(1)   /      
+time, so the average for this example is O(1) time per operation.     2       
+                                                                     /
+                                                                    1
+```
 
+The fastest implementations of splay trees don't use the bottom-up splaying
+strategy discussed here.  Splay trees, like 2-3-4 trees, come in bottom-up and
+top-down versions.  Instead of doing one pass down the tree and another pass
+up, top-down splay trees do just one pass down.  This saves a constant factor
+in the running time.
 
+There is an interesting conjecture about splay trees called the _dynamic_
+_optimality_conjecture_:  that splay trees are as asymptotically fast on _any_
+sequence of operations as _any_ other type of search tree with rotations.
+What does this mean?  Any sequence of splay tree operations takes amortized
+O(log n) time per operation, but sometimes there are sequences of operations
+that can be processed faster by a sufficiently smart data structure.  One
+example is accessing the same ten keys over and over again (which a splay tree
+can do in amortized O(1) time per access).  The dynamic optimality conjecture
+guesses that if _any_ search tree can exploit the structure of a sequence of
+accesses to achieve asymptotically faster running time, so can splay trees.
 
+The conjecture has never been proven, but it's not clear whether it's been
+disproven, either.
+
+One special case that has been proven is that if you perform the find operation
+on each key in a splay tree in order from the smallest key to the largest key,
+the total time for all n operations is O(n), and not O(n log n) as you might
+expect.
 
 
 
 TODO: https://codeforces.com/contest/899/submission/44463457
 
-REF: https://people.eecs.berkeley.edu/~jrs/61b/lec/36
+REF: 
+* https://people.eecs.berkeley.edu/~jrs/61b/lec/36
+* https://www.link.cs.cmu.edu/splay/
