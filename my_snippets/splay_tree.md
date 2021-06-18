@@ -141,7 +141,108 @@ Here's an example of "find(7)".  Note how the tree's balance improves.
   4  [7]             3   6                  2   4                
      / \            / \                                                      
     6   8          2   4
-```    
+```
+
+Let's see Why we rotate through Grandparent first during zig-zig step?
+
+Say what happens when we insert 1 to 8 inorder in the splay tree? When we insert value 2, 2 becomes right child of 1 but when after splaying at 2, 2 becomes root. So splay tree becomes very unbalanced. But while building this tree, we just used only constant time per insert.
+
+By inspecting each of the three cases (zig-zig, zig-zag, and zig), you can observe a few interesting facts.  First, in none of these three cases does the depth of a subtree increase by more than two.  Second, every time X takes two steps toward the root (zig-zig or zig-zag), every node in the subtree rooted at X moves at least one step closer to the root.  As more and more nodes enter X's subtree, more of them get pulled closer to the root.
+                                           
+```
+ 
+                    9
+                   / \
+                  8   10
+                 /
+                7
+               /
+              6           1
+             /           / \
+            5           0   8
+           /               / \
+          4               6   9
+         /               / \   \
+        3  ==========>  4   7   10
+       /     find(1)   / \
+      2               2   5
+     /                 \
+    1                   3
+   /
+  0
+```
+
+If in zig-zig step, if we didn't rotate first at the Grandparent, then our tree would've looked like
+
+```
+                    9                                      1    
+                   / \                                    / \
+                  8   10                                 0   10
+                 /                                          /
+                7                                          9
+               /                                          /
+              6                                          8
+             /                                          /
+            5                                          7
+           /                 ========>                / 
+          4                   find(1)                6  
+         /                                          /   
+        3                                          5    
+       /                                          /     
+      2                                          4  
+     /                                          /   
+    1                                          3    
+   /                                          /     
+  0                                          2
+```
+
+A node that initially lies at depth d on the access path from the root to X moves to a final depth no greater than 3 + d/2.  In other words, all the nodes deep down the search path have their depths roughly halved.  This tendency of nodes on the access path to move toward the root prevents a splay tree from staying unbalanced for long (as the example at right illustrates).
+
+
+[2]  Entry min();                        
+     Entry max();
+
+These methods begin by finding the entry with minimum or maximum key, just like
+in an ordinary binary search tree.  Then, they splay the node containing the
+minimum or maximum key to the root.
+
+[3]  Entry insert(Object k, Object v);
+
+insert() begins by inserting the new entry (k, v), just like in an ordinary
+binary search tree.  Then, it splays the new node to the root.
+
+[4]  Entry remove(Object k);
+
+An entry having key k is removed from the tree, just as with ordinary binary
+search trees.  Recall that the node containing k is removed if it has zero or
+one children.  If it has two children, the node with the next higher key is
+removed instead.  In either case, let X be the node removed from the tree.
+After X is removed, splay X's parent to the root.  Here's a sequence
+illustrating the operation remove(2).
+
+```
+                      2             4               5
+                     / \           / \             / \
+                    1   7         1   7           4   7
+                       / \   ==>     / \   ==>   /     \
+                      5   8         5   8       1       8
+                     /
+                    4
+```
+
+In this example, the key 4 moves up to replace the key 2 at the root.  After
+the node containing 4 is removed, its parent (containing 5) splays to the root.
+
+If the key k is not in the tree, splay the node where the search ended to the
+root, just like in a find() operation.
+
+
+
+
+
+
+
+
 
 TODO: https://codeforces.com/contest/899/submission/44463457
 
