@@ -139,3 +139,4 @@ Say we do `expose(15)` in the following rooted tree.
 * https://en.wikipedia.org/wiki/Link/cut_tree
 * https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-854j-advanced-algorithms-fall-2008/lecture-notes/lec8.pdf
 * https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-851-advanced-data-structures-spring-2012/calendar-and-notes/MIT6_851S12_Lec19.pdf
+* https://smijake3.hatenablog.com/entry/2018/11/19/085919#splay%E6%93%8D%E4%BD%9C
