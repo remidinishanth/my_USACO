@@ -372,6 +372,11 @@ Contrast this with red/black trees:
 * No need to store any kind of balance information.
 * Only three rules to memorize.
 
+### TOP – DOWN Splay Trees
+
+* Bottom-up splaying requires traversal from root to the node that is to be splayed, and then rotating back to the root – in other words, we make 2 tree traversals. We would like to eliminate one of these traversals.
+
+
 TODO: https://codeforces.com/contest/899/submission/44463457, https://codeforces.com/blog/entry/60499
 
 REF: 
