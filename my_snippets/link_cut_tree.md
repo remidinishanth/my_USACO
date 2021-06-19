@@ -63,9 +63,50 @@ We now walk up the represented tree to the root R, breaking and resetting the pr
 ![](images/Link_cut_tree_8.png)
 ![](images/Link_cut_tree_9.png)
 
-## Find Root
+### Find Root
 
 FindRoot refers to finding the root of the represented tree that contains the node v. Since the access subroutine puts v on the preferred path, we first execute an access. Now the node v is on the same preferred path, and thus the same auxiliary tree as the root R. Since the auxiliary trees are keyed by depth, the root R will be the leftmost node of the auxiliary tree. So we simply choose the left child of v recursively until we can go no further, and this node is the root R. The root may be linearly deep (which is worst case for a splay tree), we therefore splay it so that the next access will be quick.
+
+### Path
+For this operation we wish to do some aggregate function over all the nodes (or edges) on the path from root R to node v (such as "sum" or "min" or "max" or "increase", etc.). To do this we access v, which gives us an auxiliary tree with all the nodes on the path from root R to node v. The data structure can be augmented with data we wish to retrieve, such as min or max values, or the sum of the costs in the subtree, which can then be returned from a given path in constant time.
+
+![](images/Link_cut_tree_10.png)
+
+### Cut
+Here we would like to cut the represented tree at node v. First we access v. This puts all the elements lower than v in the represented tree as the right child of v in the auxiliary tree. All the elements now in the left subtree of v are the nodes higher than v in the represented tree. We therefore disconnect the left child of v (which still maintains an attachment to the original represented tree through its path-parent pointer). Now v is the root of a represented tree. Accessing v breaks the preferred path below v as well, but that subtree maintains its connection to v through its path-parent pointer.
+
+### Link
+If v is a tree root and w is a vertex in another tree, link the trees containing v and w by adding the edge(v, w), making w the parent of v. To do this we access both v and w in their respective trees, and make w the left child of v. Since v is the root, and nodes are keyed by depth in the auxiliary tree, accessing v means that v will have no left child in the auxiliary tree (since as root it is the minimum depth). Adding w as a left child effectively makes it the parent of v in the represented tree.
+
+![](images/Link_cut_tree_11.png)
+
+```python
+Switch-Preferred-Child(x, y):
+  path-parent(right(x)) = x
+  right(x, y)
+
+
+Access(v):
+  Switch-Path-Parent(v, null)
+  while (v is not root)
+    w = path-parent(v)
+    splay(w)
+    Switch-Path-Parent(w, v)
+    path-parent(v) = null
+    v = w
+  splay(v)
+
+
+Link(v, w):
+  Access(v)
+  Access(w)
+  left(v) = w
+  
+  
+Cut(v):
+  Access(v)
+  left(v) = null
+```  
 
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
