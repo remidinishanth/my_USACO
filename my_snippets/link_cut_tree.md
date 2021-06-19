@@ -28,7 +28,7 @@ All of these operations are supported by link/cut trees in O(log n) amortized ti
 
 **Structure:** We take a tree where each node has an arbitrary degree of unordered nodes and split it into paths. We call this the represented tree. These paths are represented internally by auxiliary trees (here we will use splay trees, nodes are stored by depth), where the nodes from left to right represent the path from root to the last node on the path. Nodes that are connected in the represented tree that are not on the same preferred path (and therefore not in the same auxiliary tree) are connected via a path-parent pointer. This pointer is stored in the root of the auxiliary tree representing the path.
 
-![](images/Link_cut_tree_6.png)
+![](images/Link_cut_tree_16.png)
 
 ### Preferred path decomposition
 
