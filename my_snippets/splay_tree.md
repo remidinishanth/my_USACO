@@ -265,6 +265,8 @@ illustrating the operation remove(2).
 In this example, the key 4 moves up to replace the key 2 at the root.  After the node containing 4 is removed(Note that node 2 is not removed, 
 value of 2's node is replaced with value 4, not the node), its parent (containing 5) splays to the root.
 
+![](images/Splay_tree_delete_usc.png)
+
 If the key k is not in the tree, splay the node where the search ended to the root, just like in a find() operation.
 
 Note that it is important to splay the tree after delete, because say we want to delete node 9, and we want to find min in left tree, which is 0, now say we want to delete node 0, If we don't splay we might need to travel down to 1 again. So it might be linear again. Hence we need to splay for delete operation.
@@ -395,6 +397,12 @@ A top-down splay tree performs rotations on the initial access path. Thus a top-
 ![](images/Splay_Top_down_7.png)
 ![](images/Splay_Top_down_8.png)
 
+Summary
+![](images/Top_down_summary_usc.png)
+![](images/top_down_summary_usc_2.png)
+
+Example
+![](images/Top_down_splay_usc_1.png)
 
 ### Link Cut Trees
 
