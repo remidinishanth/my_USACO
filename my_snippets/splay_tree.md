@@ -384,6 +384,8 @@ Contrast this with red/black trees:
 * Space for Top-Down splay tree is O(1) for pointers to L and R, and also, to make things more efficient, we maintain pointers to the insertion points for new nodes in L and R. Those insertion points are  the right child of the maximum element in L, and  the left child of the minimum element in R. 
 * By maintaining these pointers, we avoid the need to traverse L or R. (an immediate consequence of this: after a vertex and subtree are added to L or R, they do not change their positions in L or R).
 
+A top-down splay tree performs rotations on the initial access path. Thus a top-down splay tree node does not need a parent link. 
+
 ![](images/Splay_Top_down_1.png)
 ![](images/Splay_Top_down_2.png)
 ![](images/Splay_Top_down_3.png)
@@ -392,7 +394,6 @@ Contrast this with red/black trees:
 ![](images/Splay_Top_down_6.png)
 ![](images/Splay_Top_down_7.png)
 ![](images/Splay_Top_down_8.png)
-
 
 
 ### Link Cut Trees
