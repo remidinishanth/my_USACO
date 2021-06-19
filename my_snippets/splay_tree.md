@@ -137,7 +137,7 @@ A   B                 C   D
 We repeatedly apply zig-zag and zig-zig rotations to X; each pair of rotations raises X two levels higher in the tree. Eventually, either X will reach the
 root (and we're done), or X will become the child of the root. One more case handles the latter circumstance, this happens when our node is odd number of levels down from root.
 
-**Case 3:** X's parent P is the root:  we rotate X and P so that X becomes the root.  This is called the "zig" case.
+**Case 3 Zig:** Node X has no grand parent. X's parent P is the root:  we rotate X and P so that X becomes the root.  This is called the "zig" case.
 
 ```
       P             X     
