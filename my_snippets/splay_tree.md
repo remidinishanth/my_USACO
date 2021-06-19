@@ -716,6 +716,7 @@ https://codeforces.com/blog/entry/75885
 https://pastebin.com/raw/BhdfucH6
 </details>
 
+Benq's implementation: https://codeforces.com/contest/1172/submission/94719261
 
 TODO: https://codeforces.com/contest/899/submission/44463457, https://codeforces.com/blog/entry/60499
 
