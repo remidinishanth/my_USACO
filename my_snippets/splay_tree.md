@@ -378,9 +378,22 @@ Contrast this with red/black trees:
 ### TOP – DOWN Splay Trees
 
 * Bottom-up splaying requires traversal from root to the node that is to be splayed, and then rotating back to the root – in other words, we make 2 tree traversals. We would like to eliminate one of these traversals.
+* It’s very easy to do this: each time we follow a left link (from let us say, node X), then X and its right subtree are all > the node which will eventually become the root. So, we save X and its right subtree in a separate tree, which we will call R. The symmetric case (following a  right link) identifies subtrees which will become part of the new root’s left subtree, which we will call L.
+* The 3 reorganization cases for Bottom-Up Splay Trees were Zig, Zig-Zig, and Zig-Zag. Top-Down Splay Trees use only 2 cases: Zig and Zig-Zig. Zig-Zag is reduced to a Zig, and either a second Zig, or a Zig-Zig.
+* Note that we are able to make the correct choice about the final locations of  vertices as we descend the tree, thus saving about ½ of the time a BU splay tree would require
+* Space for Top-Down splay tree is O(1) for pointers to L and R, and also, to make things more efficient, we maintain pointers to the insertion points for new nodes in L and R. Those insertion points are  the right child of the maximum element in L, and  the left child of the minimum element in R. 
+* By maintaining these pointers, we avoid the need to traverse L or R. (an immediate consequence of this: after a vertex and subtree are added to L or R, they do not change their positions in L or R).
+
+![](images/Splay_Top_down_1.png)
+![](images/Splay_Top_down_2.png)
+![](images/Splay_Top_down_3.png)
+![](images/Splay_Top_down_4.png)
+![](images/Splay_Top_down_5.png)
+![](images/Splay_Top_down_6.png)
+![](images/Splay_Top_down_7.png)
+![](images/Splay_Top_down_8.png)
 
 
-TODO: https://codeforces.com/contest/899/submission/44463457, https://codeforces.com/blog/entry/60499
 
 ### Link Cut Trees
 
@@ -702,6 +715,9 @@ https://codeforces.com/blog/entry/75885
 
 https://pastebin.com/raw/BhdfucH6
 </details>
+
+
+TODO: https://codeforces.com/contest/899/submission/44463457, https://codeforces.com/blog/entry/60499
 
 REF: 
 * https://people.eecs.berkeley.edu/~jrs/61b/lec/36
