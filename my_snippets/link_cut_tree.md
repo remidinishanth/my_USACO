@@ -52,7 +52,12 @@ Represent each preferred path by a splay tee keyed on **depth**
 
 ### Access or Expose
 
+The Expose(v)/Access(v) operation is an extended splay operation that brings v to the root of the auxiliary/virtual tree without changing the structure of the rooted tree. The important parts of this operation are to make sure that the path from v to the root is preferred(solid) and that the splay tree representing the path to which v belongs is rooted at v.
+
 ![](images/Link_cut_tree_7.png)
+
+![](images/Link_cut_tree_8.png)
+![](images/Link_cut_tree_9.png)
 
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
