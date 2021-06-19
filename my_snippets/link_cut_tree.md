@@ -117,6 +117,8 @@ connected to the root of the auxiliary/virtual tree only by dashed edges.
 
 ![](images/Link_cut_tree_14.png)
 
+Say we do `expose(15)` in the following rooted tree.
+
 ![](images/Link_cut_tree_12.png)
 ![](images/Link_cut_tree_13.png)
 ![](images/Link_cut_tree_15.png)
