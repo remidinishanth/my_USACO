@@ -108,6 +108,26 @@ Cut(v):
   left(v) = null
 ```  
 
+### Demonstration of Expose/Access
+
+1. Walk frpm v to the root of the auxiliary trees following preferred path pointers, Whenever the walk enters a splay tree(preferred path/solid edges) at some node w, a SPLAY(w) operation is performed, bringing w to the root of that tree. Note that at the end of step 1 of an Expose(v) operation, v will be
+connected to the root of the auxiliary/virtual tree only by dashed edges.
+2. Splicing: Step 2 consists of walking from v to the root of the virtual tree exchanging along the way each middle edge with the left subtree of the parent. A middle child of a node w and its left child can be exchanged (without changing the rooted tree) only if w is the root of its splay tree. This justifies our execution of step 1 first since at the end of step 1 all edges from v to the root are middle edges. Note that after performing this operation on every edge to the root of the virtual tree, there will be a solid path from the root of the rooted tree to the node being exposed.
+3. Step 3 consists of walking from v to the root in the virtual tree, splaying v to the root.
+
+![](images/Link_cut_tree_14.png)
+
+![](images/Link_cut_tree_12.png)
+![](images/Link_cut_tree_13.png)
+![](images/Link_cut_tree_15.png)
+
+## Applications
+
+* Link/cut trees can be used to solve the dynamic connectivity problem for acyclic graphs. Given two nodes x and y, they are connected if and only if `FindRoot(x) = FindRoot(y)`. Another data structure that can be used for the same purpose is Euler tour tree.
+* In solving the maximum flow problem, link/cut trees can be used to improve the running time of Dinic's algorithm from `O(V^2E)` to `O(VE log V)`.
+
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
 * https://en.wikipedia.org/wiki/Link/cut_tree
+* https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-854j-advanced-algorithms-fall-2008/lecture-notes/lec8.pdf
+* https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-851-advanced-data-structures-spring-2012/calendar-and-notes/MIT6_851S12_Lec19.pdf
