@@ -1141,6 +1141,8 @@ Actually you can do it in O(n): you don't need sets, you can just return a vecto
 
 The above solution works for a fixed k in O(n) time.
 
+Accepted code for https://cses.fi/problemset/result/2376131/ - Given a tree of n nodes, your task is to count the number of distinct paths that consist of exactly k edges.
+
 ```cpp
 const int nax = 2e5 + 10;
 
@@ -1167,7 +1169,7 @@ vector<int> dfs(int u, int p){
             if(d >= k) ans += 1ll*cnt * V.back();
             else {
                 if(k - d > V.size()) break;
-                ans += 1ll * cnt * V[V.size() - (k - d)];
+                ans += 1ll*cnt * V[V.size() - (k - d)];
             }
         }
 
@@ -1201,8 +1203,8 @@ long long query(int q){
 }
 
 int main() {
-    int n;
-    scanf("%d", &n);
+    int n, q;
+    scanf("%d%d", &n, &q);
     for(int i=0; i<n-1; i++){
         int a, b;
         scanf("%d%d", &a, &b);
@@ -1210,8 +1212,7 @@ int main() {
         Adj[b].push_back(a);
     }
 
-    for(int i=1; i<n; i++)
-        printf("%lld ", query(i));
+    printf("%lld\n", query(q));
 
     return 0;
 }
