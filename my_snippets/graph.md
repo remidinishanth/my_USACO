@@ -809,7 +809,7 @@ How to build bridge tree efficiently?
 
 Runtime: O(V + E) or O((V + E)logE) if you use sets for Adjacency lists.
 
-REF: https://tanujkhattar.wordpress.com/2016/01/10/the-bridge-tree-of-a-graph/, http://compalg.inf.elte.hu/~tony/Oktatas/TDK/FINAL/Chap%205.PDF
+REF: https://tanujkhattar.wordpress.com/2016/01/10/the-bridge-tree-of-a-graph/, http://compalg.inf.elte.hu/~tony/Oktatas/TDK/FINAL/Chap%205.PDF, https://threadsiiithyderabad.quora.com/The-Bridge-Tree-of-a-graph
 
 ## Tarjan's strongly connected components algorithm
 
