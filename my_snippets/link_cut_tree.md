@@ -412,7 +412,7 @@ Verification: AOJ: "GRL_5_D: Tree --Range Query on a Tree": [solution](https://j
 
 </details> 
 
-TODO: https://codeforces.com/blog/entry/67637
+TODO: https://codeforces.com/blog/entry/67637 and https://usaco.guide/adv/LCT?lang=cpp
 
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
