@@ -614,7 +614,7 @@ int main() {
 source: https://codeforces.com/contest/1109/submission/50024623
 </details>
 
-TODO: https://codeforces.com/blog/entry/67637 and https://usaco.guide/adv/LCT?lang=cpp
+TODO: https://codeforces.com/blog/entry/67637 and https://usaco.guide/adv/LCT?lang=cpp and https://codeforces.cc/contest/117/problem/E
 
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
