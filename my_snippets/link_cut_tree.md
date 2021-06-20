@@ -410,7 +410,9 @@ source: https://tjkendev.github.io/procon-library/cpp/range_query/link-cut-tree.
 
 Verification: AOJ: "GRL_5_D: Tree --Range Query on a Tree": [solution](https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=3227998#1)
 
-</details>  
+</details> 
+
+TODO: https://codeforces.com/blog/entry/67637
 
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
