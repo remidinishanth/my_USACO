@@ -214,6 +214,198 @@ Swap the children of node 3.
 * Link/cut trees can be used to solve the dynamic connectivity problem for acyclic graphs. Given two nodes x and y, they are connected if and only if `FindRoot(x) = FindRoot(y)`. Another data structure that can be used for the same purpose is Euler tour tree.
 * In solving the maximum flow problem, link/cut trees can be used to improve the running time of Dinic's algorithm from `O(V^2E)` to `O(VE log V)`.
 
+## Implementation
+
+<details>
+  <summary> Tjkendev Link-Cut Tree implementation </summary>
+
+Dynamic tree data structure: A dynamic image of Heavy-Light Decomposition. The decomposed path is managed on Splay Tree.
+
+You can perform the following operations:
+* expose (i): Connect only the paths from the root vertex to the vertex i (cut the other paths)
+* cut (i): Cuts the edge between the vertex i and the parent vertex p of the vertex i
+* link (i, p): For two trees, connect vertices i and p to make one tree
+* evert (i): Change tree root vertex to vertex i
+
+```cpp
+#include<algorithm>
+using namespace std;
+using ll = long long;
+
+
+#define N 100003
+
+class LinkCutTree {
+  int n;
+  int prt[N], left[N], right[N], sz[N], rev[N];
+  ll key[N], val[N];
+
+  void update(int i, int l, int r) {
+    sz[i] = 1 + sz[l] + sz[r];
+    val[i] = key[i] + val[l] + val[r];
+  }
+
+  void node_swap(int i) {
+    if(i) {
+      swap(left[i], right[i]);
+      rev[i] ^= 1;
+    }
+  }
+
+  bool prop(int i) {
+    if(rev[i]) {
+      node_swap(left[i]); node_swap(right[i]);
+      rev[i] = 0;
+      return true;
+    }
+    return false;
+  }
+
+  void splay(int i) {
+    int x = prt[i];
+    prop(i);
+
+    int li = left[i], ri = right[i];
+    while(x && (left[x] == i || right[x] == i)) {
+      int y = prt[x];
+      if(!y || (left[y] != x && right[y] != x)) {
+        if(prop(x)) {
+          swap(li, ri);
+          node_swap(li); node_swap(ri);
+        }
+
+        if(left[x] == i) {
+          left[x] = ri;
+          prt[ri] = x;
+          update(x, ri, right[x]);
+          ri = x;
+        } else {
+          right[x] = li;
+          prt[li] = x;
+          update(x, left[x], li);
+          li = x;
+        }
+        x = y;
+        break;
+      }
+
+      prop(y);
+      if(prop(x)) {
+        swap(li, ri);
+        node_swap(li); node_swap(ri);
+      }
+
+      int z = prt[y];
+      if(left[y] == x) {
+        if(left[x] == i) {
+          int v = left[y] = right[x];
+          prt[v] = y;
+          update(y, v, right[y]);
+
+          left[x] = ri; right[x] = y;
+          prt[ri] = x;
+          update(x, ri, y);
+
+          prt[y] = ri = x;
+        } else {
+          left[y] = ri;
+          prt[ri] = y;
+          update(y, ri, right[y]);
+
+          right[x] = li;
+          prt[li] = x;
+          update(x, left[x], li);
+
+          li = x; ri = y;
+        }
+      } else {
+        if(right[x] == i) {
+          int v = right[y] = left[x];
+          prt[v] = y;
+          update(y, left[y], v);
+
+          left[x] = y; right[x] = li;
+          prt[li] = x;
+          update(x, y, li);
+
+          prt[y] = li = x;
+        } else {
+          right[y] = li;
+          prt[li] = y;
+          update(y, left[y], li);
+
+          left[x] = ri;
+          prt[ri] = x;
+          update(x, ri, right[x]);
+
+          li = y; ri = x;
+        }
+      }
+      x = z;
+      if(left[x] == y) {
+        left[z] = i;
+        update(z, i, right[z]);
+      } else if(right[z] == y) {
+        right[z] = i;
+        update(z, left[z], i);
+      } else break;
+    }
+
+    update(i, li, ri);
+    left[i] = li; right[i] = ri;
+    prt[li] = prt[ri] = i;
+    prt[i] = x;
+
+    rev[i] = prt[0] = 0;
+  }
+
+public:
+  LinkCutTree(int n) {
+    for(int i=0; i<n+1; ++i) prt[i] = left[i] = right[i] = rev[i] = 0, sz[i] = 1;
+    sz[0] = 0; left[0] = right[0] = -1;
+  }
+
+  int expose(int i) {
+    int p = 0, cur = i;
+    while(cur) {
+      splay(cur);
+      right[cur] = p;
+      update(cur, left[cur], p);
+      p = cur;
+      cur = prt[cur];
+    }
+    splay(i);
+    return i;
+  }
+
+  int cut(int i) {
+    expose(i);
+    int p = left[i];
+    left[i] = prt[p] = 0;
+    return p;
+  }
+
+  int link(int i, int p) {
+    expose(i);
+    expose(p);
+    prt[i] = p;
+    right[p] = i;
+  }
+
+  int evert(int i) {
+    expose(i);
+    node_swap(i);
+    prop(i);
+  }
+};
+```
+
+source: https://tjkendev.github.io/procon-library/cpp/range_query/link-cut-tree.html  
+
+Verification: AOJ: "GRL_5_D: Tree --Range Query on a Tree": [solution](https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=3227998#1)
+
+</details>  
+
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
 * https://en.wikipedia.org/wiki/Link/cut_tree
