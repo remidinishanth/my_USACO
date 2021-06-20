@@ -300,7 +300,7 @@ class LinkCutTree {
       int z = prt[y];
       if(left[y] == x) {
         if(left[x] == i) {
-          // i is left of x and x is left of y - Zig Zig operation
+          // i is left of x and x is left of y - Zig Zig
           int v = left[y] = right[x];
           prt[v] = y;
           update(y, v, right[y]);
@@ -311,6 +311,7 @@ class LinkCutTree {
 
           prt[y] = ri = x;
         } else {
+          // i is right of x and x is left of y - Zig Zag
           left[y] = ri;
           prt[ri] = y;
           update(y, ri, right[y]);
@@ -323,6 +324,7 @@ class LinkCutTree {
         }
       } else {
         if(right[x] == i) {
+          // i is right of x and x is right of y - Zig Zig
           int v = right[y] = left[x];
           prt[v] = y;
           update(y, left[y], v);
@@ -333,6 +335,7 @@ class LinkCutTree {
 
           prt[y] = li = x;
         } else {
+          // i is left of x and x is right of y - Zig Zag
           right[y] = li;
           prt[li] = y;
           update(y, left[y], li);
