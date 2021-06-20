@@ -227,6 +227,8 @@ You can perform the following operations:
 * link (i, p): For two trees, connect vertices i and p to make one tree
 * evert (i): Change tree root vertex to vertex i
 
+Implementation that manages the information of each node in a separate array. Each vertex is numbered and managed by 1-indexed.
+
 ```cpp
 #include<algorithm>
 using namespace std;
@@ -248,7 +250,7 @@ class LinkCutTree {
   void node_swap(int i) {
     if(i) {
       swap(left[i], right[i]);
-      rev[i] ^= 1;
+      rev[i] ^= 1; // lazy node swap
     }
   }
 
@@ -268,7 +270,7 @@ class LinkCutTree {
     int li = left[i], ri = right[i];
     while(x && (left[x] == i || right[x] == i)) {
       int y = prt[x];
-      if(!y || (left[y] != x && right[y] != x)) {
+      if(!y || (left[y] != x && right[y] != x)) { // x is root node
         if(prop(x)) {
           swap(li, ri);
           node_swap(li); node_swap(ri);
@@ -298,6 +300,7 @@ class LinkCutTree {
       int z = prt[y];
       if(left[y] == x) {
         if(left[x] == i) {
+          // i is left of x and x is left of y - Zig Zig operation
           int v = left[y] = right[x];
           prt[v] = y;
           update(y, v, right[y]);
