@@ -1040,6 +1040,8 @@ In the final tree, the meaning of distance will be replaced by the sum of the co
 
 Now, we can always find a split that selects at least `O(N/3)` nodes in one set.
 
+For inter subtree path, list up all the distances to the `original nodes` in each subtree. Find the solution using FFT.
+
 TODO: http://p.ip.fi/EgoG and http://p.ip.fi/n8N-
 	
 </details>	
