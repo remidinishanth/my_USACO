@@ -800,6 +800,8 @@ Properties of the Bridge Tree
 * From the above point, it directly follows that a graph with N vertices can have at most N-1 bridges(because tree can have atmost N-1 edges).
 * Within a bridge component, there is at least one way to orient all the edges such that there is a simple path from any node to any node within the component. (Non-trivial). Consider an arbitrary node and run a DFS, orient edges as you discover vertices. Because we don't have bridges within a bridge component , We have backedge from node to root of this DFS tree, We just orient tree edges going downward and backedges going upward and hence we can find the directed path.
 
+![](images/bridgetree.png)
+
 How to build bridge tree efficiently?
 * Run bridge finding algorithm to find all the bridges. O(V + E)
 * Remove all the bridges from G
