@@ -129,6 +129,86 @@ Say we do `expose(15)` in the following rooted tree.
 ![](images/Link_cut_tree_13.png)
 ![](images/Link_cut_tree_15.png)
 
+## Explanation with Images
+
+Let's consider the following tree rooted at vertex 1.
+
+![](images/link_cut/LCT_1_hatena.png)
+
+Let the following paths be preferred(these based on heavy child).
+
+![](images/link_cut/LCT_2_hatena.png)
+
+Use splay tree to store each preferred path.
+
+![](images/link_cut/LCT_3_hatena.png)
+
+The rooted tree as auxiliary trees. Dotted edges denote path parents.
+
+![](images/link_cut/LCT_4_hatena.png)
+
+Splay operation on node 9.
+
+![](images/link_cut/LCT_5_hatena.png)
+
+Expose operation on node 9.
+
+![](images/link_cut/LCT_6_hatena.png)
+
+### Expose on node 12.
+
+![](images/link_cut/LCT_7_hatena.png)
+
+Splay on the path parent of node 12, here it is 8.
+
+![](images/link_cut/LCT_8_hatena.png)
+
+Change the preferred child(splicing) of node 9 from 14 to 12.
+
+![](images/link_cut/LCT_9_hatena.png)
+
+Perform a splay operation on node 3, path parent of 9.
+
+![](images/link_cut/LCT_10_hatena.png)
+
+Change the preferred child of node 3 from 15 to 9. 
+
+![](images/link_cut/LCT_11_hatena.png)
+
+Splay on node 12.
+
+![](images/link_cut/LCT_12_hatena.png)
+
+### Link operation
+
+Connecting paths 16-17-18 under vertex 12. First we expose(12) and expose(17) then make 17 right child of 12.
+
+![](images/link_cut/LCT_13_hatena.png)
+
+### Cut operation
+
+Cut the pathh between vertex 3 and 4.
+
+![](images/link_cut/LCT_14_hatena.png)
+
+![](images/link_cut/LCT_15_hatena.png)
+
+### Evert operation
+
+The evert operation makes a node v the root of its rooted tree by reversing the path from v to the original root. Example of performing evert of vertex 5 is shown below.
+
+![](images/link_cut/LCT_16_hatena.png)
+
+In auxiliary trees, we can expose(i) and then swap the children of node i, we will need to propogate the swap.
+
+Expose on node 3.
+
+![](images/link_cut/LCT_17_hatena.png)
+
+Swap the children of node 3.
+
+![](images/link_cut/LCT_18_hatena.png)
+
 ## Applications
 
 * Link/cut trees can be used to solve the dynamic connectivity problem for acyclic graphs. Given two nodes x and y, they are connected if and only if `FindRoot(x) = FindRoot(y)`. Another data structure that can be used for the same purpose is Euler tour tree.
