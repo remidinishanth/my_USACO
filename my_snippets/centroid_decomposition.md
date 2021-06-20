@@ -1139,6 +1139,84 @@ Then, to count the number of paths, notice that each path has some highest verte
 
 Actually you can do it in O(n): you don't need sets, you can just return a vector (have depth 0 in the last element, so you can increase depth by pushing an element to the back). When we merge a smaller set to a larger set, the size of the larger set doesn't increase. Thus, every vertex contributes to only one merge. We can maintain prefix sums on counts at depths while merging.
 
+The above solution works for a fixed k in O(n) time.
+
+```cpp
+const int nax = 2e5 + 10;
+
+vector<int> Adj[nax];
+
+int k;
+long long ans = 0;
+
+vector<int> dfs(int u, int p){
+    vector<int> V;
+    for(int v:Adj[u]){
+        if(v == p) continue;
+        vector<int> X = dfs(v, u);
+        
+        // Small to Large Merging
+        if(V.size() < X.size()) swap(V, X);
+
+        // number of paths of length >= k passing through u
+        for(int i=0; i<X.size(); i++){
+            // number of nodes at depth d = cnt
+            int cnt = X[i]; if(i) cnt -= X[i-1];
+            int d = X.size() - i;
+            // search for nodes with depth atleast k - d
+            if(d >= k) ans += 1ll*cnt * V.back();
+            else {
+                if(k - d > V.size()) break;
+                ans += 1ll * cnt * V[V.size() - (k - d)];
+            }
+        }
+
+        // Merge X with V
+        for(int i=0; i<X.size(); i++){
+            int depth = X.size() - i;
+            int cnt = X[i];
+            V[V.size() - depth] += cnt;
+        }
+    }
+
+    // number of paths starting from u
+    if(V.size() >= k)
+        ans += V[V.size() - k];
+
+    if(V.empty()) V.push_back(1);
+    else V.push_back(V.back()+1);
+
+    // V = Prefix_sum(number of vertices at depth in reversed order)
+    return V;
+}
+
+// number of paths of length = k
+long long query(int q){
+    ans = 0; k = q;
+    dfs(1, -1);
+    long long t = ans; // number of paths of length >= q
+    ans = 0; k = q + 1;
+    dfs(1, -1); // number of path of length >= q+1
+    return t - ans;
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    for(int i=0; i<n-1; i++){
+        int a, b;
+        scanf("%d%d", &a, &b);
+        Adj[a].push_back(b);
+        Adj[b].push_back(a);
+    }
+
+    for(int i=1; i<n; i++)
+        printf("%lld ", query(i));
+
+    return 0;
+}
+```
+
 </details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
