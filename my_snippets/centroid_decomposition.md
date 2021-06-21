@@ -781,6 +781,134 @@ int main() {
 ```
 </details>
 
+### Radius Query Problem - Codeforces 
+
+You are give a weighted tree with vertices 1 to n. You have to answer q queries of the form query(v, l) and you should tell him the number of vertexes like u such that d(v, u) ≤ l (including v itself).
+
+<details>
+  <summary> Using centroid decomposition</summary>
+
+* Decompose the tree and for every centroid, maintain the number of nodes at distance `d` for every `d`(e.g: sorted array `subtree` in the code)
+  * i.e Support queries of the form "How many nodes nodes x are there s.t dist(x, c) ≤ d" for a given centroid.
+* Also maintain the "contribution" of a centroid to the `subtree` array of it's parent centroid in the centroid tree. This is used to avoid double counting of the nodes which are in the same subtree as x. See `postprocess` phase in the solution.
+  * i.e Support queries of the form "How many nodes x are there s.t dist(x, par[c]) ≤ d and x lies in the subtree of c"
+* To answer a query for the node x, start with x in the centroid tree and go up to all it's ancestors, adding the number of nodes at distance `d - dist[anc][x]` in the section of centroid `p` wihout overcounting the nodes already considered in the child. In the code this is `ans += within_dist(par[x], t) - sub_within_dist(x, t);` or `POSU(subtree[par[c]], td) - POSU(cbn[c], td);`
+
+The key idea is in the postprocess phase of this solution.
+
+```cpp
+const int nax = 1e5 + 10;
+const int LG = 20;
+
+vector<pair<int,int>> Adj[nax];
+
+bool deleted[nax];
+int sub[nax], level[nax], par[nax];
+long long dist[LG][nax];
+vector<long long> subtree[nax]; // distances of nodes in subtree
+vector<long long> cnbtn[nax]; // contribution of this subtree to its parent
+
+int dfs_sz(int u, int p = 0){
+    int sz = 1;
+    for(auto [v, w] : Adj[u]){
+        if(deleted[v] || v == p) continue;
+        sz += dfs_sz(v, u);
+    }
+    return sub[u] = sz;
+}
+
+int find_centroid(int u, int p, int sz){
+    for(auto [v, w]: Adj[u]){
+        if(v == p || deleted[v]) continue;
+        if(sub[v] > sz/2)
+            return find_centroid(v, u, sz);
+    }
+    return u;
+}
+
+void calculate(int u, int p, int lvl){
+    for(auto [v, w]: Adj[u]){
+        if(deleted[v] || v == p) continue;
+        dist[lvl][v] = dist[lvl][u] + w;
+        calculate(v, u, lvl);
+    }
+}
+
+void decompose(int u, int p = 0){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+
+    level[centroid] = level[p] + 1;
+    par[centroid] = p; // parent in centroid tree
+    deleted[centroid] = 1;
+
+    calculate(centroid, p, level[centroid]);
+
+    for(auto [v, w]: Adj[centroid]){
+        if(v == p || deleted[v]) continue;
+        decompose(v, centroid);
+    }
+}
+
+void postprocess(int n){
+    for(int x = 1; x <= n; x++){
+        for(int y = x; y; y = par[y]){
+            // add node in subtree of level[y] centroid
+            subtree[y].push_back(dist[level[y]][x]);
+            // contribution of subtree of centroid y towards it's parent
+            if(par[y]) cnbtn[y].push_back(dist[level[par[y]]][x]);
+        }
+    }
+
+    for(int x = 1; x <= n; x++){
+        sort(subtree[x].begin(), subtree[x].end());
+        sort(cnbtn[x].begin(), cnbtn[x].end());
+    }
+}
+
+#define POSU(x,v) (upper_bound(x.begin(),x.end(),v)-x.begin())
+
+// nodes within distance d in subtree of x in centroid tree
+int within_dist(int u, long long d){
+    return POSU(subtree[u], d);
+}
+
+// nodes from this subtree contributing to it's parent in centroid tree
+int sub_within_dist(int u, long long d){
+    return POSU(cnbtn[u], d);
+}
+
+int radius_query(int u, long long d){
+    int ans = POSU(subtree[u], d);
+
+    for(int x = u; par[x] > 0; x = par[x]){
+        long long t = d - dist[level[par[x]]][u];
+        ans += within_dist(par[x], t) - sub_within_dist(x, t);
+    }
+    return ans;
+}
+
+int main() {
+    int n, q;
+    scanf("%d %d", &n, &q);
+    for(int i=0; i<n-1; i++){
+        int a, b, w;
+        scanf("%d %d %d", &a, &b, &w);
+        Adj[a].push_back({b, w});
+        Adj[b].push_back({a, w});
+    }
+    decompose(1);
+    postprocess(n);
+    while(q--){
+        long long x, d;
+        scanf("%lld %lld", &x, &d);
+        printf("%d\n", radius_query(x, d));
+    }
+    return 0;
+}
+```
+</details>	
+
 ### PRIMEDST - Codechef
 
 You are given a tree. If we select 2 distinct nodes uniformly at random, what's the probability that the distance between these 2 nodes is a prime number?
