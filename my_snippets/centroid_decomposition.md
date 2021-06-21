@@ -735,7 +735,7 @@ void decompose(int root, int p = -1) {
   // Find the centroid of the tree and make it the new root.
   int centroid = find_centroid(root, root);
   // Construct the Centroid Tree
-  if (p == -1) p = root; // p = centroid ??
+  if (p == -1) p = root; // p = centroid, parent of centroid is centroid
   add_edge_centroid_tree(p, centroid);
   // Process the O(N) paths from centroid to all leaves in this component.
   dfs2(centroid, centroid, level[centroid]);
