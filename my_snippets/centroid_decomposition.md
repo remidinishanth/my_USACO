@@ -1348,6 +1348,18 @@ int main() {
 }
 ```
 
+If the k is small, we can also use dynamic programming. source: https://codeforces.com/contest/161/problem/D
+
+Let us hang the tree making it rooted. For every vertex v of the tree, let us calculate values d[v][lev] (0 ≤ lev ≤ k) — the number of vertices in the subtree, having distance lev to them. Note, that d[v][0] = 0.
+
+Then we calculate the answer. It equals the sum for every vertex v of two values:
+
+* The number of ways of length k, starting in the subtree of v and finishing in v. Obviously, it equals d[v][k].
+* The number of ways of length k, starting in the subtree of v and finishing in the subtree of v. This equals the sum for every son u of v the value:\
+  ![image](images/dp_tree_distance_k.png)
+
+* Accumulate the sum for all vertices and get the solution in O(n·k).
+
 </details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
