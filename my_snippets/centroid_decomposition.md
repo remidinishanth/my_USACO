@@ -1436,6 +1436,7 @@ source: https://open.kattis.com/problems/yatp, https://codeforces.com/gym/101002
   * Eval `x`: Get `min(m_i * x + c)` for all inserted lines `i`
 * For activating a node x, insert `(penality[x], dist(centroid, x))` in Dynamic CHT of all ancestor of x in centroid tree.
 * To find the smallest cost for `x`, perform an eval query for `penality[x]` at all ancestors of `x`.
+* Since we are asked for minimum, we don't need to worry about the contribution of the centroid to it's parent.
 
 ```cpp
 const int nax = 2e5 + 10;
