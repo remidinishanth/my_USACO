@@ -1438,6 +1438,8 @@ source: https://open.kattis.com/problems/yatp, https://codeforces.com/gym/101002
 * To find the smallest cost for `x`, perform an eval query for `penality[x]` at all ancestors of `x`.
 * Since we are asked for minimum, we don't need to worry about the contribution of the centroid to it's parent. This will not work if the question asks for maximum.
 
+![](images/YATP_probelm_solution.png)
+
 ```cpp
 const int nax = 2e5 + 10;
 const int LG = 20;
