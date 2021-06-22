@@ -877,6 +877,8 @@ source: https://leetcode.com/problems/cherry-pickup/discuss/109903/Step-by-step-
 
 There are N stones, numbered `1, 2, …, N`. For each `i ( 1 ≤ i ≤ N )`, the height of Stone `i` is `hi` . Here, `h1 < h2 < ⋯ < hN` holds. There is a frog who is initially on Stone `1` . He will repeat the following action some number of times to reach Stone `N`: If the frog is currently on Stone `i`, jump to one of the following: Stone `i + 1, i + 2, … , N` . Here, a cost of `(hj − hi)² + C` is incurred, where `j` is the stone to land on. Find the minimum possible total cost incurred before the frog reaches Stone `N`.
 
+source: https://atcoder.jp/contests/dp/tasks/dp_z
+
 **Solution**
 
 The recursion is `dp[j] = C + hj² + min(-2 * hi *hj + hi² + dp[i]) over all i < j`. Now we can think of `-2*hi` as slope of a line and `hi² + dp[i]` as constant, then we will need to find minimum value at point `hj` for all the lines `i < j`. Assume that we have Dynamic Convex Hull Trick data structure which supports the operation insert a line `(m, c)` where `y = mx + c` and query minimum at point `x`, then we can solve the above problem easily.
