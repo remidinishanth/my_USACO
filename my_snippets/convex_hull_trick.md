@@ -1,4 +1,6 @@
 ```cpp
+#define LL long long
+const LL is_query = -(1LL << 62);
 struct Line {
   LL m, b;
   mutable function<const Line*()> succ;
