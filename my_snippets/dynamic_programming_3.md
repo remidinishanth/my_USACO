@@ -823,7 +823,7 @@ Therefore, the recurrence relations can be written as:
 
 ```T(i, j, p, q) = grid[i][j] + grid[p][q] + max{T(i-1, j, p-1, q), T(i-1, j, p, q-1), T(i, j-1, p-1, q), T(i, j-1, p, q-1)}```
 
-For this recurrence to work, we need to impose the aforementioned constraint. We are counting `grid[i][j]` and `grid[p][q]` towards `T(i, j, p, q)`, to avoid double counting, both of them should NOT be counted for any of `T(i-1, j, p-1, q)`,` T(i-1, j, p, q-1)`, `T(i, j-1, p-1, q)` and `T(i, j-1, p, q-1)`.
+For this recurrence to work, we need to impose the aforementioned constraint. We are counting `grid[i][j]` and `grid[p][q]` towards `T(i, j, p, q)`, to avoid double counting, for a given cell both of them should NOT be counted for any of `T(i-1, j, p-1, q)`,` T(i-1, j, p, q-1)`, `T(i, j-1, p-1, q)` and `T(i, j-1, p, q-1)`.
 
 ![image](https://user-images.githubusercontent.com/19663316/118618334-21f28a80-b7e1-11eb-897d-c2913f88c46a.png)
 
