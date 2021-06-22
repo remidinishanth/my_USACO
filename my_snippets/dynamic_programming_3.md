@@ -872,3 +872,74 @@ public int cherryPickup(int[][] grid) {
 ```
 
 source: https://leetcode.com/problems/cherry-pickup/discuss/109903/Step-by-step-guidance-of-the-O(N3)-time-and-O(N2)-space-solution
+
+### Z Frog 3 Atcoder DP contest
+
+There are N stones, numbered `1, 2, …, N`. For each `i ( 1 ≤ i ≤ N )`, the height of Stone `i` is `hi` . Here, `h1 < h2 < ⋯ < hN` holds. There is a frog who is initially on Stone `1` . He will repeat the following action some number of times to reach Stone `N`: If the frog is currently on Stone `i`, jump to one of the following: Stone `i + 1, i + 2, … , N` . Here, a cost of `(hj − hi)² + C` is incurred, where `j` is the stone to land on. Find the minimum possible total cost incurred before the frog reaches Stone `N`.
+
+**Solution**
+
+The recursion is `dp[j] = C + hj² + min(-2 * hi *hj + hi² + dp[i]) over all i < j`. Now we can think of `-2*hi` as slope of a line and `hi² + dp[i]` as constant, then we will need to find minimum value at point `hj` for all the lines `i < j`. Assume that we have Dynamic Convex Hull Trick data structure which supports the operation insert a line `(m, c)` where `y = mx + c` and query minimum at point `x`, then we can solve the above problem easily.
+
+```cpp
+#define LL long long
+const LL is_query = -(1LL << 62);
+struct Line {
+  LL m, b;
+  mutable function<const Line*()> succ;
+  bool operator<(const Line& rhs) const {
+    if (rhs.b != is_query) return m > rhs.m;
+    const Line* s = succ();
+    if (!s) return 0;
+    return s->b - b < (m - s->m) * rhs.m;
+  }
+};
+struct HullDynamic : public multiset<Line> {
+  bool bad(iterator y) {  // maintains lower hull for min
+    auto z = next(y);
+    if (y == begin()) {
+      if (z == end()) return 0;
+      return y->m == z->m && y->b >= z->b;
+    }
+    auto x = prev(y);
+    if (z == end()) return y->m == x->m && y->b >= x->b;
+    return (x->b - y->b) * (z->m - y->m) >= (y->b - z->b) * (y->m - x->m);
+  }
+  void insert_line(LL m, LL b) {
+    auto y = insert({m, b});
+    y->succ = [=] { return next(y) == end() ? 0 : &*next(y); };
+    if (bad(y)) {
+      erase(y);
+      return;
+    }
+    while (next(y) != end() && bad(next(y))) erase(next(y));
+    while (y != begin() && bad(prev(y))) erase(prev(y));
+  }
+  LL eval(LL x) {
+    auto l = *lower_bound((Line){x, is_query});
+    return l.m * x + l.b;
+  }
+};
+
+int main() {
+    int N;
+    long long C;
+    scanf("%d %lld", &N, &C);
+    vector<int> H(N);
+    long long dp = 0;
+    HullDynamic CHT;
+    // dp[j] = C + hj^2 + min(-2 * hi *hj + hi^2 + dp[i])
+    for(int i=0;i<N;i++){
+        long long h;
+        scanf("%lld", &h);
+        if(i == 0){
+            dp = 0;
+        }else{
+            dp = C + h*h + CHT.eval(h);
+        }
+        CHT.insert_line(-2*h, h*h + dp); // min over all values
+    }
+    printf("%lld\n", dp);
+    return 0;
+}
+```
