@@ -42,4 +42,4 @@ cht.insert(slope, constant);
 min_val = cht.eval(x_val); // min value at point x_val
 ```
 
-source: Tanuj Khattar https://pastebin.com/XF5WQ2YR
+source: Tanuj Khattar https://pastebin.com/XF5WQ2YR, https://github.com/SuprDewd/CompetitiveProgramming/blob/master/code/data-structures/convex_hull_trick_dynamic.cpp
