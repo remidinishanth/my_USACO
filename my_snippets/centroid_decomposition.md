@@ -311,7 +311,7 @@ struct CentroidDecomposition {
 ## Problems & Analysis
 
 The problems that can be solved by Centroid decomposition can be categorised into
-* Activating nodes(Xenia and Tree, QTREE5)
+* Activating nodes(Xenia and Tree, QTREE5, YATP)
 * Computing function for all paths(IOI 2011)
 * Radius query around a vertex(Tree query)
 
@@ -1414,6 +1414,174 @@ subtree as follows
 	
 </details>
 
+### YATP - NAIPC 2016
+
+This is Yet Another Tree Problem. You are given a tree, where every node has a penalty and every edge has a weight. The cost of a simple path between any two nodes is the sum of the weights of the edges in the path, plus the product of the penalties of the endpoint nodes. Note that a path can have 0 edges, and the cost of such a path is simply the square of the penalty of the node.
+
+For each node, compute the smallest cost of any path starting at that node. The final answer is the sum of all of these minimum costs.
+
+source: https://open.kattis.com/problems/yatp, https://codeforces.com/gym/101002
+
+<details>
+	<summary> Using centroid decomposition, Dynamic Convex hull trick </summary>
+
+* Consider the node(say x) with least penalty value, what will be the smallest cost of any path starting at this node? The cost will be (penalty[x])², because choosing any other vertex would lead to higher cost.
+* From the above oberservation, for any node with penality y, the smallest cost will be to a node with penality < y.
+* Therefore, we can sort the `N` nodes in increasing order of penalty and perform the following operations:
+  * Activate x_i: Activate the node x_i
+  * Query x_i: Find the optimal node y_i, from the sert of already activated nodes `[x₁, x₂, ..., x_i]` s.t `dist(x_i, y_i) + pen[x_i]*pen[y_i]` is minimzed.
+* Note that `dist(x_i, y_i) = dist(x_i, c) + dist(c, y_i)` where `c` is `lca(x_i, y_i)` in the centroid tree.
+* If we have a DS that can support the following operations, then we can store `(m = penality[x], c = dist(centroid, x))` in the DS and find the smallest cost by using eval `x`. To achieve this we can use Dynamic Convex Hull Trick(CHT)
+  * Insert a line `y = mx + c` i.e, insert (m, c) in the DS
+  * Eval `x`: Get `min(m_i * x + c)` for all inserted lines `i`
+* For activating a node x, insert `(penality[x], dist(centroid, x))` in Dynamic CHT of all ancestor of x in centroid tree.
+* To find the smallest cost for `x`, perform an eval query for `penality[x]` at all ancestors of `x`.
+
+```cpp
+const int nax = 2e5 + 10;
+const int LG = 20;
+
+#define LL long long
+const LL is_query = -(1LL << 62);
+struct Line {
+  LL m, b;
+  mutable function<const Line*()> succ;
+  bool operator<(const Line& rhs) const {
+    if (rhs.b != is_query) return m > rhs.m;
+    const Line* s = succ();
+    if (!s) return 0;
+    return s->b - b < (m - s->m) * rhs.m;
+  }
+};
+struct HullDynamic : public multiset<Line> {
+  bool bad(iterator y) {  // maintains lower hull for min
+    auto z = next(y);
+    if (y == begin()) {
+      if (z == end()) return 0;
+      return y->m == z->m && y->b >= z->b;
+    }
+    auto x = prev(y);
+    if (z == end()) return y->m == x->m && y->b >= x->b;
+    return (x->b - y->b) * (z->m - y->m) >= (y->b - z->b) * (y->m - x->m);
+  }
+  void insert_line(LL m, LL b) {
+    auto y = insert({m, b});
+    y->succ = [=] { return next(y) == end() ? 0 : &*next(y); };
+    if (bad(y)) {
+      erase(y);
+      return;
+    }
+    while (next(y) != end() && bad(next(y))) erase(next(y));
+    while (y != begin() && bad(prev(y))) erase(prev(y));
+  }
+  LL eval(LL x) {
+    auto l = *lower_bound((Line){x, is_query});
+    return l.m * x + l.b;
+  }
+};
+
+vector<int> Adj[nax];
+int U[nax], V[nax], W[nax];
+bool deleted[nax];
+int sub[nax], par[nax], level[nax], penalty[nax];
+ll dist[LG][nax];
+HullDynamic CHT[nax];
+
+// other end of edge e
+int nxt(int u, int e){
+    return U[e] ^ V[e] ^ u;
+}
+
+int dfs_sz(int u, int p){
+    sub[u] = 1;
+    for(int e:Adj[u]){
+        int v = nxt(u, e);
+        if(v==p || deleted[v]) continue;
+        sub[u] += dfs_sz(v, u);
+    }
+    return sub[u];
+}
+
+int find_centroid(int u, int p, int sz){
+    for(int e:Adj[u]){
+        int v = nxt(u, e);
+        if(v==p || deleted[v]) continue;
+        if(sub[v] > sz/2) return find_centroid(v, u, sz);
+    }
+    return u;
+}
+
+void calculate(int u, int p, int lvl){
+    for(int e:Adj[u]){
+        int v = nxt(u, e);
+        if(v==p || deleted[v]) continue;
+        dist[lvl][v] = dist[lvl][u] + W[e];
+        calculate(v, u, lvl);
+    }
+}
+
+void decompose(int u, int p = 0){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+
+    level[centroid] = level[p] + 1; // level of centroid starts from 1
+    par[centroid] = p;
+
+    deleted[centroid] = 1;
+    calculate(centroid, p, level[centroid]);
+
+    for(int e:Adj[centroid]){
+        int v = nxt(centroid, e);
+        if(v==p || deleted[v]) continue;
+        decompose(v, centroid);
+    }
+}
+
+void activate(int u){
+    int x = u;
+    while(x){
+        CHT[x].insert_line(penalty[u], dist[level[x]][u]);
+        x = par[x];
+    }
+}
+
+ll query(int u){
+    ll ans = 1e18;
+    int x = u;
+    while(x){
+        ans = min(ans, CHT[x].eval(penalty[u]) + dist[level[x]][u]);
+        x = par[x];
+    }
+    return ans;
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    vector<pair<int,int>> P;
+    for(int i=1;i<=n;i++){
+        int p;
+        scanf("%d", &p);
+        penalty[i] = p;
+        P.push_back({p, i});
+    }
+    for(int i=1;i<n;i++){
+        scanf("%d %d %d", U+i, V+i, W+i);
+        Adj[U[i]].push_back(i);
+        Adj[V[i]].push_back(i);
+    }
+    decompose(1);
+    LL ans = 0;
+    sort(P.begin(), P.end());
+    for(int i=0;i<n;i++){
+        activate(P[i].second);
+        ans += query(P[i].second);
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+</details>	
 
 ### 757G — Can Bash Save the Day? CodeCraft 17
 
