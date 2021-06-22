@@ -310,6 +310,11 @@ struct CentroidDecomposition {
 
 ## Problems & Analysis
 
+The problems that can be solved by Centroid decomposition can be categorised into
+* Activating nodes(Xenia and Tree, QTREE5)
+* Computing function for all paths(IOI 2011)
+* Radius query around a vertex(Tree query)
+
 ### CF 199 Div 2 E. Xenia and Tree 
 
 https://codeforces.com/contest/342/problem/E
@@ -666,10 +671,8 @@ A weighted tree is given. You must find the distance between two given nodes.
 
 The first line contains the number of nodes of the tree n (1 ≤ n ≤ 50000). The nodes are numbered from 0 to n – 1. Each of the next n – 1 lines contains three integers u, v, w, which correspond to an edge with weight w (0 ≤ w ≤ 1000) connecting nodes u and v. The next line contains the number of queries m (1 ≤ m ≤ 75000). In each of the next m lines there are two integers.
 
-
 <details>
 	<summary> Using centroid decomposition </summary>
-
 
 Given a tree with N nodes and Q queries of the form `u` `v` - Return the sum of elements on the path from `u` to `v`.
 
@@ -781,7 +784,7 @@ int main() {
 ```
 </details>
 
-### Radius Query Problem - Codeforces 
+### Radius Query Problem - Codeforces Hunger games Tree Query
 
 You are give a weighted tree with vertices 1 to n. You have to answer q queries of the form query(v, l) and you should tell him the number of vertexes like u such that d(v, u) ≤ l (including v itself).
 
