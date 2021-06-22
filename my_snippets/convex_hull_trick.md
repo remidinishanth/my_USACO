@@ -24,6 +24,8 @@ struct convex_hull_trick {
 
 ## Dynamic Convex Hull Trick
 
+A data structure which maintain a some lines in `(m, b)` format where `y = m*x + b` and we can query for the minimum value for a given `x`.
+
 Maintains lower hull for min
 
 ```cpp
@@ -71,7 +73,6 @@ HullDynamic cht;
 cht.insert(slope, constant);
 min_val = cht.eval(x_val); // min value at point x_val
 ```
-
 source: Tanuj Khattar https://pastebin.com/XF5WQ2YR
 
 Maintains Upper hull for maximum
