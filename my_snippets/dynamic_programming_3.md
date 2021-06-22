@@ -782,7 +782,7 @@ We define `T(i, j)` as the maximum number of cherries we can pick up starting fr
 
 Note: The previous analyses assume we are on the first leg of the round trip, that is, `(0, 0) ==> (N-1, N-1)`; if we are on the second leg, that is, `(N-1, N-1) ==> (0, 0)`, then we should move one step backward from `(i, j)` to either `(i-1, j)` or `(i, j-1)`.
 
-`T(i, j) = grid[i][j] + max{T(i+1, j), T(i, j+1)}`, which means we already counted `grid[i][j]` towards `T(i, j)`. To avoid the duplicate counting, we somehow need to make sure that `grid[i][j]` will not be counted towards any of `T(i+1, j)` and `T(i, j+1)`. We'll need to make sure that `(i,j)` doesn't appear on the apth from `(N-1, N-1) => (0,0)` which would result in double counting.
+`T(i, j) = grid[i][j] + max{T(i+1, j), T(i, j+1)}`, which means we already counted `grid[i][j]` towards `T(i, j)`. To avoid the double counting of cherry on `(i,j)`, we somehow need to make sure that `grid[i][j]` will not be counted towards any of `T(i+1, j)` and `T(i, j+1)`. We'll need to make sure that `(i,j)` doesn't appear on the path from `(N-1, N-1) => (0,0)` which would result in double counting.
 
 Maybe, we can redefine `S(i, j)` as the maximum number of cherries for the shortened round trip: `(0, 0) ==> (i, j) ==> (0, 0)` without modifying the grid matrix. The original problem then will be denoted as `S(N-1, N-1)`.  
 
