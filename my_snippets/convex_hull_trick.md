@@ -1,6 +1,6 @@
-## Li-Chao Segment Tree
+## Li-Chao Tree
 
-Li-Chao Segment Trees can solve problems like this:
+Li-Chao Segment Trees can be used to solve problems of the format:
 
 You're given a set S containing function of the same "type" (ex. lines, y = ax + b). The type of function need to have the transcending property. You need to handle two type of queries:
 
