@@ -312,7 +312,7 @@ struct CentroidDecomposition {
 
 The problems that can be solved by Centroid decomposition can be categorised into
 * Activating nodes(Xenia and Tree, QTREE5, YATP)
-* Computing function for all paths(IOI 2011 Race, how many paths have xor k)
+* Computing function for all paths(IOI 2011 Race, how many paths have xor k, Sum of all xor path in a tree)
 * Radius query around a vertex(Tree query)
 
 ### CF 199 Div 2 E. Xenia and Tree 
