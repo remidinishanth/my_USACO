@@ -293,4 +293,4 @@ Since it's basically a segment tree, it has a big advantage over convex hull: su
 
 Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress x-coordinates (offline approach) or use dynamic segment tree (online approach) to support large x-coordinates. This is not a problem with convex hull.
 
-TODO: https://csacademy.com/submission/1754478/
+TODO: https://csacademy.com/contest/archive/task/squared-ends/statistics/
