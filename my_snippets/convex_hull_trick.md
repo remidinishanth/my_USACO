@@ -1,4 +1,6 @@
-## Motivation
+The convex hull trick is a technique (perhaps best classified as a data structure) used to determine efficiently, after preprocessing, which member of a set of linear functions in one variable attains an extremal value for a given value of the independent variable. It has little to do with convex hull algorithms.
+
+### Motivation
 
 **Problem :** [Covered Walkway](https://open.kattis.com/problems/coveredwalkway) We need to cover a walkway consisting of n(1 ≤ n ≤ 10^6) points. To cover the walkway from a point at 𝑥 to a point at 𝑦, they will charge `c + (x − y)²`, where c is a constant. Note that it is possible for x=y. If so, then the contractor would simply charge c.
 
