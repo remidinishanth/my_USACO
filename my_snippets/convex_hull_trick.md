@@ -289,4 +289,8 @@ A type of function has **transcending property** if:
 
 Given two functions f(x), g(x) of that type, if f(t) is greater than/smaller than g(t) for some x = t, then f(x) will be greater than/smaller than g(x) for x > t. In other words, once f(x) "win/lose" g(x), f(x) will continue to "win/lose" g(x).
 
+Since it's basically a segment tree, it has a big advantage over convex hull: supporting segments. It's also easier to code, and the order of slope doesn't matter.
+
+Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress x-coordinates (offline approach) or use dynamic segment tree (online approach) to support large x-coordinates. This is not a problem with convex hull.
+
 TODO: https://csacademy.com/submission/1754478/
