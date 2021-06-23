@@ -141,7 +141,140 @@ int main() {
     return 0;
 }
  ```
- </details>
+</details>
+ 
+<details>
+ <summary>Author's solution with comments</summary>
+ 
+```cpp
+#include <iostream>
+
+#include <vector>
+
+using namespace std;
+
+#define MAXN 1000100
+
+long long X[MAXN];
+long long Y[MAXN];
+
+typedef pair < long long, long long > pll;
+
+void conv_insert(int ii, vector < pll > & C, pll x) {
+    /* Erase everything from the set that is dominated by this line.  If this line
+     * overtakes you before you overtake your predecessor you'll never be at the
+     * top so you get dropped. */
+    while (C.size() - ii > 1) {
+        int i = C.size() - 2;
+        int j = C.size() - 1;
+        if ((C[j].second - C[i].second) / (C[i].first - C[j].first) <
+            (C[j].second - x.second) / (x.first - C[j].first)) {
+            C.resize(C.size() - 1);
+        } else break;
+    }
+    C.push_back(x);
+}
+
+long long eval(pll v, int x) {
+    return v.second + x * v.first;
+}
+
+int main() {
+    int N, K;
+    cin >> N >> K;
+
+    for (int i = 0; i < N; i++) cin >> X[i];
+
+    /* The basic idea is we can use dynamic programming to solve this problem to
+     * get cost(i) = min((X[i] - X[j-1])^2 + cost(j)) for j > i and cost(N) = 0.
+     * We split this up into:
+     * cost(i) = X[i]^2 + min(-2X[i]X[j] + (X[j-1]^2 + cost(j)))
+     * where the first term is the only thing that will vary with X[i], i.e., we
+     * have lines.  So I just sweep from right to left and keep track of which 
+     * line is cheapest by ordering lines by when they become the best option.
+     */
+    int ii = 0;
+    vector < pll > C;
+
+    /* Connect to end. */
+    C.push_back(make_pair(-2 * X[N - 1], X[N - 1] * X[N - 1]));
+
+    for (int i = N - 1;; i--) {
+        /* Remove lines that are no longer of interest.  To be efficient we erase
+         * from the front by just incrementing the head 'ii' index. */
+        while (C.size() - ii > 1 && eval(C[ii], X[i]) > eval(C[ii + 1], X[i])) {
+            ii++;
+        }
+        /* Compute v = cost(i) */
+        long long v = K + X[i] * X[i] + eval(C[ii], X[i]);
+        if (i == 0) {
+            cout << v << endl;
+            break;
+        }
+        /* Add this new entry to our line set. Since it has the largest slope so
+         * far it always belongs on the set somewhere. */
+        conv_insert(ii, C, make_pair(-2 * X[i - 1], v + X[i - 1] * X[i - 1]));
+    }
+    return 0;
+}
+```
+</details> 
+
+<details>
+ <summary>CHT using deque O(N) as slopes and x are monotonic</summary> 
+ 
+```cpp
+#define fi first
+#define se second
+#define sz(x) (int)(x).size()
+
+// Convex Hull Trick
+typedef ll LT;
+typedef pair<LT,LT> LP;
+struct convex_hull_trick {
+  deque<LP> d;
+  LT get(LT x) {
+    while (sz(d) >= 2) {
+      LT a = d[0].fi*x + d[0].se;
+      LT b = d[1].fi*x + d[1].se;
+      if (a <= b) break; // get min
+      d.pop_front();
+    }
+    return d[0].fi*x + d[0].se;
+  }
+  void add(LP x) { // decreasing order of x.fi
+    while (sz(d) >= 2) {
+      LP y = d[sz(d) - 1];
+      LP z = d[sz(d) - 2];
+      if ((x.se-y.se)*(z.fi-y.fi) >= (y.fi-x.fi)*(y.se-z.se)) break; // both
+      d.pop_back();
+    }
+    d.push_back(x);
+  }
+};
+
+int main() {
+    int N;
+    long long C;
+    scanf("%d %lld", &N, &C);
+    convex_hull_trick CHT;
+    vector<long long> dp(N+1);
+    // dp[j] = C + xj^2 + min(-2 * xi *xj + xi^2 + dp[i-1])
+    for(int i=1;i<=N;i++){
+        int x;
+        scanf("%d", &x);
+        if(i == 1){
+            dp[i] = C;
+        }else{
+            dp[i] = min(C + 1ll*x*x + (ll)CHT.get(x), C + dp[i-1]);
+        }
+        CHT.add({-2ll*x, 1ll*x*x + dp[i-1]}); // insert values
+    }
+    printf("%lld\n", dp[N]);
+    return 0;
+}
+```
+</details> 
 
 There are mainly three cases:
 * Slopes are monotonic, query values are monotonic - CHT with deque, amortized O(1), We can query from left of deque and remove slopes to the left of our query value
