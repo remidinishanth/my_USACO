@@ -140,6 +140,16 @@ int main() {
 }
  ```
  </details>
+ 
+In the case where the slopes aren't necessarily sorted, so we have 5 options:
+
+* Maintaining a balanced BST of lines
+* Li Chao Segment Tree
+* Divide and Conquer
+* Keeping logN sets of convex hulls and merging them like a Binomial Heap
+* Keeping the last √N lines and rebuilding the convex hull when the buffer gets full
+
+The last 2 have worse complexity compared to the first 3 and may get TLE depending on the implementation. 
 
 ## Convex Hull Trick
 
