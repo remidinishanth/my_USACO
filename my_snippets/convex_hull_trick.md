@@ -96,7 +96,7 @@ int main() {
  <details>
    <summary> Using CHT, O(N) </summary>
  
- Since x are increasing, we can store them in stack.
+ Since we go from left to right, x is increasing, we can store them in stack.
  </details>
 
 ## Convex Hull Trick
