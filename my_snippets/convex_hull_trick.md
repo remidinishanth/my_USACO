@@ -94,9 +94,51 @@ int main() {
  </details>
  
  <details>
-   <summary> Using CHT, O(N) </summary>
+   <summary> Using CHT, Faster solution </summary>
  
  Since we go from left to right, x is increasing, we can store them in stack.
+ 
+ ```cpp
+ struct convex_hull_trick {
+  vector<pair<long double,long double> > h;
+  double intersect(int i) {
+    return (h[i+1].second-h[i].second) / (h[i].first-h[i+1].first); }
+  void add(long double m, long double b) {
+    h.push_back(make_pair(m,b));
+    while (size(h) >= 3) {
+      int n = size(h);
+      if (intersect(n-3) < intersect(n-2)) break;
+      swap(h[n-2], h[n-1]);
+      h.pop_back(); } }
+  long double get_min(long double x) {
+    int lo = 0, hi = (int)size(h) - 2, res = -1;
+    while (lo <= hi) {
+      int mid = lo + (hi - lo) / 2;
+      if (intersect(mid) <= x) res = mid, lo = mid + 1;
+      else hi = mid - 1; }
+    return h[res+1].first * x + h[res+1].second; } };
+
+int main() {
+    int N;
+    long long C;
+    scanf("%d %lld", &N, &C);
+    convex_hull_trick CHT;
+    vector<long long> dp(N+1);
+    // dp[j] = C + xj^2 + min(-2 * xi *xj + xi^2 + dp[i-1])
+    for(int i=1;i<=N;i++){
+        int x;
+        scanf("%d", &x);
+        if(i == 1){
+            dp[i] = C;
+        }else{
+            dp[i] = min(C + 1ll*x*x + (ll)CHT.get_min(x), C + dp[i-1]);
+        }
+        CHT.add(-2ll*x, 1ll*x*x + dp[i-1]); // insert values
+    }
+    printf("%lld\n", dp[N]);
+    return 0;
+}
+ ```
  </details>
 
 ## Convex Hull Trick
