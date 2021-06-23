@@ -274,7 +274,11 @@ int main() {
     return 0;
 }
 ```
-</details> 
+</details>
+
+![](images/convex_hull_trick_usaco_guide.png)
+
+source: https://usaco.guide/plat/cht?lang=cpp
 
 There are mainly three cases:
 * Slopes are monotonic, query values are monotonic - CHT with deque, amortized O(1), We can query from left of deque and remove slopes to the left of our query value
