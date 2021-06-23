@@ -184,7 +184,9 @@ struct convex_hull_trick {
 
 ## Dynamic Convex Hull Trick
 
-A data structure which maintain a some lines in `(m, b)` format where `y = m*x + b` and we can query for the minimum value for a given `x`.
+A data structure which maintain a some lines in `(m, b)` format where `y = m*x + b` and we can query for the minimum value for a given `x`. The following are mostly inspired from `simonlindholm` KTH notebook and [nikalsb](https://codeforces.com/blog/entry/11155?#comment-162462), [code](https://github.com/niklasb/contest-algos/blob/master/convex_hull/dynamic.cpp)
+
+`multiset<Line>` maintains the set of lines, ordered by slope. Now the problem is to search the matching line for a given X coordinate in `eval`, we need to binary search on the intersection points of adjacent lines. Unfortunately multiset has no option to customize the binary search, so every line is given a `std::function<const Line*()>`, so that it can look up it's successor while comparing. Then we use `lower_bound` to do the binary search, using a special query line. `Line::operator<` contains a hack so that it behaves differently when comparing against such a special query line.
 
 Maintains lower hull for min
 
