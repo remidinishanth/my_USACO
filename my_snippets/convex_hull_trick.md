@@ -1,3 +1,32 @@
+## Motivation
+
+**Problem :** [Covered Walkway](https://open.kattis.com/problems/coveredwalkway) We need to cover a walkway consisting of n(1 ≤ n ≤ 10^6) points. To cover the walkway from a point at 𝑥 to a point at 𝑦, they will charge `c + (x − y)²`, where c is a constant. Note that it is possible for x=y. If so, then the contractor would simply charge c.
+
+**Solution :**
+
+* Cover n points on the plane with some number of segments.
+* The cost of segment (l,r) is c + (r − l)².
+* Straightforward DP is O(N²) and is too slow.
+
+Convex Hull Optimization
+* Consider a data structure that hold linear functions yi(x) = ai x + bi
+* Need to implement function add(ai, bi) and get(x) = mini yi(x).
+* Assume that lines are added in the order of decreasing ai.
+* Keep the lower hull of all the lines in a stack (just like in the convex hull algorithm).
+ ![](images/convex_hull_trick2.png) 
+* When adding a line, remove lines from the top of the stack until it’s convex.
+* Add a line y = ai + b. getX(a, b) returns x coordinate of intersection of lines a and b.
+  ```cpp
+  while( getX(prevLast, newLine) < getX(prevLast, last))
+      remove ( last )
+  ```
+* Get value for x: find an optimal line such that x lies between intersection with neighboring lines
+* Binary search for lines in stack in O(log n).
+* If, in addition, queries x are always increasing, you can keep a pointer to the current best line.
+* It only moves to the right, except when the best line was deleted, so it’s O(1) amortized.
+
+ ![](images/convex_hull_trick1.png)
+
 ## Li-Chao Tree
 
 Li-Chao Segment Trees can be used to solve problems of the format:
