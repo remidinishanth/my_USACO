@@ -12,7 +12,7 @@ Convex Hull Optimization
 * Consider a data structure that hold linear functions yi(x) = ai x + bi
 * Need to implement function add(ai, bi) and get(x) = mini yi(x).
 * Assume that lines are added in the order of decreasing ai.
-* Keep the lower hull of all the lines in a stack (just like in the convex hull algorithm).
+* Keep the hull of all the lines in a stack (just like in the convex hull algorithm).
  ![](images/convex_hull_trick2.png) 
 * When adding a line, remove lines from the top of the stack until it’s convex.
 * Add a line y = ai + b. getX(a, b) returns x coordinate of intersection of lines a and b.
