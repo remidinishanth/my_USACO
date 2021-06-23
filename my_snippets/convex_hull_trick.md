@@ -26,6 +26,78 @@ Convex Hull Optimization
 * It only moves to the right, except when the best line was deleted, so it’s O(1) amortized.
 
  ![](images/convex_hull_trick1.png)
+ 
+ <details>
+   <summary> Using Dynamic CHT, O(N logN) </summary>
+ 
+ ```cpp
+ #define LL long long
+const LL is_query = -(1LL << 62);
+struct Line {
+  LL m, b;
+  mutable function<const Line*()> succ;
+  bool operator<(const Line& rhs) const {
+    if (rhs.b != is_query) return m > rhs.m;
+    const Line* s = succ();
+    if (!s) return 0;
+    return s->b - b < (m - s->m) * rhs.m;
+  }
+};
+struct HullDynamic : public multiset<Line> {
+  bool bad(iterator y) {  // maintains lower hull for min
+    auto z = next(y);
+    if (y == begin()) {
+      if (z == end()) return 0;
+      return y->m == z->m && y->b >= z->b;
+    }
+    auto x = prev(y);
+    if (z == end()) return y->m == x->m && y->b >= x->b;
+    return (x->b - y->b) * (z->m - y->m) >= (y->b - z->b) * (y->m - x->m);
+  }
+  void insert_line(LL m, LL b) {
+    auto y = insert({m, b});
+    y->succ = [=] { return next(y) == end() ? 0 : &*next(y); };
+    if (bad(y)) {
+      erase(y);
+      return;
+    }
+    while (next(y) != end() && bad(next(y))) erase(next(y));
+    while (y != begin() && bad(prev(y))) erase(prev(y));
+  }
+  LL eval(LL x) {
+    auto l = *lower_bound((Line){x, is_query});
+    return l.m * x + l.b;
+  }
+};
+
+int main() {
+    int N;
+    long long C;
+    scanf("%d %lld", &N, &C);
+    HullDynamic CHT;
+    vector<long long> dp(N+1);
+    // dp[j] = C + xj^2 + min(-2 * xi *xj + xi^2 + dp[i-1])
+    for(int i=1;i<=N;i++){
+        int x;
+        scanf("%d", &x);
+        if(i == 1){
+            dp[i] = C;
+        }else{
+            dp[i] = min(C + 1ll*x*x + CHT.eval(x), C + dp[i-1]);
+        }
+        CHT.insert_line(-2ll*x, 1ll*x*x + dp[i-1]); // insert values
+    }
+    printf("%lld\n", dp[N]);
+    return 0;
+}
+ ```
+ </details>
+ 
+ <details>
+   <summary> Using CHT, O(N) </summary>
+ 
+ Since x are increasing, we can store them in stack.
+ </details>
 
 ## Convex Hull Trick
 
