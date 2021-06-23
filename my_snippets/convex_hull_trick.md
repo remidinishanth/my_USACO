@@ -321,7 +321,7 @@ A data structure which maintain a some lines in `(m, b)` format where `y = m*x +
 
 `multiset<Line>` maintains the set of lines, ordered by slope. Now the problem is to search the matching line for a given X coordinate in `eval`, we need to binary search on the intersection points of adjacent lines. Unfortunately multiset has no option to customize the binary search, so every line is given a `std::function<const Line*()>`, so that it can look up it's successor while comparing. Then we use `lower_bound` to do the binary search, using a special query line. `Line::operator<` contains a hack so that it behaves differently when comparing against such a special query line.
 
-`bad` function: Given line `y(m, b)` it intersects it's next line `z(m, c)` their intesection has x-coordinate  `x * z->m + z->b = x * y->m + y->b` which leads to `(y->b - z>b)/(z->m - y->m)`. Similarly the intersection of `y(m, c)` and it's prev `x(m, c)` has x-coordinate `(x->b - y->b)/(y->m - x->m)`. If we cross-multiply to eliminate division we will end up with `(x->b - y->b) * (z->m - y->m) >= (y->b - z->b) * (y->m - x->m);`
+`bad` function: Given line `y(m, b)` it intersects it's next line `z(m, c)` their intesection has x-coordinate  `x * z->m + z->b = x * y->m + y->b` which leads to `(y->b - z>b)/(z->m - y->m)`. Similarly the intersection of `y(m, c)` and it's prev `x(m, c)` has x-coordinate `(x->b - y->b)/(y->m - x->m)`. If we cross-multiply to eliminate division we will end up with `(x->b - y->b) * (z->m - y->m) >= (y->b - z->b) * (y->m - x->m);`. `bad` returns true if either line `prev(y)` or line `next(y)` is always better than line `y`.
 
 Maintains lower hull for min
 
