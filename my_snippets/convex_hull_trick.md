@@ -27,19 +27,6 @@ Convex Hull Optimization
 
  ![](images/convex_hull_trick1.png)
 
-## Li-Chao Tree
-
-Li-Chao Segment Trees can be used to solve problems of the format:
-
-You're given a set S containing function of the same "type" (ex. lines, y = ax + b). The type of function need to have the transcending property. You need to handle two type of queries:
-
-* Add a function to S
-* Answer the maximum/minimum value at x = t considering all functions in S
- 
-A type of function has **transcending property** if:
-
-Given two functions f(x), g(x) of that type, if f(t) is greater than/smaller than g(t) for some x = t, then f(x) will be greater than/smaller than g(x) for x > t. In other words, once f(x) "win/lose" g(x), f(x) will continue to "win/lose" g(x).
-
 ## Convex Hull Trick
 
 ```cpp
@@ -153,3 +140,16 @@ struct HullDynamic : public multiset<Line> {
 ```
 
 https://github.com/SuprDewd/CompetitiveProgramming/blob/master/code/data-structures/convex_hull_trick_dynamic.cpp
+
+## Li-Chao Tree
+
+Li-Chao Segment Trees can be used to solve problems of the format:
+
+You're given a set S containing function of the same "type" (ex. lines, y = ax + b). The type of function need to have the transcending property. You need to handle two type of queries:
+
+* Add a function to S
+* Answer the maximum/minimum value at x = t considering all functions in S
+ 
+A type of function has **transcending property** if:
+
+Given two functions f(x), g(x) of that type, if f(t) is greater than/smaller than g(t) for some x = t, then f(x) will be greater than/smaller than g(x) for x > t. In other words, once f(x) "win/lose" g(x), f(x) will continue to "win/lose" g(x).
