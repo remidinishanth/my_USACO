@@ -142,7 +142,12 @@ int main() {
 }
  ```
  </details>
- 
+
+There are mainly three cases:
+* Slopes are monotonic, query values are monotonic - CHT with deque, amortized O(1), We can query from left of deque and remove slopes to the left of our query value
+* Slopes are monotonic but query values are not - CHT with stack and binary search for queries
+* Slopes are not monotonic - Dynamic CHT - use multiset to store lines
+
 In the case where the slopes aren't necessarily sorted, so we have 5 options:
 
 * Maintaining a balanced BST of lines
