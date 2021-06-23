@@ -356,10 +356,7 @@ struct HullDynamic : public multiset<Line> {
   void insert_line(LL m, LL b) {
     auto y = insert({m, b});
     y->succ = [=] { return next(y) == end() ? 0 : &*next(y); };
-    if (bad(y)) {
-      erase(y);
-      return;
-    }
+    if (bad(y)) { erase(y); return; }
     while (next(y) != end() && bad(next(y))) erase(next(y));
     while (y != begin() && bad(prev(y))) erase(prev(y));
   }
