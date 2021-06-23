@@ -230,7 +230,7 @@ source: Tanuj Khattar https://pastebin.com/XF5WQ2YR
 
 Maintains Upper hull for maximum
 
-```
+```cpp
 typedef long long int64;
 typedef long double float128;
 
