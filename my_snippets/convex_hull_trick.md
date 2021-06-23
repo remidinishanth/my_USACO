@@ -288,3 +288,5 @@ You're given a set S containing function of the same "type" (ex. lines, y = ax +
 A type of function has **transcending property** if:
 
 Given two functions f(x), g(x) of that type, if f(t) is greater than/smaller than g(t) for some x = t, then f(x) will be greater than/smaller than g(x) for x > t. In other words, once f(x) "win/lose" g(x), f(x) will continue to "win/lose" g(x).
+
+TODO: https://csacademy.com/submission/1754478/
