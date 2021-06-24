@@ -295,6 +295,15 @@ In the case where the slopes aren't necessarily sorted, so we have 5 options:
 
 The last 2 have worse complexity compared to the first 3 and may get TLE depending on the implementation. [REF](https://csacademy.com/contest/archive/task/squared-ends/solution/)
 
+We call a line `y` irrelevant/bad with line `x` & `z` if it is not part of minimum hull for any segment `[l, r]`.
+
+![](images/cht_1_explanation.jpg)
+
+Here we no need to consider line y.
+
+![](images/cht_2_explanation.jpg)
+
+
 ## Convex Hull Trick
 
 ```cpp
