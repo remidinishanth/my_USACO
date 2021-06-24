@@ -374,3 +374,22 @@ int main(){
 ```
 
 source: https://codeforces.com/contest/95/submission/535779
+
+### Judgement
+
+2015-2016 XVI Open Cup, Grand Prix of Bashkortostan, SKB Kontur Cup Stage 2
+
+[Statement](https://codeforces.com/gym/100917/problem/J): There is a judging system A in a programming competition consisting of n judges in a jury, each with authority `ai`. When there is a submission, each judge will dictate whether it is correct or not, and the submission will be considered correct if the sum of authorities of the judges voting correct is greater than or equal to `p`. Afterwards, a new authority system B is created, every judge get a new
+authority `bi`, and a new threshold q instead of p is set to get submissions approved.
+
+You must determine whether the two systems are equivalent, that is, whether any assignment of decisions from the jury will yield to same result
+on both systems. If not, give an assignment of decisions for which the result differs in both systems. Assume `1 ≤ n ≤ 100` and `1 ≤ ai, bi, p, q ≤ 10^6`.
+
+**Solution:** Obviously, the two systems are not equivalent if we can find an assignment T that outputs correct in A and incorrect in B (or the other way around). With the given constraints, we can model this as a knapsack problem:
+
+We consider authority values ai to be the item values of a knapsack, and authority values bi to be the weight of items. We set the capacity to q − 1,
+and we find the maximum value x of the knapsack. If x ≥ p, then the set of items we pick is the assignment T such that it evaluates to correct in system A (the sum of authority values is greater or equal than p), and incorrect in system B, as the sum of weights is less than q.
+
+We solve two knapsacks, one as described, and another swapping values `ai` with `bi`, and values p with q, and we check again. If we cannot find such assignment T, then the two systems are equivalent.
+
+The time and space complexity is O(n(p + q)).
