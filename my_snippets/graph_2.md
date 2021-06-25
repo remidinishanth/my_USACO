@@ -191,6 +191,44 @@ int main(){
 ```
 </details>
 
+### Centre of tree
+
+The center(or Jordan center) of a graph is the set of all vertices of minimum eccentricity(maximal shortest distance from that node to any other node in graph), that is, the set of all vertices u where the greatest distance d to other vertices v is minimal.
+
+For a general graph, we can solve it using Floyd Warshall algorithm and then finding eccentricity of each vertex. Suppose that the given graph is a tree, one interesting fact is that number of centre node is 1 or 2.
+
+Theorem: Let L be the set of leaves of Graph G. If |V| ≤ 2 then L is center of G, otherwise center of graph remains the same after removing of L: `C(G) = C(G \ L)`
+
+This theorem brings us to the following algorithm: remove leaves, level by level, until there are  ≤ 2 nodes. These nodes will be center of graph. Implementation of this algorithm is similar to BFS.
+
+<details>
+    <summary> CPP Implementation </summary>
+    
+```cpp
+queue <int> Q;
+
+// Start from leaves
+for (int i = 0; i < N; i++)
+    if (degree[i] == 1) Q.push(i);
+    
+while(!Q.empty()){
+    int u = Q.front(); Q.pop();
+    for(int v:Adj[u]){
+        deg[v]--;
+        if(deg[i] == 1){
+            Q.push(i);
+            level[v] = level[u] + 1;
+        }
+    }
+}
+
+// max level nodes are centre nodes
+// diam(G) = 2*maxlevel + |C| - 1
+```
+</details>    
+
+source: https://codeforces.com/blog/entry/17974
+
 ## Single Source Shortest Paths on Weighted Tree
 
 Generally we use Dijkstra's O((V+E)logV) and Bellman-Ford's O(VE) algorithms for solving SSP problem on weighted graph. But if the 
