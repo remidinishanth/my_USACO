@@ -72,6 +72,8 @@ int main() {
 
 ## Diameter of Weighted Tree
 
+Diameter of a graph - maximum of the shortest paths in a graph, longest of the shortest paths in a graph.
+
 For general graph, we need O(V^3) Floyd Warshall's algorithm plus O(V^2) all-pairs check to compute the diameter. However,
 if the given graph is a weighted tree, the problem becomes simpler. We only need two O(V) traversals: 
 * Do DFS/BFS from any vertex s to find the furthest vertex x,
