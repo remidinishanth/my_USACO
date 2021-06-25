@@ -75,9 +75,13 @@ int main() {
 Diameter of a graph - maximum of the shortest paths in a graph, longest of the shortest paths in a graph.
 
 For general graph, we need O(V³) Floyd Warshall's algorithm plus O(V²) all-pairs check to compute the diameter. However,
-if the given graph is a weighted tree, the problem becomes simpler. It is just the longest path in tree. We only need two O(V) traversals: 
+if the given graph is a weighted tree, the problem becomes simpler. It is just the longest path in tree. We can just run a BFS from every point and compute the longest path because in a tree there exist only a unique path between any pair of vertices. So we can do in O(V²) time. We can even solve this problem in O(V) time.
+
+We only need two O(V) traversals: 
 * Do DFS/BFS from any vertex s to find the furthest vertex x,
 * Do DFS/BFS one more time from vertex x to get the true furthest vertex y from x.
+
+Say we root the tree at arbitary vertex, then we can use dynamic programming and find the answer using the depth of nodes from DFS. If the longest path involves root, then it is sum of maximum depth between two different subtrees, if not, children of root will calculate the answer.
 
 The length of the unique path along x to y is the diameter of that tree.
 
