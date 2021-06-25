@@ -81,7 +81,7 @@ We only need two O(V) traversals:
 * Do DFS/BFS from any vertex s to find the furthest vertex x,
 * Do DFS/BFS one more time from vertex x to get the true furthest vertex y from x.
 
-Say we root the tree at arbitary vertex, then we can use dynamic programming and find the answer using the depth of nodes from DFS. If the longest path involves root, then it is sum of maximum depth between two different subtrees, if not, children of root will calculate the answer.
+Say we root the tree at arbitary vertex, then we can use dynamic programming and find the answer using the depth of nodes from DFS. If the longest path involves root, then it is sum of maximum depth between two different subtrees, if not, children of root will calculate the answer(Prove by contradiction by rooting tree at this centre).
 
 The length of the unique path along x to y is the diameter of that tree.
 
