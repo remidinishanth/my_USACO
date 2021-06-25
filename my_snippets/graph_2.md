@@ -195,7 +195,7 @@ int main(){
 
 The center(or Jordan center) of a graph is the set of all vertices of minimum eccentricity(maximal shortest distance from that node to any other node in graph), that is, the set of all vertices u where the greatest distance d to other vertices v is minimal.
 
-For a general graph, we can solve it using Floyd Warshall algorithm and then finding eccentricity of each vertex. Suppose that the given graph is a tree, one interesting fact is that number of centre node is 1 or 2.
+For a general graph, we can solve it using Floyd Warshall algorithm and then finding eccentricity of each vertex. Suppose that the given graph is a tree, one interesting fact is that number of centre node is 1 or 2. All diameters in tree must go through centre.
 
 Theorem: Let L be the set of leaves of Graph G. If |V| ≤ 2 then L is center of G, otherwise center of graph remains the same after removing of L: `C(G) = C(G \ L)`
 
