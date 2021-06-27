@@ -18,7 +18,7 @@ The final array 𝑎 is the list of the nodes' labels in order of the time each 
 
 Fix the initial node chosen and root the tree there, what is the contribution of each pair of nodes? Say we have two nodes `a` and `b` and  value at `a < b` now a inversion pair `(a, b)` is counted only if `b` is choosen before `a`. Nothing matters besides the path from node `a` to node `b`, and the initially chosen node `c`.
 
-Suppose we start by marking the root. To mark a or b, we must first mark the lca, so we may assume that the lca has just been marked.
+Suppose we start by marking the root. To mark a or b, we must first mark the lca, so we may assume that the lca has just been marked. Before marking the lca, there is no way to make more progress towards 𝑏 than 𝑎 or vice versa.
 
 Fixing a given root `c`, the expected value of the entire process is obviously the sum of the expected values for a fixed root divided by `n`.
 
