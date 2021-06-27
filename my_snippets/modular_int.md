@@ -188,13 +188,13 @@ mi operator/(mi a, mi b) { return a*inv(b); }
 /// mi a = MOD+5; ps((int)inv(a));
 
 
-// source: https://github.com/bqi343/USACO/blob/master/Implementations/content/number-theory%20(11.1)/Modular%20Arithmetic/ModIntShort.h
 // Usage
 mi a = 1e8, b = 1e8, c = 1e8;
 // cout << a*b*c << "\n"; // doesn't work
 // ^ not silently converted to int
 cout << int(a*b*c) << "\n"; // 49000000
 ```
+source: https://github.com/bqi343/USACO/blob/master/Implementations/content/number-theory%20(11.1)/Modular%20Arithmetic/ModIntShort.h
 
 
 Benq's long template
@@ -265,6 +265,5 @@ void genComb(int SZ) {
 	FOR(i,1,SZ) F0R(j,i+1) 
 		scmb[i][j] = scmb[i-1][j]+(j?scmb[i-1][j-1]:0);
 }
-
-// source: https://github.com/bqi343/USACO/blob/master/Implementations/content/number-theory%20(11.1)/Modular%20Arithmetic/ModInt.h
 ```
+source: https://github.com/bqi343/USACO/blob/master/Implementations/content/number-theory%20(11.1)/Modular%20Arithmetic/ModInt.h
