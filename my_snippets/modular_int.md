@@ -158,7 +158,7 @@ Nice blog https://discuss.codechef.com/t/guide-to-modular-arithmetic-plus-tricks
 
 tourist https://codeforces.com/contest/1523/submission/117878219
 
-Benq's template
+Benq's short template
 ```cpp
 /**
  * Description: Modular arithmetic.
