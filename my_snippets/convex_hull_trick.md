@@ -448,3 +448,101 @@ Since it's basically a segment tree, it has a big advantage over convex hull: su
 Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress x-coordinates (offline approach) or use dynamic segment tree (online approach) to support large x-coordinates. This is not a problem with convex hull.
 
 TODO: https://csacademy.com/contest/archive/task/squared-ends/statistics/
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+template< typename T, bool ismax >
+struct LiChaoTree {
+  struct Line {
+    T a, b;
+
+    Line(T a, T b) : a(a), b(b) {}
+
+    inline T get(T x) const { return a * x + b; }
+
+    inline bool over(const Line &b, const T &x) const {
+      return (get(x) < b.get(x)) ^ ismax;
+    }
+  };
+
+  vector< T > xs;
+  vector< Line > seg;
+  int sz;
+
+  LiChaoTree(const vector< T > &x, T INF) : xs(x) {
+    sz = 1;
+    while(sz < xs.size()) sz <<= 1;
+    while(xs.size() < sz) xs.push_back(xs.back() + 1);
+    seg.assign(2 * sz - 1, Line(0, INF));
+  }
+
+  void update(Line &x, int k, int l, int r) {
+    auto latte = x.over(seg[k], xs[l]), malta = x.over(seg[k], xs[r - 1]);
+    if(latte & malta) {
+      seg[k] = x;
+    } else if(latte ^ malta) {
+      int mid = (l + r) >> 1;
+      auto beet = x.over(seg[k], xs[mid]);
+      if(beet) swap(seg[k], x);
+      if(latte != beet) update(x, 2 * k + 1, l, mid);
+      else update(x, 2 * k + 2, mid, r);
+    }
+  }
+
+  void update(T a, T b) { // ax+b
+    Line l(a, b);
+    update(l, 0, 0, sz);
+  }
+
+  T query(int k) { // xs[k]
+    const T x = xs[k];
+    k += sz - 1;
+    T ret = seg[k].get(x);
+    while(k > 0) {
+      k = (k - 1) >> 1;
+      if(ismax) ret = max(ret, seg[k].get(x));
+      else ret = min(ret, seg[k].get(x));
+    }
+    return ret;
+  }
+};
+
+using int64 = long long;
+const int64 INF = 1LL << 40;
+
+
+int main() {
+  int N, K;
+  cin >> N >> K;
+  vector< int64 > A(N);
+  for(int i = 0; i < N; i++) cin >> A[i];
+  auto B(A);
+  sort(begin(B), end(B));
+  B.erase(unique(begin(B), end(B)), end(B));
+  vector< int > C(N);
+  for(int i = 0; i < N; i++) {
+    C[i] = lower_bound(begin(B), end(B), A[i]) - begin(B);
+  }
+  vector< int64 > dp(N + 1, INF);
+  dp[0] = 0;
+  for(int i = 0; i < K; i++) {
+    vector< int64 > dp2(N + 1, INF);
+    for(int j = 0; j < N; j++) dp[j] += A[j] * A[j];
+    LiChaoTree< int64, false > chd(B, INF);
+    if(dp[0] < INF) chd.update(-2 * A[0], dp[0]);
+    for(int j = 1; j <= N; j++) {
+      dp2[j] = chd.query(C[j - 1]) + A[j - 1] * A[j - 1];
+      if(dp[j] < INF) chd.update(-2 * A[j], dp[j]);
+    }
+    dp.swap(dp2);
+  }
+
+  cout << dp[N] << endl;
+}
+```
+
+source: https://csacademy.com/submission/1754478/
