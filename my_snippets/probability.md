@@ -26,6 +26,8 @@ It depends on the probabilty from distance of `lca(a,b)` and `a` and the distanc
 
 ![](images/tree_probability.png)
 
+For any node `c₂` which is in between `a` and `b`, `x = dist[a][c₂] - d` where `d = (dist[a][c₂] + dist[b][c₂] - dist[a][b])/2`. For any node `c₁` the distance from `a` = 0 and for any node `c₃` distance from `b` = 0.
+
 ```cpp
 #include<bits/stdc++.h>
 
