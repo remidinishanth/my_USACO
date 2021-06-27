@@ -110,9 +110,6 @@ ll getC(int n, int k) {
  
 int main()
 {
-//	freopen("input.txt", "r", stdin);
-//	freopen("output.txt", "w", stdout);
- 
 	f[0] = 1;
 	for (int i = 1; i < N; i++)
 		f[i] = mult(f[i - 1], i);
@@ -138,9 +135,10 @@ int main()
  
 	return 0;
 }
-// source: https://atcoder.jp/contests/m-solutions2019/submissions/5729508
+```
+source: https://atcoder.jp/contests/m-solutions2019/submissions/5729508
 
-// source: https://codeforces.com/contest/1264/submission/66344993 (ksun48)
+```cpp
 using ll = long long;
 ll modinv(ll a, ll m) {
 	assert(m > 0);
@@ -152,6 +150,7 @@ ll modinv(ll a, ll m) {
 	return m - modinv(m, a) * m / a;
 }
 ```
+source: https://codeforces.com/contest/1264/submission/66344993 (ksun48)
 
 Nice blog https://discuss.codechef.com/t/guide-to-modular-arithmetic-plus-tricks-codechef-edition-there-is-no-other-edition/67424
 
