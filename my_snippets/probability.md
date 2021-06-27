@@ -24,7 +24,7 @@ Find the contribution of the inversion of two nodes `(a,b)` where `a < b`. The e
 
 It depends on the probabilty from distance of `lca(a,b)` and `a` and the distance of `lca(a,b)` and `b`. Suppose that `F[x][y]` defines the probability that node  `b` is visited first than node `a`, then `𝐹[𝑥][𝑦] = (𝐹[𝑥−1][𝑦] + 𝐹[𝑥][𝑦−1])/2`. Intuitively, this is because the probability of decreasing `x` or decreasing`y` is always the same, so the probability of transitioning the state we end up transitioning to is always the same, regardless of `p`.
 
-![](images/trees_probability.png)
+![](images/tree_probability.png)
 
 ```cpp
 #include<bits/stdc++.h>
