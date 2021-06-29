@@ -118,6 +118,7 @@ println(result) // Negative number
 
 val result = if (number > 0) "Positive number" else "Negative number"
 
+// Loops
 while (testExpression) {
     // codes inside body of while loop
 }
@@ -135,7 +136,7 @@ for (i in 5..1) print(i) // prints nothing
 for (i in 5 downTo 1) print(i) // 54321
 for (i in 4 downTo 1 step 2) print(i) // 42
 
-Using ranges
+// Using ranges
 for (i in 1..100) { ... }  // closed range: includes 100
 for (i in 1 until 100) { ... } // half-open range: does not include 100
 for (x in 2..10 step 2) { ... }
