@@ -376,9 +376,7 @@ data class Person(val name: String) {
 }
 val person1 = Person("John"); person1.age = 10
 
-
 // Scanning Input
-
 private fun readLn() = readLine()!! // string line
 private fun readInt() = readLn().toInt() // single int
 private fun readLong() = readLn().toLong() // single long
@@ -393,3 +391,5 @@ fun main(args: Array<String>) {
     for (i in 0 until t) {
         var (a, b) = readInts()
         println(a + b)
+    }
+}
