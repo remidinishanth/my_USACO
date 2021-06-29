@@ -186,19 +186,31 @@ i = 4; j = 2
 
 // Similarly we have kotlin labelled continue, continue@label
 
-// Kotlin Collections Overview
+// Data Structures -> Kotlin Collections Overview
 // source: https://kotlinlang.org/docs/reference/collections-overview.html
 
 // List is an ordered collection with access to elements by indices.
 // Set is a collection of unique elements. 
 // Map (or dictionary) is a set of key-value pairs. Keys are unique.
 
-
 /* Arrays in Kotlin have a constant length, so one normally uses lists, which are similar to the ones in Python. 
 What's called a dict in Python is called a map in Kotlin (not to be confused with the function map()). */
+
+val map = mapOf("a" to 1, "b" to 2, "c" to 3)  // Read Only Map
+// Accessing map entries
+for ((k, v) in map) {
+    println("$k -> $v")
+}
+println(map["key"])
+map["key"] = value
+
 val strings = listOf("Anne", "Karen", "Peter") // List<String>
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)  // Map<String, Int>
 val set = setOf("a", "b", "c")                 // Set<String>
+
+val numbers = mutableListOf("one", "two", "three", "four")
+numbers.add("five")   // this is OK    
+//numbers = mutableListOf("six", "seven")      // compilation error
 
 // A pair of interfaces represent each collection type:
 // A read-only interface that provides operations for accessing collection elements.
