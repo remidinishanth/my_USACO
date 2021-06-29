@@ -394,6 +394,8 @@ fun main(args: Array<String>) {
     }
 }
 
+println(a.joinToString("\n")) // prints each element of array/list of a separate line
+
 // functions
 fun f(x: Int): Int {
     var cur = x + 1
