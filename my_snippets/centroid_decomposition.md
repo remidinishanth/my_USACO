@@ -1532,6 +1532,7 @@ void calculate(int u, int p, int wedge){
 }
  
 void decompose(int u, int p=0){
+    if(ans) return;
     int sz = dfs_sz(u, p);
     int centroid = find_centroid(u, p, sz);
  
@@ -1559,7 +1560,7 @@ void decompose(int u, int p=0){
             if(x.first + node.cost >= 0){
                 ans = true;
                 node_ans = {node.idx, x.second};
-                break;
+                return;
             }
         }
  
@@ -1571,7 +1572,6 @@ void decompose(int u, int p=0){
  
     deleted[centroid] = 1; // remove centroid
     for(int e:Adj[centroid]){
-        if(ans) return;
         int v = adj(centroid, e);
         if(v == p || deleted[v]) continue;
         decompose(v, centroid);
