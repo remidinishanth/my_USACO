@@ -1545,7 +1545,7 @@ void decompose(int u, int p=0){
     // find result for paths going throught this centroid
     for(int e:Adj[centroid]){
         if(ans) return;
-        int v = adj(u, e);
+        int v = adj(centroid, e);
         if(v == p || deleted[v]) continue;
  
         children.clear();
@@ -1572,7 +1572,7 @@ void decompose(int u, int p=0){
     deleted[centroid] = 1; // remove centroid
     for(int e:Adj[centroid]){
         if(ans) return;
-        int v = adj(u, e);
+        int v = adj(centroid, e);
         if(v == p || deleted[v]) continue;
         decompose(v, centroid);
     }
