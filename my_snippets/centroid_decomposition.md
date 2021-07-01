@@ -1376,7 +1376,7 @@ The Nvodsk road system can be represented as n junctions connected with n - 
 	<summary> Binary Search + Centroid Decomposition + Segment Tree </summary>
 
 * If there exists a path with the median  ≥ k, for some k, then there exists a path with the median  ≥ q, for each q ≤ k. That means we can use binary search to calculate the answer. So now the task is: is there any path with the median greater or equal to Mid ?
-* We will calc the edge as  + 1 if it's wight  ≥ Mid, or as  - 1 in other case. Now we only need to check if there exists a path with legal length and the sum greater than or equal to zero.
+* We will calc the edge as  + 1 if it's weight  ≥ Mid, or as  - 1 in other case. Now we only need to check if there exists a path with legal length and the sum greater than or equal to zero.
 * Let's denote some node V as a root. All paths can be divided into two types: that contains v, and that do not. Now we are to process all first-type paths and run the algorithm on all subtrees. That is so-called divide-and-conquer strategy - Centroid Decomposition
 * For each node we shall calculate it's deepnees(depth), cost of the path(dist) to the root. Now, for each node we want to know if there exists a node u in any other subtree such that the (cost[u] + cost[v] ≥ 0) and they are between [L, R] distance apart. We will need to find maximum of the function cost[u] with the deep values between max(0, L - deep[v]) and (R - deep[v]) inclusive. To achieve O(N * log(N)) you need only to use segment tree.
 
@@ -1507,7 +1507,7 @@ struct Node {
     Node(int x, int y, int z): depth(x), cost(y), idx(z) {}
 };
  
-ostream& operator<<(ostream& os, const Node n) { # useful for debugging
+ostream& operator<<(ostream& os, const Node n) { // useful for printing while debugging
     os << "{depth: " << n.depth << " cost: " << n.cost << " idx: " << n.idx << "}";
     return os;
 }
