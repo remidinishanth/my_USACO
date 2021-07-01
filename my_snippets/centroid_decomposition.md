@@ -1535,7 +1535,7 @@ void decompose(int u, int p=0){
     int sz = dfs_sz(u, p);
     int centroid = find_centroid(u, p, sz);
  
-    if(sz < distl) return; # ignore small paths
+    if(sz < distl) return; // ignore small paths
  
     dist[centroid] = 0;
     depth[centroid] = 0;
