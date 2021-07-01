@@ -313,6 +313,7 @@ struct CentroidDecomposition {
 The problems that can be solved by Centroid decomposition can be categorised into
 * Activating nodes(Xenia and Tree, QTREE5, YATP)
 * Computing function for all paths(IOI 2011 Race, how many paths have xor k, Sum of all xor path in a tree)
+* Computing function from all other subtrees and paths(PrimeDST, CF #107 Div1 E. Freezing with Style)
 * Radius query around a vertex(Tree query)
 
 ### CF 199 Div 2 E. Xenia and Tree 
@@ -1363,6 +1364,256 @@ Then we calculate the answer. It equals the sum for every vertex v of two values
 
 * Accumulate the sum for all vertices and get the solution in O(n·k).
 
+</details>
+
+### CF #107 Div1 E. Freezing with Style
+
+https://codeforces.com/contest/150/problem/E
+
+The Nvodsk road system can be represented as n junctions connected with n - 1 bidirectional roads so that there is a path between any two junctions. The organizers of some event want to choose a place to accommodate the participants (junction v), and the place to set up the contests (junction u). Besides, at the one hand, they want the participants to walk about the city and see the neighbourhood (that's why the distance between v and u should be no less than l). On the other hand, they don't want the participants to freeze (so the distance between v and u should be no more than r). Besides, for every street we know its beauty — some integer from 0 to 10⁹. Your task is to choose the path that fits in the length limits and has the largest average beauty. We shall define the average beauty as a median of sequence of the beauties of all roads along the path.
+
+<details>
+	<summary> Binary Search + Centroid Decomposition + Segment Tree </summary>
+
+* If there exists a path with the median  ≥ k, for some k, then there exists a path with the median  ≥ q, for each q ≤ k. That means we can use binary search to calculate the answer. So now the task is: is there any path with the median greater or equal to Mid ?
+* We will calc the edge as  + 1 if it's wight  ≥ Mid, or as  - 1 in other case. Now we only need to check if there exists a path with legal length and the sum greater than or equal to zero.
+* Let's denote some node V as a root. All paths can be divided into two types: that contains v, and that do not. Now we are to process all first-type paths and run the algorithm on all subtrees. That is so-called divide-and-conquer strategy - Centroid Decomposition
+* For each node we shall calculate it's deepnees(depth), cost of the path(dist) to the root. Now, for each node we want to know if there exists a node u in any other subtree such that the (cost[u] + cost[v] ≥ 0) and they are between [L, R] distance apart. We will need to find maximum of the function cost[u] with the deep values between max(0, L - deep[v]) and (R - deep[v]) inclusive. To achieve O(N * log(N)) you need only to use segment tree.
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+ 
+const int nax = 1e5 + 10;
+ 
+// Recursive segment tree
+pair<int, int> rmq[nax * 2];
+ 
+int rsz;
+ 
+void build(int h) {
+	++h;
+	rsz = h;
+	for (int i = 0; i < rsz - 1 + rsz; ++i)
+		rmq[i] = make_pair(-nax * 100, -1);
+}
+ 
+pair<int, int> get(int l, int r) {
+	l += rsz - 1;
+	r += rsz - 1;
+	pair<int, int> ans = make_pair(-nax * 100, -1);
+	while (r > l) {
+		if (l & 1) l = l >> 1;
+		else ans = max(ans, rmq[l]), l = l >> 1;
+		if (r & 1) r = r >> 1;
+		else ans = max(ans, rmq[r - 1]), r = (r - 1) >> 1;
+	}
+	return ans;
+}
+ 
+void upd(int x, int c, int v) {
+	x += rsz - 1;
+	for (; x >= 0 && rmq[x].first < c; x = (x - 1) >> 1)
+		rmq[x] = make_pair(c, v);
+}
+ 
+// Iterative version
+pair<int, int> st[4*nax]; // max segment tree
+ 
+pair<int, int> combine(pair<int, int> a, pair<int, int> b){
+    return max(a, b);
+}
+ 
+// initialize segement tree with minimum
+void build(int v, int l, int r){
+    build(r+1);
+    /* if(l == r){ */
+    /*     st[v] = {-nax, l}; */
+    /*     return; */
+    /* } */
+    /* int mid = (l+r)/2; */
+    /* build(v*2, l, mid); */
+    /* build(v*2+1, mid+1, r); */
+    /* st[v] = combine(st[v*2], st[v*2+1]); */
+}
+ 
+// update pos with val
+void update(int v, int l, int r, int pos, int val, int idx){
+    upd(pos, val, idx);
+    /* if(l==r){ */
+    /*     st[v] = combine(st[v], {val, idx}); */
+    /*     return; */
+    /* } */
+    /* int mid = (l+r)/2; */
+    /* if(pos <= mid) update(v*2, l, mid, pos, val, idx); */
+    /* else update(v*2+1, mid+1, r, pos, val, idx); */
+    /* st[v] = combine(st[v*2], st[v*2+1]); */
+}
+ 
+// get max value in [L, R]
+pair<int,int> get(int v, int l, int r, int L, int R){
+    return get(L, R+1);
+    /* if(L > R) return {-nax, L}; */
+    /* if(l==L && r==R) return st[v]; */
+    /* int mid = (l+r)/2; */
+    /* return combine(get(v*2, l, mid, L, min(mid, R)), */
+    /*             get(v*2+1, mid+1, r, max(L, mid+1), R)); */
+}
+ 
+/////// End of segment tree //////////
+ 
+int U[nax], V[nax], W[nax];
+int sub[nax];
+int dist[nax], depth[nax];
+bool deleted[nax];
+vector<int> Adj[nax];
+int weight;
+ 
+int distl, distr;
+bool ans;
+pair<int, int> node_ans;
+ 
+inline int adj(int u, int e){
+    return U[e] ^ V[e] ^ u;
+}
+ 
+void preprocess(){
+    ans = false;
+    memset(deleted, 0, sizeof(deleted));
+    memset(depth, 0, sizeof(depth));
+}
+ 
+int dfs_sz(int u, int p){
+    sub[u] = 1;
+    for(int e:Adj[u]){
+        int v = adj(u, e);
+        if(v == p || deleted[v]) continue;
+        sub[u] += dfs_sz(v, u);
+    }
+    return sub[u];
+}
+ 
+int find_centroid(int u, int p, int sz){
+    for(int e:Adj[u]){
+        int v = adj(u, e);
+        if(v == p || deleted[v]) continue;
+        if(sub[v] > sz/2) return find_centroid(v, u, sz);
+    }
+    return u;
+}
+ 
+struct Node {
+    int depth, cost, idx;
+    Node(int x, int y, int z): depth(x), cost(y), idx(z) {}
+};
+ 
+ostream& operator<<(ostream& os, const Node n) { # useful for debugging
+    os << "{depth: " << n.depth << " cost: " << n.cost << " idx: " << n.idx << "}";
+    return os;
+}
+ 
+vector<Node> children;
+ 
+void calculate(int u, int p, int wedge){
+    dist[u] = dist[p] + (wedge >= weight ? 1 : -1);
+    depth[u] = depth[p] + 1;
+    if(depth[u] > distr) return; // ignore nodes which are too deep
+    // store only one Node for each depth
+    if((int)children.size() < depth[u]){ // i-th node => (i+1) depth
+        children.push_back(Node(depth[u], dist[u], u));
+    }else if(children[depth[u]-1].cost < dist[u]){
+        children[depth[u]-1] = Node(depth[u], dist[u], u);
+    }
+    for(int e:Adj[u]){
+        int v = U[e] ^ V[e] ^ u;
+        if(v == p || deleted[v]) continue;
+        calculate(v, u, W[e]);
+    }
+}
+ 
+void decompose(int u, int p=0){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+ 
+    if(sz < distl) return; # ignore small paths
+ 
+    dist[centroid] = 0;
+    depth[centroid] = 0;
+    build(sz); // clear segment tree
+    upd(0, 0, centroid); // update centroid
+    
+    // find result for paths going throught this centroid
+    for(int e:Adj[centroid]){
+        if(ans) return;
+        int v = U[e] ^ V[e] ^ centroid;
+        if(v == p || deleted[v]) continue;
+ 
+        children.clear();
+        calculate(v, centroid, W[e]);
+ 
+        // query from previous subtrees
+        for(Node node: children){
+            int lrange = distl - node.depth, rrange = min(distr, sz) - node.depth;
+            if(rrange < 0) continue;
+            pair<int, int> x = get(max(lrange, 0), rrange+1);
+            if(x.first + node.cost >= 0){
+                ans = true;
+                node_ans = {node.idx, x.second};
+                break;
+            }
+        }
+ 
+        // insert old subtree into segment tree
+        for(Node node: children){
+            upd(node.depth, node.cost, node.idx);
+        }
+    }
+ 
+    deleted[centroid] = 1; // remove centroid
+    for(int e:Adj[centroid]){
+        if(ans) return;
+        int v = U[e] ^ V[e] ^ centroid;
+        if(v == p || deleted[v]) continue;
+        decompose(v, centroid);
+    }
+}
+ 
+int main() {
+    int n;
+    scanf("%d %d %d", &n, &distl, &distr);
+    vector<int> weights;
+    for(int i=1;i<n;i++){
+        scanf("%d %d %d", U+i, V+i, W+i);
+        weights.push_back(W[i]);
+        Adj[U[i]].push_back(i);
+        Adj[V[i]].push_back(i);
+    }
+ 
+    // Binary search the weights for medium
+    sort(weights.begin(), weights.end());
+    weights.resize(unique(weights.begin(), weights.end()) - weights.begin());
+    int low = 0, high = weights.size() -1;
+    // Find last i which is T in T .. T F .. F
+    while(low < high){
+        int mid = (low + high + 1)/2;
+ 
+        preprocess();
+        weight = weights[mid];
+        decompose(1);
+ 
+        if(ans){
+            low = mid;
+        }else{
+            high = mid - 1;
+        }
+    }
+    weight = weights[low];
+    preprocess();
+    decompose(1);
+    printf("%d %d\n", node_ans.first, node_ans.second);
+    return 0;
+}
+```
 </details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
