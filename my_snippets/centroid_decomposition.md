@@ -1525,7 +1525,7 @@ void calculate(int u, int p, int wedge){
         children[depth[u]-1] = Node(depth[u], dist[u], u);
     }
     for(int e:Adj[u]){
-        int v = U[e] ^ V[e] ^ u;
+        int v = adj(u, e);
         if(v == p || deleted[v]) continue;
         calculate(v, u, W[e]);
     }
@@ -1545,7 +1545,7 @@ void decompose(int u, int p=0){
     // find result for paths going throught this centroid
     for(int e:Adj[centroid]){
         if(ans) return;
-        int v = U[e] ^ V[e] ^ centroid;
+        int v = adj(u, e);
         if(v == p || deleted[v]) continue;
  
         children.clear();
@@ -1572,7 +1572,7 @@ void decompose(int u, int p=0){
     deleted[centroid] = 1; // remove centroid
     for(int e:Adj[centroid]){
         if(ans) return;
-        int v = U[e] ^ V[e] ^ centroid;
+        int v = adj(u, e);
         if(v == p || deleted[v]) continue;
         decompose(v, centroid);
     }
