@@ -8,3 +8,5 @@ the big tree and each small tree consist of O(logn) levels. The tree requires O(
 memory, because each small tree contains O(n) values.
 
 source: https://usaco.guide/CPH.pdf#page=271
+
+https://qr.ae/pGPw34
