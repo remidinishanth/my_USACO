@@ -84,6 +84,8 @@ n = dfs_size(v, -1)
 dfs_centroid(v, -1)
 ```
 
+CPP: https://codeforces.com/contest/293/submission/27285541
+
 The following stores subtree sizes and makes code simpler
 ```cpp
 vector<int> Adj[maxn];
