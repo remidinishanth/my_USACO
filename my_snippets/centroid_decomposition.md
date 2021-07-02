@@ -1616,6 +1616,172 @@ int main() {
     return 0;
 }
 ```
+</details>
+
+### CF Croc Champ 2013 Round 2 E Close Vertices
+
+You've got a weighted tree, consisting of n vertices. Each edge has a non-negative weight. The length of the path between any two vertices of the tree is the number of edges in the path. The weight of the path is the total weight of all edges it contains.
+
+Two vertices are close if there exists a path of length at most l between them and a path of weight at most w between them. Count the number of pairs of vertices v, u (v < u), such that vertices v and u are close.
+
+https://codeforces.com/contest/293/problem/E
+
+<details>
+	<summary>Using Centroid decomposition</summary>
+
+* We can do centroid decomposition and find the number of pairs compatible for this node at each centroid. For every element (x,y) answer the query xbound = L - x, ybound = W - y (we use centroid tree ancestor nodes).
+* See count function which is key in this problem - Say we have an array tmp of pairs (a, b) It counts the number of pairs (i, j) i < j such that ai + aj <= len && bi + bj <= weight.
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int nax = 1e5 + 10;
+
+struct bit{
+	int tree[nax];
+	void add(int x, int v){
+		x += 2;
+		while(x < nax){
+			tree[x] += v;
+			x += x & -x;
+		}
+	}
+	int sum(int x){
+		x += 2; int ret = 0;
+		if(x < 0) return 0;
+		while(x){
+			ret += tree[x];
+			x -= x & -x;
+		}
+		return ret;
+	}
+} bit;
+
+int U[nax], V[nax], W[nax];
+int sub[nax];
+int dist[nax], depth[nax];
+bool deleted[nax];
+vector<int> Adj[nax];
+
+int len, weight;
+long long ans = 0;
+
+vector<pair<int,int>> tmp; // (depth, distance)
+
+// number of pairs (ai, bi) & (aj, bj) such that ai + aj <= len && bi + bj <= weight
+long long count(){
+    sort(tmp.begin(), tmp.end(), [&](const pair<int,int> &a, const pair<int,int> &b){
+		    return a.second < b.second;
+    });
+
+    int pnt = 0;
+    long long ret = 0;
+    for(int i=tmp.size()-1;i>=0;i--){
+        while(pnt < tmp.size() && tmp[i].second + tmp[pnt].second <= weight){
+            bit.add(tmp[pnt++].first, 1);
+        }
+        // [0, pnt) are compatible with weight of tmp[i]
+        ret += bit.sum(len - tmp[i].first);
+    }
+
+    // clear fenwick tree
+    while(pnt > 0){
+        bit.add(tmp[--pnt].first, -1);
+    }
+
+    for(int i=0; i<tmp.size(); i++){ // each i is counted with itself
+        if(tmp[i].first <= len/2 && tmp[i].second <= weight/2) ret--;
+    }
+    return ret/2; // each value is double counted twice
+}
+
+ 
+inline int adj(int u, int e){
+    return U[e] ^ V[e] ^ u;
+}
+ 
+int dfs_sz(int u, int p){
+    sub[u] = 1;
+    for(int e:Adj[u]){
+        int v = adj(u, e);
+        if(v == p || deleted[v]) continue;
+        sub[u] += dfs_sz(v, u);
+    }
+    return sub[u];
+}
+ 
+int find_centroid(int u, int p, int sz){
+    for(int e:Adj[u]){
+        int v = adj(u, e);
+        if(v == p || deleted[v]) continue;
+        if(sub[v] > sz/2) return find_centroid(v, u, sz);
+    }
+    return u;
+}
+ 
+vector<pair<int,int>> children, all_children;
+ 
+void calculate(int u, int p, int edge){
+    dist[u] = dist[p] + W[edge];
+    depth[u] = depth[p] + 1;
+    children.push_back({depth[u], dist[u]});
+    for(int e:Adj[u]){
+        int v = adj(u, e);
+        if(v == p || deleted[v]) continue;
+        calculate(v, u, e);
+    }
+}
+
+void decompose(int u, int p=0){
+    int sz = dfs_sz(u, p);
+    int centroid = find_centroid(u, p, sz);
+ 
+    dist[centroid] = 0;
+    depth[centroid] = 0;
+    all_children.clear();
+    all_children.push_back({0, 0}); // add centroid
+    
+    // find result for paths going throught this centroid
+    for(int e:Adj[centroid]){
+        int v = adj(centroid, e);
+        if(v == p || deleted[v]) continue;
+ 
+        children.clear();
+        calculate(v, centroid, e);
+        tmp = children;
+        ans -= count(); // remove contribution of child with itself
+ 
+        for(pair<int,int> child: children){
+            all_children.push_back(child);
+        }
+    }
+    tmp = all_children;
+    ans += count();
+ 
+    deleted[centroid] = 1; // remove centroid
+    for(int e:Adj[centroid]){
+        int v = adj(centroid, e);
+        if(v == p || deleted[v]) continue;
+        decompose(v, centroid);
+    }
+}
+
+int main() {
+    int n;
+    scanf("%d %d %d", &n, &len, &weight);
+    for(int i=2;i<=n;i++){
+        U[i] = i;
+        scanf("%d %d", V+i, W+i);
+        Adj[U[i]].push_back(i);
+        Adj[V[i]].push_back(i);
+    }
+    decompose(1);
+    printf("%lld\n", ans);
+    return 0;
+}
+```
 </details>	
 
 ### Open Cup 2014-15 Grand Prix of Tatarsta 
