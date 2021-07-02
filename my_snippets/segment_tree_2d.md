@@ -9,4 +9,16 @@ memory, because each small tree contains O(n) values.
 
 source: https://usaco.guide/CPH.pdf#page=271
 
+Tree showing nodes and the segments of values it holds. source: https://web.ntnu.edu.tw/~algo/Sequence2.html
+
+![](images/Segment_tree_2d_eg3.png)
+
+To update the node `4` these all trees have to be updated
+
+![](images/Segment_tree_2d_eg2.png)
+
+To query the segment, we need to visit these trees
+
+![](images/Segment_tree_2d_eg1.png)
+
 https://qr.ae/pGPw34
