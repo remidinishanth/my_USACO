@@ -375,7 +375,7 @@ int main(){
 
 source: https://codeforces.com/contest/95/submission/535779
 
-TODO: https://ei1333.github.io/library/dp/knapsack-limitations-2.cpp.html
+TODO: https://ei1333.github.io/library/dp/knapsack-limitations-2.cpp.html and https://github.com/ei1333/library
 
 ### Judgement
 
