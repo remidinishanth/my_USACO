@@ -146,11 +146,111 @@ Split twice and Merge once.
 
 ![](images/treap_delete_sm1.png)
 
+### CPP implementation
+
+```cpp
+struct item {
+    int key, prior;
+    item * l, * r;
+    item() { }
+    item (int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) { }
+};
+typedef item * pitem;
+
+void split (pitem t, int key, pitem & l, pitem & r) {
+    if (!t)
+        l = r = NULL;
+    else if (key < t->key) // key is in left node, split left
+        split (t->l, key, l, t->l),  r = t;
+    else
+        split (t->r, key, t->r, r),  l = t;
+}
+
+void merge (pitem & t, pitem l, pitem r) {
+    if (!l || !r)
+        t = l ? l : r;
+    else if (l->prior > r->prior)
+        merge (l->r, l->r, r),  t = l;
+    else
+        merge (r->l, l, r->l),  t = r;
+}
+
+void insert (pitem & t, pitem it) {
+    if (!t)
+        t = it;
+    else if (it->prior > t->prior)
+        split (t, it->key, it->l, it->r),  t = it;
+    else
+        insert (it->key < t->key ? t->l : t->r, it);
+}
+
+void erase (pitem & t, int key) {
+    if (t->key == key) {
+        pitem th = t;
+        merge (t, t->l, t->r);
+        delete th;
+    }
+    else
+        erase (key < t->key ? t->l : t->r, key);
+}
+
+pitem unite (pitem l, pitem r) {
+    if (!l || !r)  return l ? l : r;
+    if (l->prior < r->prior)  swap (l, r);
+    pitem lt, rt;
+    split (r, l->key, lt, rt);
+    l->l = unite (l->l, lt);
+    l->r = unite (l->r, rt);
+    return l;
+}
+```
+
+We can maintain additional properties in the node like `count` - number of nodes in subtre. When a tree changes (nodes are added or removed etc.), `cnt` of some nodes should be updated accordingly. We'll create two functions: `cnt()` will return the current value of `cnt` or `0` if the node does not exist, and `upd_cnt()` will update the value of `cnt` for this node assuming that for its children `L` and `R` the values of `cnt` have already been updated. Evidently it's sufficient to add calls of `upd_cnt()` to the end of `insert`, `erase`, `split` and `merge` to keep `cnt` values up-to-date.
+
+```cpp
+struct item {
+    int key, prior, cnt;
+    item * l, * r;
+    item() { }
+    item (int key, int prior) : key(key), prior(prior), l(NULL), r(NULL) { }
+};
+
+int cnt (pitem t) {
+    return t ? t->cnt : 0;
+}
+
+void upd_cnt (pitem t) {
+    if (t)
+        t->cnt = 1 + cnt(t->l) + cnt (t->r);
+}
+
+void split (pitem t, int key, pitem & l, pitem & r) {
+    if (!t)
+        l = r = NULL;
+    else if (key < t->key) // key is in left node, split left
+        split (t->l, key, l, t->l),  r = t;
+    else
+        split (t->r, key, t->r, r),  l = t;
+    upd_cnt(t);
+}
+
+void insert (pitem & t, pitem it) {
+    if (!t)
+        t = it;
+    else if (it->prior > t->prior)
+        split (t, it->key, it->l, it->r),  t = it;
+    else
+        insert (it->key < t->key ? t->l : t->r, it);
+    upd_cnt(t);
+}
+```
+
 ## Reference:
 * https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
 * https://habr.com/ru/post/101818/
 * https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure-part-1-6196d6cc12ee
-* http://memphis.is-programmer.com/posts/46317.html 
+* http://memphis.is-programmer.com/posts/46317.html
+* https://cp-algorithms.com/data_structures/treap.html
 
 https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/persistent-treaps.html and https://codeforces.com/contest/899/submission/44463469
 
