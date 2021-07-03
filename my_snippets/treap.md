@@ -3,3 +3,5 @@ TODO: https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure
 https://www.cs.cornell.edu/courses/cs312/2003sp/lectures/lec26.html
 
 https://codeforces.com/blog/entry/84017
+
+https://habr.com/ru/post/101818/
