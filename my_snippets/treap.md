@@ -32,9 +32,24 @@ In a BST there are two simple operations that allows us to modify the tree and k
 
 ![](images/treap_rotation.png).
 
+### Insertion
+
 Inserting an element based on rotations. Say we want to insert an element (9, 41). The first step is to ignore the priorities and insert like a BST, We can search the position where it has to be inserted based on the key. Even though BST property is being preserved, the heap property is not. We will use rotations to fix the heap property.
 
 ![](images/treap_example4.png)
+
+* Insertion into a treap is a combination of normal BST insertion and heap insertion.
+* First, insert the node doing a normal BST insertion. This places the value into the right place.
+* Next, bubble the node upward in the tree by rotating it with its parent until its value is smaller than its parent.
+
+### Deletion
+
+* In general, removing a node from a BST is quite difficult because we have to make sure not to lose any nodes. Deleting internal nodes split the tree.
+* However, removing leaves is very easy, since they have no children.
+* It would seem that, since a treap has extra structure on top of that of a BST, that removing from a treap would be extremely hard.
+* However, it's actually quite simple:
+  * To maintain the heap property, it’s easy to see that we have to rotate the tree from the children with higher priority.
+  * Once the node is a leaf, delete it.
 
 TODO: https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure-part-1-6196d6cc12ee and https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/persistent-treaps.html and https://codeforces.com/contest/899/submission/44463469
 
