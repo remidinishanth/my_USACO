@@ -240,3 +240,35 @@ int main()
 	}
 }
 ```
+
+## Max Sum of Rectangle No Larger Than K
+
+https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/solution/
+
+```cpp
+class Solution {
+public:
+    int f(vector<int> &V, int k){ // 1-D case
+        set<int> S = {0};
+        int ans = INT_MIN, cur = 0;
+        for(int i=0;i<V.size();i++){
+            cur += V[i];
+            auto it = S.lower_bound(cur-k);
+            if(it != S.end()) ans = max(ans, cur-*it); # check if sum <= k ?
+            S.insert(cur);
+        }
+        return ans;
+    }
+    int maxSumSubmatrix(vector<vector<int>>& matrix, int t) {
+        int n = matrix.size(), m = matrix[0].size(), ans = INT_MIN;
+        for(int j=0; j<m; j++){
+            vector<int> a(n, 0);
+            for(int k=j; k<m; k++){ # Prefix sum of [i][j:m]
+                for(int i=0; i<n; i++) a[i] += matrix[i][k];
+                ans=max(ans, f(a,t));
+            }
+        }
+        return ans;
+    }
+};
+```
