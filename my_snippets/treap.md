@@ -264,3 +264,5 @@ https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/p
 https://codeforces.com/blog/entry/84017
 
 http://memphis.is-programmer.com/posts/46317.html
+
+https://habr.com/en/post/102006/, https://habr.com/en/post/102364/
