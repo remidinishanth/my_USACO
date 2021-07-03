@@ -616,6 +616,8 @@ source: https://codeforces.com/contest/1109/submission/50024623
 
 TODO: https://codeforces.com/blog/entry/67637 and https://usaco.guide/adv/LCT?lang=cpp and https://codeforces.cc/contest/117/problem/E
 
+TODO: Dynamic connectivity problems https://codeforces.com/blog/entry/15296
+
 ## REF
 * https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf
 * https://en.wikipedia.org/wiki/Link/cut_tree
