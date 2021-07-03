@@ -286,6 +286,12 @@ void insert (pitem & t, pitem it) {
 use BBSTs for a much larger variety of problems, such as range min/max and sum queries.
 * Treaps can also be extended to multiple dimensions in the form of quadtreaps which are a balanced variant of a quadtree data structure.
 
+## Problems
+
+1. How can we augment the BBST to effectively function as a min, max, and sum segment tree? In what cases can we do it the other way around?
+2. SPOJ KPMATRIX: Given a NxM matrix of integers (1 ≤ N, M ≤ 250), and two integers A and B (−10⁹ ≤ A, B ≤ 10⁹), find the number of submatrices with sum between A and B.
+3. SPOJ GSS6: Given an integer array of length N, apply Q operations which can be any of inserting an element, deleting an element, and finding the maximal contiguous non-empty sum in a given interval (1 ≤ N, Q ≤ 10⁵). All values in the array, as well as insertions, are between −10⁴ and 10⁴.
+
 ## Reference:
 * https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
 * https://habr.com/ru/post/101818/
