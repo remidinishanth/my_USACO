@@ -146,12 +146,15 @@ Split twice and Merge once.
 
 ![](images/treap_delete_sm1.png)
 
-TODO: https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure-part-1-6196d6cc12ee and https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/persistent-treaps.html and https://codeforces.com/contest/899/submission/44463469
+## Reference:
+* https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
+* https://habr.com/ru/post/101818/
+* https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure-part-1-6196d6cc12ee
+* http://memphis.is-programmer.com/posts/46317.html 
 
-https://www.cs.cornell.edu/courses/cs312/2003sp/lectures/lec26.html
+https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/persistent-treaps.html and https://codeforces.com/contest/899/submission/44463469
+
 
 https://codeforces.com/blog/entry/84017
-
-https://habr.com/ru/post/101818/
 
 http://memphis.is-programmer.com/posts/46317.html
