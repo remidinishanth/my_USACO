@@ -134,11 +134,31 @@ def merge(t1: Treap, t2: Treap) -> Treap:
 
 ### Operations on Treap using Split and Merge
 
+#### Insert
+
 * Insert(X): To insert a value X into our BST, we first chose a Y = rand(), such that (X,Y) represents the new node to be inserted in the treap. Then, keep on going down the tree like a simple BST searching for the correct pos where X should be inserted unless either the correct position is found OR we encounter the first node E s.t. priority(E) < Y . Here, call split(E,X) and attach L and R as left and right subtrees of node (X,Y).
 
 Split once, and Merge twice.
 
 ![](images/treap_insert_sm1.png)
+
+insert(T,k) - where k.x is the key and k.y is the priority
+
+* Implementation #1
+  1)  Let's split our tree according to the key that we want to add, that is split(T, k.x) → <T₁, T₂>
+  2)  We merge the first tree with a new element, that is merge(T₁, K) → T₁
+  3)  We merge the resulting tree with the second, that is merge(T₁, T₂) → T
+
+
+* Implementation #2
+  1)  First, we go down the tree (as in the usual binary search tree by k.x), but we stop at the first element in which the priority value turned out to be less that k.y
+  2)  Now we split(T, k.x) → <T₁, T₂>, the found element(from the element along with its entire subtree).
+  3)  Update T₁ and T₂ as the left and write elements of the added element.
+  4)  We put the resulting tree(node with T₁ and T₂ as children) in place of the element found in step 1.
+
+Implementation #1 uses two merge operations, In second implementation merge is not used at all.
+
+#### Delete/Remove
 
 * Delete(X) : Go down the tree like a BST unless node to be deleted is found. If the node is found, call merge function for it's left and right subtrees and attach the resulting tree to the parent of the node to be deleted.
 
@@ -146,7 +166,21 @@ Split twice and Merge once.
 
 ![](images/treap_delete_sm1.png)
 
-### CPP implementation
+remove(T, x) removes node with key x from the tree T
+
+* Implementation #1
+  1)  Let's split our tree according to the key that we want to delete, that is split(T, k.x) → <T₁, T₂>
+  2)  Now we seperate the element from the left tree, the right most child of the tree T₁
+  3)  We merge the resulting tree with the second, that is merge(T₁, T₂) → T
+
+* Implementation #2
+  1) We go down the tree (as in the usual binary search tree by x), and look for the item to remove. 
+  2) Having found the element, we can merge on it's left and right sons
+  3) The result of the procedure merge is put in the place of the deleted element.
+
+The first implementation uses split operatioin, and in the second implementation, split is not used at all.
+
+### C++ implementation
 
 ```cpp
 struct item {
