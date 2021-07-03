@@ -375,6 +375,8 @@ int main(){
 
 source: https://codeforces.com/contest/95/submission/535779
 
+TODO: https://ei1333.github.io/library/dp/knapsack-limitations-2.cpp.html
+
 ### Judgement
 
 2015-2016 XVI Open Cup, Grand Prix of Bashkortostan, SKB Kontur Cup Stage 2
@@ -393,3 +395,5 @@ and we find the maximum value x of the knapsack. If x ≥ p, then the set of ite
 We solve two knapsacks, one as described, and another swapping values `ai` with `bi`, and values p with q, and we check again. If we cannot find such assignment T, then the two systems are equivalent.
 
 The time and space complexity is O(n(p + q)).
+
+source: Analysis and solution of different algorithmic problems https://upcommons.upc.edu/bitstream/handle/2117/104161/127102.pdf
