@@ -282,7 +282,8 @@ void insert (pitem & t, pitem it) {
 ## Applications
 * A variant of treaps called Implicit Treaps can be used to perform all the operations which interval trees like segment tree and fenwick tree can (including lazy propagation).
 * Idea of sparse segment tree and sparse fenwick tree to handle very large ranges and limited queries can also be extended to treaps resulting in a variant called sparse implicit treaps.
-* Treaps also make a good persistent BST mainly because of their simplicity to code and a constant average number of operations upon insert/delete.
+* Treaps also make a good persistent BST mainly because of their simplicity to code and a constant average number of operations upon insert/delete. In general, they are used to represent an ordered set (store and check if an element exists in the set) in O(log n) time. However, by augmenting the nodes, we can
+use BBSTs for a much larger variety of problems, such as range min/max and sum queries.
 * Treaps can also be extended to multiple dimensions in the form of quadtreaps which are a balanced variant of a quadtree data structure.
 
 ## Reference:
