@@ -1,5 +1,7 @@
 A Cartesian tree or deramid (Treap) is a data structure that combines a **binary search tree** and a **binary heap**. Hence its second name: treap (tree + heap) and deramid (tree + pyramid).
 
+![](images/Treap_node1.png)
+
 More strictly, this is a binary tree whose nodes contain two values, a key and a priority. It is also a binary search tree by key and a heap by priority. Assuming that all keys and all priorities are different, we find that if a tree item contains (x₀, y₀), then all elements (x, y) in the left subtree are such that x < x₀, all the elements in the right subtree are such that x > x₀, as well as the left and right subtree have: y < y₀. For example
 
 ![](images/treap_example2.png)
@@ -59,11 +61,20 @@ Inserting an element based on rotations. Say we want to insert an element (9, 41
 
 Treap supports two basic and unique operations: split and merge , both in O(H) where H is height of treap i.e O(logN).
 
+Split
+
+![](images/treap_split3.png)
+
+Merge
+
+![](images/Treap_merge1.png)
+
 ### Split
 
 * split(T,X):  It splits a given treap T into two different treaps L and R such that L contains all the nodes with Bᵢ ≤ X and R contains all the nodes with Bᵢ > X. The original treap T is destroyed/doesn’t exist anymore after the split operation.
 
 ![](images/treap_split1.png)
+
 
 ![](images/treap_split2.png)
 
@@ -77,7 +88,49 @@ If the key we want to split is less than root X then
 
 ![](images/treap_split6.png)
 
+```python
+def split(t: Treap, k: int) -> ⟨Treap, Treap⟩:
+  if t == None
+    return ⟨None, None⟩     
+  else if k > t.x 
+    ⟨t1, t2⟩ = split(t.right, k)
+    t.right = t1
+    return ⟨t, t2⟩
+  else 
+    ⟨t1, t2⟩ = split(t.left, k)
+    t.left = t2
+    return ⟨t1, t⟩
+```
+
+### Merge
+
 * merge(L,R): The merge operation merges two given treaps L and R into a single treap T and L and R are destroyed after the operation. A very important assumption of the merge operation is that the largest value of L is less than the smallest value of R (where value refers to the Bᵢ values of the particular node). Hence we observe that two treaps obtained after a split operation can always be merged to give back the original treap.
+
+![](images/Treap_merge5.png)
+
+![](images/Treap_merge2.png)
+
+If priority of X > priority of Y
+
+![](images/Treap_merge3.png)
+
+If priority of X < priority of Y
+
+![](images/Treap_merge4.png)
+
+```python
+def merge(t1: Treap, t2: Treap) -> Treap:
+  if t2 == None
+    return t1
+  if t1 == None
+    return t2
+  else if t1.y > t2.y
+    t1.right = merge(t1.right, t2)
+    return t1
+  else 
+    t2.left = merge(t1, t2.left)
+    return t2
+```
 
 TODO: https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure-part-1-6196d6cc12ee and https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/persistent-treaps.html and https://codeforces.com/contest/899/submission/44463469
 
