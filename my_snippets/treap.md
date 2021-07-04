@@ -292,6 +292,16 @@ use BBSTs for a much larger variety of problems, such as range min/max and sum q
 
 ## Offline Building 
 
+#### Algorithm 1 O(n log n)
+
+Say we are given `x₁ < x₂ < .. < xₙ`, we can randomly assign priorities `y₁, y₂, .., yₙ`, now we have pairs `(xᵢ,yᵢ)`. Let's sort the elements according to priorities. Choose the first element and make it the root, all the elements less that root.x will go to left subtree and all other elements go to right child. We can do this recursively. Since the priorities are assigned randomly, the height of the tree is expected O(log n) and hence the algorithms works in O(n log n).
+
+#### Algorithm 2 O(n log n)
+
+let's sort the pairs in descending order and put them in the queue, We pick first two elements from the queue and merge them into a tree and put them at the end of the queue, then we do the same with next two etc.(Sorting is required because merge needs one tree's elements to be less than the other tree.) Thus, we will merge first the size 1 trees, then size 2 trees and so on. After each round the queue size is reduced by half. So the total running time will be O(n logn).
+
+#### Algorithm 3 O(n)
+
 Say we are given `n` nodes in sorted order then we can build the treap in O(n) time instead of O(n log n) time. The idea is to split the array into two parts, from `0` tom `mid - 1` and `mid + 1` to `n - 1` where `n` is the size of the array and `mid = n/2`. If we select the median element as our root then the left and right subtrees have roughly the same size.
 
 ![](images/treap_example1.png)
