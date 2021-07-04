@@ -134,7 +134,7 @@ def merge(t1: Treap, t2: Treap) -> Treap:
     return t2
 ```
 
-### Operations on Treap using Split and Merge
+### Operations on Treap using Split and Merge(Non-rotating version)
 
 #### Insert
 
@@ -347,6 +347,18 @@ How to construct cartesian tree?
 ![](images/cartesian_tree_4.png)
 
 ## Implicit Treap
+
+Let's take a dynamic array data structure. In its standard implementation(example: `std::vector<int>`), we can add an element to the end of a vector, find out the value of an element at a certain position, change an element by number and delete the last element. Suppose we need a data structure with the above properties, as well as operations: add an element anywhere (with a corresponding change in the numbering of elements) and delete any element (also with a corresponding change in the numbering). Such a structure can be implemented on the basis of a Treap, the result is often called a Treap with implicit key.
+
+Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in O(logN) in the online mode):
+
+* Inserting an element in the array in any position
+* Removal of an arbitrary element
+* Finding sum, minimum / maximum element etc. on an arbitrary interval. Maintain any objective function and query over an arbitrary interval. (All the operations supported by a segment tree including range updates using lazy propagation).
+* Addition, painting on an arbitrary interval
+* Reversing elements on an arbitrary interval
+* Cut an array `A[1..n]` at any position `i` such that it is divided into two different arrays `B[1..i]` , `C[i+1...n]`.
+* Merge two different arrays `P[1..n₁]` , `Q[1..n₂]` into a single array `R[1..n₁,n₁+1,...n₁₊₂]`.
 
 https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
 
