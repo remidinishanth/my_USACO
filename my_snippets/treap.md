@@ -380,6 +380,8 @@ https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
 2. SPOJ KPMATRIX: Given a NxM matrix of integers (1 ≤ N, M ≤ 250), and two integers A and B (−10⁹ ≤ A, B ≤ 10⁹), find the number of submatrices with sum between A and B.
 3. SPOJ GSS6: Given an integer array of length N, apply Q operations which can be any of inserting an element, deleting an element, and finding the maximal contiguous non-empty sum in a given interval (1 ≤ N, Q ≤ 10⁵). All values in the array, as well as insertions, are between −10⁴ and 10⁴.
 
+## TODO: https://codeforces.com/contest/702/submission/57815496
+
 ## Reference:
 * https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
 * https://habr.com/ru/post/101818/
