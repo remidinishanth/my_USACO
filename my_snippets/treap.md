@@ -286,6 +286,10 @@ void insert (pitem & t, pitem it) {
 use BBSTs for a much larger variety of problems, such as range min/max and sum queries.
 * Treaps can also be extended to multiple dimensions in the form of quadtreaps which are a balanced variant of a quadtree data structure.
 
+## Implicit Treap
+
+https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
+
 ## Problems
 
 1. How can we augment the BBST to effectively function as a min, max, and sum segment tree? In what cases can we do it the other way around?
