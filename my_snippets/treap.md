@@ -288,6 +288,57 @@ void insert (pitem & t, pitem it) {
 use BBSTs for a much larger variety of problems, such as range min/max and sum queries.
 * Treaps can also be extended to multiple dimensions in the form of quadtreaps which are a balanced variant of a quadtree data structure.
 
+## Offline Building 
+
+Say we are given `n` nodes in sorted order then we can build the treap in O(n) time instead of O(n log n) time. The idea is to split the array into two parts, from `0` tom `mid - 1` and `mid + 1` to `n - 1` where `n` is the size of the array and `mid = n/2`. If we select the median element as our root then the left and right subtrees have roughly the same size.
+
+![](images/treap_example1.png)
+
+We don't have to worry about priorities, if we want to have priorities then we can assign random priroity to all nodes and heapify the tree priorities(not the array values) to satisfy the heap property.
+
+```cpp
+void heapify (pitem t) {
+    if (!t) return;
+    pitem max = t;
+    if (t->l != NULL && t->l->prior > max->prior)
+        max = t->l;
+    if (t->r != NULL && t->r->prior > max->prior)
+        max = t->r;
+    if (max != t) {
+        swap (t->prior, max->prior);
+        heapify (max);
+    }
+}
+
+pitem build (int * a, int n) {
+    // Construct a treap on values {a[0], a[1], ..., a[n - 1]}
+    if (n == 0) return NULL;
+    int mid = n / 2;
+    pitem t = new item (a[mid], rand ());
+    t->l = build (a, mid);
+    t->r = build (a + mid + 1, n - mid - 1);
+    heapify (t);
+    upd_cnt(t)
+    return t;
+}
+```
+
+Note: calling `upd_cnt(t)` is only necessary if you need the subtree sizes.
+
+## Cartesian Tree of an array
+
+Given a sequence of numbers (or any totally ordered objects), there exists a binary min-heap whose inorder traversal is that sequence. This is known as the Cartesian tree for that sequence.
+
+We’ll select the minimum value of the array to become the root of the tree, let’s say it is found at position `i`. The left child will be the minimum value in the interval `[0, i-1]` and the right child will be the minimum value in the interval `[i+1, n-1]`. We continue this process recursively.
+
+![](images/cartesian_tree_1.png)
+
+* Relationship with Treap: If we choose the key as index of element and priority as the value of the element, the indicies follow BST property and priorities follow heap property. It’s not totally right to say that a cartesian tree is a treap because treaps have random values for y. Randomization of priorities are used to get logarithmic height(with high probability).
+* A range minimum query on a sequence is equivalent to a lowest common ancestor query on the sequence's Cartesian tree. Hence, RMQ may be reduced to LCA using the sequence's Cartesian tree.
+* The suffix tree of a string may be constructed from the suffix array and the longest common prefix array. The first step is to compute the Cartesian tree of the longest common prefix array.
+
+
+
 ## Implicit Treap
 
 https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
