@@ -30,7 +30,7 @@ Intuition: In a simple BST , the height of the BST depends upon the choice of th
 * Compared with AVL and red-black trees, it is simpler to implement and easy to understand. In Treap, the height is not deterministic like other balanced BST's like AVL, red-black trees.
 * Compared with the Splay tree, it is usually used for the ordered set, BST performance is far better than Splay. Splay trees are useful for link cut trees. Splay will break in case you need persistence.
 * Maybe some people want to say SBT(size balanced tree) replaces treaps, I haven't implemented SBT, it is said to be faster. SBT rebalanced by examining the sizes of each node's subtrees, this makes it very convenient to implement the select-by-rank and get-rank operations that implement an order statistic tree. [PEG](http://wcipeg.com/wiki/Size_Balanced_Tree)
-* However, Binary search trees such as SBT, Splay trees, and the rotating version of Treap, cannot easily implement 'persistent operations'.
+* However, Binary search trees such as SBT, Splay trees, and the rotating version of Treap, cannot easily implement 'persistent operations'.  Let's take a look at the rotating Treap. Now we should know why it can't be persisted, right? If it is rotated, the original parent-child relationship will be destroyed, the original path and tree form will be destroyed, which is unacceptable for persistence. If Treap becomes non-rotating, then we can find that as long as it can be persisted, Merge and Split can be made persistent.
 
 ## Rotating version of Treaps
 
