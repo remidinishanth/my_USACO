@@ -61,6 +61,8 @@ Inserting an element based on rotations. Say we want to insert an element (9, 41
 
 Treap supports two basic and unique operations: split and merge , both in O(H) where H is height of treap i.e O(logN).
 
+![](images/treap_example5.png)
+
 Split
 
 ![](images/treap_split3.png)
