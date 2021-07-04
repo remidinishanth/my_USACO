@@ -337,7 +337,14 @@ We’ll select the minimum value of the array to become the root of the tree, le
 * A range minimum query on a sequence is equivalent to a lowest common ancestor query on the sequence's Cartesian tree. Hence, RMQ may be reduced to LCA using the sequence's Cartesian tree.
 * The suffix tree of a string may be constructed from the suffix array and the longest common prefix array. The first step is to compute the Cartesian tree of the longest common prefix array.
 
+How to construct cartesian tree?
 
+![](images/cartesian_tree_2.png)
+
+* We can insert one element after another from left to right. We just need to keep a pointer to the right most element and use parent pointers to traverse till the root to find the element < current element and insert it there.
+* We can also do this without storing parent pointers, we just maintain a stack of the all right child from the root, pop until we find the element < current element. For each new sequence value x, the stack is popped until it is empty or its top element is smaller than x, and then x is pushed onto the stack. The following figure shows the stack after inserting element 9.
+
+![](images/cartesian_tree_4.png)
 
 ## Implicit Treap
 
