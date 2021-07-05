@@ -818,6 +818,8 @@ https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
 Monoid code is also present in the above blog.
 </details>
 
+TODO: Evolved Implicit Treap: Priority sum and pair query.
+
 ## Problems
 
 1. How can we augment the BBST to effectively function as a min, max, and sum segment tree? In what cases can we do it the other way around?
