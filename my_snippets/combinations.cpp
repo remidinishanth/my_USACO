@@ -77,6 +77,4 @@ void solve() {
 	}
 	
 	cout<<ret%mo*comb(N*M-2,K-2)%mo<<endl;
-	
-	
 }
