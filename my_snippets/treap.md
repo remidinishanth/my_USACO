@@ -829,6 +829,168 @@ TODO: Evolved Implicit Treap: Priority sum and pair query.
 2. SPOJ KPMATRIX: Given a NxM matrix of integers (1 ≤ N, M ≤ 250), and two integers A and B (−10⁹ ≤ A, B ≤ 10⁹), find the number of submatrices with sum between A and B.
 3. SPOJ GSS6: Given an integer array of length N, apply Q operations which can be any of inserting an element, deleting an element, and finding the maximal contiguous non-empty sum in a given interval (1 ≤ N, Q ≤ 10⁵). All values in the array, as well as insertions, are between −10⁴ and 10⁴.
 
+#### CF Edu Round 15 F T-Shirts
+
+There are t-shirts of `n ≤ 2·10⁵` different types each has a cost `cᵢ` and quality `qᵢ`. There are `k` customers each has amount `bᵢ`, each customer wants to buy maximum possible number of highest quality t-shirts. If two shirts are having same quality they choose the cheaper one. Customer don't buy more than one same type of t-shirt. Determine the number of t-shirts each customer will buy. All customers act independently, the purchase of one does not affect the purchase of another.
+
+source: https://codeforces.com/contest/702/problem/F
+
+<details>
+ <summary>Treap with lazy tags</summary>
+
+* First we sort the t-shirts according to decreasing quality and increasing price.
+* We can maintain the amount left for a customer in the treap using lazy propogation.
+* From highest quality t-shirts to lowest quality t-shirts, we update the people who can buy by splitting the treap based on the amount left, once this is done we merge the treap nodes.
+
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
+typedef struct item * pitem;
+
+struct item {
+    int prior, value;
+    int idx;
+    int shirts; // number of shirts bought
+    int lazy_shirt, lazy_cost;
+    pitem l, r;
+
+    item(int amount, int index, int s=0){
+        value = amount;
+        idx = index;
+        shirts = s;
+        prior = rng();
+        l = r = NULL;
+        lazy_cost = lazy_shirt = 0;
+    }
+};
+
+void push(pitem t){
+    if(!t) return;
+    t->shirts += t->lazy_shirt;
+    t->value += t->lazy_cost;
+    if(t->l){
+        t->l->lazy_shirt += t->lazy_shirt;
+        t->l->lazy_cost += t->lazy_cost;
+    }
+    if(t->r){
+        t->r->lazy_shirt += t->lazy_shirt;
+        t->r->lazy_cost += t->lazy_cost;
+    }
+    t->lazy_shirt = t->lazy_cost = 0;
+}
+
+
+// Splits into < k and >= k
+void split(pitem t, pitem & l, pitem & r, int key) {
+    if (!t)
+        return void( l = r = 0 );
+    push(t);
+    if (key <= t->value)
+        split(t->l, l, t->l, key), r = t;
+    else
+        split(t->r, t->r, r, key), l = t;
+}
+
+void merge(pitem &t, pitem l, pitem r){
+    push(l); push(r);
+    if(!l || !r)
+        t = l ? l : r;
+    else if(l->prior > r->prior)
+        merge(l->r, l->r, r), t = l;
+    else
+        merge(r->l, l, r->l), t = r;
+}
+
+void insert(pitem &t, pitem it){
+    pitem l, r;
+    split(t, l, r, it->value);
+    merge(t, l, it);
+    merge(t, t, r);
+}
+
+vector<int> count_shirts;
+
+void visit(pitem &t){
+    if(t == nullptr) return;
+    push(t);
+    visit(t->l);
+    count_shirts[t->idx] = t->shirts;
+    visit(t->r);
+}
+
+void tour(pitem &t, vector<array<int,3>>& V){
+    if(!t) return;
+    push(t);
+    tour(t->l, V);
+    V.push_back({t->value, t->idx, t->shirts});
+    tour(t->r, V);
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    vector<pair<int,int>> shirts;
+    for(int i=0;i<n;i++){
+        int cost, quality;
+        scanf("%d%d", &cost, &quality);
+        shirts.push_back({-quality, cost});
+    }
+    // sort by decreasing order of quality and increasing order of price
+    sort(shirts.begin(), shirts.end());
+    for(int i=0;i<n;i++) shirts[i].first = -shirts[i].first;
+
+    int k;
+    vector<pair<int,int>> customers;
+    scanf("%d", &k);
+    for(int i=0;i<k;i++){
+        int amount;
+        scanf("%d", &amount);
+        customers.push_back({amount, i});
+    }
+    sort(customers.begin(), customers.end());
+
+    pitem treap = nullptr;
+    for(int i=0;i<k;i++){
+        pitem cust = new item(customers[i].first, customers[i].second);
+        merge(treap, treap, cust);
+    }
+
+    for(int i=0;i<n;i++){
+        int cost = shirts[i].second;
+        pitem t1, t2;
+        split(treap, t1, t2, cost);
+        if(t2 != NULL){
+            t2->lazy_shirt++;
+            t2->lazy_cost -= cost;
+        }
+        // to merge these values have to be < the other treap
+        pitem t3;
+        split(t2, t2, t3, cost);
+        /* while(t2 != NULL){ */
+        /*     push(t2); */
+        /*     pitem cur = new item(t2->value, t2->idx, t2->shirts); */
+        /*     insert(t1, cur); */
+        /*     merge(t2, t2->l, t2->r); */
+        /* } */
+        vector<array<int, 3>> res;
+        tour(t2, res);
+        for(auto it:res){
+            pitem cur = new item(it[0], it[1], it[2]);
+            insert(t1, cur);
+        }
+        merge(treap, t1, t3);
+    }
+
+    count_shirts = vector<int>(k);
+    visit(treap);
+    for(int s: count_shirts) printf("%d ", s);
+    printf("\n");
+    return 0;
+}
+```
+
+</details>
+
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
