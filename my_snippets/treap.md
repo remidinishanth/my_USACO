@@ -400,6 +400,8 @@ https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
 
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
+https://github.com/xuzijian629/library2/blob/master/tmp.cpp
+
 ## Reference:
 * https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
 * https://habr.com/ru/post/101818/
