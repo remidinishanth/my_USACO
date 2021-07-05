@@ -118,7 +118,7 @@ In the above code to figure out `mid = (l+r)/2` or `mid = (l+r+1)/2`, you can th
 
 ## Algo.is
 
-![image](https://user-images.githubusercontent.com/19663316/117264199-a0aa0800-ae70-11eb-8aa0-7d53fddadf9c.png)
+![](images/binary_search_21_07_1.png)
 
 ```cpp
 int lo = 0,
@@ -139,7 +139,7 @@ if (lo == hi && p(lo)) {
 }
 ```
 
-![image](https://user-images.githubusercontent.com/19663316/117265078-7c9af680-ae71-11eb-8c8d-50ad67411f24.png)
+![](images/binary_search_21_07_2.png)
 
 ```cpp
 double EPS = 1e-10, lo = -1000.0, hi = 1000.0;
@@ -372,9 +372,9 @@ You want to choose three persons from N candidates to form a team. Each candidat
 
 3 ≤ N ≤ 3000
 
-![image](https://user-images.githubusercontent.com/19663316/116787942-abf1e200-aac4-11eb-8df7-8b52c4f9febf.png)
+![](images/binary_search_21_07_3.png)
 
-![image](https://user-images.githubusercontent.com/19663316/116787963-c330cf80-aac4-11eb-8596-7651e80ac33f.png)
+![](images/binary_search_21_07_4.png)
 
 <details>
 	
