@@ -285,23 +285,6 @@ void insert (pitem & t, pitem it) {
 
 Using `cnt` we can support finding `k-th` element in the treap. We can also store other metadata like sum of nodes in the subtree etc. We can even add values to all nodes > some_value using lazy tag at the corresponding node.
 
-### STL rope
-
-* Sequence with O(log(n)) random access, insert, erase at any position
-* `s.push_back(x);`
-* `s.insert(i,r)` // insert rope r at position i
-* `s.erase(i,k)` // erase subsequence `[i,i+k)`
-* `s.substr(i,k)` // return new rope corresponding to subsequence `[i,i+k)`
-* `s[i]` // access ith element (cannot modify)
-* `s.mutable_reference_at(i)` // access ith element (allows modification)
-* `s.begin()` and `s.end()` are const iterators (use mutable_begin(), mutable_end() to allow modification)
-
-```cpp
-#include <ext/rope>
-using namespace __gnu_cxx;
-rope<int> s;
-```
-
 ## Applications
 * A variant of treaps called Implicit Treaps can be used to perform all the operations which interval trees like segment tree and fenwick tree can (including lazy propagation).
 * Idea of sparse segment tree and sparse fenwick tree to handle very large ranges and limited queries can also be extended to treaps resulting in a variant called sparse implicit treaps.
@@ -565,6 +548,25 @@ void output (pitem t) {
 ```
 
 Using the ideas of a Cartesian tree by implicit key, it is possible to implement a data structure such as [Rope](https://neerc.ifmo.ru/wiki/index.php?title=Rope).
+
+### STL rope
+
+* Sequence with O(log(n)) random access, insert, erase at any position
+* `s.push_back(x);`
+* `s.insert(i,r)` // insert rope r at position i
+* `s.erase(i,k)` // erase subsequence `[i,i+k)`
+* `s.substr(i,k)` // return new rope corresponding to subsequence `[i,i+k)`
+* `s[i]` // access ith element (cannot modify)
+* `s.mutable_reference_at(i)` // access ith element (allows modification)
+* `s.begin()` and `s.end()` are const iterators (use mutable_begin(), mutable_end() to allow modification)
+
+```cpp
+#include <ext/rope>
+using namespace __gnu_cxx;
+rope<int> s;
+```
+
+REF: https://github.com/mhunicken/icpc-team-notebook-el-vasito/commit/55b54f9d23b6ed6aaa7f72712a616580e4b018eb
 
 <details>
  <summary> Implementation of treap as interval tree </summary>
