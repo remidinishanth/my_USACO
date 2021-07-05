@@ -626,9 +626,197 @@ void range_update(pnode t,int l,int r,int val){//[l,r]
     merge(t,mid,R); 
 }     
 ``` 
+
+source: Quora Tanuj Khattar
 </details>
 
+<details>
+    <summary> Xuzijian implementation for RMQ & RAQ </summary>
+ 
+```cpp
+// for RMQ & RAQ 
+constexpr  int INF = __INT_MAX__;
+
+class ImplicitTreap {
+    xorshift rnd;
+    struct Node {
+         int value, min, lazy;
+         int priority, cnt;
+         bool rev;
+        Node * l, * r;
+        Node ( int value, int priority): value (value), min (INF), lazy ( 0 ), priority (priority), cnt ( 1 ), rev ( false ), l ( nullptr ), r ( nullptr ) {}
+    } * root = nullptr ;
+     using Tree = Node *;
+
+    int cnt (Tree t) {
+         return t? t-> cnt: 0 ;
+    }
+
+    int get_min (Tree t) {
+         return t? t-> min: INF;
+    }
+
+    void update_cnt (Tree t) {
+         if (t) {
+            t-> cnt = 1 + cnt (t-> l) + cnt (t-> r);
+        }
+    }
+
+    void update_min (Tree t) {
+         if (t) {
+            t-> min = min (t-> value, min (get_min (t-> l), get_min (t-> r)));
+        }
+    }
+
+    void pushup (Tree t) {
+        update_cnt (t), update_min (t);
+    }
+
+    void pushdown (Tree t) {
+         if (t && t-> rev) {
+            t-> rev = false ;
+            swap (t-> l, t-> r);
+            if (t-> l) t-> l-> rev ^ = 1 ;
+             if (t-> r) t-> r-> rev ^ = 1 ;
+        }
+        if (t && t-> lazy) {
+             if (t-> l) {
+                t-> l-> lazy + = t-> lazy;
+                t-> l-> min + = t-> lazy;
+            }
+            if (t-> r) {
+                t-> r-> lazy + = t-> lazy;
+                t-> r-> min + = t-> lazy;
+            }
+            t-> value + = t-> lazy;
+            t-> lazy = 0 ;
+        }
+        pushup (t);
+    }
+    
+    void split (Tree t, int key, Tree & l, Tree & r) {
+         if (! t) {
+            l = r = nullptr ;
+             return ;
+        }
+        pushdown (t);
+        int implicit_key = cnt (t-> l) + 1 ;
+         if (key <implicit_key) {
+            split (t-> l, key, l, t-> l), r = t;
+        } else {
+            split (t-> r, key --implicit_key, t-> r, r), l = t;
+        }
+        pushup (t);
+    }
+    
+    void insert (Tree & t, int key, Tree item) {
+        Tree t1, t2;
+        split (t, key, t1, t2);
+        merge (t1, t1, item);
+        merge (t, t1, t2);
+    }
+
+    void merge (Tree & t, Tree l, Tree r) {
+        pushdown (l);
+        pushdown (r);
+        if (! l ||! r) {
+            t = l? l: r;
+        } else  if (l-> priority> r-> priority) {
+            merge (l-> r, l-> r, r), t = l;
+        } else {
+            merge (r-> l, l, r-> l), t = r;
+        }
+        pushup (t);
+    }
+    
+    void erase (Tree & t, int key) {
+        Tree t1, t2, t3;
+        split (t, key + 1 , t1, t2);
+        split (t1, key, t1, t3);
+        merge (t, t1, t2);
+    }
+
+    void add (Tree t, int l, int r, int x) {
+        Tree t1, t2, t3;
+        split (t, l, t1, t2);
+        split (t2, r --l, t2, t3);
+        t2-> lazy + = x;
+        t2-> min + = x;
+        merge (t2, t2, t3);
+        merge (t, t1, t2);
+    }
+
+    int findmin (Tree t, int l, int r) {
+        Tree t1, t2, t3;
+        split (t, l, t1, t2);
+        split (t2, r --l, t2, t3);
+        int ret = t2-> min;
+        merge (t2, t2, t3);
+        merge (t, t1, t2);
+        return ret;
+    }
+
+    void reverse (Tree t, int l, int r) {
+         if (l> r) return ;
+        Tree t1, t2, t3;
+        split (t, l, t1, t2);
+        split (t2, r --l, t2, t3);
+        t2-> rev ^ = 1 ;
+        merge (t2, t2, t3);
+        merge (t, t1, t2);
+    }
+
+    // Shift left so that the beginning of [l, r) is m. Same specifications as std :: rotate 
+    void rotate (Tree t, int l, int m, int r) {
+        reverse (t, l, r);
+        reverse (t, l, l + r --m);
+        reverse (t, l + r --m, r);
+    }
+
+    void dump (Tree t) {
+         if (! t) return ;
+        pushdown (t);
+        dump (t-> l);
+        cout << t-> value << "" ;
+        dump (t-> r);
+    }
+    
+public :
+     void insert ( int pos, int x) {
+        insert (root, pos, new Node (x, rnd.random ()));
+    }
+
+    void add ( int l, int r, int x) {
+        add (root, l, r, x);
+    }
+
+    int findmin ( int l, int r) {
+         return findmin (root, l, r);
+    }
+
+    void erase ( int pos) {
+        erase (root, pos);
+    }
+
+    void reverse ( int l, int r) {
+        reverse (root, l, r);
+    }
+
+    void rotate ( int l, int m, int r) {
+        rotate (root, l, m, r);
+    }
+
+    void dump () {
+        dump (root);
+        cout << endl;
+    }
+};
+```
+
 https://xuzijian629.hatenablog.com/entry/2018/12/08/000452
+
+Monoid code is also present in the above blog.
+</details>
 
 ## Problems
 
