@@ -41,7 +41,6 @@ tcT> void re(V<T>& x) { each(a,x) re(a); }
 // typedef mint<MOD,3> mi; // 5 is primitive root for both common mods
 // typedef vector<mi> vmi;
 
-
 template<class T> void fft(V<T>& A, bool inv = 0) { // NTT
 	int n = sz(A); assert((T::mod-1)%n == 0); V<T> B(n);
 	for(int b = n/2; b; b /= 2, swap(A,B)) {
