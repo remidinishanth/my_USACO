@@ -240,6 +240,8 @@ We need to maintain another BIT (say `B2`)
 
 In other words, we implement a Fenwick tree with range updates via a normal (point-update) Fenwick tree that stores linear functions instead of just values.
 
+source: https://petr-mitrichev.blogspot.com/2013/05/fenwick-tree-range-updates.html
+
 ```cpp
 // BIT with range updates, inspired by Petr Mitrichev
 struct BIT {
