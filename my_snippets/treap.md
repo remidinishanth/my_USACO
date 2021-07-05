@@ -834,18 +834,14 @@ https://codeforces.com/blog/entry/10355
 
 ## Reference:
 * https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
-* https://habr.com/ru/post/101818/
+* https://habr.com/ru/post/101818/, https://habr.com/en/post/102006/ and https://habr.com/en/post/102364/
 * https://medium.com/carpanese/a-visual-introduction-to-treap-data-structure-part-1-6196d6cc12ee
 * http://memphis.is-programmer.com/posts/46317.html
 * https://cp-algorithms.com/data_structures/treap.html
 
 https://codeforces.com/blog/entry/3767 and https://ankitsultana.com/2021/03/29/persistent-treaps.html and https://codeforces.com/contest/899/submission/44463469
 
-
 https://codeforces.com/blog/entry/84017
 
-http://memphis.is-programmer.com/posts/46317.html
-
-https://habr.com/en/post/102006/, https://habr.com/en/post/102364/
 
 Checkout https://ekzlib.netlify.app/home
