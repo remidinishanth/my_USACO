@@ -544,7 +544,7 @@ void output (pitem t) {
 }
 ```
 
-Using the ideas of a Cartesian tree by implicit key, it is possible to implement a data structure such as Rope.
+Using the ideas of a Cartesian tree by implicit key, it is possible to implement a data structure such as [Rope](https://neerc.ifmo.ru/wiki/index.php?title=Rope).
 
 <details>
  <summary> Implementation of treap as interval tree </summary>
