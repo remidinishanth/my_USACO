@@ -358,6 +358,24 @@ How to construct cartesian tree?
 
 ![](images/cartesian_tree_4.png)
 
+```cpp
+int n,h[MAXN];
+int st[MAXN],t;
+int fa[MAXN],ls[MAXN],rs[MAXN],root;
+
+int main()
+{
+    for(int i=1; i<=n; i++)
+    {
+        while(t && h[st[t-1]] > h[i]) ls[i] = st[--t];
+        if(t) rs[st[t-1]] = i;
+        st[t++] = i; // push the current element onto stack
+    }
+    for(int i=1; i<=n; i++) fa[ls[i]] = fa[rs[i]] = i;
+    for(int i=1; i<=n; i++) if(!fa[i]) root = i;
+}
+```
+
 ## Implicit Treap
 
 Let's take a dynamic array data structure. In its standard implementation(example: `std::vector<int>`), we can add an element to the end of a vector, find out the value of an element at a certain position, change an element by number and delete the last element. Suppose we need a data structure with the above properties, as well as operations: add an element anywhere (with a corresponding change in the numbering of elements) and delete any element (also with a corresponding change in the numbering). Such a structure can be implemented on the basis of a Treap, the result is often called a Treap with implicit key.
