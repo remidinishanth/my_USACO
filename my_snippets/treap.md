@@ -185,6 +185,8 @@ The first implementation uses split operatioin, and in the second implementation
 ### C++ implementation
 
 ```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
 struct item {
     int key, prior;
     item * l, * r;
