@@ -186,8 +186,8 @@ The inversion number can be calculated in an `O(NlogN)` with a method like Fenwi
 
 Basically, for a BIT, there are two modes available:
 
-1. Range query and point update (a)
-2. Range update and point querying (b)
+1. **Range query and point update (a)**
+2. **Range update and point querying (b)**
 
 You are probably more familiar with BITs using (a).
 
@@ -210,7 +210,7 @@ Now, let's say we called query(p). We have three cases:
 * p > b. p will be affected by the update(a,v) since p >= a, and update(b+1,-v) since p >= b+1, therefore, v-v=0 so everything cancels out and query(p) will not be affected and return the correct result
 * a ≤ p ≤ b. p is only affected by update(a,v), but not update(b+1,-v), therefore, query(p)'s value is increased by v, and will return the correct result
 
-3. Range update and range querying (c)
+3. **Range update and range querying (c)**
 
 Similar to Range Update - Point query, we maintain a BIT (say B1)
 - Add `v` to `[a..b]` --> `Update(a,v)` and `Update(b+1,-v)` on the BIT `B1`
