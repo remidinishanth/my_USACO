@@ -42,7 +42,7 @@ Output
 5
 ```
 
-![image](https://user-images.githubusercontent.com/19663316/117042997-4acb4800-ad2a-11eb-9d89-1694a24d6af6.png)
+![](images/2d_prefix_sums_1.png)
 
 * For the first query, there are 10 good rectangles, five 1 × 1, two 2 × 1, two 1 × 2, and one 1 × 3.
 * For the second query, there is only one 1 × 1 good rectangle.
@@ -56,20 +56,18 @@ We can precalculate all rectangles, in O(N^2M^2) with using consecutive sums for
 
 Part 1
 
-![image](https://user-images.githubusercontent.com/19663316/117049582-ea400900-ad31-11eb-8256-53855a5f24df.png)
+![](images/2d_prefix_sums_2.png)
 
 
 Part 2
 
-![image](https://user-images.githubusercontent.com/19663316/117047932-0c388c00-ad30-11eb-9faa-663280cff73b.png)
+![](images/2d_prefix_sums_3.png)
 
 Part 3 & 4
 
 Add the subrectangles with `(xa, ya); (xb+1, yb)` and `(xa, ya); (xb, yb+1)` to `(xa, ya); (xb+1, yb+1)`
 
-![image](https://user-images.githubusercontent.com/19663316/117048971-376fab00-ad31-11eb-82e7-2752e3959736.png)
-
-
+![](images/2d_prefix_sums_4.png)
 
 ```cpp
 int cnt[44][44][44][44];
