@@ -1023,6 +1023,148 @@ void insert(pitem &t, pitem it){
 
 TODO: https://codeforces.com/blog/entry/92340
 
+#### SPOJ Ordered Set
+
+In this problem, you have to maintain a dynamic set of numbers which support the two fundamental operations
+
+* INSERT(S,x): if x is not in S, insert x into S
+* DELETE(S,x): if x is in S, delete x from S 
+ 
+and the two type of queries
+
+* K-TH(S) : return the k-th smallest element of S
+* COUNT(S,x): return the number of elements of S smaller than x
+
+source: https://www.spoj.com/problems/ORDERSET/
+
+<details>
+ <summary>Treap with k-th element and count of elements less than x</summary>
+ 
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+ 
+typedef struct item * pitem;
+struct item {
+    int prior, key, cnt;
+    pitem l, r;
+ 
+    item(int v){
+        prior = rng();
+        key = v;
+        cnt = 1;
+        l = r = NULL;
+    }
+};
+ 
+int cnt (pitem it) {
+    return it ? it->cnt : 0;
+}
+ 
+void upd_cnt (pitem it) {
+    if (it)
+        it->cnt = cnt(it->l) + cnt(it->r) + 1;
+}
+ 
+// split into <key and >=key
+void split(pitem t, pitem &l, pitem &r, int key){
+    if(t == NULL){
+        l = r = NULL;
+        return;
+    }
+    if(t->key < key) // key in right child
+        split(t->r, t->r, r, key), l = t;
+    else
+        split(t->l, l, t->l, key), r = t;
+    upd_cnt(t);
+}
+ 
+void merge(pitem &t, pitem l, pitem r){
+    if(l == NULL || r == NULL){
+        t = l ? l : r;
+        return;
+    }
+    if(l->prior > r->prior) // left child becomes root
+        merge(l->r, l->r, r), t = l;
+    else
+        merge(r->l, l, r->l), t = r;
+    upd_cnt(t);
+}
+ 
+void insert(pitem &t, pitem it){
+    if(t == NULL){
+        t = it;
+        return;
+    }
+    if(t->prior < it->prior)
+        split(t, it->l, it->r, it->key), t = it;
+    else
+        insert(t->key < it->key ? t->r : t->l, it);
+    upd_cnt(t);
+}
+ 
+void erase(pitem &t, int key){
+    if(t == NULL) return;
+    if(t->key == key){
+        pitem th = t;
+        merge(t, t->l, t->r);
+        delete th;
+        upd_cnt(t);
+        return;
+    }
+    erase(key < t->key ? t->l : t->r, key);
+    upd_cnt(t);
+}
+ 
+// zero indexed
+int kth_element(pitem t, int k){
+    while(t != NULL){
+        if(cnt(t->l) == k)
+            return t->key;
+        if(cnt(t->l) > k) t = t->l;
+        else{
+            k -= cnt(t->l) + 1;
+            t=t->r;
+        }
+    }
+    return -1;
+}
+ 
+int count_less(pitem t, int key){
+    pitem l, r;
+    split(t, l, r, key);
+    int res = cnt(l);
+    merge(t, l, r);
+    return res;
+}
+ 
+int main() {
+    int q;
+    scanf("%d", &q);
+    pitem treap = NULL;
+    while(q--){
+        char ch;
+        int x;
+        scanf(" %c %d", &ch, &x);
+        if(ch == 'I'){
+            erase(treap, x);
+            pitem it = new item(x);
+            insert(treap, it);
+        }
+        else if(ch == 'D') erase(treap, x);
+        else if(ch == 'K'){
+            if(cnt(treap) < x){
+                printf("invalid\n");
+                continue;
+            }
+            printf("%d\n", kth_element(treap, x-1));
+        }
+        else printf("%d\n", count_less(treap, x));
+    }
+    return 0;
+}
+```
+</details> 
+
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
