@@ -1021,6 +1021,8 @@ void insert(pitem &t, pitem it){
 
 </details>
 
+TODO: https://codeforces.com/blog/entry/92340
+
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
