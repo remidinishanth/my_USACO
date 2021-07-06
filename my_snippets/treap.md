@@ -195,6 +195,7 @@ struct item {
 };
 typedef item * pitem;
 
+// splits into <=key and >key
 void split (pitem t, int key, pitem & l, pitem & r) {
     if (!t)
         l = r = NULL;
