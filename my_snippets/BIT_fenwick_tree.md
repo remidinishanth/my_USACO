@@ -335,3 +335,5 @@ inline int query(int x,int id){
 	return ans;
 }
 ```
+
+TODO: https://www.cnblogs.com/RabbitHu/p/BIT.html and https://robert1003.github.io/2020/01/27/fenwick-tree.html
