@@ -1184,6 +1184,116 @@ int main() {
 ```
 </details> 
 
+#### Shandom Ruffle 
+
+Given an array of size `n`, we are asked to do `shandom_ruffle` as follows `n` times using `(aᵢ, bᵢ)` during the i-th `shandom_ruffle`.
+
+```java
+shandom_ruffle(int a, int b, int[] array) {
+  int bStart=b;
+  while (a<bStart && b<=array.length) {
+    swap(array[a], array[b]); //swap the values at indecies a and b
+    a++;
+    b++;
+  }
+}
+```
+
+https://codeforces.com/gym/102787/problem/A
+
+<details>
+ <summary> Using Implicit treap </summary>
+ 
+Split the array at `[a, a_end]` , `[b, b_end]` and swap these while merging.
+ 
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
+typedef struct item * pitem;
+struct item {
+    int prior, idx, cnt;
+    pitem l, r;
+    // add extra variables here
+    item(int index){
+        idx = index;
+        prior = rng();
+        l = r = NULL;
+    }
+};
+
+int cnt (pitem it) {
+    return it ? it->cnt : 0;
+}
+
+void upd_cnt (pitem it) {
+    if (it)
+        it->cnt = cnt(it->l) + cnt(it->r) + 1;
+}
+
+void merge (pitem & t, pitem l, pitem r) {
+    if (!l || !r)
+        t = l ? l : r;
+    else if (l->prior > r->prior)
+        merge(l->r, l->r, r),  t = l;
+    else
+        merge(r->l, l, r->l),  t = r;
+    upd_cnt(t);
+}
+
+void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
+    if (!t)
+        return void( l = r = 0 );
+    int implicit_key = add + cnt(t->l);
+    if (key <= implicit_key)
+        split(t->l, l, t->l, key, add),  r = t;
+    else
+        split(t->r, t->r, r, key, add + 1 + cnt(t->l)),  l = t;
+    upd_cnt(t);
+}
+
+void output(pitem t){
+    if(t==NULL) return;
+    output(t->l);
+    printf("%d ", t->idx);
+    output(t->r);
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    pitem treap = NULL;
+    for(int i=1;i<=n;i++){
+        pitem new_item = new item(i);
+        merge(treap, treap, new_item);
+    }
+    for(int q=0;q<n;q++){
+        int a, b;
+        scanf("%d %d", &a, &b);
+        int aend = b-1, bend = n;
+        int len = min(aend - a, bend - b);
+        aend = a + len, bend = b + len;
+        pitem t1, t2, t3, t4, t5;
+        // split at a-1, aend, b-1, bend
+        // split into t1, t2, t3, t4, t5
+        // swap t2 and t4
+        // merge into t1, t4, t3, t2, t5
+        split(treap, treap, t5, bend);
+        split(treap, treap, t4, b-1);
+        split(treap, treap, t3, aend);
+        split(treap, t1, t2, a-1);
+        merge(treap, t1, t4);
+        merge(treap, treap, t3);
+        merge(treap, treap, t2);
+        merge(treap, treap, t5);
+    }
+    output(treap);
+    printf("\n");
+    return 0;
+}
+```
+</details> 
+ 
+
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
