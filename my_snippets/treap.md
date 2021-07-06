@@ -566,7 +566,7 @@ using namespace __gnu_cxx;
 rope<int> s;
 ```
 
-REF: https://github.com/mhunicken/icpc-team-notebook-el-vasito/commit/55b54f9d23b6ed6aaa7f72712a616580e4b018eb
+REF: https://github.com/mhunicken/icpc-team-notebook-el-vasito/commit/55b54f9d23b6ed6aaa7f72712a616580e4b018eb, https://codeforces.com/blog/entry/10355
 
 <details>
  <summary> Implementation of treap as interval tree </summary>
