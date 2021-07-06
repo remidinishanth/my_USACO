@@ -398,7 +398,7 @@ Implicit Treap provides the user with an array-like interface, but with Treap in
 
 Since we are using array index as key of BST, if we insert or delete an element indices of other elements will have to change for about O(n) nodes. This would be very slow. 
 
-To avoid this, we will not explicitly sotre the index `i` as the key but we will calculate on the fly. For this we need to store auxiliary quantity `c` - subtree size - number of vertices in the subtree of our vertex. Index value is number of elements in our structure that are to the left of our element. In other words, we will consider the ordinal number of our element in the tree, reduced by one, as a key. 
+To avoid this, we will not explicitly store the index `i` as the key but we will calculate on the fly. For this we need to store auxiliary quantity `c` - subtree size - number of vertices in the subtree of our vertex. Index value is number of elements in our structure that are to the left of our element. In other words, we will consider the ordinal number of our element in the tree, reduced by one, as a key. 
 
 ![](images/implicit_treap_21_7_2.png)
 
