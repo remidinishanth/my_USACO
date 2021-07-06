@@ -902,7 +902,7 @@ void push(pitem t){
 // Splits into < k and >= k
 void split(pitem t, pitem & l, pitem & r, int key) {
     if (!t)
-        return void( l = r = 0 );
+        return void( l = r = nullptr );
     push(t);
     if (key <= t->value)
         split(t->l, l, t->l, key), r = t;
