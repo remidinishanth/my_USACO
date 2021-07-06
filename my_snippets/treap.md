@@ -1008,6 +1008,17 @@ int main() {
 }
 ```
 
+We can also use the following insert operation but the only thing to note is to use same `<=` with split and insert. If we change the last line to `insert(it->value < t->value ? t->l : t->r, it);` then CF gives TLE.
+
+```cpp
+void insert(pitem &t, pitem it){
+    push(t);
+    if(!t) t = it;
+    else if(it->prior > t->prior) split(t, it->l, it->r, it->value), t=it;
+    else insert(it->value <= t->value ? t->l : t->r, it);
+}
+```
+
 </details>
 
 ## TODO: https://codeforces.com/contest/702/submission/57815496
