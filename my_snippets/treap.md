@@ -479,11 +479,20 @@ This is again similar to the previous operation: we have to add boolean flag `re
 Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called value which is the actual value of the array element at current position. We also provide implementation of the function output(), which outputs an array that corresponds to the current state of the implicit treap.
 
 ```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
 typedef struct item * pitem;
 struct item {
     int prior, value, cnt;
-    bool rev;
     pitem l, r;
+    // add extra variables here
+    bool rev;
+    item(int v){
+        value = v;
+        prior = rng();
+        l = r = NULL;
+        rev = false;
+    }
 };
 
 int cnt (pitem it) {
