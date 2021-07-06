@@ -406,7 +406,7 @@ How to calculate this? While going along the path from the root to a certain ver
 
 Since we don't store the index explicitly and calculate it on the fly, this is named as Implicit Treap.
 
-Split operation
+Split operation: Split and merge are based on index(subtree sizes), there is no explicit key which we use to split.
 
 ```python
 def update(Treap t):
@@ -427,6 +427,14 @@ def split(Treap t, int k) ->  ⟨Treap, Treap⟩:
     update(t)
     return ⟨t, t2⟩
 ```
+
+![](images/implicit_tree_21_7_6_2.png)
+
+Merge two implicit treaps:
+
+![](images/implicit_tree_21_7_6_1.png)
+
+
 
 ### C++ implementation of split and merge
 
