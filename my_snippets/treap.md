@@ -534,6 +534,7 @@ void merge (pitem & t, pitem l, pitem r) {
     upd_cnt(t);
 }
 
+// 1-based indexing, split into [1, pos] and [pos+1, n]
 void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
     if (!t)
         return void( l = r = 0 );
