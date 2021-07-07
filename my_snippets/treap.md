@@ -1299,7 +1299,9 @@ Given a binary string, for each query we are given `[l, r]` and we are asked to 
 
 <details>
  <summary>Using Implicit treap with lazy tags</summary>
- 
+
+Make sure to push/propogate the lazy tags before we use the actual node values, otherwise we might be reading outdated values present in the node.
+
 ```cpp
 mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
 
