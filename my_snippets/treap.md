@@ -1292,7 +1292,191 @@ int main() {
 }
 ```
 </details> 
+
+#### Sneetches and Speeches 1
+
+Given a binary string, for each query we are given `[l, r]` and we are asked to flip the bits `s[i] ^= 1` for l ≤ i ≤ r, and we need to answer the maximum length of continous sequence of bits with same parity.
+
+<details>
+ <summary>Using Implicit treap with lazy tags</summary>
  
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
+typedef struct item * pitem;
+
+struct item {
+    int prior, value, cnt;
+    pitem l, r;
+    // add extra variables here
+    int idx;
+    bool rev, flip;
+    int count[2], max_count[2];
+    int prefix[2], suffix[2];
+    item(int v, int i){
+        idx = i;
+        value = v;
+        prior = rng();
+        l = r = NULL;
+        rev = false;
+        flip = false;
+        count[0] = count[1] = 0;
+        max_count[0] = max_count[1] = 0;
+        prefix[0] = prefix[1] = 0;
+        suffix[0] = suffix[1] = 0;
+        count[v] = max_count[v] = prefix[v] = suffix[v] = 1;
+    }
+};
+
+int cnt(pitem it) {
+    return it ? it->cnt : 0;
+}
+
+void upd_cnt(pitem it) {
+    if (it)
+        it->cnt = cnt(it->l) + cnt(it->r) + 1;
+}
+
+int count(pitem it, int i){
+    return it == NULL ? 0 : it->count[i];
+}
+
+int prefix(pitem it, int i){
+    return it == NULL ? 0 : it->prefix[i];
+}
+
+int suffix(pitem it, int i){
+    return it == NULL ? 0 : it->suffix[i];
+}
+
+int max_count(pitem it, int i){
+    return it == NULL ? 0 : it->max_count[i];
+}
+
+int max_count(pitem it){
+    return max(max_count(it, 0), max_count(it, 1));
+}
+
+void push(pitem &it) {
+    if (it && it->rev) {
+        it->rev = false;
+        swap(it->l, it->r);
+        if(it->l)  it->l->rev ^= true;
+        if(it->r)  it->r->rev ^= true;
+    }
+    if(it && it->flip){
+        it->flip = false;
+        swap(it->count[0], it->count[1]);
+        swap(it->suffix[0], it->suffix[1]);
+        swap(it->prefix[0], it->prefix[1]);
+        swap(it->max_count[0], it->max_count[1]);
+        it->value ^= 1;
+        if(it->l) it->l->flip ^= true;
+        if(it->r) it->r->flip ^= true;
+    }
+}
+
+void pull(pitem it){
+    upd_cnt(it);
+    if(it == NULL) return;
+    push(it->l);
+    push(it->r);
+    for(int i=0;i<2;i++){
+        // Update count
+        it->count[i] = count(it->l, i) + count(it->r, i) + (it->value == i);
+        // prefix
+        it->prefix[i] = prefix(it->l, i);
+        if(count(it->l, i) == cnt(it->l) && it->value == i)
+            it->prefix[i] = max(it->prefix[i], cnt(it->l) + 1 + prefix(it->r, i));
+        // suffix
+        it->suffix[i] = suffix(it->r, i);
+        if(count(it->r, i) == cnt(it->r) && it->value == i)
+            it->suffix[i] = max(it->suffix[i], suffix(it->l, i) + 1 + cnt(it->r));
+        // max_count
+        it->max_count[i] = max(max_count(it->l, i), max_count(it->r, i));
+        if(it->value == i)
+            it->max_count[i] = max(it->max_count[i], suffix(it->l, i) + 1 + prefix(it->r, i));
+    }
+}
+
+void printBT(const std::string& prefix, pitem t, bool isLeft)
+{
+    if( t != nullptr )
+    {
+        /* push(t); */
+        cout << prefix;
+        cout << (isLeft ? "├──" : "└──" );
+
+        // print the value of the node
+        printf("%d: [v:%d z:%d o:%d f:%d mc:%d p0:%d s0:%d p1:%d s1:%d]\n",
+            t->idx, t->value, t->count[0], t->count[1], t->flip, max_count(t), t->prefix[0], t->suffix[0], t->prefix[1], t->suffix[1]);
+
+        // enter the next tree level - left and right branch
+        printBT(prefix + (isLeft ? "│   " : "    "), t->l, true);
+        printBT(prefix + (isLeft ? "│   " : "    "), t->r, false);
+    }
+}
+
+void merge (pitem & t, pitem l, pitem r) {
+    push(l);
+    push(r);
+    if (!l || !r)
+        t = l ? l : r;
+    else if (l->prior > r->prior)
+        merge(l->r, l->r, r),  t = l;
+    else
+        merge(r->l, l, r->l),  t = r;
+    pull(t);
+}
+
+// 1-based indexing, split into [1, pos] and [pos+1, n]
+void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
+    if (!t)
+        return void( l = r = 0 );
+    push(t);
+    int implicit_key = add + cnt(t->l);
+    if (key <= implicit_key)
+        split(t->l, l, t->l, key, add),  r = t;
+    else
+        split(t->r, t->r, r, key, add + 1 + cnt(t->l)),  l = t;
+    pull(t);
+}
+
+
+void op(pitem &t, int l, int r){
+    pitem t1, t2, t3;
+    split(t, t, t3, r);
+    split(t, t1, t2, l-1);
+    t2->flip ^= true;
+    /* printBT("", t1, false); */
+    /* printBT("", t2, false); */
+    /* printBT("", t3, false); */
+    merge(t, t1, t2);
+    merge(t, t, t3);
+}
+
+
+int main() {
+    int n, q;
+    scanf("%d %d", &n, &q);
+    string s;
+    cin >> s;
+    pitem treap = NULL;
+    for(int i=0;i<n;i++){
+        pitem cur = new item(s[i] == '1', i+1);
+        merge(treap, treap, cur);
+    }
+    while(q--){
+        int t, l, r;
+        scanf("%d %d %d", &t, &l, &r);
+        op(treap, l, r);
+        printf("%d\n", max_count(treap));
+        /* printBT("", treap, false); */
+    }
+    return 0;
+}
+```
+</details> 
 
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
