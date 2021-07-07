@@ -1478,6 +1478,257 @@ int main() {
 ```
 </details> 
 
+### Sneetches and Speeches 3
+
+Similar to above problem, we are given two additional type of queries, one is to sort the range `[l, r]` and the other is to reverse the range `[l, r]`. We need to answer the maximum length of continous segment of same parity for all three type of queries.
+
+<details>
+ <summary>Implicit Treap with 3 different lazy tags</summary>
+
+Important thing in this problem is to clear the already exisiting lazy tags while setting all values to zero or all values to one.
+
+```cpp
+    // clear all the pending operations
+    it->l->all_zero = true;
+    // all the following ops doesn't apply anymore
+    it->l->all_one = it->l->flip = it->l->rev = false;
+```
+
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+
+typedef struct item * pitem;
+
+struct item {
+    int prior, value, cnt;
+    pitem l, r;
+    // add extra variables here
+    int idx;
+    bool rev, flip, all_zero, all_one;
+    int count[2], max_count[2];
+    int prefix[2], suffix[2];
+    item(int v, int i){
+        idx = i;
+        value = v;
+        prior = rng();
+        l = r = NULL;
+        rev = false;
+        flip = false;
+        all_one = false;
+        all_zero = false;
+        count[0] = count[1] = 0;
+        max_count[0] = max_count[1] = 0;
+        prefix[0] = prefix[1] = 0;
+        suffix[0] = suffix[1] = 0;
+        count[v] = max_count[v] = prefix[v] = suffix[v] = 1;
+    }
+};
+
+int cnt(pitem it) {
+    return it ? it->cnt : 0;
+}
+
+void upd_cnt(pitem it) {
+    if (it)
+        it->cnt = cnt(it->l) + cnt(it->r) + 1;
+}
+
+int count(pitem it, int i){
+    return it == NULL ? 0 : it->count[i];
+}
+
+int prefix(pitem it, int i){
+    return it == NULL ? 0 : it->prefix[i];
+}
+
+int suffix(pitem it, int i){
+    return it == NULL ? 0 : it->suffix[i];
+}
+
+int max_count(pitem it, int i){
+    return it == NULL ? 0 : it->max_count[i];
+}
+
+int max_count(pitem it){
+    return max(max_count(it, 0), max_count(it, 1));
+}
+
+// lazy propogation
+void push(pitem &it) {
+    if(it && it->all_zero){
+        it->all_zero = false;
+        it->value = 0;
+        it->max_count[0] = it->prefix[0] = it->suffix[0] = it->count[0] = cnt(it);
+        it->max_count[1] = it->prefix[1] = it->suffix[1] = it->count[1] = 0;
+        if(it->l){
+            // clear all the pending operations
+            it->l->all_zero = true;
+            // all the following ops doesn't apply anymore
+            it->l->all_one = it->l->flip = it->l->rev = false;
+        }
+        if(it->r){
+            it->r->all_zero = true;
+            it->r->all_one = it->r->flip = it->r->rev = false;
+        }
+    }
+    if(it && it->all_one){
+        it->all_one = false;
+        it->value = 1;
+        it->max_count[1] = it->prefix[1] = it->suffix[1] = it->count[1] = cnt(it);
+        it->max_count[0] = it->prefix[0] = it->suffix[0] = it->count[0] = 0;
+        if(it->l){
+            it->l->all_one = true;
+            it->l->all_zero = it->l->flip = it->l->rev = false;
+        }
+        if(it->r){
+            it->r->all_one = true;
+            it->r->all_zero = it->r->flip = it->r->rev = false;
+        }
+    }
+    if (it && it->rev) {
+        it->rev = false;
+        swap(it->l, it->r);
+        swap(it->prefix[0], it->suffix[0]);
+        swap(it->prefix[1], it->suffix[1]);
+        if(it->l)  it->l->rev ^= true;
+        if(it->r)  it->r->rev ^= true;
+    }
+    if(it && it->flip){
+        it->flip = false;
+        swap(it->count[0], it->count[1]);
+        swap(it->suffix[0], it->suffix[1]);
+        swap(it->prefix[0], it->prefix[1]);
+        swap(it->max_count[0], it->max_count[1]);
+        it->value ^= 1;
+        if(it->l) it->l->flip ^= true;
+        if(it->r) it->r->flip ^= true;
+    }
+}
+
+void pull(pitem it){
+    if(it == NULL) return;
+    upd_cnt(it);
+    push(it->l);
+    push(it->r);
+    for(int i=0;i<2;i++){
+        // Update count
+        it->count[i] = count(it->l, i) + count(it->r, i) + (it->value == i);
+        // prefix
+        it->prefix[i] = prefix(it->l, i);
+        if(count(it->l, i) == cnt(it->l) && it->value == i)
+            it->prefix[i] = max(it->prefix[i], cnt(it->l) + 1 + prefix(it->r, i));
+        // suffix
+        it->suffix[i] = suffix(it->r, i);
+        if(count(it->r, i) == cnt(it->r) && it->value == i)
+            it->suffix[i] = max(it->suffix[i], suffix(it->l, i) + 1 + cnt(it->r));
+        // max_count
+        it->max_count[i] = max(max_count(it->l, i), max_count(it->r, i));
+        if(it->value == i)
+            it->max_count[i] = max(it->max_count[i], suffix(it->l, i) + 1 + prefix(it->r, i));
+    }
+}
+
+void printBT(const std::string& prefix, pitem t, bool isLeft)
+{
+    if( t != nullptr )
+    {
+        /* push(t); */
+        cout << prefix;
+        cout << (isLeft ? "├──" : "└──" );
+
+        // print the value of the node
+        printf("%d: [v:%d z:%d o:%d f:%d mc:%d p0:%d s0:%d p1:%d s1:%d]\n",
+            t->idx, t->value, t->count[0], t->count[1], t->flip, max_count(t), t->prefix[0], t->suffix[0], t->prefix[1], t->suffix[1]);
+
+        // enter the next tree level - left and right branch
+        printBT(prefix + (isLeft ? "│   " : "    "), t->l, true);
+        printBT(prefix + (isLeft ? "│   " : "    "), t->r, false);
+    }
+}
+
+void merge (pitem & t, pitem l, pitem r) {
+    push(l);
+    push(r);
+    if (!l || !r)
+        t = l ? l : r;
+    else if (l->prior > r->prior)
+        merge(l->r, l->r, r),  t = l;
+    else
+        merge(r->l, l, r->l),  t = r;
+    pull(t);
+}
+
+// 1-based indexing, split into [1, pos] and [pos+1, n]
+void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
+    if (!t)
+        return void( l = r = 0 );
+    push(t);
+    int implicit_key = add + cnt(t->l);
+    if (key <= implicit_key)
+        split(t->l, l, t->l, key, add),  r = t;
+    else
+        split(t->r, t->r, r, key, add + 1 + cnt(t->l)),  l = t;
+    pull(t);
+}
+
+
+void op(pitem &t, int l, int r, int type){
+    pitem t1, t2, t3;
+    split(t, t, t3, r);
+    split(t, t1, t2, l-1);
+    if(type == 1) t2->flip ^= true;
+    else if(type == 2) t2->rev ^= true;
+    else{
+        int zeros = count(t2, 0);
+        pitem t4, t5;
+        split(t2, t4, t5, zeros);
+        if(t4){
+            t4->all_zero = true;
+        }
+        if(t5){
+            t5->all_one = true;
+        }
+        merge(t2, t4, t5);
+    }
+    /* printBT("", t1, false); */
+    /* printBT("", t2, false); */
+    /* printBT("", t3, false); */
+    merge(t, t1, t2);
+    merge(t, t, t3);
+}
+
+void output(pitem t){
+    if(t==NULL) return;
+    push(t);
+    output(t->l);
+    /* printf("%d", t->value); */
+    output(t->r);
+}
+
+int main() {
+    int n, q;
+    scanf("%d %d", &n, &q);
+    string s;
+    cin >> s;
+    pitem treap = NULL;
+    for(int i=0;i<n;i++){
+        pitem cur = new item(s[i] == '1', i+1);
+        merge(treap, treap, cur);
+    }
+    while(q--){
+        int t, l, r;
+        scanf("%d %d %d", &t, &l, &r);
+        op(treap, l, r, t);
+        printf("%d\n", max_count(treap));
+        /* printBT("", treap, false); */
+        /* output(treap); */
+        /* printf("\n"); */
+    }
+    return 0;
+}
+```
+</details> 
+
 ## TODO: https://codeforces.com/contest/702/submission/57815496
 
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
