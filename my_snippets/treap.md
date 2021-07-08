@@ -2110,7 +2110,11 @@ int main() {
 ```
 </details>
 
-## TODO: https://codeforces.com/contest/702/submission/57815496
+### TODO: https://www.programmersought.com/article/51291114191/
+
+https://codeforces.com/contest/1056/problem/G
+
+### TODO: https://codeforces.com/contest/702/submission/57815496
 
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
 
