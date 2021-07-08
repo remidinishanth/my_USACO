@@ -1840,9 +1840,7 @@ void debug_node(node * v, string pref = "") {
 }
 
 namespace treap {
-    pair < node * , int > find(node * v,
-        const
-        function < int(node * ) > & go_to) {
+    pair < node * , int > find(node * v, const function < int(node * ) > & go_to) {
         // go_to returns: 0 -- found; -1 -- go left; 1 -- go right
         // find returns the last vertex on the descent and its go_to
         if (v == NULL) {
@@ -1864,22 +1862,15 @@ namespace treap {
             }
             v = u;
         }
-        return {
-            v,
-            dir
-        };
+        return {v, dir};
     }
 
-    node * get_leftmost(node * v) {
-        return find(v, [ & ](node * ) {
-            return -1;
-        }).first;
+    node* get_leftmost(node* v) {
+         return find(v, [&](node*) { return -1; }).first;
     }
 
-    node * get_rightmost(node * v) {
-        return find(v, [ & ](node * ) {
-            return 1;
-        }).first;
+    node* get_rightmost(node* v) {
+        return find(v, [&](node*) { return 1; }).first;
     }
 
     node * get_kth(node * v, int k) { // 0-indexed
@@ -1920,9 +1911,7 @@ namespace treap {
         return v;
     }
 
-    pair < node * , node * > split(node * v,
-        const
-        function < bool(node * ) > & is_right) {
+    pair<node*, node*> split(node* v, const function<bool(node*)>& is_right) {
         if (v == NULL) {
             return {
                 NULL,
@@ -1987,9 +1976,7 @@ namespace treap {
         }
     }
 
-    int count_left(node * v,
-        const
-        function < bool(node * ) > & is_right) {
+    int count_left(node* v, const function<bool(node*)>& is_right) {
         if (v == NULL) {
             return 0;
         }
@@ -2000,9 +1987,7 @@ namespace treap {
         return (v -> l != NULL ? v -> l -> sz : 0) + 1 + count_left(v -> r, is_right);
     }
 
-    node * add(node * r, node * v,
-        const
-        function < bool(node * ) > & go_left) {
+    node* add(node* r, node* v, const function<bool(node*)>& go_left) {
         pair < node * , node * > p = split(r, go_left);
         return merge(p.first, merge(v, p.second));
     }
@@ -2071,18 +2056,14 @@ namespace treap {
         return v;
     }
 
-    int get_size(node * v) {
-        return (v != NULL ? v -> sz : 0);
-    }
+    int get_size(node* v) { return (v != NULL ? v->sz : 0); }
 
     template < typename...T >
         void apply(node * v, T...args) {
             v -> unsafe_apply(args...);
         }
 
-    void reverse(node * v) {
-        v -> unsafe_reverse();
-    }
+    void reverse(node* v) { v->unsafe_reverse(); }
 }
 
 using namespace treap;
