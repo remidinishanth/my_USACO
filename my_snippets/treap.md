@@ -2110,6 +2110,285 @@ int main() {
 ```
 </details>
 
+#### Grim Treaper
+
+https://codeforces.com/gym/102787/problem/D
+
+<details>
+ <summary>Treap with Segment Tree beats</summary>
+ 
+Solution inspired from Yosupu segment tree beats https://github.com/yosupo06/library-checker-problems/blob/master/datastructure/range_chmin_chmax_add_range_sum/sol/correct.cpp 
+
+```cpp
+mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+ 
+typedef struct item * pitem;
+struct item {
+    int prior, idx, cnt;
+    pitem l, r;
+    // add extra variables here
+    long long max1, max2, min1, value, sum;
+    int max_count, min_count;
+    long long lazy_add, lazy_update;
+    item(int _i, long long _v){
+        prior = rng();
+        l = r = NULL;
+        cnt = 1;
+        idx = _i;
+        sum = max1 = min1 = value = _v;
+        max2 = LLONG_MIN;
+        min_count = max_count = 1;
+        lazy_add = 0;
+        lazy_update = LLONG_MAX;
+    }
+};
+
+long long cnt (pitem it) {
+    return it ? it->cnt : 0;
+}
+ 
+long long max1 (pitem it) {
+    return it ? it->max1 : LLONG_MIN;
+}
+
+long long max2 (pitem it) {
+    return it ? it->max2 : LLONG_MIN;
+}
+
+long long min1 (pitem it) {
+    return it ? it->min1 : LLONG_MAX;
+}
+ 
+long long max_count(pitem it){
+    return it ? it->max_count : 0;
+}
+
+long long min_count(pitem it){
+    return it ? it->min_count : 0;
+}
+ 
+long long sum(pitem it) {
+    return it ? it->sum : 0;
+}
+
+void upd_cnt (pitem it) {
+    if(it) it->cnt = cnt(it->l) + cnt(it->r) + 1;
+}
+
+void tag(pitem &it, long long v, string type){
+    if(it == NULL) return;
+    if(type == "add"){
+        it->value += v;
+        it->max1 += v;
+        it->min1 += v;
+        if(max2(it) != LLONG_MIN) it->max2 += v;
+        it->sum += v*cnt(it);
+        it->lazy_add += v;
+        if(it->lazy_update != LLONG_MAX)
+            it->lazy_update += v;
+    } else if(type == "min"){
+        if(max1(it) == min1(it) || v <= min1(it)){
+            tag(it, v, "update");
+            return;
+        }
+        it->sum -= (it->max1 - v)*max_count(it);
+        it->value = min(it->value, v);
+        it->max1 = v;
+        if(it->lazy_update != LLONG_MAX)
+            it->lazy_update = min(v, it->lazy_update);
+    } else if(type == "update"){
+        it->value = it->min1 = it->max1 = v;
+        it->max2 = LLONG_MIN;
+        it->max_count = cnt(it);
+        it->lazy_add = 0;
+        // max1 and min1 takes care of updating the values
+        it->lazy_update = LLONG_MAX;
+        it->sum = v*cnt(it);
+    } else if(type == "max"){
+        if(it->max1 == it->min1 || it->max1 <= v){
+            tag(it, v, "update");
+            return;
+        }
+        it->sum += (v - it->min1)*min_count(it);
+        it->min1 = v;
+        if(it->lazy_update != LLONG_MAX)
+            it->lazy_update = max(it->lazy_update, v);
+    }
+}
+
+void push(pitem &it){
+    if(it == NULL) return;
+
+    // update
+    if(it->lazy_update != LLONG_MAX){
+        tag(it->l, it->lazy_update, "update");
+        tag(it->r, it->lazy_update, "update");
+        it->lazy_update = LLONG_MAX;
+        return;
+    }
+
+    // add
+    if(it->lazy_add != 0) {
+        tag(it->l, it->lazy_add, "add");
+        tag(it->r, it->lazy_add, "add");
+        it->lazy_add = 0;
+    }
+
+    // chmin
+    if(it->max1 < max1(it->l)) tag(it->l, it->max1, "min");
+    if(it->max1 < max1(it->r)) tag(it->r, it->max1, "min");
+
+    //chmax
+    if(it->min1 > min1(it->l)) tag(it->l, it->min1, "max");
+    if(it->min1 > min1(it->r)) tag(it->r, it->min1, "max");
+}
+
+void printBT(const std::string& prefix, pitem t, bool isLeft=false)
+{
+    if( t != nullptr )
+    {
+        cout << prefix;
+        cout << (isLeft ? "├──" : "└──" );
+ 
+        printf("(%d): [v:%lld, m1:%lld, mi1:%lld, mc:%d, la:%lld, s:%lld]\n",
+            t->idx, t->value, max1(t), min1(t), max_count(t), t->lazy_add, t->sum);
+ 
+        // enter the next tree level - left and right branch
+        printBT(prefix + (isLeft ? "│   " : "    "), t->l, true);
+        printBT(prefix + (isLeft ? "│   " : "    "), t->r, false);
+    }
+}
+
+void recalc(pitem &it){
+    if(it == NULL) return;
+    upd_cnt(it);
+
+    //  merge left and right childs into temp
+    long long tmax1, tmax2, tmax_count;
+    if(max1(it->l) > max1(it->r)){
+        tmax1 = max1(it->l);
+        tmax2 = max(max2(it->l), max1(it->r));
+        tmax_count = max_count(it->l);
+    } else if(max1(it->l) < max1(it->r)){
+        tmax1 = max1(it->r);
+        tmax2 = max(max1(it->l), max2(it->r));
+        tmax_count = max_count(it->r);
+    } else {
+        tmax1 = max1(it->l);
+        tmax2 = max(max2(it->l), max2(it->r));
+        tmax_count = max_count(it->l) + max_count(it->r);
+    }
+
+    // Update max1, max2, max_count, sum
+    if(tmax1 == it->value){
+        it->max1 = it->value;
+        it->max2 = tmax2;
+        it->max_count = tmax_count + 1;
+    }else if(tmax1 > it->value){
+        it->max1 = tmax1;
+        it->max2 = max(it->value, tmax2);
+        it->max_count = tmax_count;
+    }else if(tmax1 < it->value){
+        it->max1 = it->value;
+        it->max2 = tmax1;
+        it->max_count = 1;
+    }
+
+    it->min1 = min({min1(it->l), min1(it->r), it->value});
+    it->min_count = 0;
+    if(min1(it) == it->value) it->min_count++;
+    if(min1(it) == min1(it->l)) it->min_count += min_count(it->l);
+    if(min1(it) == min1(it->r)) it->min_count += min_count(it->r);
+
+    it->sum = sum(it->l) + sum(it->r) + it->value;
+}
+
+void min_with(pitem &t, long long v){
+    if(t == NULL || t->max1 <= v) return;
+    if(t->max2 < v && v < t->max1){
+        tag(t, v, "min");
+    }else{
+        push(t);
+        t->value = min(t->value, v);
+        min_with(t->l, v);
+        min_with(t->r, v);
+        recalc(t);
+    }
+}
+
+void range_add(pitem &t, long long v){
+    if(t == NULL) return;
+    tag(t, v, "add");
+}
+
+void range_update(pitem &t, long long v){
+    if(t == NULL) return;
+    tag(t, v, "update");
+}
+
+void merge (pitem & t, pitem l, pitem r) {
+    push(l);
+    push(r);
+    if (!l || !r)
+        t = l ? l : r;
+    else if (l->prior > r->prior)
+        merge(l->r, l->r, r),  t = l;
+    else
+        merge(r->l, l, r->l),  t = r;
+    recalc(t);
+}
+
+void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
+    if (!t)
+        return void( l = r = 0 );
+    push(t);
+    int implicit_key = add + cnt(t->l);
+    if (key <= implicit_key)
+        split(t->l, l, t->l, key, add),  r = t;
+    else
+        split(t->r, t->r, r, key, add + 1 + cnt(t->l)),  l = t;
+    recalc(t);
+}
+
+int main() {
+    int n, q;
+    scanf("%d%d", &n, &q);
+    pitem treap = NULL;
+    for(int i=1;i<=n;i++){
+        int a; scanf("%d", &a);
+        pitem cur = new item(i, a);
+        merge(treap, treap, cur);
+    }
+    while(q--){
+        int type, l, r;
+        scanf("%d%d%d", &type, &l, &r);
+        pitem t1 = NULL, t2 = NULL, t3 = NULL;
+        split(treap, treap, t3, r);
+        split(treap, t1, t2, l-1);
+        if(type == 1){
+            // min(a[i], h) for i in [l, r]
+            int h; scanf("%d", &h);
+            min_with(t2, h);
+            merge(treap, t1, t2);
+            merge(treap, treap, t3);
+        }else if(type == 2){
+            // t1, t2, t3 --> t1, t3, t2
+            merge(treap, t1, t3);
+            merge(treap, treap, t2);
+        }else{
+            // a[i] += x for i  in [l, r]
+            int x; scanf("%d", &x);
+            range_add(t2, x);
+            merge(treap, t1, t2);
+            merge(treap, treap, t3);
+        }
+        printf("%lld\n", treap->sum);
+    }
+    return 0;
+}
+```
+</details> 
+
 ### TODO: https://www.programmersought.com/article/51291114191/
 
 https://codeforces.com/contest/1056/problem/G
