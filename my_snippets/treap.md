@@ -2338,6 +2338,7 @@ void merge (pitem & t, pitem l, pitem r) {
     recalc(t);
 }
 
+// 1-based indexing, split into [1..key] and [key+1..n]
 void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
     if (!t)
         return void( l = r = 0 );
@@ -2387,6 +2388,8 @@ int main() {
     return 0;
 }
 ```
+
+Also verified using https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F, https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G, https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H and https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_I
 </details> 
 
 ### TODO: https://www.programmersought.com/article/51291114191/
