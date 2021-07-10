@@ -2396,6 +2396,14 @@ int main() {
 ```
 
 Also verified using https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F, https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G, https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H and https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_I
+
+Use the following to submit solutions on aizu judge
+
+```cpp
+#define LLONG_MAX INT64_MAX
+#define LLONG_MIN INT64_MIN
+```
+
 </details> 
 
 ### TODO: https://www.programmersought.com/article/51291114191/
