@@ -1,3 +1,6 @@
+TODO: http://codingwithrajarshi.blogspot.com/2018/03/segment-tree-beats-introduction.html
+
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -219,10 +222,12 @@ int main(){
     cout << ST.range_sum(i, i + 1) << endl;
   }
 }
+```
 
-// REF: https://atcoder.jp/contests/abc196/submissions/21092752
+REF: https://atcoder.jp/contests/abc196/submissions/21092752
 
 
+```cpp
 // Another implementation
 #include <algorithm>
 #include <cassert>
@@ -522,5 +527,6 @@ int main() {
     }
     return 0;
 }
+```
 
-// REF: https://github.com/yosupo06/library-checker-problems/blob/master/datastructure/range_chmin_chmax_add_range_sum/sol/correct.cpp
+REF: https://github.com/yosupo06/library-checker-problems/blob/master/datastructure/range_chmin_chmax_add_range_sum/sol/correct.cpp
