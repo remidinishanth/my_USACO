@@ -6,3 +6,4 @@
 * https://kmyk.github.io/competitive-programming-library/
 * http://acm.mipt.ru/twiki/bin/view/Algorithms/WebHome and http://acm.math.spbu.ru/~sk1/
 * http://neerc.ifmo.ru/wiki/index.php
+* https://upcommons.upc.edu/bitstream/handle/2117/104161/127102.pdf?sequence=1&isAllowed=y
