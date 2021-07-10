@@ -56,6 +56,15 @@ If `LLONG_MAX` or `INT_MAX` is not available in the online judge then use `INT32
 #define LLONG_MIN INT64_MIN
 ```
 
+To use custom comparator while comparing pairs to sort `vector<pair<int,int>>`
+```cpp
+bool sort_cmp(const pair<int, int> &a, const pair<int,int> &b){
+    int s1 = a.second - a.first;
+    int s2 = b.second - b.first;
+    return s1 > s2;
+}
+```
+
 ### Multiset
 
 Removing one element from multiset
