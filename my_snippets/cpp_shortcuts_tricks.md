@@ -49,6 +49,13 @@ sort(ord.begin(), ord.end(), [&a](int x, int y){
 
 source: https://codeforces.com/blog/entry/90793 Problem C
 
+If `LLONG_MAX` or `INT_MAX` is not available in the online judge then use `INT32_MAX` instead of `INT_MAX` and the following for `long long`
+
+```cpp
+#define LLONG_MAX INT64_MAX
+#define LLONG_MIN INT64_MIN
+```
+
 ### Multiset
 
 Removing one element from multiset
