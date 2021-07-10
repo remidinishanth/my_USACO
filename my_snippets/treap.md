@@ -861,6 +861,8 @@ Monoid code is also present in the above blog.
 
 TODO: Evolved Implicit Treap: Priority sum and pair query.
 
+Having two trees of elements of different parity on the same initial array, we can solve the problem of changing places of even and odd on a segment.
+
 ## Problems
 
 1. How can we augment the BBST to effectively function as a min, max, and sum segment tree? In what cases can we do it the other way around?
