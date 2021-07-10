@@ -4,3 +4,5 @@
 * Bjarki Ágúst Guðmundsson https://algo.is/
 * UBD https://sites.google.com/site/ubcprogrammingteam/educational and https://www.students.cs.ubc.ca/~cs-490/2017W2/
 * https://kmyk.github.io/competitive-programming-library/
+* http://acm.mipt.ru/twiki/bin/view/Algorithms/WebHome and http://acm.math.spbu.ru/~sk1/
+* http://neerc.ifmo.ru/wiki/index.php
