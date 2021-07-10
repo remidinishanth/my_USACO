@@ -2403,7 +2403,6 @@ Use the following to submit solutions on aizu judge
 #define LLONG_MAX INT64_MAX
 #define LLONG_MIN INT64_MIN
 ```
-
 </details> 
 
 ### TODO: https://www.programmersought.com/article/51291114191/
@@ -2415,6 +2414,8 @@ https://codeforces.com/contest/1056/problem/G
 https://github.com/xuzijian629/library2/blob/master/tmp.cpp
 
 https://codeforces.com/blog/entry/10355
+
+Heapify to build in O(n) https://codeforces.com/gym/102787/submission/96735057
 
 ## Reference:
 * https://threadsiiithyderabad.quora.com/Treaps-One-Tree-to-Rule-em-all-Part-1
