@@ -2112,6 +2112,12 @@ int main() {
 
 #### Grim Treaper
 
+Need to support three different types of operations
+
+1. Range min `h` on `[l, r]`
+2. Move segment `[l, r]` to the end
+3. Range add `x` on `[l, r]`
+
 https://codeforces.com/gym/102787/problem/D
 
 <details>
