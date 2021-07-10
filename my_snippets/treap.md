@@ -2405,6 +2405,18 @@ Use the following to submit solutions on aizu judge
 ```
 </details> 
 
+#### TODO: https://codeforces.com/gym/102787/problem/B
+
+Maintain one treap on string and the other one on the reversed string and use string hashing to check whether a string a palindrome.
+
+```cpp
+void m(const node& l, const node& r, node& res) {
+        res.lhash=l.lhash+r.lhash*p[l.sz];
+        res.rhash=r.rhash+l.rhash*p[r.sz];
+        res.sz=l.sz+r.sz;
+}
+```
+
 ### TODO: https://www.programmersought.com/article/51291114191/
 
 https://codeforces.com/contest/1056/problem/G
