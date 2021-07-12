@@ -31,4 +31,4 @@ https://atcoder.jp/contests/abc167/tasks/abc167_e
 
 https://leetcode.com/problems/painting-a-grid-with-three-different-colors/
 
-Painting a `m * n` grid with three different colors, Here `1 <= m <= 5 & 1 <= n <= 1000` since `m` is very small we can create a graph where each node denotes a column `(c1, c2, c3, c4, c5)` and count the number of columns compatible with this using dynamic programming.
+Painting a `m * n` grid with three different colors such that no two adjacent cells have same color, Here `1 <= m <= 5 & 1 <= n <= 1000` since `m` is very small we can create a graph where each node denotes a column `(c1, c2, c3, c4, c5)` and count the number of columns compatible with this using dynamic programming.
