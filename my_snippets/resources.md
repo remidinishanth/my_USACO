@@ -8,3 +8,4 @@
 * http://neerc.ifmo.ru/wiki/index.php
 * https://upcommons.upc.edu/bitstream/handle/2117/104161/127102.pdf?sequence=1&isAllowed=y
 * http://algolist.ru/
+* http://www.secmem.org/blog/2019/06/17/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B43/
