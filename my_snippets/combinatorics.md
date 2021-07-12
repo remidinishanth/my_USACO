@@ -32,3 +32,34 @@ https://atcoder.jp/contests/abc167/tasks/abc167_e
 https://leetcode.com/problems/painting-a-grid-with-three-different-colors/
 
 Painting a `m * n` grid with three different colors such that no two adjacent cells have same color, Here `1 <= m <= 5 & 1 <= n <= 1000` since `m` is very small we can create a graph where each node denotes a column `(c1, c2, c3, c4, c5)` and count the number of columns compatible with this using dynamic programming.
+
+![](images/grid_3_colors_21_7_12.png)
+
+```cpp
+class Solution { // 104 ms, faster than 33.33%
+public:
+    int memo[1000][1024] = {};
+    int m, n, MOD = 1e9 + 7;
+    int colorTheGrid(int m, int n) {
+        this->m = m; this->n = n;
+        return dp(0, 0, 0, 0);
+    }
+    int dp(int c, int prevColMask, int r, int curColMask) {
+        if (c == n) return 1; // Found a valid way
+        if (r == 0 && memo[c][prevColMask]) return memo[c][prevColMask];
+        if (r == m) return dp(c + 1, curColMask, 0, 0);
+        int ans = 0;
+        for (int i = 1; i <= 3; ++i) // Try colors i in [1=RED, 2=GREEN, 3=BLUE]
+            if (getColor(prevColMask, r) != i && (r == 0 || getColor(curColMask, r-1) != i))
+                ans = (ans + dp(c, prevColMask, r + 1, setColor(curColMask, r, i))) % MOD;
+        if (r == 0) memo[c][prevColMask] = ans;
+        return ans;
+    }
+    int getColor(int mask, int pos) { // Get color of the `mask` at `pos`, use 2 bits to store a color
+        return (mask >> (2 * pos)) & 3;
+    }
+    int setColor(int mask, int pos, int color) { // Set `color` to the `mask` at `pos`, use 2 bits to store a color
+        return mask | (color << (2 * pos));
+    }
+};
+```
