@@ -36,7 +36,7 @@ Painting a `m * n` grid with three different colors such that no two adjacent ce
 ![](images/grid_3_colors_21_7_12.png)
 
 ```cpp
-class Solution { // 104 ms, faster than 33.33%
+class Solution {
 public:
     int memo[1000][1024] = {};
     int m, n, MOD = 1e9 + 7;
