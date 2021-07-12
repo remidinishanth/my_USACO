@@ -26,12 +26,21 @@ The Catalan numbers are a remarkable sequence of numbers that “solve” a numb
   
   Application: CHNBGMT https://discuss.codechef.com/t/chnbgmt-editorial/12438, https://www.spoj.com/problems/FUNPROB/, Lots of Combinations Problem B Petr Mitrichev Contest 10 https://codeforces.com/gym/100110
 
-
 https://atcoder.jp/contests/abc167/tasks/abc167_e
 
-https://leetcode.com/problems/painting-a-grid-with-three-different-colors/
+#### ABC 209 Problem C - Not Equal
+You are given a sequence C of N integers. Find the number of sequences A of N integers satisfying all of the following conditions. `1 ≤ Aᵢ ≤ Cᵢ ( 1 ≤ i ≤ N )` Aᵢ ≠ Aⱼ ( 1 ≤ i < j ≤ N ) Since the count may be enormous, print it modulo (10⁹ + 7).
+
+Solution: Sort `Cᵢ` in increasing order and Now for each of the index `i` we have `max(0, Cᵢ - (i-1))` choices to choose the element. We can prove this because, after determining the first i − 1 elements `A₁ , A₂ , … ,` the candidates for `Aᵢ` are `1 , 2 , … Cᵢ` , except for `A₁ , A₂ , … Aᵢ − 1` (which are all pairwise distinct and between `1` and `Cᵢ` , inclusive); namely there are `(Cᵢ − i + 1)` candidates. If however any i satisfies `Cᵢ − i + 1 < 0`, then the answer is 0 .
+
+https://atcoder.jp/contests/abc209/tasks/abc209_c
+
+
+#### Leetcode Paiting a grid with 3 different colors
 
 Painting a `m * n` grid with three different colors such that no two adjacent cells have same color, Here `1 <= m <= 5 & 1 <= n <= 1000` since `m` is very small we can create a graph where each node denotes a column `(c1, c2, c3, c4, c5)` and count the number of columns compatible with this using dynamic programming.
+
+https://leetcode.com/problems/painting-a-grid-with-three-different-colors/
 
 ![](images/grid_3_colors_21_7_12.png)
 
