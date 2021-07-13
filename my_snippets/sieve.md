@@ -60,6 +60,41 @@ The only thing to notice here is that `u` and `v` both skip the even numbers,
 that's why you see `u += 2` and `v += 2 * u`, contrary to the standard implementation.
 
 
+Sieve optimization
+
+```cpp
+vector<int> all_primes(int n) {
+    // the old 'is_prime[i]' now corresponds to 'is_prime[i/2]'
+    bool *is_prime = new bool[n/2+1];
+
+    for (int i = 2; i <= n; i++) is_prime[i/2] = true;
+
+    for (int i = 3; i*i <= n; i += 2) {           // only iterate through odd 'i'
+        if (is_prime[i/2]) {
+            for (int j = i*i; j <= n; j += 2*i) { // odd multiples >= i^2
+                is_prime[j/2] = false;
+            }
+        }
+    }
+
+    // extract the primes
+    vector<int> primes;
+    primes.push_back(2);                          // add '2' as prime
+    for (int i = 3; i <= n; i += 2) {
+        if (is_prime[i/2]) {
+            primes.push_back(i);
+        }
+    }
+
+    free(is_prime);
+
+    return primes;
+}
+```
+
+source: http://noi-ph-training.herokuapp.com/topics/num_sieves
+
+
 Calculate minimum prime factor `lp[i]` for every number `i` in the segment `[2;n]` in `O(n)` 
 which allows us to find factorization of any number in the segment `[2;n]`
 
