@@ -71,6 +71,8 @@ Given integers L and L , R ( L ≤ R ) , find the number of pairs ( x , y ) of i
 * `L ≤ x,y ≤ R` (1 ≤ L ≤ R ≤ 10⁶)
 * Let `g` be the greatest common divisor of `x` and `y`. Then `g ≠ 1, x/g ≠ 1 and y/g ≠ 1`.
 
+https://atcoder.jp/contests/abc206/tasks/abc206_e
+
 Solution:
 * `(i, i)` doesn't satifiy the given conditions as `gcd(i, i) = i` and `i/i = 1`. So we will calculate `(x, y)` such that `x < y` and multiply this by `2` to get the final answer.
 * If `x < y` then obviously `y/gcd(x,y) ≠ 1` as `gcd(x, y) ≤ x`. So we only need to worry about `g ≠ 1` and `x/g ≠ 1` conditions.
@@ -109,7 +111,34 @@ int main(){
 }
 ```
 
-https://atcoder.jp/contests/abc206/tasks/abc206_e
+Another solution: https://atcoder.jp/contests/abc206/submissions/23577424
+
+```cpp
+typedef long long ll;
+typedef pair<int, int> P;
+ll c[1000010];
+ll c1[1000010];
+int main()
+{
+	ll l, r;
+    cin>>l>>r;
+    for(ll d=2; d<=r; d++){
+        for(ll x=d; x<=r; x+=d){
+            if(x<l) continue;
+            c[d]++;
+        }
+    }
+    ll ans=0;
+    for(ll d=r; d>=2; d--){
+        c1[d]=c[d]*c[d];
+        for(ll x=2*d; x<=r; x+=d) c1[d]-=c1[x];
+        ans+=c1[d];
+        if(d>=l) ans-=2*c[d]-1;
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+```
 
 https://codeforces.com/blog/entry/54090 and https://codeforces.com/blog/entry/53925
 
