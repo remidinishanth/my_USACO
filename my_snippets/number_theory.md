@@ -58,6 +58,10 @@ int solve (int n, int r) {
 }
 ```
 
+Let's define `g(primeFactors(n), m) =  m - f(n, m)` then 
+
+![](images/inclusion_exclusion_4.png)
+
 In number theory, Euler's totient function counts the positive integers up to a given integer n that are relatively prime to n.
 
 https://codeforces.com/blog/entry/54090 and https://codeforces.com/blog/entry/53925
