@@ -22,6 +22,10 @@ Let's say we want to count the number of positive integers `k` that are less tha
 
 Using set theoretic notation, week seek to find the cardinality of the set  `{p ∣ p ∈ {1,2,…,r}, gcd(n, p) = 1}`  where  gcd  is the greatest common divisor function. 
 
+We will count `f(n, r)` the number of integers which are not relatively prime to `n` and then exclude them from `r`. For this we will use inclusion exclusion priniciple, let's denote the prime factors of `n` as `pᵢ (1 ≤ i ≤ k)`, If we create sets for numbers divisible by each `pᵢ` then
+
+![](images/inclusion_exclusion_2.png)
+
 ```cpp
 int solve (int n, int r) {
     vector<int> p; // prime divisors of n
