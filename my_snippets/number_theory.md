@@ -22,6 +22,38 @@ Let's say we want to count the number of positive integers `k` that are less tha
 
 Using set theoretic notation, week seek to find the cardinality of the set  `{p ∣ p ∈ {1,2,…,r}, gcd(n, p) = 1}`  where  gcd  is the greatest common divisor function. 
 
+```cpp
+int solve (int n, int r) {
+    vector<int> p; // prime divisors of n
+    for (int i=2; i*i<=n; ++i)
+        if (n % i == 0) {
+            p.push_back (i);
+            while (n % i == 0)
+                n /= i;
+        }
+    if (n > 1)
+        p.push_back (n);
+
+    int sum = 0;
+    for (int msk=1; msk<(1<<p.size()); ++msk) {
+        int mult = 1, bits = 0;
+        for (int i=0; i<(int)p.size(); ++i)
+            if (msk & (1<<i)) {
+                ++bits;
+                mult *= p[i];
+            }
+
+        int cur = r / mult; // number of divisors in [1:r]
+        if (bits % 2 == 1)
+            sum += cur; // inclusion
+        else
+            sum -= cur; // exclusion
+    }
+
+    return r - sum;
+}
+```
+
 In number theory, Euler's totient function counts the positive integers up to a given integer n that are relatively prime to n.
 
 https://codeforces.com/blog/entry/54090 and https://codeforces.com/blog/entry/53925
