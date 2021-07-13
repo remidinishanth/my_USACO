@@ -592,3 +592,5 @@ SegTree_1<int,1<<18> st;
 ```
 
 source: https://codeforces.com/contest/1516/submission/113760111 & https://kmjp.hatenablog.jp/entry/2018/01/03/0930
+
+Check out this: https://atcoder.jp/contests/practice2/editorial/100
