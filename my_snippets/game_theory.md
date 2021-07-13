@@ -1,6 +1,7 @@
-Problem: https://atcoder.jp/contests/abc195/tasks/abc195_e
+#### Problem: https://atcoder.jp/contests/abc195/tasks/abc195_e
 
-Solution: 
+**Solution:** 
+
 Let us consider if Takahashi is possible to win after the N − 1 rounds. Let us regard `T` as a decimal number and `r` be the remainder by 7 . 
 
 Also, we identify S<sub>N</sub> with the corresponding digit. 
