@@ -99,9 +99,10 @@ int main(){
   for(long long i=2;i<=r;i++){
     if(cnt[i]<0){continue;} // i has more than one same prime factor
     long long cc=(r/i)-((l-1)/i);
-    if(cnt[i]%2){res+=(cc*(cc-1))/2;}
-    else{res-=(cc*(cc-1))/2;}
+    if(cnt[i]%2){res+=(cc*(cc-1))/2;} // inclusion
+    else{res-=(cc*(cc-1))/2;} // exclusion
   }
+  // exclude tha pairs where (x=g, y)
   for(long long i=max(2ll,l);i<=r;i++){res-=(r/i-1);}
   cout << 2*res << '\n';
   return 0;
