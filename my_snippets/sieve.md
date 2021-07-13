@@ -1,4 +1,4 @@
-Sieve optimization
+## Sieve optimization
 
 ```cpp
 vector<int> all_primes(int n) {
@@ -29,6 +29,53 @@ vector<int> all_primes(int n) {
     return primes;
 }
 ```
+
+### Modified sieves
+
+This “sieve” procedure is actually somewhat flexible. For example, it can be modified to compute one prime factor for every number up to n. Study the following code to understand how:
+
+```cpp
+// assume n <= one million. change this number if needed
+int pfac[1000111];
+
+void compute_prime_factors(int n) {
+    for (int i = 2; i <= n; i++) pfac[i] = 0;
+
+    for (int i = 2; i <= n; i++) {
+        if (pfac[i] == 0) {                     // this means i is prime
+            pfac[i] = i;                        // set i's prime factor to itself
+            for (int j = i*i; j <= n; j += i) { // iterate through proper multiples
+                pfac[j] = i;                    // set i as the prime factor
+            }
+        }
+    }
+}
+```
+
+It can also be modified to compute other things, such as divisor counts, divisor sums, and even Euler's totient function (if you're familiar with it).
+
+As a side effect, being able to compute a prime factor allows us to prime factorize every number up to n quickly, using one of our older algorithms:
+
+```cpp
+int pfac[1000111];
+
+... // compute_prime_factors here
+
+vector<int> prime_factorize(int n) {
+    vector<int> primes;
+    // extract prime factors
+    while (n > 1) {
+        int p = pfac[n]; // use pfac to get a prime factor
+        primes.push_back(p);
+        n /= p;
+    }
+    return primes;
+}
+```
+
+This is our original prime factorization algorithms, but much faster because we use our computed pfac to extract a prime factor quickly. This runs very quickly, though it only works for numbers ≤n.
+
+Don't for get to call compute_prime_factors first for it work properly!
 
 source: http://noi-ph-training.herokuapp.com/topics/num_sieves
 
