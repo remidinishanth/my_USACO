@@ -96,10 +96,10 @@ source: https://codeforces.com/blog/entry/54090
 const int N = 200200;
 int d[N];
 for (int i = 2; i < N; i++) {
-	if (d[i]) continue;
-	for (int j = i; j < N; j += i)
-		if (d[j] == 0)
-			d[j] = i;
+    if (d[i]) continue;
+    for (int j = i; j < N; j += i)
+        if (d[j] == 0)
+            d[j] = i;
 ```
 
 source: https://codeforces.com/contest/1349/submission/79817454    
