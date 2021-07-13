@@ -62,7 +62,9 @@ Let's define `g(primeFactors(n), m) =  m - f(n, m)` then
 
 ![](images/inclusion_exclusion_4.png)
 
-In number theory, Euler's totient function counts the positive integers up to a given integer n that are relatively prime to n.
+This expansion is exactly equivalent to the formula from the inclusion exclusion method, although it's much easier to implement. This recursive function works because once the set of prime factors have been exhausted, every combination of primes have been produced, and the associated term in the inclusion exclusion formula has the correct sign for the contribution.
+
+In number theory, Euler's totient function counts the positive integers up to a given integer n that are relatively prime to n. 
 
 https://codeforces.com/blog/entry/54090 and https://codeforces.com/blog/entry/53925
 
