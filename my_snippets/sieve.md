@@ -1,5 +1,9 @@
 ## Sieve optimization
 
+We can actually optimize this sieve in a few ways. First, for a prime `i`, instead of marking `2i, 3i, 4i, ...`, we can just mark `i², i²+i, i²+2i, i²+3i, ...` . The reason is that every composite number `x` has a prime factor `≤ √x` (as proven in the previous section), so for every prime i, we only need to mark its multiples `≥ i²`.
+
+A second optimization is to initially only mark odd numbers as prime, i.e. mark all even numbers (except 2) composite. And then for every odd prime i, we increment by 2i instead of i, avoiding all even numbers. In fact, we can save half the memory needed by only allocating is_prime for odd numbers.
+
 ```cpp
 vector<int> all_primes(int n) {
     // the old 'is_prime[i]' now corresponds to 'is_prime[i/2]'
