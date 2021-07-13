@@ -111,12 +111,11 @@ int prm[M];
 void Sieve() {
     iota(prm, prm + M, 0);
  
-	for (int p = 2; p < M; ++p) {
-		if (prm[p] < p) { continue; }
-		for (int i = p * 2; i < M; i += p) {
-			prm[i] = p;
-		}
-	}
+    for (int p = 2; p < M; ++p) {
+	if (prm[p] < p) { continue; }
+	for (int i = p * 2; i < M; i += p)
+	    prm[i] = p;
+    }
 }
 ```
 
