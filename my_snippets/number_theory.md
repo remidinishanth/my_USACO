@@ -113,6 +113,8 @@ int main(){
 
 Another solution: https://atcoder.jp/contests/abc206/submissions/23577424
 
+`gcd(x, y)` is a multiple of k if and only if both x and y are multiples of k . The number of multiples of k between L and R (inclusive) are `Xk := ⌊R/k⌋ − ⌊(L − 1)/k⌋`, so the number of pairs `L ≤ x , y ≤ R` such that `gcd(x, y)` is a multiple of `k` is `Xₖ²`. `gcd(x, y)` is exactly k if and only if “gcd(x, y) is a multiple of `k` , but not `2k, 3k, … `.” Therefore, these can be computed in the decreasing order of k . The complexity is `O(R log R)`, where the bottleneck is finding the number of pairs such that `gcd(x, y) = k`.
+
 ```cpp
 typedef long long ll;
 typedef pair<int, int> P;
