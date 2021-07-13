@@ -109,7 +109,7 @@ const int M = 300 * 1000;
 int prm[M];
  
 void Sieve() {
-	iota(prm, prm + M, 0);
+    iota(prm, prm + M, 0);
  
 	for (int p = 2; p < M; ++p) {
 		if (prm[p] < p) { continue; }
