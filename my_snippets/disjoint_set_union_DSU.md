@@ -76,7 +76,8 @@ struct UnionFind{
 source: User:beet https://atcoder.jp/contests/zone2021/submissions/22207964
 
 	   
-// Benq
+Benq's implementation
+
 ```cpp
 struct DSU {
 	vector<int> e; void init(int N) { e = vector<int>(N,-1); }
