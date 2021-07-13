@@ -858,6 +858,8 @@ If we are given any modulo, there there are two different approaches to sovle th
 
 ![FFT](images/fft_7.png)
 
+Check out https://codeforces.com/contest/827/submission/30327584 and https://github.com/imeplusplus/icpc-notebook/blob/master/math/fft-tourist.cpp
+
 TODO: https://csacademy.com/blog/fast-fourier-transform-and-variations-of-it/
 TODO: https://alan20210202.github.io/2020/08/07/FWHT/
 
