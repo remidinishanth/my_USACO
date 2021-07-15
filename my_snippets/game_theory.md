@@ -66,7 +66,45 @@ boolean isWinning(position pos) {
 
 No cycles in the state transitions – Can solve the problem bottom-up (DP)
 
-It can be seen that whether a position is winning or losing depends only on the last `k` positions, where `k` is the maximum number of coins we can take away. While there are only `2^k` possible values for the sequences of the length `k`, our sequence will become periodic. You can use this observation to solve [SRM 330: LongLongNim](https://community.topcoder.com/stat?c=problem_statement&pm=6856)
+It can be seen that whether a position is winning or losing depends only on the last `k` positions, where `k` is the maximum number of coins we can take away. While there are only `2^k` possible values for the sequences of the length `k`, our sequence will become periodic. 
+
+You can use this observation to solve [SRM 330: LongLongNim](https://community.topcoder.com/stat?c=problem_statement&pm=6856)
+
+The way to solve the game is pretty easy. Since there are no ties and the game is always finite, we know that for each n either there is a winning strategy for the first player or there is a winning strategy for the second player. We'll call n a winning (W) state if the player in turn wins when n coins are left and losing (L) otherwise. Of course all n that are less than the minimum element in moves are L. Then, each n is W if and only if there exists an element m in moves that is less than or equal to n and such that n-m is L (this means, there is a valid play that leaves a losing state to your rival). This leads to a straightforward implementation which gets the fact calculated for every n in `O(maxN*k)` where k is the number of elements on moves (the k factor could even be eliminated by doing bit tricks). Since maxN is insanely big, we need something even better.
+
+The first thing to notice in the constraints is the 22 as the maximum move. This was a big clue to the solution. As you can see from the previous paragraph, each n only depends on the previous states n-m with m in moves. Since the maximum m is 22, we can say n depends in the state of n-1, ...,n-22. This can be represented as a 22 character long string of W's and L's (or as a binary number). Not only n depend only on that 22 character long string, the entire behavior from that moment on depends only on those 22 characters, because the string in which n+1 depends is simply appending the state of n at the end and removing the first character (that becomes unnecessary, because is more than 22 away from n>+1). Altogether, this means that after at most 2^22 numbers there's an indentifiable cycle, which can be used to calculate the rest of the moves without doing all the process. See Petr's code for a clear implementation.
+
+```java
+public class LongLongNim {
+    public int numberOfWins(int maxN, int[] moves) {
+        int mask = (1 << 22) - 1;
+        int res = -1;
+        Dictionary < int, int > last = new Dictionary < int, int > ();
+        List < int > r = new List < int > ();
+        for (int i = 0; i <= maxN; ++i) {
+            mask <<= 1; // mask = mask * 2, left shift
+            ++res;
+            foreach(int j in moves)
+            if ((mask & (1 << j)) == 0) // atleast one losing position
+            {
+                ++mask; // set 0-th bit to 1
+                --res;
+                break;
+            }
+            mask &= (1 << 22) - 1;
+            if (last.ContainsKey(mask)) {
+                int pLength = i - last[mask];
+                int cnt = (maxN - i) / pLength;
+                i += cnt * pLength;
+                res += cnt * (res - r[last[mask]]);
+            }
+            last[mask] = i;
+            r.Add(res);
+        }
+        return res;
+    }
+}
+```
 
 ### THE GAME OF NIM
 
