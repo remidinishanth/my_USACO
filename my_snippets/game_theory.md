@@ -63,6 +63,8 @@ boolean isWinning(position pos) {
 }
 ```
 
+No cycles in the state transitions – Can solve the problem bottom-up (DP)
+
 It can be seen that whether a position is winning or losing depends only on the last `k` positions, where `k` is the maximum number of coins we can take away. While there are only `2^k` possible values for the sequences of the length `k`, our sequence will become periodic. You can use this observation to solve [SRM 330: LongLongNim](https://community.topcoder.com/stat?c=problem_statement&pm=6856)
 
 ### THE GAME OF NIM
