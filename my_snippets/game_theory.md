@@ -93,7 +93,7 @@ public class LongLongNim {
             }
             mask &= (1 << 22) - 1; // only consider the last 22 bits
             if (last.ContainsKey(mask)) {
-                int pLength = i - last[mask];
+                int pLength = i - last[mask]; // cycle length
                 int cnt = (maxN - i) / pLength;
                 i += cnt * pLength;
                 res += cnt * (res - r[last[mask]]);
