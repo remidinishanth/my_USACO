@@ -92,9 +92,11 @@ Let n1, n2, n3, ... nk be the size of the piles. It is a losing position for the
 
 * From the losing positions we can move only to the winning ones:
   * if xor of the sizes of the piles is 0 then it will be changed after our move (at least one 1 will be changed to 0, so in that column will be odd number of 1s). Say we have `x1 ^ x2 ^ ... ^ xk = 0` and a player takes coins such that the coins in pile 1 become y1 then `y1 ^ x2 ^ ... ^ xk ≠ 0` as `y1 < x1`.
+  * If the Nim-sum is 0 after a player’s turn, then the next move must change it.
 
 * From the winning positions it is possible to move to at least one losing:
   * if xor of the sizes of the piles is not 0 we can change it to 0 by finding the left most column where the number of 1s is odd, changing one of them to 0 and then by changing 0s or 1s on the right side of it to gain even number of 1s in every column. Say we have `w = x1 ^ x2 ^ ... ^ xk ≠ 0`. Let i-th bit be the highest bit set in `w`. There is atleast one `xj` which have i-th bit set. Now choose `y = xj xor w`, `y < xj` as the highest bit will now be unset in `yj`. And the xor value will now be zero.
+  * Thus it is always possible to make the nim-sum 0 on your turn if it wasn’t already 0 at the beginning of your turn.
 
 ## Grundy numbers
 
