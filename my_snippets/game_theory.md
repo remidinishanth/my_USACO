@@ -152,8 +152,11 @@ dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i] and ( 10r + S<sub>i</sub> mod 7 ) ∈ 
 
 If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexity is O(N) .
 
-# TODO: 
+## TODO: 
 
 Dynamic subtraction: https://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf 
 
 Check: https://web.mit.edu/sp.268/www/nim.pdf
+
+## REF:
+* http://www.cs.umd.edu/~gasarch/COURSES/250/S15/nimnotes.pdf
