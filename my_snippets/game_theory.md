@@ -98,6 +98,7 @@ Let n1, n2, n3, ... nk be the size of the piles. It is a losing position for the
   * if xor of the sizes of the piles is not 0 we can change it to 0 by finding the left most column where the number of 1s is odd, changing one of them to 0 and then by changing 0s or 1s on the right side of it to gain even number of 1s in every column. Say we have `w = x1 ^ x2 ^ ... ^ xk ≠ 0`. Let i-th bit be the highest bit set in `w`. There is atleast one `xj` which have i-th bit set. Now choose `y = xj xor w`, `y < xj` as the highest bit will now be unset in `yj`. And the xor value will now be zero.
   * Thus it is always possible to make the nim-sum 0 on your turn if it wasn’t already 0 at the beginning of your turn.
 
+#### Dynamic pile problem
 The game of 'static' one-pile nim is well understood. These are called subtraction games. A pile of n counters and a constant k are given. Two players alternately take from 1 up to k counters from the pile. The winner is the last player to remove a counter.
 
 Dynaic one-pile nim, A move in a game is an ordered pair of positions `(N,x) —> (N — k, f(k))`, where `1 < k < min{N, x}`. problem where `f(k) = k` https://csacademy.com/contest/round-64/task/limited-moves/statement/. 
@@ -108,7 +109,16 @@ An infinite increasing sequence `B = (b0 = 1, b1, b2, ...)` of positive integers
 
 Proof in Research Paper: [DYNAMIC ONE-PILE NIM](https://www.mathstat.dal.ca/FQ/Scanned/41-3/holshouser.pdf)
 
-Solution: If n is odd then we win by removing 1. So no one will move to odd n and the game will be always on even numbers. But now we can divide all numbers by 2 and repeat our argument. It is easy to see that this strategy is exactly 'remove last 1-bit'. https://codeforces.com/blog/entry/57075?#comment-407190
+Solution:
+
+In order to find the winning strategy we can run a dynamic programming for smaller values of NN and check which are the winning states; it turns out the first player can win for all `N` that are not a power of `2`. However, we still need to:
+
+* prove this is true
+* find an optimal playing strategy
+
+It helps to consider the binary representation of `N`. The strategy for the first player is to choose a power of `2` that removes the first significant bit in `N`'s representation. In the next turn, whatever he does, the second player will increase the number of bits of `1` in the representation.
+
+If n is odd then we win by removing 1. So no one will move to odd n and the game will be always on even numbers. But now we can divide all numbers by 2 and repeat our argument. It is easy to see that this strategy is exactly 'remove last 1-bit'. https://codeforces.com/blog/entry/57075?#comment-407190
 
 ## Grundy numbers
 
