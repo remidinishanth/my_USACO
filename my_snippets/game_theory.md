@@ -1,3 +1,29 @@
+## Game Theory
+
+Formal study of mathematical games. The ultimate goal of game theory is usually to solve a game; that is, to determine the nature of an optimal strategy for each player, and the outcome of such a strategy.
+
+### State
+* The state, position, or configuration of a game, loosely put, consists of exactly that information which determines the valid moves that can be made in the future and is itself modified when moves take place.
+
+### Determinism
+* A deterministic game is one in which the decisions of the players, reflected in the moves they make, are sufficient to determine the game's outcome. The opposite is an indeterministic game. More simply, "games of chance" are nondeterministic, whereas pure strategy games with no element of chance are deterministic. Chess, for example, is a deterministic game, whereas backgammon(involves roll of two dice) is not. 
+* In a deterministic game, the state, taken together with the players' strategies, is sufficient and necessary to determine the game's outcome. In a nondeterministic game, the same combination is sufficient and necessary to determine the probabilities of the possible outcomes of the game.
+
+### Availability of information
+* When all players know the entire state of a game at any given time, the game is said to be perfect information. Perfect information games include chess, Go, and tic-tac-toe. In particular, games which have winning strategies for one of the players tend to be perfect-information. Imperfect information games include most card games, as each player usually hides cards from opponents.
+
+### Partiality
+
+* An impartial game is one which satisfies two conditions:
+  * The valid moves from a given position depend only upon the position itself and not upon which player is to move next.
+  * The outcome of the game is symmetric with respect to the players.
+* Most games fail the first condition. Chess, for example, fails the first, since we must know if the player moving next is player 1 or player 2 to determine whether that player is to move a white piece or a black piece.
+* Nim is a archetype for the impartial game; pieces are shared between the two players and each has the same goal.
+
+## Play convention
+
+* An important class of games consists of those between two players in which there are only two possible outcomes: victory and loss. If the winner is the last player who is able to make a legal move, the game is said to follow the normal play convention. Otherwise, it is said to follow the misère play convention.
+
 ## Grundy numbers
 
 TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
