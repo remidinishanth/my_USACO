@@ -107,7 +107,7 @@ An infinite increasing sequence `B = (b0 = 1, b1, b2, ...)` of positive integers
 
 **Th:** Suppose the dynamic one-pile nim game with initial position `(N,x)` and move function/satisfying `f(n+1) - f(n) ≥ 1` is given, and the g-base Bf is infinite. Also, let `N = b1 + b2 + ... + bk` be the stable representation of N in Bf, where `b1 < b2 < ... < bk`. Then the first player can win if `x > b1` and the second player can win if `x < b1`. 
 
-Proof in Research Paper: [DYNAMIC ONE-PILE NIM](https://www.mathstat.dal.ca/FQ/Scanned/41-3/holshouser.pdf)
+Proof in Research Paper: Holshouser [DYNAMIC ONE-PILE NIM](https://www.mathstat.dal.ca/FQ/Scanned/41-3/holshouser.pdf)
 
 Solution:
 
