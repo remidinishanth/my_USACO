@@ -133,3 +133,5 @@ If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexit
 # TODO: 
 
 Dynamic subtraction: https://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf and https://csacademy.com/contest/round-64/task/limited-moves/statement/ and https://codeforces.com/blog/entry/57075?#comment-407190
+
+Check: https://web.mit.edu/sp.268/www/nim.pdf
