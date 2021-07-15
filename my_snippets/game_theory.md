@@ -24,6 +24,8 @@ Formal study of mathematical games. The ultimate goal of game theory is usually 
 
 * An important class of games consists of those between two players in which there are only two possible outcomes: victory and loss. If the winner is the last player who is able to make a legal move, the game is said to follow the normal play convention. Otherwise, it is said to follow the misère play convention.
 
+If, in addition to being deterministic, impartial, and guaranteed to end in a finite number of moves, a game is also normal play, it can be analyzed using the **Sprague-Grundy theorem**. We shall denote such games as Nim-like.
+
 source: http://wcipeg.com/wiki/Game_theory
 
 ## N-positions and P-positions
@@ -39,6 +41,8 @@ Consider a configuration C of such a game and the configurations C_1, C_2, C_3, 
 In summary,
 * If all positions reachable in one move from position C are N-positions, then C is a P-position, and the current player does not have a winning strategy.
 * Otherwise (at least one P-position is reachable from C) C is an N-position, and a winning strategy necessarily entails leaving behind one of these P-positions for the next player.
+
+The problem [Nukit](https://wcipeg.com/problem/ccc08j5) from the 2008 Canadian Computing Competition describes a game which is clearly two-player, deterministic, impartial, and guaranteed to end in a finite number of moves. Because of these properties we may analyze it with N-positions and P-positions.
 
 ### Basic problem 
 A simple example is the following game, played by two players who take turns moving. At the beginning there are `n` coins. When it is a player’s turn he can take away `1`, `3` or `4` coins. The player who takes the last one away is declared the winner (in other words, the player who can not make a move is the loser). The question is: For what `n` will the first player win if they both play optimally?
@@ -61,6 +65,16 @@ boolean isWinning(position pos) {
 
 It can be seen that whether a position is winning or losing depends only on the last `k` positions, where `k` is the maximum number of coins we can take away. While there are only `2^k` possible values for the sequences of the length `k`, our sequence will become periodic. You can use this observation to solve [SRM 330: LongLongNim](https://community.topcoder.com/stat?c=problem_statement&pm=6856)
 
+### THE GAME OF NIM
+
+The rules of the game are as follows:
+
+* The game board consists of one or more piles of coins or sticks.
+* On a player's turn, he or she chooses one non-empty pile and removes one or more sticks from it.
+* The first player who cannot make a move loses. (That is, the player who takes the last stick wins.)
+
+Suppose that there are three heaps with `3`, `4` and `5` coins respectively. Here is how game could develop:
+![](images/nim_game.png)
 
 ## Grundy numbers
 
