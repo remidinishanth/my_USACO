@@ -30,7 +30,7 @@ source: http://wcipeg.com/wiki/Game_theory
 
 ## N-positions and P-positions
 
-In a two-player, deterministic(no chance moves), impartial game which is guaranteed to end(win-or-lose outcome) in a finite number of moves, an N-position is a configuration such that the **n**ext player to make a move can force victory, and a P-position is a configuration such that the **p**revious player who moved can force victory.
+In a two-player, deterministic(no chance moves), impartial game which is guaranteed to end(win-or-lose outcome) in a finite number of moves, an N-position is a configuration such that the **n**ext player(and so it is a win for the Next player—hence the “N”) to make a move can force victory, and a P-position is a configuration such that the **p**revious player who moved can force victory.
 
 In a normal-play game, a configuration in which no further moves are possible is a P-position, since the player who is supposed to move next cannot do so and loses; in a misère-play game, it is an N-position, since the player who moved last made the last move and hence lost.
 
@@ -76,6 +76,22 @@ The rules of the game are as follows:
 Suppose that there are two players `A`, `B` and three heaps with `3`, `4` and `5` coins respectively. Here is how game could develop if `A` moves first:
 
 ![](images/nim_game.png)
+
+#### Analysis
+
+* **Single Pile:** If we have onle one pile, we can just remove all the chips from that pile and win. A sigle pile is thus an N-position.
+* **Two Piles:** If we have two piles, with an equal number of `x` coins in the two piles. Let's denote this by `(x, x)`. Then whatever the first player plays, say removing some chips from the first pile to make it `(y, x)`, the second player can mirror the strategy to make it `(y, y)` again. So first player loses, and hence `(x, x)` is a P-position. And since any position `(x, y)` with `x > y` can move to `(y, y)`, this is a N-position. So in two-pile nim, we have a P-position if and only if both piles are equal.
+* **Three Piles:** We now consider positions `(x, y, z)`. If any of these were zero, we would have two piles, so consider `x, y, z > 0`. If two piles are equal - say `(x, x, z)` - we would empty out the third to get `(x, x, 0)`, which is a P-position. So `(x, x, z)` is an N-position. What if `x ≠ y ≠ z`, it will bit difficult to analyze this. Bouton’s Theorem: The position (x, y, z) is a P-position if and only if `x ⊕ y ⊕ z = 0`
+
+Let n1, n2, n3, ... nk be the size of the piles. It is a losing position for the player whose turn it is if and only if `n1 xor n2 xor ... xor nk = 0`.
+
+#### Why does it work?
+
+* From the losing positions we can move only to the winning ones:
+  * if xor of the sizes of the piles is 0 then it will be changed after our move (at least one 1 will be changed to 0, so in that column will be odd number of 1s). Say we have `x1 ^ x2 ^ ... ^ xk = 0` and a player takes coins such that the coins in pile 1 become y1 then `y1 ^ x2 ^ ... ^ xk ≠ 0` as `y1 < x1`.
+
+* From the winning positions it is possible to move to at least one losing:
+  * if xor of the sizes of the piles is not 0 we can change it to 0 by finding the left most column where the number of 1s is odd, changing one of them to 0 and then by changing 0s or 1s on the right side of it to gain even number of 1s in every column. Say we have `w = x1 ^ x2 ^ ... ^ xk ≠ 0`. Let i-th bit be the highest bit set in `w`. There is atleast one `xj` which have i-th bit set. Now choose `y = xj xor w`, `y < xj` as the highest bit will now be unset in `yj`. And the xor value will now be zero.
 
 ## Grundy numbers
 
