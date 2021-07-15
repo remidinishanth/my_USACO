@@ -20,9 +20,47 @@ Formal study of mathematical games. The ultimate goal of game theory is usually 
 * Most games fail the first condition. Chess, for example, fails the first, since we must know if the player moving next is player 1 or player 2 to determine whether that player is to move a white piece or a black piece.
 * Nim is a archetype for the impartial game; pieces are shared between the two players and each has the same goal.
 
-## Play convention
+### Play convention
 
 * An important class of games consists of those between two players in which there are only two possible outcomes: victory and loss. If the winner is the last player who is able to make a legal move, the game is said to follow the normal play convention. Otherwise, it is said to follow the misère play convention.
+
+source: http://wcipeg.com/wiki/Game_theory
+
+## N-positions and P-positions
+
+In a two-player, deterministic(no chance moves), impartial game which is guaranteed to end(win-or-lose outcome) in a finite number of moves, an N-position is a configuration such that the **n**ext player to make a move can force victory, and a P-position is a configuration such that the **p**revious player who moved can force victory.
+
+In a normal-play game, a configuration in which no further moves are possible is a P-position, since the player who is supposed to move next cannot do so and loses; in a misère-play game, it is an N-position, since the player who moved last made the last move and hence lost.
+
+Consider a configuration C of such a game and the configurations C_1, C_2, C_3, ... reachable from it. 
+* If at least one of C_1, C_2, C_3, ... is a P-position, then the player presented with configuration C wants to make the move that results in that configuration, so that he or she becomes the previous player when the next player is to move --- guaranteeing victory. This makes C a N-position. 
+* If all of C_1, C_2, C_3, ... are N-positions, then no matter what move the current player makes, the next player can force victory, making C a P-position. 
+
+In summary,
+* If all positions reachable in one move from position C are N-positions, then C is a P-position, and the current player does not have a winning strategy.
+* Otherwise (at least one P-position is reachable from C) C is an N-position, and a winning strategy necessarily entails leaving behind one of these P-positions for the next player.
+
+### Basic problem 
+A simple example is the following game, played by two players who take turns moving. At the beginning there are `n` coins. When it is a player’s turn he can take away `1`, `3` or `4` coins. The player who takes the last one away is declared the winner (in other words, the player who can not make a move is the loser). The question is: For what `n` will the first player win if they both play optimally?
+
+Positions have the following properties:
+* All terminal positions are losing.
+* If a player is able to move to a losing position then he is in a winning position.
+* If a player is able to move only to the winning positions then he is in a losing position.
+
+These properties could be used to create a simple recursive algorithm WL-Algorithm:
+
+```cpp
+boolean isWinning(position pos) {
+    moves[] = possible positions to which I can move from the position pos;
+    for (all x in moves)
+        if (!isWinning(x)) return true;
+    return false;
+}
+```
+
+It can be seen that whether a position is winning or losing depends only on the last `k` positions, where `k` is the maximum number of coins we can take away. While there are only `2^k` possible values for the sequences of the length `k`, our sequence will become periodic. You can use this observation to solve [SRM 330: LongLongNim](https://community.topcoder.com/stat?c=problem_statement&pm=6856)
+
 
 ## Grundy numbers
 
