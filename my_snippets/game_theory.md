@@ -73,7 +73,8 @@ The rules of the game are as follows:
 * On a player's turn, he or she chooses one non-empty pile and removes one or more sticks from it.
 * The first player who cannot make a move loses. (That is, the player who takes the last stick wins.)
 
-Suppose that there are three heaps with `3`, `4` and `5` coins respectively. Here is how game could develop:
+Suppose that there are two players `A`, `B` and three heaps with `3`, `4` and `5` coins respectively. Here is how game could develop if `A` moves first:
+
 ![](images/nim_game.png)
 
 ## Grundy numbers
