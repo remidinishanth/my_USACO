@@ -158,6 +158,8 @@ It helps to consider the binary representation of `N`. The strategy for the firs
 
 If n is odd then we win by removing 1. So no one will move to odd n and the game will be always on even numbers. But now we can divide all numbers by 2 and repeat our argument. It is easy to see that this strategy is exactly 'remove last 1-bit'. https://codeforces.com/blog/entry/57075?#comment-407190
 
+### Composite games - Grundy numbers
+
 ## Grundy numbers
 
 TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
