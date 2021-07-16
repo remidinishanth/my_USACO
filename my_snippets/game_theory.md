@@ -249,6 +249,21 @@ Why is the pile of Nim equivalent to the subgame if its size is equal to the gru
 
 * If we are in the subgame at the position with grundy number 0, by moving from that we will get to a position with a grundy number higher than 0. Because of that, from such a position it is possible to move back to 0. By doing that we can nullify every move from the position from grundy number 0.
 
+### Generalization
+Assume that we have games with the following properties:
+* The games are sequential. The players take turns one after the other, and there is no passing
+* The games are impartial. Given a state of the game, the set of available moves does not depend on whether you are player 1 or player 2.
+* Both players have perfect information about the game. There is no secrecy involved
+* The games are guaranteed to end in a finite number of moves.
+* In the end, the player unable to make a move loses. There are no draws. (This is known as a normal game. If on the other hand the last player to move loses, it is called a misère game)
+
+
+Let’s call the  games satisfying these properties as solvable games. For such games, there is a theory to find the winning strategy. This involves the Sprague–Grundy theorem, which reduces every such game to a game of Nim.
+
+Sprague-Grundy theorem reduces the state of every such game to a single Nim pile of a certain size. This pile size is called the nimber/Grundy number of the state. The theorem then essentially states that the state of a game is a winning/losing position iff the corresponding Nim pile is a winning/losing state.
+
+source: https://letuskode.blogspot.com/2014/08/grundy-numbers.html
+
 ## TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
 #### Problem: https://atcoder.jp/contests/abc195/tasks/abc195_e
