@@ -236,6 +236,19 @@ To prove that our strategy works for a problem we need to satisfy these three co
 * From winning position, it's possible to go to atleast 1 losing position
 * From a losing position, you are forced to go to a winning position
 
+#### Example problem
+
+Say we are given N piles, each pile is having Ai stones. In a move we need to divide all piles having > 1 stones into two piles. For example say we have (3, 4, 5, 1) piles then in a move we can divide them into ({1, 2}, {2, 2}, {1,4}, {1}) piles. Now we are having (1, 2, 2, 2, 1, 4, 1) piles. 
+
+Hence the final position will contains piles of size only 1.
+
+Solution: The problem only depends on the pile with largest number of stones. If the largest pile is having `2^k - 1` stones then it is losing position otherwise it is winning position.
+
+Proof: 
+* In the final position, the biggest pile contains 1 stones which can be expressed as `2^1 - 1` and hence it is a losing position.
+* Say the largest number H is not in this form. Then we divide the pile such that the largest is of the form `2^k - 1`. Say for example `H = 14`, then we can partition into `{7, 7}`.  Say H = 13, then we should partition into `{7, 6}`. We also need to gurantee that now `{7}` is the largest pile, for this we can parition all other piles such that each partition is less than `{7}`.
+* Say our number is already of the form `2^k - 1`, then we cannot partition such that our paritioned piles are of this form. Say we have `15` stones then we cannot make it to `2^k - 1` position. `15` can be divided to `{8,7}` here `8` is the largest pile and it is not of the form `2^k - 1`.
+
 
 ## TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
