@@ -215,7 +215,7 @@ int grundyNumber(position pos) {
 
 The following table shows grundy numbers for an 8 x 8 board:
 
-![](images/grundy_numbers1.png)
+![](images/grundy_numbers2.png)
 
 TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
