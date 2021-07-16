@@ -159,9 +159,63 @@ It helps to consider the binary representation of `N`. The strategy for the firs
 
 If n is odd then we win by removing 1. So no one will move to odd n and the game will be always on even numbers. But now we can divide all numbers by 2 and repeat our argument. It is easy to see that this strategy is exactly 'remove last 1-bit'. https://codeforces.com/blog/entry/57075?#comment-407190
 
+## Grundy numbers
+
+Let G be an impartial game. The Grundy number of a position P in G is
+* If P is a final position (from which no further move is possible), it has Grundy number 0
+* Otherwise the Grundy number is the minimum nonnegative integer that is not a Grundy number of any position that can be attained by making one move from P.
+
+Ever finite 2-person impartial games with perfect information can be converted into an equivalent Nim game using the Grundy Numbers. 
+
+For one pile games: Let G be an impartial game, and let g be its Grundy function. Then P is a winning position for player I whenever g(P) > 0, and P
+is a winning position for player II whenever g(P) = 0.
+
+* Let g be the Grundy function of an impartial game G. Let P, P' be positions in G such that you can get from P to P' in one move. Then g(P) ≠ g(P'). This follow because g is mex(minimum exclusion number).
+
+Here are Grundy numbers for (1, 3, 4)-NUM for upto 21 stones.
+
+```
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+0 1 0 1 2 3 2 0 1 0  1  2  3  2  0  1  0  1  2  3  2  0
+```
+
+The sequence is periodic with repeating pattern 0, 1, 0, 1, 2, 3, 2.
+
+Here are the Grundy numbers for (2, 4, 7)-NIM (where each player can remove 2, 4, or
+7 stones) up to 21 stones. 
+
+```
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+L L W W W W L W W L  W  W  L  W  W  L  W  W  L  W  W  L
+0 0 1 1 2 2 0 3 1 0  2  1  0  2  1  0  2  1  0  2  1  0
+```
+
+The sequence is eventually periodic with repeating pattern 1, 0, 2. Notice that it has an initial segment of length 8, as compared to length 4 when we
+looked only at win/loss information (W, W, L) pattern.
+
 ### Composite games - Grundy numbers
 
-## Grundy numbers
+Example game: Consider N x N chessboard with K knights on it. Unlike a knight in a traditional game of chess, these can move only as shown in the picture below (so the sum of coordinates is decreased in every move). There can be more than one knight on the same square at the same time. Two players take turns moving and, when it is a player’s, turn he chooses one of the knights and moves it. A player who is not able to make a move is declared the loser.
+
+![](images/grundy_numbers.png)
+
+This is the same as if we had K chessboards with exactly one knight on every chessboard. This is the ordinary sum of K games and it can be solved by using the grundy numbers. We assign grundy number to every subgame according to which size of the pile in the Game of Nim it is equivalent to. When we know how to play Nim we will be able to play this game as well.
+
+```cpp
+int grundyNumber(position pos) {
+    moves[] = possible positions to which we can move from pos
+    set s;
+    for(all x in moves) insert into s grundyNumber(x);
+    //return the smallest non-negative integer not in the set s;    
+    int ret = 0;
+    while(s.contains(ret)) ret++;
+    return ret;
+}
+```
+
+The following table shows grundy numbers for an 8 x 8 board:
+
+![](images/grundy_numbers1.png)
 
 TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
