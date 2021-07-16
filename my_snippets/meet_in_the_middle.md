@@ -10,9 +10,30 @@ The naive algorithm checks all four number combinations. This solution takes `O(
 
 A slightly improved algorithm brute forces through all `n^3` three number combinations and efficiently checks if `-(a + b + c)` is in the original array using a hash table. This algorithm is `O(n^3)`.
 
-If `a + b + c + d = 0`, then `a + b = -(c + d)` this is what meet in the middle does. Now we store n^2 sums `a + b` in a hash set S. Then iterate through all `n^2` combinations for `c` and `d` and check if S contains `-(c + d)`.
+One more way is to use use 2sum(2 pointer method) for `c + d = target - (a + b)` brute forcing for `a` and `b`.
 
 ```cpp
+sort(nums.begin(), nums.end());
+for(int i=0;i<n;i++){
+    for(int j=i+1;j<n;j++){
+        int a = nums[i], b = nums[j];
+        int left = j+1, right = n-1;
+        // query for c + d = target - a - b from [left, right]
+        while(left < right){
+            if(nums[left] + nums[right] > target - a - b) right--;
+            else if(nums[left] + nums[right] < target - a - b) left++;
+            else{
+                // found (a, b, c, d)
+                // increment left and right as long as the paris are same
+            }
+        }
+    }
+}
+```
+
+If `a + b + c + d = 0`, then `a + b = -(c + d)` this is what meet in the middle does. Now we store n^2 sums `a + b` in a hash set S. Then iterate through all `n^2` combinations for `c` and `d` and check if S contains `-(c + d)`.
+
+```python
 def 4sum(A):
   sums = {}
   for a in A:
