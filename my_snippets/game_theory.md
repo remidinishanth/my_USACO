@@ -296,6 +296,8 @@ If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexit
 
 ## TODO: 
 
+Problems from https://letuskode.blogspot.com/2014/08/grundy-numbers.html
+
 Dynamic subtraction: https://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf 
 
 Check: https://web.mit.edu/sp.268/www/nim.pdf
