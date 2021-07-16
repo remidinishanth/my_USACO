@@ -217,7 +217,19 @@ The following table shows grundy numbers for an 8 x 8 board:
 
 ![](images/grundy_numbers2.png)
 
-TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
+We could try to solve the original problem with our WL-Algorithm, but it would time out because of the large number of possible positions.
+
+A better approach is to compute grundy numbers for an N x N chessboard in O(n^2) time and then xor these K (one for every horse) values. If their xor is 0 then we are in a losing position, otherwise we are in a winning position.
+
+Why is the pile of Nim equivalent to the subgame if its size is equal to the grundy number of that subgame?
+
+* If we decrease the size of the pile in Nim from A to B, we can move also in the subgame to the position with the grundy number B. (Our current position had grundy number A so it means we could move to positions with all smaller grundy numbers, otherwise the grundy number of our position would not be A.)
+
+* If we are in the subgame at a position with a grundy number higher than 0, by moving in it and decreasing its grundy number we can also decrease the size of pile in the Nim.
+
+* If we are in the subgame at the position with grundy number 0, by moving from that we will get to a position with a grundy number higher than 0. Because of that, from such a position it is possible to move back to 0. By doing that we can nullify every move from the position from grundy number 0.
+
+## TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
 #### Problem: https://atcoder.jp/contests/abc195/tasks/abc195_e
 
