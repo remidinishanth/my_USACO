@@ -229,6 +229,14 @@ Why is the pile of Nim equivalent to the subgame if its size is equal to the gru
 
 * If we are in the subgame at the position with grundy number 0, by moving from that we will get to a position with a grundy number higher than 0. Because of that, from such a position it is possible to move back to 0. By doing that we can nullify every move from the position from grundy number 0.
 
+### Proving that our strategy works
+
+To prove that our strategy works for a problem we need to satisfy these three conditions
+* All final positions are losing
+* From winning position, it's possible to go to atleast 1 losing position
+* From a losing position, you are forced to go to a winning position
+
+
 ## TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
 #### Problem: https://atcoder.jp/contests/abc195/tasks/abc195_e
@@ -257,7 +265,7 @@ dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i]  or ( 10r + S<sub>i</sub> mod 7 ) ∈ 
 dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i] and ( 10r + S<sub>i</sub> mod 7 ) ∈ dp[i]}  if X<sub>i</sub> is `A`,
 
 
-If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexity is O(N) .
+If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexity is O(N).
 
 ## TODO: 
 
