@@ -18,8 +18,9 @@ Formal study of mathematical games. The ultimate goal of game theory is usually 
   * The valid moves from a given position depend only upon the position itself and not upon which player is to move next.
   * The outcome of the game is symmetric with respect to the players.
 * Most games fail the first condition. Chess(each player has a different set of possible moves from a given position), for example, fails the first, since we must know if the player moving next is player 1 or player 2 to determine whether that player is to move a white piece or a black piece.
-* Set of moves available from any given position is the same for both players.
+* An impartial game is one in which the only difference between the two players is that one goes first (in particular, there can be no pieces “belonging” to one player). Set of moves available from any given position is the same for both players.
 * Nim is a archetype for the impartial game; pieces are shared between the two players and each has the same goal.
+* Impartial games can be studied by classifying all possible positions into winning and losing positions
 
 ### Play convention
 
