@@ -183,7 +183,7 @@ If n is odd then we win by removing 1. So no one will move to odd n and the game
 
 Say not only removing stones like in normal nim game, In a move a player can choose to add stones to some pile. What would be the winning position? If players keep on adding the stones then the game doesn't end in finite moves. So let's say a player can add stones atmost 10 times. What would be the winning position? Suprisingly the `0 xor sum` is still a losing position because: Say a person is in losing in position and add some stones to a pile, then the other player can remove the exact number of stones the other player has added nullifying the addition move. Thus it is similar to nim game.
 
-## Grundy numbers
+## Grundy numbers (Nimbers)
 
 Let G be an impartial game. The Grundy number of a position P in G is
 * If P is a final position (from which no further move is possible), it has Grundy number 0
