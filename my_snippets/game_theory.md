@@ -384,6 +384,8 @@ Problems from https://letuskode.blogspot.com/2014/08/grundy-numbers.html
 
 Dynamic subtraction: https://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/comb.pdf 
 
+https://sigma425.hatenablog.com/entry/2014/12/07/132702
+
 Check: https://web.mit.edu/sp.268/www/nim.pdf
 
 ## REF:
