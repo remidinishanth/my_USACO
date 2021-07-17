@@ -72,3 +72,5 @@ public:
     }
 };
 ```
+
+Probability of derangements is 1/e https://math.stackexchange.com/questions/399500/why-is-the-derangement-probability-so-close-to-frac1e
