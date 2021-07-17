@@ -323,6 +323,61 @@ dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i] and ( 10r + Sᵢ mod 7 ) ∈ dp[i]}  i
 
 If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexity is O(N).
 
+### Problems
+
+Problem: Roxor SRM 216 Level Three https://community.topcoder.com/stat?c=problem_statement&pm=2987&rd=5862 
+Editorial: https://www.topcoder.com/tc?module=Static&d1=match_editorials&d2=srm216
+
+```cpp
+map<int,int> memo;
+int n;
+
+class Roxor { 
+   public:
+   int transform( int state, int i, int j, int k ) {
+      state ^= (1 << i);
+      state ^= (1 << j);
+      state ^= (1 << k);
+      return state;
+   }
+   int ifbit( int state, int i ) {
+      return (state >> i)&1;
+   }
+   int winning( int state ) { // memoized search
+      if( memo.count( state ) ) return memo[state];
+      for( int i = 0; i < n-1; ++i ) {
+         if( !ifbit( state, i ) ) continue;
+         for( int j = i+1; j < n; ++j ) 
+            for( int k = j; k < n; ++k ) 
+               if( !winning( transform( state, i, j, k ) ) ) 
+                  return memo[state] = 1;
+      }
+      return memo[state] = 0;
+   }
+   vector <int> play(vector <int> piles) // piles with stones
+   {
+      n = piles.size(); // <=15 given
+      int state = 0; // state as a 15-bit integer
+      for( int i = n-1; i >= 0; --i ) 
+         state = state * 2 + piles[i]%2;
+      memo.clear();
+      for( int i = 0; i < n-1; ++i ) {
+         if( !piles[i] ) continue;
+         for( int j = i+1; j < n; ++j ) {
+            for( int k = j; k < n; ++k ) {
+               if( !winning( transform( state, i, j, k ) ) ) {
+                  vector<int> ret( 3 );
+                  ret[0] = i; ret[1] = j; ret[2] = k;
+                  return ret;
+               }
+            }
+         }
+      }
+      return vector<int>();
+   } 
+}; 
+```
+
 ## TODO: 
 
 Problems from https://letuskode.blogspot.com/2014/08/grundy-numbers.html
