@@ -221,6 +221,8 @@ looked only at win/loss information (W, W, L) pattern.
 
 ### Composite games - Grundy numbers
 
+Composite games are combination of multiple simple games.
+
 Example game: Consider N x N chessboard with K knights on it. Unlike a knight in a traditional game of chess, these can move only as shown in the picture below (so the sum of coordinates is decreased in every move). There can be more than one knight on the same square at the same time. Two players take turns moving and, when it is a player’s, turn he chooses one of the knights and moves it. A player who is not able to make a move is declared the loser.
 
 ![](images/grundy_numbers.png)
