@@ -270,6 +270,27 @@ Sprague-Grundy theorem reduces the state of every such game to a single Nim pile
 
 source: https://letuskode.blogspot.com/2014/08/grundy-numbers.html
 
+### Sum of games
+
+If some games are played in parallel in a "super" game (i.e. upon his turn, a player may decide to move in any of the currently active game; when there is no valid move in any of the games, the player looses), then this "super" game is called the SUM of all the parallel "small" games.
+
+If the "small" game have Grundy Numbers `{G1, G2, ..., Gn}` then the "super" game has Grundy Number `G = {G1 xor G2 xor ... xor Gn}`.
+
+Now, the game of Nim can be considered as the sum many of single pile Nim games. Since, we know that each single piles' grundy number is equal to the number of stones in that pile, the overall grundy number is simply their xor. This is consistent with what we have done earlier.
+
+Now, lets consider some simple games and find their Grundy Numbers.
+
+#### Game 1:
+Unlike Nim, here you can only remove 1,2 or 3 stones from a choosen pile (there is only one pile as of now).
+Now, , , , , ,  and so on, i.e. .
+Grundy numbers wasn't really necessary to figure out who wins in a single pile. But in case of multiple piles, it really helps to find out the grundy number of each pile and take the xor.
+
+#### Game 2:
+Consider an infinite grid, a coin is placed at , in each turn, a player can move the coin along decreasing  co-ordinate or decreasing  co-ordinate by as many steps as he desires with the only restriction being that neither  nor  become negative at any point.
+This is basically a 2-pile Nim game with pile heights  and  respectively!
+
+Only key thing to remember while applying the sum of games is that the games should be independent of each other, and the player in a move will choose one of the game and play a move in it.
+
 ## TODO: https://atcoder.jp/contests/abc206/tasks/abc206_f
 
 #### Problem: https://atcoder.jp/contests/abc195/tasks/abc195_e
