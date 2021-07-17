@@ -199,7 +199,9 @@ Here are Grundy numbers for (1, 3, 4)-NUM for upto 21 stones.
 0 1 0 1 2 3 2 0 1 0  1  2  3  2  0  1  0  1  2  3  2  0
 ```
 
-The sequence is periodic with repeating pattern 0, 1, 0, 1, 2, 3, 2.
+The sequence is periodic with repeating pattern 0, 1, 0, 1, 2, 3, 2. Using this pattern we have the following
+
+![](images/grundy_numbers_mod.png)
 
 Here are the Grundy numbers for (2, 4, 7)-NIM (where each player can remove 2, 4, or
 7 stones) up to 21 stones. 
@@ -287,9 +289,11 @@ The initial state is dp[N] = { 0 }.
 
 The transitions are
 
-dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i]  or ( 10r + S<sub>i</sub> mod 7 ) ∈ dp[i]}  if X<sub>i</sub> is `T`, 
+```
+dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i]  or ( 10r + Sᵢ mod 7 ) ∈ dp[i]}  if Xᵢ is `T`, 
 
-dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i] and ( 10r + S<sub>i</sub> mod 7 ) ∈ dp[i]}  if X<sub>i</sub> is `A`,
+dp[i−1] = { r | ( 10r mod 7 ) ∈ dp[i] and ( 10r + Sᵢ mod 7 ) ∈ dp[i]}  if Xᵢ is `A`,
+```
 
 
 If 0 ∈ dp[0] at last, Takahashi wins; otherwise, Aoki wins. The time complexity is O(N).
