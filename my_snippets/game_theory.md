@@ -386,6 +386,8 @@ Dynamic subtraction: https://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/
 
 https://sigma425.hatenablog.com/entry/2014/12/07/132702
 
+https://blog.hamayanhamayan.com/entry/2017/02/27/025050
+
 Check: https://web.mit.edu/sp.268/www/nim.pdf
 
 ## REF:
