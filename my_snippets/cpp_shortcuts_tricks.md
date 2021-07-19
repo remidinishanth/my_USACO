@@ -414,3 +414,5 @@ Note that prior to C++11, a space was required between the two >’s in the last
 Look at https://stackoverflow.com/questions/2023977/difference-of-keywords-typename-and-class-in-templates
 
 Summary: Stroustrup originally used class to specify types in templates to avoid introducing a new keyword. Some in the committee worried that this overloading of the keyword led to confusion. Later, the committee introduced a new keyword typename to resolve syntactic ambiguity, and decided to let it also be used to specify template types to reduce confusion, but for backward compatibility, class kept its overloaded meaning. [REF](https://stackoverflow.com/questions/213121/use-class-or-typename-for-template-parameters?noredirect=1&lq=1)
+
+TODO: https://discuss.codechef.com/t/c-oops-concepts/74361
