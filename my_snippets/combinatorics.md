@@ -76,3 +76,14 @@ public:
 Probability of derangements is 1/e https://math.stackexchange.com/questions/399500/why-is-the-derangement-probability-so-close-to-frac1e
 
 https://ico-official.com/assets/media/archive/ico-booklet-2020-en.pdf
+
+
+Number of Integer solutions for the equation `x1 + x2 + ... + xr = n` and  `x >= 0` is `C(n+r-1, r-1)`.
+
+Proof: We can assume we want to arrange (r-1) `+` symbols and (n) `1`'s so it is `(n-r+1)!/(n! (r-1)!)`.
+
+If we want solutions such that `x > 0`, then it is arranging (r-1) `+` symbols into gaps of n `1`'s that is `1 x 1 x 1 .. x 1` we need to choose (r-1) x positions out of the available `(n-1)` positions and hence we have `C(n-1, r-1)`
+
+REF: https://math.stackexchange.com/questions/919676/the-number-of-integer-solutions-of-equations
+
+Problem based on this: https://atcoder.jp/contests/abc132/tasks/abc132_d
