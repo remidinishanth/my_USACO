@@ -87,3 +87,48 @@ If we want solutions such that `x > 0`, then it is arranging (r-1) `+` symbols i
 REF: https://math.stackexchange.com/questions/919676/the-number-of-integer-solutions-of-equations
 
 Problem based on this: https://atcoder.jp/contests/abc132/tasks/abc132_d
+
+#### Colorful Hats 2
+
+N people are standing in a queue, numbered 1 , 2 , 3 , . . . , N from front to back. Each person wears a hat, which is red, blue, or green. 
+
+The person numbered i says: "In front of me, exactly Ai people are wearing hats with the same color as mine." 
+
+Assuming that all these statements are correct, find the number of possible combinations of colors of the N people's hats. Since the count can be enormous, compute it modulo 1000000007 .
+
+<details>
+ <summary>Solution</summary>
+ 
+![](images/rgb_colorful_hats_1.png)
+![](images/rgb_colorful_hats_2.png) 
+ 
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+#pragma warning (disable: 4996)
+
+int N, A[1 << 18], C[3];
+long long sum = 1;
+
+int main() {
+	cin >> N;
+	for (int i = 1; i <= N; i++) cin >> A[i];
+
+	for (int i = 1; i <= N; i++) {
+		long long cnt = 0, id = -1;
+		if (A[i] == C[0]) { cnt++; id = 0; }
+		if (A[i] == C[1]) { cnt++; id = 1; }
+		if (A[i] == C[2]) { cnt++; id = 2; }
+		if (id == -1) {
+			cout << "0" << endl;
+			return 0;
+		}
+		sum *= cnt; C[id]++;
+		sum %= 1000000007;
+	}
+	cout << sum << endl;
+	return 0;
+}
+```
+</details>
