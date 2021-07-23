@@ -1,4 +1,6 @@
 MO's Algorithm
+
+First always make sure that you `add_element` then `remove_element`, otherwise your cose might not work becaue of `--cnt[A[x]]==0`, if we don't add first then count might become negative.
 ```cpp
 // Author: Tanuj Khattar
 // Accepted Solution for https://www.spoj.com/problems/DQUERY/
@@ -62,6 +64,7 @@ int main() {
   // Answer the queries.
   for (int i = 1, L = 1, R = 0; i <= m; i++) {
     // Total cost of all 4 loops : |L2 - L1| + |R2 - R1|
+    // First add_element and then remove_element
     while (R < q[i].r) add_element(++R);
     while (L > q[i].l) add_element(--L);
     while (R > q[i].r) remove_element(R--);
