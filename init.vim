@@ -131,4 +131,4 @@ endfunction
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Checkout https://github.com/clangd/coc-clangd
+" Checkout https://github.com/clangd/coc-clangd and https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
