@@ -594,3 +594,345 @@ SegTree_1<int,1<<18> st;
 source: https://codeforces.com/contest/1516/submission/113760111 & https://kmjp.hatenablog.jp/entry/2018/01/03/0930
 
 Check out this: https://atcoder.jp/contests/practice2/editorial/100
+
+
+<details>
+  <summary> SRM 810 Div 1 Medium </summary>
+
+**Problem:**
+The main road on Iceland is the Ring Road: a highway loop that goes around the whole island.
+
+There are N towns on the Ring Road. They are numbered from 0 to N-1 in the order in which the road visits them. As the road is cyclic, after town `N-1` it returns to town 0.
+
+In winter the Ring Road needs to be maintained, otherwise it won't be usable due to too much snow. For each i, we know the cost `C[i]` of maintaining the segment between towns i and ((i+1) modulo N). Once a segment is maintained, it can be used in both directions.
+
+We have polled all P people who live in Iceland. For each of them we know the town `L[j]` where they live and the town `W[j]` where they work.
+
+We want to make sure that everybody can get to work. Calculate and return the minimum total cost of doing so.
+
+**Editorial**
+
+Clearly we never want to maintain all N road segments, as maintaining any N-1 leaves the whole country connected. This is what sometimes actually happens in winter on Iceland. If one of the segments is blocked due to some disaster, you drive around the island if you really have to.
+
+
+Once we choose one road segment that won’t be maintained, each pair of towns has only one path left between them, and thus everyone’s travel path is fixed.
+
+
+This would give as a valid-but-too-slow solution in something like O(N(P+N)), maybe with an extra logarithm if we sort: iterate over all segments of the road, and for each segment s construct all the paths forced by segment s being blocked and compute the length of their union.
+
+
+What remains is speeding up this solution using some data structures: more precisely, a segment tree. In each node of the segment tree we’ll store two things: the total length of the union of the paths within its subtree, and the number of times the entire interval represented by its subtree is covered by a path. When adding a new path that covers the interval completely we increment the counter, when removing such a path we decrement the counter, and if it decreased to 0, we recompute the length of path union by summing the answers in our children.
+
+
+We can start our search by trying to block the segment between towns 0 and N-1. This gives us a collection of intervals, and we are interested in the length of their union. We can just insert all of them into the segment tree and then ask the root.
+
+
+Now, what happens if we move the blocked segment to the next one -- the road between 0 and 1? The paths that contained this segment will now flip. E.g., instead of the path from 0 to 6 we will have a path from 6 to N. (Vertex N is the same as vertex 0 but in the segment tree it’s easier if we treat it as a completely new vertex. Thus, our segment tree will have at least 2N leaves.)
+
+
+This observation is easily generalized. Each time we move the blockage to the next road segment x-(x+1), we remove each path x-y from our collection and instead add a new path y-(x+N).
+
+
+As we move the blockage around the ring road, each path will get flipped twice. Using the segment tree, each flip can be processed in O(log N) time. This gives us the final time complexity O(N + P*log N).
+
+source: https://docs.google.com/document/d/e/2PACX-1vRLGHmTLbRTBE3VwhdL_bb8MI0LnB0ksN4lKF1nKxrFo4EzQdLz8kZGwN1zs_haHqL_uyFDTO8PVmso/pub
+		
+Code source: tourist
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class segtree {
+ public:
+  struct node {
+    // don't forget to set default value (used for leaves)
+    // not necessarily neutral element!
+    int mn = 0;
+    int add = 0;
+    int cnt = 1;
+
+    void apply(int l, int r, int v) {
+      mn += v;
+      add += v;
+    }
+
+    void apply(int l, int r, int v, char c) {
+      cnt = v;
+    }
+  };
+
+  node unite(const node &a, const node &b) const {
+    node res;
+    res.mn = min(a.mn, b.mn);
+    res.cnt = (res.mn == a.mn ? a.cnt : 0) + (res.mn == b.mn ? b.cnt : 0);
+    return res;
+  }
+
+  inline void push(int x, int l, int r) {
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    // push from x into (x + 1) and z
+    if (tree[x].add != 0) {
+      tree[x + 1].apply(l, y, tree[x].add);
+      tree[z].apply(y + 1, r, tree[x].add);
+      tree[x].add = 0;
+    }
+  }
+
+  inline void pull(int x, int z) {
+    tree[x] = unite(tree[x + 1], tree[z]);
+  }
+
+  int n;
+  vector<node> tree;
+
+  void build(int x, int l, int r) {
+    if (l == r) {
+      return;
+    }
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    build(x + 1, l, y);
+    build(z, y + 1, r);
+    pull(x, z);
+  }
+
+  template <typename M>
+  void build(int x, int l, int r, const vector<M> &v) {
+    if (l == r) {
+      tree[x].apply(l, r, v[l]);
+      return;
+    }
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    build(x + 1, l, y, v);
+    build(z, y + 1, r, v);
+    pull(x, z);
+  }
+
+  node get(int x, int l, int r, int ll, int rr) {
+    if (ll <= l && r <= rr) {
+      return tree[x];
+    }
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    push(x, l, r);
+    node res{};
+    if (rr <= y) {
+      res = get(x + 1, l, y, ll, rr);
+    } else {
+      if (ll > y) {
+        res = get(z, y + 1, r, ll, rr);
+      } else {
+        res = unite(get(x + 1, l, y, ll, rr), get(z, y + 1, r, ll, rr));
+      }
+    }
+    pull(x, z);
+    return res;
+  }
+
+  template <typename... M>
+  void modify(int x, int l, int r, int ll, int rr, const M&... v) {
+    if (ll <= l && r <= rr) {
+      tree[x].apply(l, r, v...);
+      return;
+    }
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    push(x, l, r);
+    if (ll <= y) {
+      modify(x + 1, l, y, ll, rr, v...);
+    }
+    if (rr > y) {
+      modify(z, y + 1, r, ll, rr, v...);
+    }
+    pull(x, z);
+  }
+
+  int find_first_knowingly(int x, int l, int r, const function<bool(const node&)> &f) {
+    if (l == r) {
+      return l;
+    }
+    push(x, l, r);
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    int res;
+    if (f(tree[x + 1])) {
+      res = find_first_knowingly(x + 1, l, y, f);
+    } else {
+      res = find_first_knowingly(z, y + 1, r, f);
+    }
+    pull(x, z);
+    return res;
+  }
+
+  int find_first(int x, int l, int r, int ll, int rr, const function<bool(const node&)> &f) {
+    if (ll <= l && r <= rr) {
+      if (!f(tree[x])) {
+        return -1;
+      }
+      return find_first_knowingly(x, l, r, f);
+    }
+    push(x, l, r);
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    int res = -1;
+    if (ll <= y) {
+      res = find_first(x + 1, l, y, ll, rr, f);
+    }
+    if (rr > y && res == -1) {
+      res = find_first(z, y + 1, r, ll, rr, f);
+    }
+    pull(x, z);
+    return res;
+  }
+
+  int find_last_knowingly(int x, int l, int r, const function<bool(const node&)> &f) {
+    if (l == r) {
+      return l;
+    }
+    push(x, l, r);
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    int res;
+    if (f(tree[z])) {
+      res = find_last_knowingly(z, y + 1, r, f);
+    } else {
+      res = find_last_knowingly(x + 1, l, y, f);
+    }
+    pull(x, z);
+    return res;
+  }
+
+  int find_last(int x, int l, int r, int ll, int rr, const function<bool(const node&)> &f) {
+    if (ll <= l && r <= rr) {
+      if (!f(tree[x])) {
+        return -1;
+      }
+      return find_last_knowingly(x, l, r, f);
+    }
+    push(x, l, r);
+    int y = (l + r) >> 1;
+    int z = x + ((y - l + 1) << 1);
+    int res = -1;
+    if (rr > y) {
+      res = find_last(z, y + 1, r, ll, rr, f);
+    }
+    if (ll <= y && res == -1) {
+      res = find_last(x + 1, l, y, ll, rr, f);
+    }
+    pull(x, z);
+    return res;
+  }
+
+  segtree(int _n) : n(_n) {
+    assert(n > 0);
+    tree.resize(2 * n - 1);
+    build(0, 0, n - 1);
+  }
+
+  template <typename M>
+  segtree(const vector<M> &v) {
+    n = v.size();
+    assert(n > 0);
+    tree.resize(2 * n - 1);
+    build(0, 0, n - 1, v);
+  }
+
+  node get(int ll, int rr) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    return get(0, 0, n - 1, ll, rr);
+  }
+
+  node get(int p) {
+    assert(0 <= p && p <= n - 1);
+    return get(0, 0, n - 1, p, p);
+  }
+
+  template <typename... M>
+  void modify(int ll, int rr, const M&... v) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    modify(0, 0, n - 1, ll, rr, v...);
+  }
+
+  // find_first and find_last call all FALSE elements
+  // to the left (right) of the sought position exactly once
+
+  int find_first(int ll, int rr, const function<bool(const node&)> &f) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    return find_first(0, 0, n - 1, ll, rr, f);
+  }
+
+  int find_last(int ll, int rr, const function<bool(const node&)> &f) {
+    assert(0 <= ll && ll <= rr && rr <= n - 1);
+    return find_last(0, 0, n - 1, ll, rr, f);
+  }
+};
+
+class IcelandRingRoad {
+public:
+	int solve(int, int, int, long long);
+};
+
+int IcelandRingRoad::solve(int N, int P, int M, long long state) {
+  vector<int> C(N);
+  for (int i = 0; i < N; i++) {
+    state = (state * 1103515245 + 12345) % (1LL << 31);
+    C[i] = 1 + ((state / 10) % M);
+  }
+  vector<int> L(P);
+  vector<int> W(P);
+  vector<vector<int>> at(N);
+  for (int j = 0; j < P; j++) {
+    state = (state * 1103515245 + 12345) % (1LL << 31);
+    L[j] = ((state / 10) % N);
+    state = (state * 1103515245 + 12345) % (1LL << 31);
+    W[j] = ((state / 10) % N);
+    if (L[j] > W[j]) {
+      swap(L[j], W[j]);
+    }
+    if (L[j] != W[j]) {
+      at[L[j]].push_back(j);
+      at[W[j]].push_back(~j);
+    }
+  }
+  segtree st(N);
+  int total = 0;
+  for (int i = 0; i < N; i++) {
+    st.modify(i, i, C[i], '!');
+    total += C[i];
+  }
+  for (int i = 0; i < P; i++) {
+    if (L[i] != W[i]) {
+      st.modify(L[i], W[i] - 1, +1);
+    }
+  }
+  int ans = (int) 2e9;
+  for (int i = 0; i < N; i++) {
+    auto nd = st.get(0, N - 1);
+//    cerr << i << " " << nd.mn << " " << nd.cnt << '\n';
+//    assert(nd.mn == 0);
+    ans = min(ans, total - nd.cnt);
+    for (int j : at[i]) {
+      if (j >= 0) {
+        st.modify(L[j], W[j] - 1, -1);
+        if (0 < L[j]) {
+          st.modify(0, L[j] - 1, +1);
+        }
+        st.modify(W[j], N - 1, +1);
+      } else {
+        j = ~j;
+        st.modify(L[j], W[j] - 1, +1);
+        if (0 < L[j]) {
+          st.modify(0, L[j] - 1, -1);
+        }
+        st.modify(W[j], N - 1, -1);
+      }
+    }
+  }
+  return ans;
+}
+```
+</details>		
