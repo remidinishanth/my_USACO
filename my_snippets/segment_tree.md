@@ -612,30 +612,23 @@ We want to make sure that everybody can get to work. Calculate and return the mi
 
 **Editorial**
 
-Clearly we never want to maintain all N road segments, as maintaining any N-1 leaves the whole country connected. This is what sometimes actually happens in winter on Iceland. If one of the segments is blocked due to some disaster, you drive around the island if you really have to.
-
+Clearly we never want to maintain all N road segments, as maintaining any N-1 leaves the whole country connected.
 
 Once we choose one road segment that won’t be maintained, each pair of towns has only one path left between them, and thus everyone’s travel path is fixed.
 
-
 This would give as a valid-but-too-slow solution in something like O(N(P+N)), maybe with an extra logarithm if we sort: iterate over all segments of the road, and for each segment s construct all the paths forced by segment s being blocked and compute the length of their union.
-
 
 What remains is speeding up this solution using some data structures: more precisely, a segment tree. In each node of the segment tree we’ll store two things: the total length of the union of the paths within its subtree, and the number of times the entire interval represented by its subtree is covered by a path. When adding a new path that covers the interval completely we increment the counter, when removing such a path we decrement the counter, and if it decreased to 0, we recompute the length of path union by summing the answers in our children.
 
-
 We can start our search by trying to block the segment between towns 0 and N-1. This gives us a collection of intervals, and we are interested in the length of their union. We can just insert all of them into the segment tree and then ask the root.
-
 
 Now, what happens if we move the blocked segment to the next one -- the road between 0 and 1? The paths that contained this segment will now flip. E.g., instead of the path from 0 to 6 we will have a path from 6 to N. (Vertex N is the same as vertex 0 but in the segment tree it’s easier if we treat it as a completely new vertex. Thus, our segment tree will have at least 2N leaves.)
 
-
 This observation is easily generalized. Each time we move the blockage to the next road segment x-(x+1), we remove each path x-y from our collection and instead add a new path y-(x+N).
-
 
 As we move the blockage around the ring road, each path will get flipped twice. Using the segment tree, each flip can be processed in O(log N) time. This gives us the final time complexity O(N + P*log N).
 
-source: https://docs.google.com/document/d/e/2PACX-1vRLGHmTLbRTBE3VwhdL_bb8MI0LnB0ksN4lKF1nKxrFo4EzQdLz8kZGwN1zs_haHqL_uyFDTO8PVmso/pub
+source MisOf: https://docs.google.com/document/d/e/2PACX-1vRLGHmTLbRTBE3VwhdL_bb8MI0LnB0ksN4lKF1nKxrFo4EzQdLz8kZGwN1zs_haHqL_uyFDTO8PVmso/pub
 		
 Code source: tourist
 
