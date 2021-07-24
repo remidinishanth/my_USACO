@@ -64,6 +64,7 @@ set hlsearch         " highlight search results
 set incsearch        " incremental search
 set splitbelow       " split opens at bottom
 set splitright       " new vertical split opens right
+set signcolumn=yes   " always show signcolumns - used by ALE
 
 syntax enable        " keep your current color settings
 
@@ -88,9 +89,6 @@ let g:airline#extensions#tabline#buffer_min_count = 2   " show tabline only if t
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
-
-" ALE sign column
-let g:ale_sign_column_always = 1
 
 " Smart way to move between windows in split
 map <C-j> <C-W>j
