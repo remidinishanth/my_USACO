@@ -628,7 +628,7 @@ This observation is easily generalized. Each time we move the blockage to the ne
 
 As we move the blockage around the ring road, each path will get flipped twice. Using the segment tree, each flip can be processed in O(log N) time. This gives us the final time complexity O(N + P*log N).
 
-source MisOf: https://docs.google.com/document/d/e/2PACX-1vRLGHmTLbRTBE3VwhdL_bb8MI0LnB0ksN4lKF1nKxrFo4EzQdLz8kZGwN1zs_haHqL_uyFDTO8PVmso/pub
+source misof: https://docs.google.com/document/d/e/2PACX-1vRLGHmTLbRTBE3VwhdL_bb8MI0LnB0ksN4lKF1nKxrFo4EzQdLz8kZGwN1zs_haHqL_uyFDTO8PVmso/pub
 		
 Code source: tourist
 
