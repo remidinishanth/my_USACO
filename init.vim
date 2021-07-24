@@ -14,7 +14,9 @@ Plug 'preservim/nerdtree'
 
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
+
+" Syntax checker
+Plug 'dense-analysis/ale'
 
 " Fuzzy finding and searching
 Plug 'mileszs/ack.vim'
@@ -25,7 +27,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 
 " Colorizer
-Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'yggdroot/indentline'  " Show indentation lines
@@ -55,17 +57,13 @@ set relativenumber   " turn relative line numbers on
 set ruler            " displays line, col number at bottom of window
 set noerrorbells     " no beep occurs when an error message is displayed
 set vb t_vb=         " no flash will ever occur vb is visualbell
-set showcmd          " display incomplete commands
-set showmode         " show current mode at the bottom of window
 set mouse=a          " enable mouse in all modes
-set cursorline       " highlight current line
 set wildmenu         " visual autocomplete for command menu
 set nowrap           " disable soft wrap for lines
 set hlsearch         " highlight search results
 set incsearch        " incremental search
 set splitbelow       " split opens at bottom
 set splitright       " new vertical split opens right
-set background=dark  " tell vim what the background color looks like
 
 syntax enable        " keep your current color settings
 
@@ -73,7 +71,7 @@ if (has('termguicolors'))
   set termguicolors
 endif
 
-colorscheme nord
+colorscheme gruvbox
 
 " FZF settings
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp', 'highlight': 'Identifier'} }
@@ -90,6 +88,9 @@ let g:airline#extensions#tabline#buffer_min_count = 2   " show tabline only if t
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
+
+" ALE sign column
+let g:ale_sign_column_always = 1
 
 " Smart way to move between windows in split
 map <C-j> <C-W>j
@@ -108,7 +109,6 @@ nmap <Leader>gs :G<CR> "git status, use s and u to stage and unstage
 " Competitive programming CPP
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g
 nnoremap <F5> :w <bar> !g++ -DLOCAL -std=c++17 -Wshadow -Wall % -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g <CR>
-nnoremap <F6> :!./a.out <CR>
 
 " set the runtime path to include Vundle and initialize
 set rtp+=/usr/local/opt/fzf
@@ -132,8 +132,3 @@ endfunction
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" C-_ for PydocstringFormatter
-nmap <silent> <C-_> <Plug>(pydocstring)
-let g:pydocstring_formatter = 'google'
-let g:pydocstring_templates_path = '/Users/nishanth.reddy/.config/py-doq-templates'
