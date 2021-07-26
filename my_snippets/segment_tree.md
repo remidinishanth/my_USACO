@@ -928,4 +928,160 @@ int IcelandRingRoad::solve(int N, int P, int M, long long state) {
   return ans;
 }
 ```
+	
+paksha
+	
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Lazy segment tree
+struct segtree {
+    struct item {
+        int val, sum;
+    };
+    item zeroAdd = {0, 0};
+
+    item add(item a, item b) {
+        return {a.val + b.val, a.sum + b.sum};
+    }
+
+    item zeroSum = {INT_MAX, 0};
+
+    item sum(item a, item b) {
+	    // return node with min val
+        if (a.val < b.val) return a;
+        if (a.val > b.val) return b;
+        return {a.val, a.sum + b.sum};
+    }
+
+    vector<item> sums;
+    vector<item> adds;
+
+    int size;
+
+    void propagate(int n) {
+        adds[2 * n + 1] = add(adds[2 * n + 1], adds[n]);
+        sums[2 * n + 1] = add(sums[2 * n + 1], adds[n]);
+        adds[2 * n + 2] = add(adds[2 * n + 2], adds[n]);
+        sums[2 * n + 2] = add(sums[2 * n + 2], adds[n]);
+        adds[n] = zeroAdd;
+    }
+
+    void add(int l, int r, item x, int n, int L, int R) {
+        if (l >= R || L >= r) return;
+        if (L >= l && R <= r) {
+            adds[n] = add(adds[n], x);
+            sums[n] = add(sums[n], x);
+            return;
+        }
+        int M = (L + R) >> 1;
+        propagate(n);
+        add(l, r, x, 2 * n + 1, L, M);
+        add(l, r, x, 2 * n + 2, M, R);
+        sums[n] = sum(sums[2 * n + 1], sums[2 * n + 2]);
+    }
+
+    item sum(int l, int r, int n, int L, int R) {
+        if (l >= R || L >= r) return zeroSum;
+        if (L >= l && R <= r) {
+            return sums[n];
+        }
+        int M = (L + R) >> 1;
+        propagate(n);
+        return sum(sum(l, r, 2 * n + 1, L, M), sum(l, r, 2 * n + 2, M, R));
+    }
+
+    void init(int n) {
+        size = 1;
+        while (size < n) size *= 2;
+        sums.assign(2 * size, zeroSum);
+        adds.assign(2 * size, zeroAdd);
+    }
+
+    void init(vector<item> a) {
+        int n = a.size();
+        init(n);
+        size = 1;
+        while (size < n) size *= 2;
+        sums.assign(2 * size, zeroSum);
+        adds.assign(2 * size, zeroAdd);
+        for (int i = 0; i < n; i++) {
+            sums[size - 1 + i] = a[i];
+        }
+        for (int i = size - 2; i >= 0; i--) {
+            sums[i] = sum(sums[2 * i + 1], sums[2 * i + 2]);
+        }
+    }
+
+    void add(int l, int r, item x) {
+        add(l, r, x, 0, 0, size);
+    }
+
+    item sum(int l, int r) {
+        return sum(l, r, 0, 0, size);
+    }
+};
+
+
+class IcelandRingRoad {
+public:
+    int solve(int n, int p, int M, long long state) {
+        vector<int> c(n);
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            state = (state * 1103515245ll + 12345ll) % (1ll << 31);
+            c[i] = 1 + (state / 10) % M;
+            sum += c[i];
+        }
+        vector<int> a(p), b(p);
+        for (int j = 0; j < p; j++) {
+            state = (state * 1103515245ll + 12345ll) % (1ll << 31);
+            a[j] = ((state / 10) % n);
+            state = (state * 1103515245ll + 12345ll) % (1ll << 31);
+            b[j] = ((state / 10) % n);
+        }
+        vector<vector<int>> q(n);
+        segtree st;
+        vector<segtree::item> aa(n);
+        for (int i = 0; i < n; i++) {
+            aa[i] = {0, c[i]};
+        }
+        st.init(aa);
+        for (int i = 0; i < p; i++) {
+            if (a[i] != b[i]) {
+                int x = a[i];
+                int y = b[i];
+                if (x > y) swap(x, y);
+                q[x].push_back(y);
+                q[y].push_back(x);
+                st.add(x, y, {1, 0});
+            }
+        }
+        int ans = 0;
+        for (int x = 0; x < n; x++) {
+            for (int y : q[x]) {
+                if (y > x) {
+	            // event starts at x, x < y
+	            // remove [x, y] add [0, x] and [y, n]
+                    st.add(x, y, {-1, 0});
+                    st.add(0, x, {1, 0});
+                    st.add(y, n, {1, 0});
+                } else {
+	            // event ends at x, y < x
+	            // remove [0, y] and [x, n] and add [y, x]
+                    st.add(x, n, {-1, 0});
+                    st.add(0, y, {-1, 0});
+                    st.add(y, x, {1, 0});
+                }
+            }
+            auto res = st.sum(0, n);
+            if (res.val != 0) return -1;
+            ans = max(ans, res.sum);
+        }
+        return sum - ans;
+    }
+};
+```
 </details>		
