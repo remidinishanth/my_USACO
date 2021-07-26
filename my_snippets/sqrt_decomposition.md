@@ -8,6 +8,7 @@ Mo’s algorithm provides a way to answer all queries in O((N + Q) * sqrt(N) * F
 
 * Consider a problem where we are asked to find the answer for certain intervals `[l, r]`. We can't quickly compute the answer for an arbitrary interval, but we know how to transition to `[l, r±1]` and `[l±1, r]` fast given some information remaining from `[l, r]` answer calculation. The number of transitions we need to do to get from `[l1, r1]` to `[l2, r2]` is `|l1-l2|+|r1-r2|`.
 * If there are only two intervals we need to answer such transitioning would help us. However, if there are many intervals, choosing a good transitioning route will drastically reduce the total time needed. Finding the best transition route quick is allegedly NP-hard, so we will focus on estimating a "good enough" route.
+* Just by reordering our queries we can answer our queries faster, but since we reorder our queries, it is offline.
 
 ![](images/sqrt_mo_1.png)
 
