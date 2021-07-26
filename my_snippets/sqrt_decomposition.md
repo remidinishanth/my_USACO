@@ -2,8 +2,14 @@ MO's Algorithm
 
 Usecase: Answering queries on a static array, offline (Mo's algorithm)
 
+You are given array Arr of length N and Q queries. Each query is represented by two numbers L and R, and it asks you to compute some function Func with subarray Arr[L..R] as its argument.
+
+Mo’s algorithm provides a way to answer all queries in O((N + Q) * sqrt(N) * F) time with at least O(Q) additional memory. Meaning of F is explained below.
+
 * Consider a problem where we are asked to find the answer for certain intervals `[l, r]`. We can't quickly compute the answer for an arbitrary interval, but we know how to transition to `[l, r±1]` and `[l±1, r]` fast given some information remaining from `[l, r]` answer calculation. The number of transitions we need to do to get from `[l1, r1]` to `[l2, r2]` is `|l1-l2|+|r1-r2|`.
 * If there are only two intervals we need to answer such transitioning would help us. However, if there are many intervals, choosing a good transitioning route will drastically reduce the total time needed. Finding the best transition route quick is allegedly NP-hard, so we will focus on estimating a "good enough" route.
+
+![](images/sqrt_mo_1.png)
 
 
 First always make sure that you `add_element` then `remove_element`, otherwise your code might not work becaue of `--cnt[A[x]]==0`, if we don't add first then count might become negative.
