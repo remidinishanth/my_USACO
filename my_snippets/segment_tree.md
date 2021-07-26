@@ -1061,6 +1061,7 @@ public:
         }
         int ans = 0;
         for (int x = 0; x < n; x++) {
+	    // remove the road between [x, x+1]
             for (int y : q[x]) {
                 if (y > x) {
 	            // event starts at x, x < y
