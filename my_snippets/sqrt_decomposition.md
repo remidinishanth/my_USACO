@@ -6,6 +6,14 @@ You are given array Arr of length N and Q queries. Each query is represented by 
 
 Mo’s algorithm provides a way to answer all queries in O((N + Q) * sqrt(N) * F) time with at least O(Q) additional memory. Meaning of F is explained below.
 
+The algorithm is applicable if all following conditions are met:
+
+* Arr is not changed by queries;
+* All queries are known beforehand (techniques requiring this property are often called “offline algorithms”);
+* If we know `Func([L, R])`, then we can compute `Func([L + 1, R])`, `Func([L - 1, R])`, `Func([L, R + 1])` and `Func([L, R - 1])`, each in O(F) time.
+
+Proof why this works:
+
 * Consider a problem where we are asked to find the answer for certain intervals `[l, r]`. We can't quickly compute the answer for an arbitrary interval, but we know how to transition to `[l, r±1]` and `[l±1, r]` fast given some information remaining from `[l, r]` answer calculation. The number of transitions we need to do to get from `[l1, r1]` to `[l2, r2]` is `|l1-l2|+|r1-r2|`.
 * If there are only two intervals we need to answer such transitioning would help us. However, if there are many intervals, choosing a good transitioning route will drastically reduce the total time needed. Finding the best transition route quick is allegedly NP-hard, so we will focus on estimating a "good enough" route.
 * Just by reordering our queries we can answer our queries faster, but since we reorder our queries, it is offline.
@@ -207,3 +215,4 @@ MO's Algorithm on Trees https://codeforces.com/blog/entry/43230 and https://code
 
 Hilbert curve sorting - https://codeforces.com/blog/entry/61203
 
+https://www.hackerearth.com/practice/notes/mos-algorithm/
