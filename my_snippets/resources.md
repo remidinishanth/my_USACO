@@ -10,3 +10,4 @@
 * http://algolist.ru/
 * http://www.secmem.org/blog/2019/06/17/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B43/
 * http://noi-ph-training.herokuapp.com/topics
+* https://www.fatalerrors.org/a/basic-mo-team-algorithm.html
