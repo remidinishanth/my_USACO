@@ -204,7 +204,6 @@ int main() {
 }
 ```
 
-
 TODO: 
 
 Basics https://blog.anudeep2011.com/mos-algorithm/ and https://codeforces.com/blog/entry/83248 and https://codeforces.com/blog/entry/81716
@@ -212,6 +211,8 @@ Basics https://blog.anudeep2011.com/mos-algorithm/ and https://codeforces.com/bl
 With Update: https://codeforces.com/blog/entry/72690
 
 MO's Algorithm on Trees https://codeforces.com/blog/entry/43230 and https://codeforces.com/blog/entry/68271
+
+Query Sqrt decomposition: https://codeforces.com/gym/100589/problem/A
 
 Hilbert curve sorting - https://codeforces.com/blog/entry/61203
 
