@@ -120,3 +120,5 @@ void dfs(int node, int parent) {
     en[node] = timer-1;
 }
 ```
+TODO: https://usaco.guide/gold/tree-euler?lang=cpp
+TODO: https://codeforces.com/gym/102694
