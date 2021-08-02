@@ -217,3 +217,5 @@ Query Sqrt decomposition: https://codeforces.com/gym/100589/problem/A
 Hilbert curve sorting - https://codeforces.com/blog/entry/61203
 
 https://www.hackerearth.com/practice/notes/mos-algorithm/
+
+https://h0rnet.hatenablog.com/entry/2016/03/03/CFR_Educational_2_E__Lomsat_gelral_(_Smaller_to_Larger_or_Time_stamp_+_Mo's_Algorithm_)
