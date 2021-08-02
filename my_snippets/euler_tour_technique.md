@@ -36,7 +36,7 @@ source: Competitive Programmer's Handbook - CSES
 * Insert every node/edge in the euler tour array whenever you enter/exit the node.
 * Thereforce, everynode/edge of the tree will occur twice in the euler tour array - at indices `start[x]/in[x]` and `end[x]/out[x]` for a given node/edge x.
 
-![](images/ett_6.png)
+<p align="center"><img src="images/ett_6.png" width=300></p>
 
 * A subtree of node x is represented by the continous range `[start[x], end[x]]`
 * A path between the two nodes A & B contain nodes which occur exactly once in the continous range `[end[A], start[B]]` -- Useful for applying MO's on Trees where we can ignore an element y if it occurs twice in the range `[L, R]`. For example in case of Addition of path, When we see the node for the first time, we can add the element to sum and, when we see it the second time we can subtract thus nullifying the element which occurs twice in the range `[L, R]`.
