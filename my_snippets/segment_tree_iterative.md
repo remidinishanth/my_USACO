@@ -279,6 +279,9 @@ TODO: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-s
 
 ### Benq's iterative implementation
 
+* 1D Point Update and Range query
+* Point Update: Set value at i to x
+* Range query: Query for the comb `[L, R]`
 ```cpp
 /**
  * Description: 1D point update, range query where \texttt{comb} is
