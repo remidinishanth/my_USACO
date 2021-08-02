@@ -6,6 +6,47 @@
 
 source: Competitive Programmer's Handbook - CSES
 
+### Euler Tour trees
+
+Euler tour tree (ETT) is a method for representing a rooted undirected tree as a number sequence. There are several common ways to build this representation.
+
+```
+     1
+    / \
+   2   5
+  / \
+ 3   4
+
+[1-2] [2-3] [3-2] [2-4] [4-2] [2-1] [1-5] [5-1] - Edges in order of DFS
+
+     1
+    / \
+   2   5
+  / \
+ 3   4
+
+1 2 3 3 4 4 2 5 5 1 - Vertex is added to the array twice, once during start of DFS and again while end of DFS
+
+     1
+    / \
+   2   5
+  / \
+ 3   4
+
+1 2 3 2 4 2 1 5 1 -  Each vertex is added every time when we visit it
+
+```
+
+Further all ETT's are stored in a Cartesian tree (treap) unless other explicitly stated. first(v) and last(v) are positions of first and last occurrence of vertex v in the array (in 2nd and 3rd cases).
+
+So, how these representation can be used?
+
+First, you should notice that a subtree is always mapped to a segment. Thus you can solve subtree queries via segment queries. E.g. if you want to add values to nodes and find subtree sum, you just make a BIT on a 2nd type tour. add(v, x) becomes add(first(v), x) in BIT, and get_sum(v) becomes get_sum(first(v), last(v)) in BIT. There is also a trick to compute sum on path: add(v, x) becomes add(first(v), x), add(last(v),  - x) in BIT, and get_sum_on_path_from_root(v) is get_sum(0, first(v)) (you can check that it works using pencil and paper).
+
+You can also use ETT for finding LCA. Use the 3rd type. Make an additional array h, where `h[i] = height(v[i])`. Then `lca(u, v) = v[argmin(first(u), first(v)) in h]`. Why? Because LCA(u, v) is a highest vertex which is between u and v in DFS traverse order. Sometimes I prefer this method to binary lifting because it proved to be faster and consumes linear memory.
+
+The fact that a subtree is maps to a segment gives us some more benefits. With the first and third approach you can reroot the tree simply rotating the array. You may avoid some pain in the neck with the third approach if you do not store last number for the root (thus vertex v will have exactly deg(v) occurrences). You also can perform link-cut operations simply cutting the segment from the array. It is done quite straightforward when you store edges, and with vertices you should carefully deal with duplicating of the subtree's former ancestor.
+
 ## Queries on Trees:
 
 ### Path Query and Update Problems
