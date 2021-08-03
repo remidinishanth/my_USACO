@@ -262,9 +262,96 @@ while(!Q.empty()){
 source: https://codeforces.com/blog/entry/17974
     
 ### All longest paths in a tree
+
+This is generalization of diameter of tree problem. This can also be solved in O(n) time.
     
-https://usaco.guide/problems/cses-1132-tree-distances-i/solution
-Competitive Programmers Handbook 14.3 https://usaco.guide/CPH.pdf#page=147
+Let `maxLength(x)` denote the maximum length of a path that begins at node `x`. Let's root the tree arbitrarily. The first part of the problem is to calculate for every node `x` the maximum length of path that goes through child of `x`. This part can be solved in O(n) using dynamic programming.
+
+The second part of the problem is to calculate for every node `x` the maximum length of a path through it's parent p. At first glance, it seems that we should choose the longest path from p. However, this doesn't always work, because the longest path from p may go through x.
+    
+Still, we can solve the second part in O(n) time by storing two maximum lengths for each node:
+* `maxLength1(x)`: the maximum length of a path from x
+* `maxLength2(x)`: the maximum length of a path from x in another direction than the first path
+
+Finally, if the path that corresponds to `maxLength1(p)` goes through `x`, we conclude that the maximum length is `maxLength2(p) + 1`, otherwise the maximum length is `maxLength1(p) + 1`.
+    
+<details>
+    <summary> CPP implementation </summary>
+    
+```cpp
+// source -> https://cses.fi/problemset/task/1132/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define FIO ios::sync_with_stdio(0); cin.tie(0);
+
+
+vector<int> adj[200001];
+int d1[200001];  // to store first-max length.
+int d2[200001]; // to store second-max length.
+int c[200001]; // to store child for path of max length.
+
+void dfs(int v, int p) {
+	d1[v] = 0;
+	d2[v] = 0;
+	for (auto x : adj[v]) {
+		if (x == p)continue;
+		dfs(x, v);
+		if (d1[x] + 1 > d1[v]) {
+			d2[v] = d1[v];
+			d1[v] = d1[x] + 1;
+			c[v] = x;
+		}
+		else if (d1[x] + 1 > d2[v]) {
+			d2[v] = d1[x] + 1;
+		}
+	}
+}
+
+void dfs2(int v, int p) {
+	for (auto x : adj[v]) {
+		if (x == p) continue;
+		if (c[v] == x) {
+			if (d1[x] < d2[v] + 1) {
+				d2[x] = d1[x];
+				d1[x] = d2[v] + 1;
+				c[x] = v;
+			}
+			else {
+				d2[x] = max(d2[x], d2[v] + 1);
+			}
+		}
+		else {
+			d2[x] = d1[x];
+			d1[x] =  d1[v] + 1;
+			c[x] = v;
+		}
+		dfs2(x, v);
+	}
+}
+
+int main() {
+	FIO;
+	int n, u, v;
+	cin >> n;
+	for (int i = 0; i < n - 1; i++) {
+		cin >> u >> v;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	// METHOD-I- All longest paths-given in CPH ~~~ (O(n))- 2-DFS
+	dfs(1, -1);
+	dfs2(1, -1);
+
+	for (int i = 1; i <= n; i++) {
+		cout << d1[i] << " ";
+	}
+	return 0;
+}
+```
+</details>                         
+                         
 
 ## Single Source Shortest Paths on Weighted Tree
 
