@@ -74,16 +74,35 @@ int main() {
 
 Diameter of a graph - maximum of the shortest paths in a graph, longest of the shortest paths in a graph.
 
-For general graph, we need O(V³) Floyd Warshall's algorithm plus O(V²) all-pairs check to compute the diameter. However,
-if the given graph is a weighted tree, the problem becomes simpler. It is just the longest path in tree. We can just run a BFS from every point and compute the longest path because in a tree there exist only a unique path between any pair of vertices. So we can do in O(V²) time. We can even solve this problem in O(V) time.
+For general graph, we need O(V³) Floyd Warshall's algorithm plus O(V²) all-pairs check to compute the diameter. However, if the given graph is a weighted tree, the problem becomes simpler. It is just the longest path in tree. We can just run a BFS from every point and compute the longest path because in a tree there exist only a unique path between any pair of vertices. So we can do in O(V²) time. We can even solve this problem in O(V) time.
+
+### Algorithm 1
+
+A general way to approach many tree problems is to first root the tree arbitrarily. After this, we can try to solve the problem separately for each subtree. Our first algorithm for calculating the diameter is based on this idea.
+
+Say we root the tree at arbitary vertex, then we can use dynamic programming and find the answer using the depth of nodes from DFS. If the longest path involves root, then it is sum of maximum depth between two different subtrees, if not, children of root will calculate the answer(Prove by contradiction by rooting tree at this centre).
+
+An important observation is that every path in a rooted tree has a *highest point*: the highest node that belongs to the path. Thus, we can calculate for each node the length of the longest path whose highest point is the node. One of those paths corresponds to the diameter of the tree.
+
+We calculate for each node x two values:
+* toLeaf(x): the maximum length of a path from x to any leaf
+* maxLength(x): the maximum length of a path whose highest point is x
+
+Dynamic programming can be used to calculate the above values for all nodes in O(n) time. First, to calculate `toLeaf(x)`, we go through the children of x,
+choose a child c with maximum `toLeaf(c)` and add one to this value. Then, to calculate `maxLength(x)`, we choose two distinct children a and b such that the sum
+`toLeaf(a) + toLeaf(b)` is maximum and add two to this sum
+
+source: Competitive Programmer's Handbook
+
+### Algorithm 2
 
 We only need two O(V) traversals: 
 * Do DFS/BFS from any vertex s to find the furthest vertex x,
 * Do DFS/BFS one more time from vertex x to get the true furthest vertex y from x.
 
-Say we root the tree at arbitary vertex, then we can use dynamic programming and find the answer using the depth of nodes from DFS. If the longest path involves root, then it is sum of maximum depth between two different subtrees, if not, children of root will calculate the answer(Prove by contradiction by rooting tree at this centre).
-
 The length of the unique path along x to y is the diameter of that tree.
+
+This is an elegant method, but why does it work? It helps if we visualize the diameter is horizontal, and all other nodes hang form it.
 
 source: CP3 Chapter 4. Graph
 
