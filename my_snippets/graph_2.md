@@ -260,6 +260,11 @@ while(!Q.empty()){
 </details>    
 
 source: https://codeforces.com/blog/entry/17974
+    
+### All longest paths in a tree
+    
+https://usaco.guide/problems/cses-1132-tree-distances-i/solution
+Competitive Programmers Handbook 14.3 https://usaco.guide/CPH.pdf#page=147
 
 ## Single Source Shortest Paths on Weighted Tree
 
