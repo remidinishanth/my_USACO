@@ -351,8 +351,59 @@ int main() {
 }
 ```
 </details>                         
-                         
+        
+	
+Compute a diameter of the tree as described by algorithm 2 above. Once we have a diameter (a,b), output `max(dist(a,i),dist(b,i))` for each node `i`.
 
+<details>
+    <summary> CPP implementation </summary>    
+	
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// dist[0][i] = distance from node a to node i
+// dist[1][i] = distance from node b to node i
+int dist[2][200000];
+vector<int> adj[200000];
+
+int dfs(int u, int p, int d, int i) {
+	dist[i][u] = d;
+	int opt = -1;
+	for (int v : adj[u]) {
+		if (v != p) {
+			int x = dfs(v, u, d+1, i);
+			if (opt == -1 || dist[i][x] > dist[i][opt]) opt = x;
+		}
+	}
+	return opt == -1 ? u : opt;
+}
+
+int main() {
+	int n; cin >> n;
+	for (int i = 0; i < n-1; i++) {
+		int a, b; cin >> a >> b; --a; --b;
+		adj[a].push_back(b); adj[b].push_back(a);
+	}
+	// first, find node a by finding the farthest node from an arbitrary node x
+	int mxNode = dfs(0, 0, 0, 0);
+	// then, find node b (this step also computes distance from a to every other node)
+	int mxNode2 = dfs(mxNode, mxNode, 0, 0);
+	// finally, compute the distance from b to every other node
+	dfs(mxNode2, mxNode2, 0, 1);
+
+	for (int i = 0; i < n; i++) {
+		cout << max(dist[0][i], dist[1][i]) << " \n"[i == n-1];
+	}
+	return 0;
+}
+```
+</details>  
+    
+REF: [USACO Guide](https://usaco.guide/problems/cses-1132-tree-distances-i/solution) and [Competitive Programmers Handbook 14.3](https://usaco.guide/CPH.pdf#page=147)
+	
+	
 ## Single Source Shortest Paths on Weighted Tree
 
 Generally we use Dijkstra's O((V+E)logV) and Bellman-Ford's O(VE) algorithms for solving SSP problem on weighted graph. But if the 
