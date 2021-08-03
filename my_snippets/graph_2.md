@@ -115,7 +115,7 @@ For un-weighted graphs, we can use n BFS and thus reduce the complexity to O(VE)
 <details>
     <summary>Breaking tree recursively based on diameters</summary>
 
-This was implemented when I understood a CF Div 2 problem wrongly. The follows inputs a Graph and then divides the edges recursively by choosing the largest diameter from the components.
+This was implemented when I understood https://codeforces.com/contest/1521/problem/D CF Div 2 problem wrongly. The follows inputs a Graph and then divides the edges recursively by choosing the largest diameter from the components.
     
 ```cpp
 typedef vector<int> vi;
