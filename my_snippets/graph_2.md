@@ -95,8 +95,16 @@ For un-weighted graphs, we can use n BFS and thus reduce the complexity to O(VE)
 
 <details>
     <summary>Breaking tree recursively based on diameters</summary>
+
+This was implemented when I understood a CF Div 2 problem wrongly. The follows inputs a Graph and then divides the edges recursively by choosing the largest diameter from the components.
     
 ```cpp
+typedef vector<int> vi;
+typedef vector< vector<int> > vvi;
+
+#define SZ(a) int((a).size())
+#define REP(i, n) for (int i = 0; i < int(n); i++)
+
 vector<set<int>> Adj;
 
 int n;
@@ -104,7 +112,7 @@ vi D, P; // Depth, Parent
 
 vvi dd; // vector of diameter chains
 
-vii Ans1, Ans2; // cuts and links
+vector<pair<int,int>> Ans1, Ans2; // cuts and links
 
 void dfs(int x, int p, int &far, int &last){
     P[x] = p;
@@ -121,20 +129,25 @@ void dfs(int x, int p, int &far, int &last){
 }
 
 void solve(int start=0){
+    // if there is only one vertex left - select it and return
     if(Adj[start].size()==0){
         dd.PB({start});
         return;
     }
 
+    // find the ends of the diameter
+    
+    // find the farthest node
     int far = 0; int t = 0;
     D[start] = 0;
     dfs(start, -1, far, t);
 
+    // from the farthest node, find the diameter
     far = 0; int last=t;
     D[t] = 0;
     dfs(t, -1, far, last);
 
-    set<int> Diamater;
+    set<int> Diamater; // find the vertices in the diamter
     vi dia;
 
     while(P[last]!=-1){
@@ -149,9 +162,10 @@ void solve(int start=0){
 
     for(int x:dia){
         for(int y:Adj[x]){
+            // if the other vertex is not present in diamter - disconnect
             if(Diamater.find(y)==Diamater.end()){
                 Ans1.PB({x,y});
-                Adj[y].erase(x);
+                Adj[y].erase(x); // remove the connection with diameter nodes
                 solve(y);
             }
         }
@@ -159,18 +173,17 @@ void solve(int start=0){
 }
 
 int main(){
-    dsd(TC);
+    int TC;
+    scanf("%d", &TC);
     while(TC--){
-        Ans1.clear();
-        Ans2.clear();
+        Ans1.clear(); Ans2.clear();
         dd.clear();
         Adj.clear();
-        sd(n); D = vi(n); P = vi(n);
+        scanf("%d", &n); D = vi(n); P = vi(n);
         Adj = vector<si>(n, set<int>());
         REP(i,n-1){
             dsd2(x,y);
-            x--;
-            y--;
+            x--; y--;
             Adj[x].insert(y);
             Adj[y].insert(x);
         }
@@ -180,7 +193,7 @@ int main(){
             Ans2.PB({first_end, dd[i][0]});
             first_end = dd[i].back();
         }
-        pd(SZ(Ans1));
+        printf("%d\n", SZ(Ans1));
         REP(i,SZ(Ans1)){
             printf("%d %d ", Ans1[i].F + 1, Ans1[i].S + 1);
             printf("%d %d\n", Ans2[i].F + 1, Ans2[i].S + 1);
