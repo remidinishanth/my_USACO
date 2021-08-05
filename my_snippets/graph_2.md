@@ -350,8 +350,7 @@ int main() {
 	return 0;
 }
 ```
-</details>                         
-        
+</details>                              
 	
 Compute a diameter of the tree as described by algorithm 2 above. Once we have a diameter (a,b), output `max(dist(a,i),dist(b,i))` for each node `i`.
 
@@ -403,6 +402,114 @@ int main() {
     
 REF: [USACO Guide](https://usaco.guide/problems/cses-1132-tree-distances-i/solution) and [Competitive Programmers Handbook 14.3](https://usaco.guide/CPH.pdf#page=147)
 	
+### CSES Tree Distances II
+
+You are given a tree consisting of n nodes.
+
+Your task is to determine for each node the sum of the distances from the node to all other nodes.
+
+Two approaches
+* First calculate the distances for each subtree bottom up, Then add the distances from other children of the parent to each node top down.
+* Rerooting the tree, If we reroot the tree at node 1's neighbour (let's say node 2). [USACO guide](https://usaco.guide/problems/cses-1133-tree-distances-ii/solution)
+    * The depths of all nodes in node 2's subtree decrease by 1.
+    * The depths of all nodes outside of its subtree increase by 1.
+    
+<details>	
+    <summary>Approach 1 CPP implementation</summary>
+    
+```cpp
+const int nax = 3e5 + 10;
+int n;
+
+vector<int> adj[nax];
+
+int sub_sz[nax]; // subtree sizes
+ll sum_dist[nax]; // distances from nodes in the subtree
+ll ans_dist[nax]; // ans for each node
+
+// calculate sum_dist from children
+int dfs(int u, int p) {
+    sub_sz[u] = 1;
+    for (int v : adj[u]) {
+        if (v != p) {
+            sub_sz[u] += dfs(v, u);
+            sum_dist[u] += sub_sz[v] + sum_dist[v];
+        }
+    }
+    ans_dist[u] = sum_dist[u];
+    return sub_sz[u];
+}
+
+// add distance from parent's other children
+void dfs2(int u, int p){
+    for(int v: adj[u]){
+        if(v==p) continue;
+        // sub_sz[v] + sum_dist[v] is the contribution from v to u
+        ans_dist[v] += (n - sub_sz[v]) + (ans_dist[u] - sub_sz[v] - sum_dist[v]);
+        dfs2(v, u);
+    }
+}
+
+int main() {
+    cin >> n;
+    vector<int> V;
+    for (int i = 0; i < n-1; i++) {
+        int a, b; cin >> a >> b; --a; --b;
+        adj[a].push_back(b); adj[b].push_back(a);
+    }
+    dfs(0, -1);
+    dfs2(0, -1);
+    for(int i=0; i<n; i++) printf("%lld ", ans_dist[i]);
+    return 0;
+}
+```
+</details>
+    
+<details>	
+    <summary>Approach 2 CPP implementation</summary>
+    
+```cpp
+#include <bits/stdc++.h>
+typedef long long ll;
+using namespace std;
+
+int n;
+vector<int> graph[200001];
+ll dp[200001], ans[200001];
+
+void dfs1(int node = 1, int parent = 0, ll depth = 0) {
+	ans[1] += depth;
+	dp[node] = 1;
+	for (int i : graph[node]) if (i != parent) {
+		dfs1(i, node, depth + 1);
+		dp[node] += dp[i];
+	}
+}
+
+void dfs2(int node = 1, int parent = 0) {
+	for (int i : graph[node]) if (i != parent) {
+		ans[i] = ans[node] + n - 2 * dp[i];
+		dfs2(i, node);
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> n;
+	for (int i = 1; i < n; i++) {
+		int a, b;
+		cin >> a >> b;
+		graph[a].push_back(b);
+		graph[b].push_back(a);
+	}
+	dfs1();
+	dfs2();
+	for (int i = 1; i <= n; i++) cout << ans[i] << ' ';
+	return 0;
+}
+```
+</details>    
 	
 ## Single Source Shortest Paths on Weighted Tree
 
