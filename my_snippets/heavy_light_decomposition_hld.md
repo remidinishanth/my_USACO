@@ -112,7 +112,7 @@ def go2(x):
         go2(x)
 ```
 
-![image](https://user-images.githubusercontent.com/19663316/115999338-f11b9d00-a608-11eb-9c6c-148742a297aa.png)
+![](images/hld_tree_demo_1.png)
 
 If you look at array p, it can be breaked into heavy chains segments. For two nodes within a chain, we can directly query segment tree to find the result. Also we can just use one segement tree for the whole graph instead of using one for each heavy chain.
 
