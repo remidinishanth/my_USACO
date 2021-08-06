@@ -857,7 +857,7 @@ Also check out https://cp-algorithms.com/graph/hld.html for simple implementatio
 
 ### Values stored on Edges
 
-We need to mofiy the segment tree query based on whether values stored on vertices or edges.
+We need to modify the segment tree query based on whether values stored on vertices or edges.
 
 ```cpp
   if (!valuesOnVertices && u == v) return;
