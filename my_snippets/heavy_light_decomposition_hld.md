@@ -16,7 +16,6 @@ But say we also have an update query set(v,x) where we are given node v and valu
 
 Say instead of a tree, we just have a chain(set of nodes connected one after another), we can support both calc(u,v) and set(v,x) by using BIT/Segment tree.
 
-![image](https://user-images.githubusercontent.com/19663316/115997295-42735e80-a600-11eb-9d0c-84b492d83964.png)
 ![](images/hld_class_0.png)
 
 Key: HLD supports updating the tree node/edge values unlike the LCA sparse array approach, but the tree structure is fixed.
