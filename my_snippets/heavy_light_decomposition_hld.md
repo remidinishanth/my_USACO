@@ -17,6 +17,7 @@ But say we also have an update query set(v,x) where we are given node v and valu
 Say instead of a tree, we just have a chain(set of nodes connected one after another), we can support both calc(u,v) and set(v,x) by using BIT/Segment tree.
 
 ![image](https://user-images.githubusercontent.com/19663316/115997295-42735e80-a600-11eb-9d0c-84b492d83964.png)
+![](images/hld_class_0.png)
 
 Key: HLD supports updating the tree node/edge values unlike the LCA sparse array approach, but the tree structure is fixed.
 
@@ -49,7 +50,7 @@ source: <https://ipsc.ksp.sk/2009/real/solutions/l.html> IPSC 2009 problem L in 
 
 We can solve problems involving queries on Trees
 
-![image](https://user-images.githubusercontent.com/19663316/118310655-8a551980-b50c-11eb-9a1a-4a9be778e349.png)
+![](images/hld_class_1.png)
 
 
 ## Two school of thoughts
@@ -62,15 +63,15 @@ There are two ways to label edges as heavy or light.
   If the size of the subtree rooted at the latter is more than half that of the subtree rooted at the former, the edge is heavy. 
   Otherwise, it is light.
   
-![image](https://user-images.githubusercontent.com/19663316/118304119-e4051600-b503-11eb-9ff1-4c4a63be0243.png)
+![](images/hld_class_2.png)
 
 In the first case, we'll have many heavy edges and hence our code will run faster, in the second case we might have not any heavy edges for some trees.
 
-![image](https://user-images.githubusercontent.com/19663316/115997083-6e421480-a5ff-11eb-93f1-42cd4a97a50c.png)
+![](images/hld_class_3.png)
 
 Based on the subtree sizes, mark the edges as heavy, breaking ties arbitrarily.
 
-![image](https://user-images.githubusercontent.com/19663316/115997107-7bf79a00-a5ff-11eb-8fcc-3d46478b2954.png)
+![](images/hld_class_4.png)
 
 Consider some node, if you choose heavy edge and go down, we will have heavy paths. Using these, our tree nodes can be split into heavy paths, along with some single leaf nodes(these can be thought of as paths of size 1). Since every vertex has exactly one heavy edge, we can decompose the tree into
 disjoint paths consisting of heavy edges.
@@ -116,18 +117,17 @@ def go2(x):
 
 If you look at array p, it can be breaked into heavy chains segments. For two nodes within a chain, we can directly query segment tree to find the result. Also we can just use one segement tree for the whole graph instead of using one for each heavy chain.
 
-![image](https://user-images.githubusercontent.com/19663316/115999408-363fcf00-a609-11eb-8412-3e89d89d4288.png)
+![](images/hld_class_5.png)
 
 It turns out that we don't need any special code to calculate LCA and answer the queries, we can leverage HLD to do it. From each node let's have a pointer to the top node in the heavy path. For node u let's call this top node of chain as `top[u]`(We can find this in the same recursive procedure, see Adamant's trick).
 
-![image](https://user-images.githubusercontent.com/19663316/115999560-e6153c80-a609-11eb-8a08-f9b03b66f407.png)
+![](images/hld_class_6.png)
 
 If both `u` and `v` are on the same heavy chain, then we can query Segment tree and get the answer, otherwise, since they belong to different chains, we just move to the `top[deeper_node]` continue.
  
+![](images/hld_class_7.png)
 
-![image](https://user-images.githubusercontent.com/19663316/120119736-0e6afa80-c1b7-11eb-8de1-cfa52564a2df.png)
-
-![image](https://user-images.githubusercontent.com/19663316/118531491-853dd780-b763-11eb-9eb2-270f7d38b49d.png)
+![](images/hld_class_8.png)
 
 ```python
 while True:
@@ -866,7 +866,7 @@ We need to mofiy the segment tree query based on whether values stored on vertic
 ```
 source: https://sites.google.com/site/indy256/algo/heavy_light
 
-![image](https://user-images.githubusercontent.com/19663316/118335289-f5164d00-b52c-11eb-8e9e-a988838414aa.png)
+![](images/hld_class_9.png)
 
 Store the values in the deeper nodes in HLD as update the weight of `i-th` edge as follows
 
