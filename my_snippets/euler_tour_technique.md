@@ -175,7 +175,11 @@ https://cses.fi/problemset/task/1137/
 <details>
  <summary> Solution </summary>
 
-Linearize the tree using ETT and create segment tree on top of it. Subtree of node x is store from `[st[x], en[x]]`
+Linearize the tree using ETT and create segment tree on top of it. Each subtree of a tree corresponds to a subarray of the tree traversal array such
+that the first element of the subarray is the root node. Subtree of node x is store from `[st[x], en[x]]`. 
+     
+To answer the queries efficiently, it suffices to store the values of the nodes in a binary indexed or segment tree. After this, we can both update a value and
+calculate the sum of values in O(logn) time.
 
 ```cpp
 /**
@@ -266,6 +270,27 @@ int main() {
 ```
                           
 </details>
+
+#### Root to Path Queries
+
+Your task is to process following types of queries:
+* change the value of node s to x
+* calculate the sum of values on the path from the root to node s
+     
+<details>
+     <summary>Solution</summary>
+     
+When the value of a node increases by x, the sums of all nodes in its subtree
+increase by x.
+     
+To support both the operations, we should be able to increase all values
+in a range and retrieve a single value. This can be done in O(logn) time using a
+binary indexed or segment tree      
+     
+```cpp
+TODO
+```     
+</details>     
  
 TODO: https://usaco.guide/gold/tree-euler?lang=cpp
 TODO: https://codeforces.com/gym/102694
