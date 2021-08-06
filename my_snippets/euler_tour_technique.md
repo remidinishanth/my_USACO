@@ -291,6 +291,42 @@ binary indexed or segment tree
 TODO
 ```     
 </details>     
+
+### Euler Tour Magic
+    
+Euler tour magic. Consider following problem: you have a tree and there are lots of queries of kind
+
+* add number on subtree of some vertex
+* calculate sum on the path between some vertices. 
+     
+HLD? Damn, no! Let's consider two euler tours: in first we write the vertex when we enter it, in second we write it when we exit from it. We can see that difference between prefixes including subtree of v from first and second tours will exactly form vertices from v to the root. Thus problem is reduced to adding number on segment and calculating sum on prefixes. Worth mentioning that there are alternative approach which is to keep in each vertex linear function from its height and update such function in all v's children, but it is hard to make this approach more general.
+     
+source: Trick 12 from adamant https://codeforces.com/blog/entry/48417
+
+If we create a array with nodes when we enter but not when we exit, then we can query subtrees and update a node in O(logn) with some tree to maintain prefix sums. 
+     
+The way to query paths is not much different, instead of creating an event only when you enter, you must also create an event for when you exit the node (2 copies). This is because you want to ignore nodes not in the path: nodes with event that end before current one begins in the euler tour. Why are these not in path? Because an exit/ending event indicates backtracking, and if it backtracked from some node A before going into the current node B, node A can't possibly be on path from root to B.
+     
+Consider the following tree,
+```
+       1
+    /  |  \
+   2   5   6
+  / \
+ 3   4
+```  
+     
+If we visit the nodes in the order `[1,2,3,4,5,6]` the euler tour we build is `[1,2,3,3,4,4,2,5,5,6,6,1]`. Notice each number appears twice, one to represent entering and one for exiting (backtracking). Updating a node can be done by adding v in the start position and subtracting v from the end position of a node. Updating subtrees can be done with some range update ideas/keeping track of frequency of starts/ends in some interval. Querying can be done by finding the sum of numbers up to the first position the number shows up.     
+     
+Explanation:
+
+Consider 2 copies for a single node in the Euler tour, one for entry and one for exit. When you want to add a value v to the subtree, maintain a fenwick tree, and do `+=v` on `in[node]` and `-=v` on `out[node]`. Path sum query can be broken down to sum from root to any node. For the root to node sum query, just return prefix sum of `in[node]` from BIT.
+     
+Now why does this work? Think about a single subtree update and then querying for prefix sum. Let's assume you updated subtree of node x with value v. Now, if you query for some node which is not in the subtree of x, the answer will be 0, either in[node]<in[x] then it's obviously 0, or in[node]>out[x] then in[x] and out[x] cancel out, so it's still 0. For the nodes inside the subtree of x, in[x]<in[node]<out[x]. So, they'll all return the value v. So effectively we've updated the subtree of x with value v.     
+
+### TODO: Check this out https://codeforces.com/blog/entry/63020?#comment-469803
+     
+source: https://codeforces.com/blog/entry/63020
  
 TODO: https://usaco.guide/gold/tree-euler?lang=cpp
 TODO: https://codeforces.com/gym/102694
