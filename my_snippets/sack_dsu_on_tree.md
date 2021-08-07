@@ -51,6 +51,70 @@ void dfs(int v, int p){
 
 Now, how to improve it? There are several styles of coding for this technique.
 
+#### Easy to code but O(N log²N)
+
+This is same as small to large merging/ heavy light decomposition idea. Instead of creating the distinct colors from empty set, we start with the distinct colors of the heavy child then merge other children's data.
+
+```cpp
+map<int, int> *cnt[maxn];
+void dfs(int v, int p){
+    int mx = -1, bigChild = -1;
+    for(auto u : g[v])
+       if(u != p){
+           dfs(u, v);
+           if(sz[u] > mx)
+               mx = sz[u], bigChild = u;
+       }
+    if(bigChild != -1)
+        cnt[v] = cnt[bigChild];
+    else
+        cnt[v] = new map<int, int> ();
+    (*cnt[v])[ col[v] ] ++;
+    for(auto u : g[v])
+       if(u != p && u != bigChild){
+           for(auto x : *cnt[u])
+               (*cnt[v])[x.first] += x.second;
+       }
+    // now (*cnt[v])[c] is the number of vertices in subtree of vertex v that has color c.
+
+}
+```
+
+#### Easy to Code and O(N log N)
+
+Instead of using map, we can use a vector with `cnt` and use the vector of `bigChild`.
+
+```cpp
+vector<int> *vec[maxn];
+int cnt[maxn];
+void dfs(int v, int p, bool keep){
+    int mx = -1, bigChild = -1;
+    for(auto u : g[v])
+       if(u != p && sz[u] > mx)
+           mx = sz[u], bigChild = u;
+    for(auto u : g[v])
+       if(u != p && u != bigChild)
+           dfs(u, v, 0);
+    if(bigChild != -1)
+        dfs(bigChild, v, 1), vec[v] = vec[bigChild];
+    else
+        vec[v] = new vector<int> ();
+    vec[v]->push_back(v);
+    cnt[ col[v] ]++;
+    for(auto u : g[v])
+       if(u != p && u != bigChild)
+           for(auto x : *vec[u]){
+               cnt[ col[x] ]++;
+               vec[v] -> push_back(x);
+           }
+    //now cnt[c] is the number of vertices in subtree of vertex v that has color c.
+    // note that in this step *vec[v] contains all of the subtree of vertex v.
+    if(keep == 0)
+        for(auto u : *vec[v])
+            cnt[ col[u] ]--;
+}
+```
+
 ### Small to Large merging
 
 ```cpp
