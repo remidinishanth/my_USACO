@@ -1,4 +1,4 @@
-TODO: https://codeforces.com/blog/entry/44351
+## Sack - DSU on Trees
 
 The technique described can be used to answer the following queries
 
@@ -215,5 +215,7 @@ int main() {
     return 0;
 }
 ```
+
+source: https://codeforces.com/blog/entry/44351 and https://codeforces.com/blog/entry/67696
 
 TODO: This problem can also be solved using Mo's algorithm on Trees https://codeforces.com/blog/entry/79048
