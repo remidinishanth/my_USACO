@@ -74,8 +74,8 @@ The fact that a subtree is maps to a segment gives us some more benefits. With t
 ### Euler Tour Technique(ETT)
 
 #### Way-1: Insert every node twice
-* Insert every node/edge in the euler tour array whenever you enter/exit the node.
-* Thereforce, everynode/edge of the tree will occur twice in the euler tour array - at indices `start[x]/in[x]` and `end[x]/out[x]` for a given node/edge x.
+* Insert every node/edge in the euler tour array whenever you enter and exit the node.
+* Thereforce, every node/edge of the tree will occur twice in the euler tour array - at indices `start[x]/in[x]` and `end[x]/out[x]` for a given node/edge x.
 
 <p align="center"><img src="images/ett_6.png" width=300></p>
 
