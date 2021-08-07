@@ -302,10 +302,6 @@ Euler tour magic. Consider following problem: you have a tree and there are lots
 HLD? Damn, no! Let's consider two euler tours: in first we write the vertex when we enter it, in second we write it when we exit from it. We can see that difference between prefixes including subtree of v from first and second tours will exactly form vertices from v to the root. Thus problem is reduced to adding number on segment and calculating sum on prefixes. Worth mentioning that there are alternative approach which is to keep in each vertex linear function from its height and update such function in all v's children, but it is hard to make this approach more general.
      
 source: Trick 12 from adamant https://codeforces.com/blog/entry/48417
-
-If we create a array with nodes when we enter but not when we exit, then we can query subtrees and update a node in O(logn) with some tree to maintain prefix sums. 
-     
-The way to query paths is not much different, instead of creating an event only when you enter, you must also create an event for when you exit the node (2 copies). This is because you want to ignore nodes not in the path: nodes with event that end before current one begins in the euler tour. Why are these not in path? Because an exit/ending event indicates backtracking, and if it backtracked from some node A before going into the current node B, node A can't possibly be on path from root to B.
      
 Consider the following tree,
 ```
@@ -316,7 +312,25 @@ Consider the following tree,
  3   4
 ```  
      
-If we visit the nodes in the order `[1,2,3,4,5,6]` the euler tour we build is `[1,2,3,3,4,4,2,5,5,6,6,1]`. Notice each number appears twice, one to represent entering and one for exiting (backtracking). Updating a node can be done by adding v in the start position and subtracting v from the end position of a node. Updating subtrees can be done with some range update ideas/keeping track of frequency of starts/ends in some interval. Querying can be done by finding the sum of numbers up to the first position the number shows up.     
+If we visit the nodes in the order `[1,2,3,4,5,6]` the euler tour we build is `[1,2,3,3,4,4,2,5,5,6,6,1]`. Notice each number appears twice, one to represent entering and one for exiting (backtracking). Updating a node can be done by adding v in the start position and subtracting v from the end position of a node. Updating subtrees can be done with some range update ideas/keeping track of frequency of starts/ends in some interval. Querying can be done by finding the sum of numbers up to the first position the number shows up.
+     
+`[1,2,3,3,4,4,2,5,5,6,6,1]` - Order in which nodes are visited and exited.
+
+`[1,2,3,0,4,0,0,5,0,6,0,0]` - Values of each node are stored in the positions of their first appearance.
+     
+`[0,0,0,3,0,4,2,0,5,0,6,1]` - Values of each node are stored in the positions of their second appearance.    
+     
+Then, if you wanted to get the sums of the numbers from node 3 to the root, you would simply take two range sum queries:
+
+`[1,2,3,` **0**`,4,0,0,5,0,6,0,` **0**`]` - Query from first segment tree
+
+`[0,0,0,` **3**`,0,4,2,0,5,0,6,` **1**`]` - Query from second segment tree
+     
+and subtract the first query from the second query, giving us 3+2+1!     
+
+If we create a array with nodes when we enter but not when we exit, then we can query subtrees and update a node in O(logn) with some tree to maintain prefix sums. 
+     
+The way to query paths is not much different, instead of creating an event only when you enter, you must also create an event for when you exit the node (2 copies). This is because you want to ignore nodes not in the path: nodes with event that end before current one begins in the euler tour. Why are these not in path? Because an exit/ending event indicates backtracking, and if it backtracked from some node A before going into the current node B, node A can't possibly be on path from root to B.
      
 Explanation:
 
