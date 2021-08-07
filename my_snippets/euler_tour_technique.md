@@ -354,6 +354,8 @@ If you create a Range Min Query over this, and want to find, say, the LCA of nod
 And the lowest {depth, node} pair we find is `{1, 2}`, meaning that node `2` is the LCA.
      
 source: https://codeforces.com/blog/entry/63020?#comment-469803
+     
+Checkout https://codeforces.com/blog/entry/78564
  
 ### TODO    
 TODO: https://usaco.guide/gold/tree-euler?lang=cpp
