@@ -419,9 +419,7 @@ struct FT {
 const int mx = 2e5+1;
 
 vi adj[mx];
-int A[mx];
-int st[mx];
-int en[mx];
+int A[mx], st[mx], en[mx];
 int timer = 0;
 FT ft(mx+1);
 
