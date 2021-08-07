@@ -10,6 +10,47 @@ You are given a rooted tree consisting of n nodes. The nodes are numbered 1,2,â€
 
 Your task is to determine for each node the number of distinct colors in the subtree of the node.
 
+Let's see how we can solve this problem and similar problems.
+
+First, we have to calculate the size of the subtree of every vertex. It can be done with simple dfs:
+
+```cpp
+int sz[maxn];
+void getsz(int v, int p){
+    sz[v] = 1;  // every vertex has itself in its subtree
+    for(auto u : g[v])
+        if(u != p){
+            getsz(u, v);
+            sz[v] += sz[u]; // add size of child u to its parent(v)
+        }
+}
+```
+
+Now we have the size of the subtree of vertex v in `sz[v]`.
+
+The naive method for solving distinct colors problem is this code(that works in `O(NÂ²)` time)
+
+```cpp
+int cnt[maxn];
+void add(int v, int p, int x){
+    cnt[ col[v] ] += x;
+    for(auto u: g[v])
+        if(u != p)
+            add(u, v, x)
+}
+void dfs(int v, int p){
+    add(v, p, 1);
+    // now cnt[c] is the number of vertices in subtree of vertex v that has color c.
+    // You can answer the queries easily.
+    add(v, p, -1);
+    for(auto u : g[v])
+        if(u != p)
+            dfs(u, v);
+}
+```
+
+Now, how to improve it? There are several styles of coding for this technique.
+
 ### Small to Large merging
 
 ```cpp
