@@ -28,6 +28,8 @@ void getsz(int v, int p){
 
 Now we have the size of the subtree of vertex v in `sz[v]`.
 
+#### Naive way O(N²)
+
 The naive method for solving distinct colors problem is this code(that works in `O(N²)` time)
 
 ```cpp
