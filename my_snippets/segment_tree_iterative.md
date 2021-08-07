@@ -327,10 +327,8 @@ source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data
 * 1D range increment and sum query
 
 ```cpp
-constexpr int pct(int x) { return __builtin_popcount(x); } // # of bits set
-
 template<class T, int SZ> struct LazySeg { 
-	static_assert(pct(SZ) == 1); // SZ must be power of 2
+	static_assert((SZ & (SZ-1)) == 0); // SZ must be power of 2
 	const T ID = 0; T comb(T a, T b) { return a+b; }
 	T seg[2*SZ], lazy[2*SZ]; 
 	LazySeg() { for(int i=0; i<2*SZ; i++) seg[i] = lazy[i] = ID; }
