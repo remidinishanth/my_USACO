@@ -322,9 +322,9 @@ If we visit the nodes in the order `[1,2,3,4,5,6]` the euler tour we build is `[
      
 Then, if you wanted to get the sums of the numbers from node 3 to the root, you would simply take two range sum queries:
 
-`[1,2,3,` **0**`,4,0,0,5,0,6,0,` **0**`]` - Query from first segment tree
+[1,2,3, `0,4,0,0,5,0,6,0,0`] - Query from first segment tree
 
-`[0,0,0,` **3**`,0,4,2,0,5,0,6,` **1**`]` - Query from second segment tree
+[0,0,0, `3,0,4,2,0,5,0,6,1`] - Query from second segment tree
      
 and subtract the first query from the second query, giving us 3+2+1!     
 
@@ -336,11 +336,24 @@ Explanation:
 
 Consider 2 copies for a single node in the Euler tour, one for entry and one for exit. When you want to add a value v to the subtree, maintain a fenwick tree, and do `+=v` on `in[node]` and `-=v` on `out[node]`. Path sum query can be broken down to sum from root to any node. For the root to node sum query, just return prefix sum of `in[node]` from BIT.
      
-Now why does this work? Think about a single subtree update and then querying for prefix sum. Let's assume you updated subtree of node x with value v. Now, if you query for some node which is not in the subtree of x, the answer will be 0, either in[node]<in[x] then it's obviously 0, or in[node]>out[x] then in[x] and out[x] cancel out, so it's still 0. For the nodes inside the subtree of x, in[x]<in[node]<out[x]. So, they'll all return the value v. So effectively we've updated the subtree of x with value v.     
+Now why does this work? Think about a single subtree update and then querying for prefix sum. Let's assume you updated subtree of node x with value v. Now, if you query for some node which is not in the subtree of x, the answer will be 0, either in[node]<in[x] then it's obviously 0, or in[node]>out[x] then in[x] and out[x] cancel out, so it's still 0. For the nodes inside the subtree of x, in[x]<in[node]<out[x]. So, they'll all return the value v. So effectively we've updated the subtree of x with value v.  
 
-### TODO: Check this out https://codeforces.com/blog/entry/63020?#comment-469803
-     
 source: https://codeforces.com/blog/entry/63020
+
+Another type of Euler Tour that's useful is one where you add in the node every time its stack frame reappears in the DFS. For the given tree, the Tour would look like: `[1,2,3,2,4,2,1,5,1,6,1]`
+
+Then, one nice thing about this tour is that you can compute LCA using it, by creating a segment tree with the nodes in this order, and stores pairs of {depth, node}. So, the segment tree would be created over the array
+
+`[{0, 1}, {1, 2}, {2, 3}, {1, 2}, {2, 4}, {1, 2}, {0, 1}, {1, 5}, {0, 1}, {1, 6}, {0, 1}]`
+
+If you create a Range Min Query over this, and want to find, say, the LCA of nodes 3 and 4, then you just take a Range Min Query of the indices that they appear at:
+
+[{0, 1}, {1, 2}, `{2, 3}, {1, 2}, {2, 4}`, {1, 2}, {0, 1}, {1, 5}, {0, 1}, {1, 6}, {0, 1}]
+
+And the lowest {depth, node} pair we find is `{1, 2}`, meaning that node `2` is the LCA.
+     
+source: https://codeforces.com/blog/entry/63020?#comment-469803
  
+### TODO    
 TODO: https://usaco.guide/gold/tree-euler?lang=cpp
 TODO: https://codeforces.com/gym/102694
