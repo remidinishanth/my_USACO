@@ -86,6 +86,8 @@ void dfs(int v, int p){
 
 Instead of using map, we can use a vector with `cnt` and use the vector of `bigChild`. `bool keep` denote if we are working on the subtree of `bigchild (keep=1)` or `smallchild (keep=0)`.
 
+Make sure that we call `dfs` on small child before large child, otherwise colors of large child will be in `cnt`.
+
 ```cpp
 vector<int> *vec[maxn];
 int cnt[maxn];
@@ -220,6 +222,12 @@ But why it is O(N logN) ? You know that why dsu has time O(q logN)(for q queries
 If you have heard `heavy-light decomposition` you will see that function `add` will go light edges only, because of this, code works in  time.
 
 Any problems of this type can be solved with same `dfs` function and just differs in `add` function.
+
+#### Complexity
+
+Let `y = vec[big_child].size()`, `x = vec[small_child].size()` (`y ≥ x`)
+
+Let us consider a vertex u (1 ≤ u ≤ n) of size `x` and merge it to the bigger child, the size of vec[] of the subtree containing u becomes `x + y ≥ x + x = 2x`. So each time we merge to parent subtree the size increase at least twice when adding and total size is only n so we cannot add/merge a node more than `log(n)` times. We have `n` vertices `u` so the complexity becomes `O(n log n)`
 
 ### Small to Large merging O(N log²N)
 
