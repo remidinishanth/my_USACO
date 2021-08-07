@@ -351,7 +351,7 @@ const int MX = 1<<20;
 LazySeg<ll,MX> L;
 
 // inside main
-L.upd(i,i,INF-cost[i]); // update
+L.upd(i,i,val); // update
 ```
 
 source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/LazySeg%20(15.2).h
