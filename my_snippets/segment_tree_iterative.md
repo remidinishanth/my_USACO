@@ -345,6 +345,13 @@ template<class T, int SZ> struct LazySeg {
         return comb(query(lo,hi,2*ind,L,M),query(lo,hi,2*ind+1,M+1,R));
     }
 };
+
+// Usage
+const int MX = 1<<20; 
+LazySeg<ll,MX> L;
+
+// inside main
+L.upd(i,i,INF-cost[i]); // update
 ```
 
 source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/LazySeg%20(15.2).h
