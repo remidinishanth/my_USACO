@@ -330,7 +330,7 @@ and subtract the first query from the second query, giving us 3+2+1!
      
 In terms of prefixes, the sum of vertex from 1-2-4 is [`1,2,3,0,4` ,0,0,5,0,6,0,0] - [`0,0,0,3,0` ,4,2,0,5,0,6,1] = 1 + 2 + 4!
 
-#### Explanation 
+#### Alternate Approach 
 If we create a array with nodes when we enter but not when we exit, then we can query subtrees and update a node in O(logn) with some tree to maintain prefix sums. 
      
 The way to query paths is not much different, instead of creating an event only when you enter, you must also create an event for when you exit the node (2 copies). This is because you want to ignore nodes not in the path: nodes with event that end before current one begins in the euler tour. Why are these not in path? Because an exit/ending event indicates backtracking, and if it backtracked from some node A before going into the current node B, node A can't possibly be on path from root to B.
