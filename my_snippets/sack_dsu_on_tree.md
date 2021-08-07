@@ -219,7 +219,7 @@ If you have heard `heavy-light decomposition` you will see that function `add` w
 
 Any problems of this type can be solved with same `dfs` function and just differs in `add` function.
 
-### Small to Large merging
+### Small to Large merging O(N log²N)
 
 ```cpp
 const int nax = 2e5 + 10;
