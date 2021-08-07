@@ -4,23 +4,15 @@ By Al.Cash, [REF](https://codeforces.com/blog/entry/18051)
 
 ## Theory
 
-RMQ stands for Range Minimum (Maximum) Query problem;
+* RMQ stands for Range Minimum (Maximum) Query problem; RSQ stands for Range Sum Query problem;
 
-RSQ stands for Range Sum Query problem;
+* Problem is called dynamic if there are Change queries; Problem is called static if there are no Change queries;
 
-Problem is called dynamic if there are Change queries;
+* Binary operation ⊕ is called associative if it satisfies the associative law: `(a ⊕ b) ⊕ c = a ⊕ (b ⊕ c)`; Binary operation ⊕ is idempotent if `a ⊕ a = a`;
 
-Problem is called static if there are no Change queries;
+* Identity element for some pair (S, ⊕) is such an element e ∈ S that for every a ∈ S condition `a ⊕ e = e ⊕ a = a` holds;
 
-Binary operation ⊕ is called associative if it satisfies the associative law: `(a ⊕ b) ⊕ c = a ⊕ (b ⊕ c)`
-
-Binary operation ⊕ is idempotent if `a ⊕ a = a`;
-
-Identity element for some pair (S, ⊕) is such an element e ∈ S that for every a ∈ S condition `a ⊕ e = e ⊕ a = a` holds;
-
-A semigroup is an algebraic structure consisting of a set S together with some associative binary operation ⊕;
-
-Monoid is a semigroup with an identity element;
+* A semigroup is an algebraic structure consisting of a set S together with some associative binary operation ⊕; Monoid is a semigroup with an identity element;
 
 ## Segment tree with single element modifications
 
