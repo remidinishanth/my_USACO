@@ -53,7 +53,7 @@ Now, how to improve it? There are several styles of coding for this technique.
 
 #### Easy to code but O(N log²N)
 
-This is same as small to large merging/ heavy light decomposition idea. Instead of creating the distinct colors from empty set, we start with the distinct colors of the heavy child then merge other children's data.
+This is same as small to large merging/ heavy light decomposition idea. Instead of creating the distinct colors from empty set, we start with the distinct colors of the heavy child then merge other children's data. Note that the `bigChild` of vertex `v` is the child with max subtree size
 
 ```cpp
 map<int, int> *cnt[maxn];
@@ -82,7 +82,7 @@ void dfs(int v, int p){
 
 #### Easy to Code and O(N log N)
 
-Instead of using map, we can use a vector with `cnt` and use the vector of `bigChild`.
+Instead of using map, we can use a vector with `cnt` and use the vector of `bigChild`. `bool keep` denote if we are working on the subtree of `bigchild (keep=1)` or `smallchild (keep=0)`.
 
 ```cpp
 vector<int> *vec[maxn];
@@ -147,7 +147,7 @@ void dfs(int v, int p, bool keep){
 
 #### Arpa's code O(N logN)
 
-This implementation is easier to code than others. Let st[v] dfs starting time of vertex v, ft[v] be it's finishing time and ver[time] is the vertex which it's starting time is equal to time.
+This implementation is easier to code than others. Let `st[v]` dfs starting time of vertex v, `ft[v]` be it's finishing time and `ver[time]` is the vertex which it's starting time is equal to time.
 
 ```cpp
 int cnt[maxn];
