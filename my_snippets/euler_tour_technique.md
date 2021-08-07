@@ -83,10 +83,10 @@ The fact that a subtree is maps to a segment gives us some more benefits. With t
 * A path between the two nodes A & B contain nodes which occur exactly once in the continous range `[end[A], start[B]]` -- Useful for applying MO's on Trees where we can ignore an element y if it occurs twice in the range `[L, R]`. For example in case of Addition of path, When we see the node for the first time, we can add the element to sum and, when we see it the second time we can subtract thus nullifying the element which occurs twice in the range `[L, R]`.
 
 #### Way-2: Insert every node only once
-* Insert every node/edge in the eruler tour array whenever you enter the node and increment the timer
+* Insert every node/edge in the euler tour array whenever you enter the node and increment the timer
 * start[x] = timer at which you enter the node x.
 * end[x] = timer at which you exit the node x.
-* All nodes in subtree of x occur exact once in the `range[start[x], end[x]]`
+* All nodes in subtree of x occur exact once in the range `[start[x], end[x]]`
 
 ### Steps to support subtree updates/queries
 * Build the Euler tour array for the given tree by doing a DFS
