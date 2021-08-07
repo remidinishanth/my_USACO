@@ -221,6 +221,7 @@ Any problems of this type can be solved with same `dfs` function and just differ
 
 ### Small to Large merging O(N log²N)
 
+One `log` factor because of small to large merging, another because of `set<int>``
 ```cpp
 const int nax = 2e5 + 10;
 
