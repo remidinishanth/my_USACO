@@ -288,7 +288,84 @@ in a range and retrieve a single value. This can be done in O(logn) time using a
 binary indexed or segment tree      
      
 ```cpp
-TODO
+template<class T, int SZ> struct LazySeg { 
+    static_assert((SZ & (SZ-1)) == 0); // SZ must be power of 2
+    const T ID = 0; T comb(T a, T b) { return a+b; }
+    T seg[2*SZ], lazy[2*SZ]; 
+    LazySeg() { for(int i=0; i<2*SZ; i++) seg[i] = lazy[i] = ID; }
+    void push(int ind, int L, int R) { // modify values for current node
+        seg[ind] += (R-L+1)*lazy[ind]; // dependent on operation
+        if (L != R) for(int i=0; i<2;i++) lazy[2*ind+i] += lazy[ind]; // prop to children
+        lazy[ind] = 0; 
+    } // recalc values for current node
+    void pull(int ind) { seg[ind] = comb(seg[2*ind],seg[2*ind+1]); }
+    void build() { for(int i=SZ-1; i>=1; i--) pull(i); }
+    void upd(int lo,int hi,T inc,int ind=1,int L=0, int R=SZ-1) {
+        push(ind,L,R); if (hi < L || R < lo) return;
+        if (lo <= L && R <= hi) { 
+            lazy[ind] = inc; push(ind,L,R); return; }
+        int M = (L+R)/2; upd(lo,hi,inc,2*ind,L,M); 
+        upd(lo,hi,inc,2*ind+1,M+1,R); pull(ind);
+    }
+    T query(int lo, int hi, int ind=1, int L=0, int R=SZ-1) {
+        push(ind,L,R); if (lo > R || L > hi) return ID;
+        if (lo <= L && R <= hi) return seg[ind];
+        int M = (L+R)/2;
+        return comb(query(lo,hi,2*ind,L,M),query(lo,hi,2*ind+1,M+1,R));
+    }
+};
+
+const int nax = 2e5 + 10;
+
+vector<int> adj[nax];
+
+int timer = 0;
+int st[nax], en[nax], par[nax];
+
+void dfs(int u, int p){
+    par[u] = p;
+    st[u] = timer++;
+    for(int v: adj[u]){
+        if(v == p) continue;
+        dfs(v, u);
+    }
+    en[u] = timer - 1;
+}
+
+LazySeg<long long, (1<<19) > tree;
+
+int main() {
+    int n, q; scanf("%d %d", &n, &q);
+    vector<int> V(n);
+    for(int i=0;i<n;i++){
+        scanf("%d", &V[i]);
+    }
+    for(int i=0;i<n-1;i++){
+        int a, b; scanf("%d %d", &a, &b);
+        a--; b--;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    dfs(0, -1);
+    for(int i=0;i<n;i++){
+        tree.upd(st[i], en[i], V[i]);
+    }
+    while(q--){
+        int type; scanf("%d", &type);
+        if(type == 1){
+            // change the node value to x
+            int s; long long x; scanf("%d %lld", &s, &x); s--;
+            long long prev = tree.query(st[s], st[s]);
+            int p = par[s];
+            if(p != -1) prev -= tree.query(st[p], st[p]);
+            tree.upd(st[s], en[s], 1ll*x - prev);
+        }else{
+            int x; scanf("%d", &x); x--;
+            printf("%lld\n", tree.query(st[x], st[x]));
+        }
+    }
+    return 0;
+}
 ```     
 </details>     
 
