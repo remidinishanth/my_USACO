@@ -1,6 +1,10 @@
 TODO: https://codeforces.com/blog/entry/44351
 
-Problem: CSES Distinct Colors
+The technique described can be used to answer the following queries
+
+* How many vertices in the subtree of vertex v has some property in 𝑂(𝑛 𝑙𝑜𝑔 𝑛) time (for all of the queries)?
+
+Problem: CSES Distinct Colors https://cses.fi/problemset/task/1139/
 
 You are given a rooted tree consisting of n nodes. The nodes are numbered 1,2,…,n, and node 1 is the root. Each node has a color.
 
