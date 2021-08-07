@@ -145,6 +145,40 @@ void dfs(int v, int p, bool keep){
 }
 ```
 
+#### Arpa's code O(N logN)
+
+This implementation is easier to code than others. Let st[v] dfs starting time of vertex v, ft[v] be it's finishing time and ver[time] is the vertex which it's starting time is equal to time.
+
+```cpp
+int cnt[maxn];
+void dfs(int v, int p, bool keep){
+    int mx = -1, bigChild = -1;
+    for(auto u : g[v])
+       if(u != p && sz[u] > mx)
+          mx = sz[u], bigChild = u;
+    for(auto u : g[v])
+        if(u != p && u != bigChild)
+            dfs(u, v, 0);  // run a dfs on small childs and clear them from cnt
+    if(bigChild != -1)
+        dfs(bigChild, v, 1);  // bigChild marked as big and not cleared from cnt
+    for(auto u : g[v])
+	if(u != p && u != bigChild)
+	    for(int p = st[u]; p < ft[u]; p++)
+		cnt[ col[ ver[p] ] ]++;
+    cnt[ col[v] ]++;
+    // now cnt[c] is the number of vertices in subtree of vertex v that has color c.
+    if(keep == 0)
+        for(int p = st[v]; p < ft[v]; p++)
+	    cnt[ col[ ver[p] ] ]--;
+}
+```
+
+But why it is O(N logN) ? You know that why dsu has time O(q logN)(for q queries); the code uses the same method. Merge smaller to greater.
+
+If you have heard `heavy-light decomposition` you will see that function `add` will go light edges only, because of this, code works in  time.
+
+Any problems of this type can be solved with same `dfs` function and just differs in `add` function.
+
 ### Small to Large merging
 
 ```cpp
