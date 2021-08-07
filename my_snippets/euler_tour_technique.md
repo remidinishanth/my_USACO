@@ -278,7 +278,7 @@ Your task is to process following types of queries:
 * calculate the sum of values on the path from the root to node s
      
 <details>
-     <summary>Solution</summary>
+     <summary>Solution using segment tree</summary>
      
 When the value of a node increases by x, the sums of all nodes in its subtree
 increase by x.
@@ -369,10 +369,15 @@ int main() {
 ```     
 </details>
      
-Using fenwick tree
+Notice that when we update a node with value `A[s]` to `x`, the root-to-node sum for each node in its subtree increases by the difference `x-A[s]`. Using ETT,
+this is equivalent to a range update.
+
+We can use a Fenwick tree which supports range increment/decrements and point queries in `O(log N)` time.
+
+When implementing your solution, recall that incrementing a range `[a, b]` with a Fenwick tree corresponds to the operations `upd(a, x)` and `upd(b+1, -x)`
      
 <details>
-     <summary>CPP implementation</summary>
+     <summary>Fenwick tree CPP implementation</summary>
  
 ```cpp
 #include <bits/stdc++.h>
