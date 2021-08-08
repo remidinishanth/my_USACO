@@ -1,14 +1,16 @@
 #include <iostream>
 #include <cstdio>
-#include <cstdlib>
+#include <cstdlib> // random
 #include <algorithm>
 #include <cmath>
 #include <vector>
+#include <climits> // all useful constants
+#include <array>
 #include <set>
 #include <map>
 #include <unordered_set>
 #include <unordered_map>
-#include <queue>
+#include <queue> // including priority_queue
 #include <ctime>
 #include <cassert>
 #include <complex>
@@ -31,8 +33,6 @@ typedef vector< vector<ll> > vvl;
 typedef set<int> si;
 typedef map<string, int> msi;
 typedef map<int, int> mii;
-
-using str = string; // yay python!
 
 #define INF 1000000000
 #define MOD 1000000007
@@ -121,15 +121,15 @@ int cmp(double x, double y = 0, double tol = EPS) {
     return (x <= y + tol) ? (x + tol < y) ? -1 : 0 : 1;
 }
 
-int gcd(int a, int b) { return b ? gcd(b, a%b) : a; }
+template<class T> inline T gcd(T a,T b) //NOTE: __gcd(0,0) gives exception
+  {if(a<0) return gcd(-a,b);if(b<0)return gcd(a,-b);return (b==0)?a:gcd(b,a%b);}
 
 template<class T> bool uin(T &a,T b) {return a > b ? (a=b, true):false;}
 template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 
 /////////////////////////////////////////////////////////////////////
 
-
-int main(){
+int main() {
     return 0;
 }
 // Do something instead of nothing, stay organised, stay ahead!, WRITE STUFF DOWN
