@@ -9,3 +9,5 @@ Done https://atcoder.jp/contests/agc003/tasks/agc003_b Solution: https://img.atc
 Divide and Conquer: https://leetcode.com/problems/beautiful-array/solution/
 
 https://stackoverflow.com/questions/52244676/given-an-array-you-have-to-find-the-max-possible-two-equal-sum
+
+DSU https://leetcode.com/problems/rank-transform-of-a-matrix/discuss/909212/C%2B%2B-with-picture
