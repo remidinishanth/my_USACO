@@ -1231,39 +1231,46 @@ using namespace std;
 
 const int MX = 200005;
 
-vector<int> adj[MX]; set<int> col[MX]; long long ans[MX];
-void dfs(int v, int p){
-	for(int e : adj[v]){
-		if(e != p){
-		   dfs(e, v);
-		   if(col[v].size() < col[e].size()){
-			   swap(col[v], col[e]);
-		   }
-		   for(int a : col[e]){
-			   col[v].insert(a);
-		   }
-		   col[e].clear();
-		}
-	}
-	ans[v] = col[v].size();
+vector < int > adj[MX];
+set < int > col[MX];
+long long ans[MX];
+void dfs(int v, int p) {
+    for (int e: adj[v]) {
+        if (e != p) {
+            dfs(e, v);
+            if (col[v].size() < col[e].size()) {
+                swap(col[v], col[e]);
+            }
+            for (int a: col[e]) {
+                col[v].insert(a);
+            }
+            col[e].clear();
+        }
+    }
+    ans[v] = col[v].size();
 }
 int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-	int n; cin >> n;
-	for(int i = 0; i < n; i++){
-		int x; cin >> x;
-		col[i].insert(x);
-	}
-	for(int i = 0; i < n - 1; i++){
-		int u,v; cin >> u >> v;
-		u--; v--;
-		adj[u].push_back(v); adj[v].push_back(u);
-	}
-	dfs(0,-1);
-	for(int i = 0; i < n; i++){
-		cout << ans[i] << " ";
-	}
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int x;
+        cin >> x;
+        col[i].insert(x);
+    }
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+        u--;
+        v--;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    dfs(0, -1);
+    for (int i = 0; i < n; i++) {
+        cout << ans[i] << " ";
+    }
 }
 ```
 	
@@ -1277,7 +1284,7 @@ Actually you can do it in O(n): you don't need sets, you can just return a vecto
 
 The above solution works for a fixed k in O(n) time.
 
-Accepted code for https://cses.fi/problemset/result/2376131/ - Given a tree of n nodes, your task is to count the number of distinct paths that consist of exactly k edges.
+Accepted code for `Fixed-Length Paths I` https://cses.fi/problemset/result/2376131/ - Given a tree of n nodes, your task is to count the number of distinct paths that consist of exactly k edges.
 
 ```cpp
 const int nax = 2e5 + 10;
