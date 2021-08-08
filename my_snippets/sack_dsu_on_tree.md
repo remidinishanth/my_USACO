@@ -340,3 +340,5 @@ int main() {
 ```
 
 TODO: This problem can also be solved using Mo's algorithm on Trees https://codeforces.com/blog/entry/79048
+
+Checkout https://codeforces.com/contest/375/submission/18814449
