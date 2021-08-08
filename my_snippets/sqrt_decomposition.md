@@ -102,6 +102,15 @@ As mentioned, this algorithm is offline, that means we cannot use it when we are
 
 There are many cases where we can use this algorithm. In few cases we can also use other Data Structures like segment trees, but for few problems using MO’s algorithm is a must. Lets discuss few problems in the next section.
 
+### TODO Problems
+
+* Powerful array – CF Div1 D: This is an example where MO’s algorithm is a must. I cannot think of any other solution. CF Div1 D means it is a hard problem. See how easy it is using MO’s algorithm in this case. You only need to modify add(), remove() functions in above code.
+* GERALD07 – Codechef
+* GERALD3 – Codechef
+* Tree and Queries – CF Div1 D
+* Jeff and Removing Periods – CF Div1 D
+* Sherlock and Inversions – Codechef
+
 ## MO's Algorithm
 
 Usecase: Answering queries on a static array, offline (Mo's algorithm)
