@@ -22,6 +22,13 @@ int main(void) {
 
 Handy for graph edges, source: https://atcoder.jp/contests/abc197/submissions/21333042
 
+```cpp
+struct Edge{
+    int to, c;
+    Edge(int to, int c): to(to), c(c) {}
+};
+```
+
 ![image](https://user-images.githubusercontent.com/19663316/118325069-86cb8d80-b520-11eb-908d-bd7d318667da.png)
 
 Also if you want to sort based on properties in struct
@@ -54,6 +61,39 @@ If `LLONG_MAX` or `INT_MAX` is not available in the online judge then use `INT32
 ```cpp
 #define LLONG_MAX INT64_MAX
 #define LLONG_MIN INT64_MIN
+```
+
+or use `#include <climits> // all useful constants`
+
+To convert from string to int while reading input, use `stringstream`
+
+```cpp
+stringstream numToString;
+numToString << 5;
+string val;
+numToString >> val; // val is now the string "5"
+```
+
+```cpp
+stringstream stringToNum;
+stringToNum << "5";
+int val;
+stringToNum >> val; // val is now the integer 5
+```
+
+Just as with `cin`, you can use a `stringstream` to determine what type the next
+word is. If you try to read from a `stringstream` into an `int` but the next word
+is not an integer, the expression will evaluate to `false`:
+
+```cpp
+stringstream ss;
+ss << "notaninteger";
+int val;
+if (ss >> val) {
+    cout << "read an integer!" << endl;
+} else {
+    cout << "next word was not an integer" << endl;
+}
 ```
 
 To use custom comparator while comparing pairs to sort `vector<pair<int,int>>`
