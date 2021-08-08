@@ -327,6 +327,7 @@ int main() {
     // store the color of node i at b[tin[i]]
     for (int i = 0; i < n; i++) b[tin[i]] = a[i];
     for (int i = n - 1; i >= 0; i--) {
+        // if b[i] is already considered, first remove it
         if (fst.count(b[i])) upd(fst[b[i]], -1);
         upd(i, 1);
         fst[b[i]] = i;
