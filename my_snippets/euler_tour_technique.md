@@ -535,5 +535,7 @@ source: https://codeforces.com/blog/entry/63020?#comment-469803
 Checkout https://codeforces.com/blog/entry/78564
  
 ### TODO    
-TODO: https://usaco.guide/gold/tree-euler?lang=cpp
-TODO: https://codeforces.com/gym/102694
+* TODO: https://usaco.guide/gold/tree-euler?lang=cpp
+* TODO: https://codeforces.com/gym/102694
+
+* TODO: Important property of ETT https://codeforces.com/contest/1328/problem/E
