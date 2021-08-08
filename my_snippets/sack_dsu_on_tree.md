@@ -269,4 +269,73 @@ int main() {
 
 source: https://codeforces.com/blog/entry/44351 and https://codeforces.com/blog/entry/67696
 
+### Using Euler Tour Tree
+
+```cpp
+#include <bits/stdc++.h>
+
+#define maxn 200020
+using namespace std;
+int n;
+vector<int> graph[maxn]; // adjacency matrix
+int a[maxn], bit[maxn], b[maxn];
+vector <pair<int, int>> qry[maxn];
+map <int, int> fst;
+int tin[maxn], tout[maxn];
+int timer = 0;
+
+// Fenwick tree
+void upd(int i, int v) {
+    for (; i < n; i |= i + 1) {
+        bit[i] += v;
+    }
+}
+
+int calc(int i) {
+    int ans = 0;
+    for (; i >= 0; i = (i & i + 1) - 1) {
+        ans += bit[i];
+    }
+    return ans;
+}
+
+// euler tour tree
+void dfs(int x, int p) {
+    tin[x] = timer++;
+    for (int i = 0; i < graph[x].size(); i++) {
+        int to = graph[x][i];
+        if (to != p) dfs(to, x);
+    }
+    tout[x] = timer - 1;
+}
+
+int main() {
+    cin >> n;
+    // color of node i is stored in a[i]
+    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 0; i < n - 1; i++) {
+        int x, y; cin >> x >> y;
+        x--; y--;
+        graph[x].push_back(y);
+        graph[y].push_back(x);
+    }
+    dfs(0, 0);
+    vector<int> res(n);
+    for (int i = 0; i < n; i++) {
+        qry[tin[i]].push_back(make_pair(tout[i], i));
+    }
+    // store the color of node i at b[tin[i]]
+    for (int i = 0; i < n; i++) b[tin[i]] = a[i];
+    for (int i = n - 1; i >= 0; i--) {
+        if (fst.count(b[i])) upd(fst[b[i]], -1);
+        upd(i, 1);
+        fst[b[i]] = i;
+        for (int j = 0; j < qry[i].size(); j++) {
+            res[qry[i][j].second] = calc(qry[i][j].first);
+        }
+    }
+    for (int i = 0; i < n; i++) cout << res[i] << " ";
+}
+```
+
 TODO: This problem can also be solved using Mo's algorithm on Trees https://codeforces.com/blog/entry/79048
