@@ -1,6 +1,25 @@
 ![](images/fenwick_tree_1_bit.png)
 ![](images/fenwick_tree_2_bit.png)
 
+To represent a negative value `−x`, we take the binary representation of `x`, complement it, and then add `1` (ignoring the final carry). Let's take an example where the numbers are represented on 8 bits for simplicity:
+
+```python
+ x = 01101100
+~x = 10010011
+-x = 10010100 
+```
+
+Notice the bits more significant than the lsb are different for `x` and `−x`, while the lsb and the following `0`'s are the same. Therefore, `x & -x` gives the wanted answer, in our case:
+
+Now we have a method of finding the length of any interval in O(1)O(1):
+
+```cpp
+int lsb(int pos) {
+    return pos & -pos;
+```
+
+`#define LSOne(S) (S&(-S))` is used to get the last set bit of `S`
+
 ```cpp
 // Binary indexed tree supporting binary search.
 struct BIT {
@@ -188,6 +207,8 @@ The inversion number can be calculated in an `O(NlogN)` with a method like Fenwi
 ## Benq's implementation
 
 ### BIT
+
+Generally BIT/Fenwick tree uses 1-based indexing. But here `data` is stored in `0..n-1` instead of the usual `1..n`, hence whenever we want to access `data[i]`, the code uses `data[i-1]`. `add(p, val)` is nothing but adding on 0-based indexing `a[p] += val`, the code first increments `p`(1-based indexing).
 
 ```cpp
 /**
