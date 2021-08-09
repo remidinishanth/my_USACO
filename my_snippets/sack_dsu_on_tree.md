@@ -412,7 +412,7 @@ void dfs(int u, int p, bool keep){
     add(u, p, 1);
     // Query for u
     for(auto [i, k]: query[u]){
-        ans[i] = freq.sum(k, nax);
+        ans[i] = freq.sum(nax) - freq.sum(k);
     }
     if(bigChild != -1) big[bigChild] = 0;
     if(keep == 0) add(u, p, -1);
@@ -432,7 +432,7 @@ int main() {
         query[u].push_back({i, k});
     }
     dfs_sz(0, -1);
-    freq.init(nax+1);
+    freq.init(nax);
     dfs(0, -1, 0);
     for(int i=0;i<m;i++) printf("%d\n", ans[i]);
     return 0;
