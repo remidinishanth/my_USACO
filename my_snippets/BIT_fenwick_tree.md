@@ -211,17 +211,6 @@ The inversion number can be calculated in an `O(NlogN)` with a method like Fenwi
 Generally BIT/Fenwick tree uses 1-based indexing. But here `data` is stored in `0..n-1` instead of the usual `1..n`, hence whenever we want to access `data[i]`, the code uses `data[i-1]`. `add(p, val)` is nothing but adding on 0-based indexing `a[p] += val`, the code first increments `p`(1-based indexing).
 
 ```cpp
-/**
- * Author: Lukas Polacek
- * Date: 2009-10-30
- * License: CC0
- * Source: folklore/TopCoder
- * Description: Computes partial sums a[0] + a[1] + ... + a[pos - 1], and updates single elements a[i],
- * taking the difference between the old and new value.
- * Time: Both operations are $O(\log N)$.
- * Status: Stress-tested
- */
-
 template<class T> struct BIT {
     int n; vector<T> data;
     void init(int _n) { n = _n; data.resize(n); }
