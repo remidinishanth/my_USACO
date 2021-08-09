@@ -343,4 +343,87 @@ TODO: This problem can also be solved using Mo's algorithm on Trees https://code
 
 Checkout https://codeforces.com/contest/375/submission/18814449
 
+```cpp
+const int nax = 1e5 + 10;
+
+// Fenwick Tree to store frequency of colors
+template<class T> struct BIT {
+    int n; vector<T> data;
+    void init(int _n) { n = _n; data.resize(n); }
+    void add(int p, T x) { for (++p;p<=n;p+=p&-p) data[p-1] += x; }
+    T sum(int l, int r) { return sum(r+1)-sum(l); }
+    T sum(int r) { T s = 0; for(;r;r-=r&-r)s+=data[r-1]; return s; }
+    int lower_bound(T sum) {
+        if (sum <= 0) return -1;
+        int pos = 0;
+        for (int pw = 1<<25; pw; pw >>= 1) {
+            int npos = pos+pw;
+            if (npos <= n && data[npos-1] < sum)
+                pos = npos, sum -= data[pos-1];
+        }
+        return pos;
+    }
+};
+
+vector<int> adj[nax];
+int color[nax], sub_sz[nax]; // subtree size
+int cnt[nax], big[nax];
+vector<pair<int,int>> query[nax];
+int ans[nax];
+
+BIT<int> freq;
+
+int dfs_sz(int u, int p){
+    sub_sz[u] = 1;
+    for(int v:adj[u]) if(v!=p) sub_sz[u] += dfs_sz(v, u);
+    return sub_sz[u];
+}
+
+void add(int u, int p, int x){
+    freq.add(cnt[color[u]], -1);
+    cnt[color[u]] += x;
+    freq.add(cnt[color[u]], 1);
+    for(int v: adj[u]) if(v!=p && !big[v]) add(v, u, x);
+}
+
+void dfs(int u, int p, bool keep){
+    int mx = -1, bigChild = -1;
+    for(int v: adj[u])
+        if(v != p && sub_sz[v] > mx)
+            mx = sub_sz[v], bigChild = v;
+    for(int v: adj[u])
+        if(v != p && v != bigChild)
+            dfs(v, u, 0);
+    if(bigChild != -1)
+        dfs(bigChild, u, 1), big[bigChild] = 1;
+    add(u, p, 1);
+    // Query for u
+    for(auto [i, k]: query[u]){
+        ans[i] = freq.sum(k, nax);
+    }
+    if(bigChild != -1) big[bigChild] = 0;
+    if(keep == 0) add(u, p, -1);
+}
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=0;i<n;i++) scanf("%d", &color[i]);
+    for(int i=0;i<n-1;i++){
+        int a, b; scanf("%d %d", &a, &b);
+        a--; b--;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    for(int i=0;i<m;i++){
+        int u, k; scanf("%d %d", &u, &k); u--;
+        query[u].push_back({i, k});
+    }
+    dfs_sz(0, -1);
+    freq.init(nax+1);
+    dfs(0, -1, 0);
+    for(int i=0;i<m;i++) printf("%d\n", ans[i]);
+    return 0;
+}
+```
+
 TODO: Problems from https://codeforces.com/blog/entry/44351
