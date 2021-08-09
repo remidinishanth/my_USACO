@@ -1,3 +1,6 @@
+![](images/fenwick_tree_1_bit.png)
+![](images/fenwick_tree_2_bit.png)
+
 ```cpp
 // Binary indexed tree supporting binary search.
 struct BIT {
