@@ -341,8 +341,6 @@ int main() {
 
 TODO: This problem can also be solved using Mo's algorithm on Trees https://codeforces.com/blog/entry/79048
 
-Checkout https://codeforces.com/contest/375/submission/18814449
-
 ## Problems
 
 ### CF 211 Div1. D Tree and Queries
@@ -443,5 +441,7 @@ int main() {
 	
 Similar to rng's implementation https://codeforces.com/contest/375/submission/5508178
 </details>
+	
+Checkout Sqrt decomposition based solution https://codeforces.com/contest/375/submission/18814449
 
 TODO: Problems from https://codeforces.com/blog/entry/44351
