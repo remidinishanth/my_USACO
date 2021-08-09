@@ -343,6 +343,21 @@ TODO: This problem can also be solved using Mo's algorithm on Trees https://code
 
 Checkout https://codeforces.com/contest/375/submission/18814449
 
+## Problems
+
+### CF 211 Div1. D Tree and Queries
+
+You have a rooted tree consisting of `n` vertices. Each vertex of the tree has some color. We will assume that the tree vertices are numbered by integers from `1` to `n`. Then we represent the color of vertex `v` as `cv`. The tree root is a vertex with number `1`.
+
+In this problem you need to answer to `m` queries. Each query is described by two integers `vj, kj`. The answer to query `vj, kj` is the number of such colors of vertices `x`, that the subtree of vertex `vj` contains at least `kj` vertices of color `x`.
+
+https://codeforces.com/contest/375/problem/D
+
+<details>
+	<summary> Using DSU, Sack CPP implementation </summary>
+
+Using Heavy-Light decomposition based sytle mentioned above.
+	
 ```cpp
 const int nax = 1e5 + 10;
 
@@ -425,5 +440,8 @@ int main() {
     return 0;
 }
 ```
+	
+Similar to rng's implementation https://codeforces.com/contest/375/submission/5508178
+</details>
 
 TODO: Problems from https://codeforces.com/blog/entry/44351
