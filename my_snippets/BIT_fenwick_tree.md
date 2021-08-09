@@ -1,3 +1,12 @@
+Suppose we have an array AA and we want to support the following two operations:
+
+* Update: change the value of an element A_i	
+* Query: find the value of a certain partial sum `A_1 + A_2 + ... + A_i` 
+	
+ 
+A Fenwick tree or a binary indexed tree is a data structure that handles both of these efficiently. It should be noted that if we have such a data structure, we can also find the sum over an interval `[i, j]` by just calculating `sum(j) - sum(i-1)`.
+
+
 ![](images/fenwick_tree_1_bit.png)
 ![](images/fenwick_tree_2_bit.png)
 
@@ -19,6 +28,32 @@ int lsb(int pos) {
 ```
 
 `#define LSOne(S) (S&(-S))` is used to get the last set bit of `S`
+
+Update
+
+```cpp
+void update(int pos, int val) {
+    while (pos <= N) {
+        fenwick[pos] += val;
+        pos += lsb(pos);
+    }
+}
+```
+
+Query
+
+```cpp
+int query(int pos) {
+   int sum = 0;
+   while (pos > 0) {
+      sum += fenwick[pos];
+      pos -= lsb(pos);
+   }
+   return sum;
+}
+```
+
+source: https://csacademy.com/lesson/fenwick_trees/
 
 ```cpp
 // Binary indexed tree supporting binary search.
