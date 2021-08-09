@@ -182,6 +182,77 @@ The inversion number of a sequence `A = [ a0, a1, a2, … , aN − 1 ]` is the n
 
 The inversion number can be calculated in an `O(NlogN)` with a method like Fenwick Tree by adding `1` in place of `ai` and for `aj`, counting till `n-sum(aj)`
 
+## Benq's implementation
+
+### BIT
+
+```cpp
+/**
+ * Author: Lukas Polacek
+ * Date: 2009-10-30
+ * License: CC0
+ * Source: folklore/TopCoder
+ * Description: Computes partial sums a[0] + a[1] + ... + a[pos - 1], and updates single elements a[i],
+ * taking the difference between the old and new value.
+ * Time: Both operations are $O(\log N)$.
+ * Status: Stress-tested
+ */
+
+template<class T> struct BIT {
+	int N; V<T> data;
+	void init(int _N) { N = _N; data.resize(N); }
+	void add(int p, T x) { for (++p;p<=n;p+=p&-p) data[p-1] += x; }
+	T sum(int l, int r) { return sum(r+1)-sum(l); }
+	T sum(int r) { T s = 0; for(;r;r-=r&-r)s+=data[r-1]; return s; }
+	int lower_bound(T sum) {
+		if (sum <= 0) return -1;
+		int pos = 0;
+		for (int pw = 1<<25; pw; pw >>= 1) {
+			int npos = pos+pw;
+			if (npos <= n && data[npos-1] < sum)
+				pos = npos, sum -= data[pos-1];
+		}
+		return pos;
+	}
+};
+```
+
+### BIT Offline with Coordinate compression
+```cpp
+typedef vector<int> vi;
+
+#define all(x) begin(x), end(x)
+#define sz(x) (int)x.size()
+#define rsz resize
+#define ub upper_bound
+#define pb push_back
+
+/**
+ * Description: Offline BIT with coordinate compression. First do all 
+   * updates with $\texttt{mode=0}$ and then call $\texttt{init()}$.
+ * Source: Own
+ * Verification: https://codeforces.com/contest/1361/problem/F
+ */
+
+template<class T> struct BIToff {
+	bool mode = 0; vi v; vector<T> d;
+	int atMost(int x) { return ub(all(v),x)-begin(v); } // how many <= x
+	void upd(int x, T y) {
+		if (!mode) { v.pb(x); return; }
+		int p = atMost(x); assert(p && v[p-1] == x);
+		for (;p<=sz(v);p+=p&-p) d[p] += y;
+	}	
+	void init() { assert(!mode); mode = 1;
+		sort(all(v)); v.erase(unique(all(v)),end(v)); d.rsz(sz(v)+1); }
+	T sum(int x) { assert(mode);
+		T ans = 0; for (int p=atMost(x);p;p-=p&-p) ans += d[p];
+		return ans; }
+	T query(int x, int y) { return sum(y)-sum(x-1);}
+};
+```
+
+source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/BIToff.h and https://codeforces.com/contest/1361/submission/82571701
+
 ## BIT with range updates
 
 Basically, for a BIT, there are two modes available:
