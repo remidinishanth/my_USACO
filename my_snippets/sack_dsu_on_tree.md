@@ -442,6 +442,114 @@ int main() {
 Similar to rng's implementation https://codeforces.com/contest/375/submission/5508178
 </details>
 	
-Checkout Sqrt decomposition based solution https://codeforces.com/contest/375/submission/18814449
+<details>
+	<summary>Using Mo's algorithm on trees</summary>
+	
+* Flatten the tree into array using Euler tour tree technique, now tsubtree queries becomes range queries on array
+* For range queries on array we can use mo's algorithm
+* Here we need to find number of colors exceeding the limit for a given k, for this we can store frequency of counts using BIT/Segment tree
+	
+```cpp
+const int nax = 1e5 + 10;
 
+// To store frequencies of count of colors
+template<class T> struct BIT {
+    int n; vector<T> data;
+    void init(int _n) { n = _n; data.resize(n); }
+    void add(int p, T x) { for (++p;p<=n;p+=p&-p) data[p-1] += x; }
+    T sum(int l, int r) { return sum(r+1)-sum(l); }
+    T sum(int r) { T s = 0; for(;r;r-=r&-r) s+=data[r-1]; return s; }
+    int lower_bound(T sum) {
+        if (sum <= 0) return -1;
+        int pos = 0;
+        for (int pw = 1<<25; pw; pw >>= 1) {
+            int npos = pos+pw;
+            if (npos <= n && data[npos-1] < sum)
+                pos = npos, sum -= data[pos-1];
+        }
+        return pos;
+    }
+};
+
+BIT<int> freq;
+
+int color[nax];
+vector<int> adj[nax];
+
+// euler tour tree
+int timer;
+int st[nax], en[nax];
+int node[nax]; // node at time[i]
+
+void dfs(int u, int p){
+    st[u] = timer++;
+    node[st[u]] = u;
+    for(int v: adj[u]) if(v!=p) dfs(v, u);
+    en[u] = timer-1;
+}
+
+// mo stuff
+int BL[nax]; // block of l
+int ans[nax];
+int cnt[nax];
+
+struct query {
+    int id, l, r, k;
+    const bool operator<(const query &other) const{
+        return BL[l] == BL[other.l] ? r < other.r : BL[l] < BL[other.l];
+    }
+};
+
+vector<query> Q;
+
+void add(int u, int x){
+    freq.add(cnt[color[u]], -1);
+    cnt[color[u]] += x;
+    freq.add(cnt[color[u]], 1);
+}
+
+void compute(){
+    int curL = Q[0].l, curR = Q[0].l - 1;
+    for(int i=0; i<Q.size(); i++){
+        query q = Q[i];
+        while(curL > q.l) add(node[--curL], 1);
+        while(curR < q.r) add(node[++curR], 1);
+        while(curL < q.l) add(node[curL++], -1);
+        while(curR > q.r) add(node[curR--], -1);
+
+        ans[q.id] = freq.sum(q.k, nax-1);
+    }
+}
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=0;i<n;i++) scanf("%d", &color[i]);
+    for(int i=0;i<n-1;i++){
+        int a, b; scanf("%d %d", &a, &b);
+        a--; b--;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    freq.init(nax);
+    dfs(0, -1);
+
+    int sqrtn = sqrt(n);
+    for(int i=0;i<n;i++) BL[i] = i/sqrtn;
+
+    for(int i=0;i<m;i++){
+        int u, k; scanf("%d %d", &u, &k); u--;
+        query q;
+        q.id = i; q.l = st[u], q.r = en[u], q.k = k;
+        Q.push_back(q);
+    }
+    sort(Q.begin(), Q.end());
+    compute();
+    for(int i=0;i<m;i++) printf("%d\n", ans[i]);
+    return 0;
+}
+```
+			 
+Inspired from ffao solution https://codeforces.com/contest/375/submission/18814449
+</details>	
+	
 TODO: Problems from https://codeforces.com/blog/entry/44351
