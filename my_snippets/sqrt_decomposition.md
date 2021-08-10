@@ -340,6 +340,13 @@ Nice implementation by ffao https://codeforces.com/contest/375/submission/188144
 
 ## Mo's Algorithm on Trees
 
+### Handling Subtree Queries
+
+Consider the following problem. You will be given a rooted Tree T of N nodes where each node is associated with a value A[node]. You need to handle Q queries, each comprising one integer u. In each query you must report the number of distinct values in the subtree rooted at u. In other words, if you store all the values in the subtree rooted at u in a set, what would be the size of this set? `1 ≤ N, Q ≤ 10^5` and `1 ≤ A[node] ≤ 10^9`
+
+**Solution:**  One easy way to solve this is to flatten the tree into an array by doing a Preorder traversal(Euler tour tree) and then implement Mo's Algorithm. Once we flatten the tree, subtree queries becomes range queries. Maintain a lookup table which maintains the frequency of each value in the current window. By maintaining this, the answer can be updated easily. Complexity of solution would be `O(Q √N)`.
+
+Note that we can also solve this in `O(N log^2N)` by maintaining a set in each node and using Small to Large merging(or DSU Sack on tree).
 
 ## TODO: 
 
