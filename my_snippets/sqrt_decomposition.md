@@ -338,6 +338,9 @@ struct query {
 
 Nice implementation by ffao https://codeforces.com/contest/375/submission/18814449
 
+## Mo's Algorithm on Trees
+
+
 ## TODO: 
 
 Basics https://blog.anudeep2011.com/mos-algorithm/ and https://codeforces.com/blog/entry/83248 and https://codeforces.com/blog/entry/81716
