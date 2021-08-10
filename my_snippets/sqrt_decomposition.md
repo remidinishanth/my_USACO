@@ -215,8 +215,8 @@ int main() {
 MO's with Updates
 ```cpp
 // Author: Tanuj Khattar
-// Accepted Solution for https://www.spoj.com/problems/XXXXXXXX/
-// using MO's with Updates, as discussed in https://unacademy.com/educator/class/square-root-decomposition/BURZLN1E
+// Accepted Solution for https://www.spoj.com/problems/XXXXXXXX/ using MO's with Updates,
+// as discussed in https://unacademy.com/educator/class/square-root-decomposition/BURZLN1E
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -318,7 +318,27 @@ int main() {
 }
 ```
 
-TODO: 
+### Implementation trick
+
+Comparator within struct
+
+```cpp
+// mo stuff
+int BL[nax]; // block of l
+int ans[nax];
+int cnt[nax];
+
+struct query {
+    int id, l, r, k;
+    const bool operator<(const query &other) const{
+        return BL[l] == BL[other.l] ? r < other.r : BL[l] < BL[other.l];
+    }
+};
+```
+
+Nice implementation by ffao https://codeforces.com/contest/375/submission/18814449
+
+## TODO: 
 
 Basics https://blog.anudeep2011.com/mos-algorithm/ and https://codeforces.com/blog/entry/83248 and https://codeforces.com/blog/entry/81716
 
@@ -335,5 +355,3 @@ https://www.hackerearth.com/practice/notes/mos-algorithm/
 https://h0rnet.hatenablog.com/entry/2016/03/03/CFR_Educational_2_E__Lomsat_gelral_(_Smaller_to_Larger_or_Time_stamp_+_Mo's_Algorithm_)
 
 TODO: https://www.geeksforgeeks.org/sqrt-square-root-decomposition-set-2-lca-tree-osqrth-time/
-
-Nice implementation by ffao https://codeforces.com/contest/375/submission/18814449
