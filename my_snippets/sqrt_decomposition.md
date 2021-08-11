@@ -380,7 +380,146 @@ We will ask you to perform the following operation:
 
 u v : ask for how many different integers that represent the weight of nodes there are on the path from u to v. (N <= 40000, Queries M <= 100000)
 
-Solution: https://ideone.com/6NVoPD
+Solution: 
+
+```cpp
+#include<bits/stdc++.h>
+
+using namespace std;
+
+const int nax = 1e5 + 10;
+const int LG = 19;
+
+int color[nax];
+vector<int> adj[nax];
+
+// euler tour tree
+int timer;
+int st[nax], en[nax];
+int node[nax]; // node at time[i]
+int depth[nax];
+int par[nax][LG];
+
+// insert every node twice in ETT
+void dfs(int u, int p){
+    st[u] = timer++; node[st[u]] = u;
+    for(int v: adj[u]){
+        if(v==p) continue;
+        depth[v] = depth[u] + 1;
+        par[v][0] = u;
+        for(int i=1; par[v][i-1]; i++){
+            par[v][i] = par[par[v][i-1]][i-1];
+        }
+        dfs(v, u);
+    }
+    en[u] = timer++; node[en[u]] = u;
+}
+
+int jump(int u, int k){
+    for(int i=LG-1;i>=0;i--){
+        if(k >= (1<<i)){
+            u = par[u][i];
+            k -= 1<<i;
+        }
+    }
+    return u;
+}
+
+int lca(int u, int v){
+    if(depth[u] > depth[v]) swap(u, v);
+    v = jump(v, depth[v] - depth[u]);
+    if(u == v) return u;
+    for(int i=LG-1;i>=0;i--){
+        if(par[u][i] != par[v][i]){
+            u = par[u][i];
+            v = par[v][i];
+        }
+    }
+    return par[u][0];
+}
+
+// mo stuff
+int BL[nax]; // block of l
+int ans[nax];
+int cnt[nax];
+int curAns; // global answer
+int vis[nax]; // to check whether node is visited
+
+struct query {
+    int id, l, r, u, v, z; // z is lca(u, v)
+    bool operator<(const query &other) const{
+        return BL[l] == BL[other.l] ? r < other.r : BL[l] < BL[other.l];
+    }
+};
+
+vector<query> Q;
+
+void add(int u){
+    // if (u) occurs twice, then don't consider it's value
+    if(vis[u] && --cnt[color[u]] == 0) curAns--;
+    else if(!vis[u]  && cnt[color[u]]++ == 0) curAns++;
+    vis[u] ^= 1;
+}
+
+void compute(){
+    int curL = Q[0].l, curR = Q[0].l - 1;
+    for(int i=0; i<Q.size(); i++){
+        query q = Q[i];
+        while(curL > q.l) add(node[--curL]);
+        while(curR < q.r) add(node[++curR]);
+        while(curL < q.l) add(node[curL++]);
+        while(curR > q.r) add(node[curR--]);
+
+        // if lca(u, v) != u then include lca in the answer
+        if(q.z != q.u) add(q.z);
+        ans[q.id] = curAns;
+        if(q.z != q.u) add(q.z);
+
+    }
+}
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=1;i<=n;i++) scanf("%d", &color[i]);
+    // coordinate compress on colors
+    map<int, int> M;
+    int tt = 1;
+    for(int i=1;i<=n;i++){
+        // no need to sort colors first
+        if(M[color[i]] == 0) M[color[i]] = ++tt;
+        color[i] = M[color[i]];
+    }
+
+    for(int i=1;i<n;i++){
+        int a, b; scanf("%d %d", &a, &b);
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+
+    dfs(1, 0);
+
+    for(int i=0;i<nax;i++) BL[i] = i/320;
+
+    for(int i=0;i<m;i++){
+        int u, v; scanf("%d %d", &u, &v);
+        if(st[u] > st[v]) swap(u, v);
+        query q;
+        q.id = i; q.u = u; q.v = v; q.z = lca(u, v);
+        if(q.z == u){ // lca is u, then query from st[u] to st[v]
+            q.l = st[u]; q.r = st[v];
+        }else{ // query from en[u] to en[v], also include lca
+            q.l = en[u]; q.r = st[v];
+        }
+        Q.push_back(q);
+    }
+    sort(Q.begin(), Q.end());
+    compute();
+    for(int i=0;i<m;i++) printf("%d\n", ans[i]);
+    return 0;
+}
+```
+
+source: https://ideone.com/6NVoPD
 
 ## TODO: 
 
