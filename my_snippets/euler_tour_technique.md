@@ -80,7 +80,7 @@ The fact that a subtree is maps to a segment gives us some more benefits. With t
 <p align="center"><img src="images/ett_6.png" width=300></p>
 
 * A subtree of node x is represented by the continous range `[start[x], end[x]]`
-* A path between the two nodes A & B contain nodes which occur exactly once in the continous range `[end[A], start[B]]` -- Useful for applying MO's on Trees where we can ignore an element y if it occurs twice in the range `[L, R]`. For example in case of Addition of path, When we see the node for the first time, we can add the element to sum and, when we see it the second time we can subtract thus nullifying the element which occurs twice in the range `[L, R]`.
+* A path between the two nodes A & B contain nodes which occur exactly once in the continous range `[end[A], start[B]]` -- Useful for applying MO's on Trees where we can ignore an element y if it occurs twice in the range `[L, R]`. For example in case of Addition of path, When we see the node for the first time, we can add the element to sum and, when we see it the second time we can subtract thus nullifying the element which occurs twice in the range `[L, R]`. [Read more](https://github.com/remidinishanth/my_USACO/blob/master/my_snippets/sqrt_decomposition.md#spoj-cot2---count-on-a-tree-ii)
 
 #### Way-2: Insert every node only once
 * Insert every node/edge in the euler tour array whenever you enter the node and increment the timer
