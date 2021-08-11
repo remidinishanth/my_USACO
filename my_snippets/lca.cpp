@@ -1,3 +1,52 @@
+// My LCA code for 1-based indexing of DFS
+
+const int nax = 1e5 + 10;
+const int LG = 19;
+
+vector<int> adj[nax];
+int par[nax][LG];
+int depth[nax];
+
+// insert every node twice in ETT
+void dfs(int u, int p){
+    st[u] = timer++; node[st[u]] = u;
+    for(int v: adj[u]){
+        if(v==p) continue;
+        depth[v] = depth[u] + 1;
+        par[v][0] = u;
+        for(int i=1; par[v][i-1]; i++){
+            par[v][i] = par[par[v][i-1]][i-1];
+        }
+        dfs(v, u);
+    }
+    en[u] = timer++; node[en[u]] = u;
+}
+
+int jump(int u, int k){
+    for(int i=LG-1;i>=0;i--){
+        if(k >= (1<<i)){
+            u = par[u][i];
+            k -= 1<<i;
+        }
+    }
+    return u;
+}
+
+int lca(int u, int v){
+    if(depth[u] > depth[v]) swap(u, v);
+    v = jump(v, depth[v] - depth[u]);
+    if(u == v) return u;
+    for(int i=LG-1;i>=0;i--){
+        if(par[u][i] != par[v][i]){
+            u = par[u][i];
+            v = par[v][i];
+        }
+    }
+    return par[u][0];
+}
+
+///////////////////////////////////////
+
 const int N = 222222;
 const int D = 22;
  
