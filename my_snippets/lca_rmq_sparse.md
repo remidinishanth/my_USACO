@@ -99,25 +99,39 @@ Source: KACTL
 
 
 ```cpp
-#define F0R(i, a) for (int i=0; i<a; i++)
-
 template<class T> struct RMQ { // floor(log_2(x))
-	int level(int x) { return 31-__builtin_clz(x); } 
-	vector<T> v; vector<vi> jmp;
-	int comb(int a, int b) { // index of min
-		return v[a]==v[b]?min(a,b):(v[a]<v[b]?a:b); } 
-	void init(const vector<T>& _v) {
-		v = _v; jmp = {vi(sz(v))}; iota(all(jmp[0]),0);
-		for (int j = 1; 1<<j <= sz(v); ++j) {
-			jmp.pb(vi(sz(v)-(1<<j)+1));
-			F0R(i,sz(jmp[j])) jmp[j][i] = comb(jmp[j-1][i], jmp[j-1][i+(1<<(j-1))]);
-		}
-	}
-	int index(int l, int r) { // get index of min element
-		assert(l <= r); int d = level(r-l+1);
-		return comb(jmp[d][l],jmp[d][r-(1<<d)+1]); }
-	T query(int l, int r) { return v[index(l,r)]; }
+    int level(int x) { return 31-__builtin_clz(x); } 
+    vector<T> v; vector<vi> jmp;
+    int comb(int a, int b) { // index of min
+        return v[a]==v[b]?min(a,b):(v[a]<v[b]?a:b); } 
+    void init(const vector<T>& _v) {
+        v = _v; jmp = {vector<int>(v.size())}; iota(jmp[0].begin(), jmp[0].end(),0);
+        for (int j = 1; 1<<j <= v.size(); ++j) {
+            jmp.push_back(vi(v.size()-(1<<j)+1));
+            for(int i=0; i<jmp[j].size(); i++)
+                jmp[j][i] = comb(jmp[j-1][i], jmp[j-1][i+(1<<(j-1))]);
+        }
+    }
+    int index(int l, int r) { // get index of min element
+        assert(l <= r); int d = level(r-l+1);
+        return comb(jmp[d][l],jmp[d][r-(1<<d)+1]); }
+    T query(int l, int r) { return v[index(l,r)]; }
 };
+
+int main() {
+    int n, q; scanf("%d %d", &n, &q);
+    vector<int> V(n);
+    for(int i=0;i<n;i++) scanf("%d", &V[i]);
+    RMQ<int> t;
+    t.init(V);
+    while(q--){
+        int a, b; scanf("%d %d", &a, &b);
+        a--; b--;
+	// 0-based indexing
+        printf("%d\n", t.query(a, b));
+    }
+    return 0;
+}
 ```
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RMQ%20(9.1).h>
