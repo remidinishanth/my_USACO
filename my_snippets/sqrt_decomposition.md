@@ -348,6 +348,30 @@ Consider the following problem. You will be given a rooted Tree T of N nodes whe
 
 Note that we can also solve this in `O(N log^2N)` by maintaining a set in each node and using Small to Large merging(or DSU Sack on tree).
 
+### Handling Path Queries
+
+In the above problem, instead of subtree of `u`, we are asked to compute the number of distinct values in the path from `u` to `v`.
+
+**Issue:** While handling subtree queries, because of Euler tour tree, it was possible to represent any subtree as a contiguous range in an array. Thus the problem was reduced to "finding number of distinct values in a subarray `[L, R]` of `A[]`.  Note that it is not possible to do so for path queries, as nodes which are `O(N)` distance apart in the tree might be `O(1)` distance apart in the flattened tree (represented by Array `A[]`). So doing a normal dfs-order would not work out.
+
+**Observations:** Let a node `u` have `k` children. Let us number them as `v1, v2, ..., vk`. Let `S(u)` denote the subtree rooted at `u`. Let us assume that `dfs()` will visit u's children in the order `v1, v2, ..., vk`. Let `x` be any node in `S(vi)` and `y` be any node in `S(vj)` and let `i < j`. Notice that `dfs(y)` will be called only after `dfs(x)` has been completed and S(x) has been explored. Thus, before we call `dfs(y)`, we would have entered and exited `S(x)`. We will exploit this seemingly obvious property of dfs() to modify our existing algorithm and try to represent each query as a contiguous range in a flattened array. Each vertex which is not on the path will appear twice in Euler Tour tree between `start[u] and start[v]` if we insert vertices at `start` and `finish` of vertex.
+
+**Algorithm:**
+
+Let a query be (u, v). We will try to map each query to a range in the flattened array. Let ST(u) ≤ ST(v) where ST(u) denotes visit time of node u in T. Let P = LCA(u, v) denote the lowest common ancestor of nodes u and v. There are 2 possible cases:
+
+* lca(u, v) = u. 
+  In this case, our query range would be [ST(u), ST(v)]. Why will this work?
+
+  Consider any node x that does not lie in the (u, v) path. Notice that x occurs twice or zero times in our specified query range. Therefore, the nodes which occur exactly once in this range are precisely those that are on the (u, v) path! (Try to convince yourself of why this is true : It's all because of dfs() properties.)
+  
+  This forms the crux of our algorithm. While implementing Mo's, our add/remove function needs to check the number of times a particular node appears in a range. If it occurs twice (or zero times), then we don't take it's value into account! This can be easily implemented while moving the left and right pointers.
+  
+* lca(u, v) != u
+  In this case, our query range would be [EN(u), ST(v)] + [ST(P), ST(P)].
+  
+  Same logic from previous case applies here. The only difference is that we need to consider the value of P i.e the LCA separately, as it would not be counted in the query range.
+
 ## TODO: 
 
 Basics https://blog.anudeep2011.com/mos-algorithm/ and https://codeforces.com/blog/entry/83248 and https://codeforces.com/blog/entry/81716
