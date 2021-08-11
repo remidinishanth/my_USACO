@@ -371,6 +371,16 @@ Let a query be (u, v). We will try to map each query to a range in the flatten
   In this case, our query range would be [EN(u), ST(v)] + [ST(P), ST(P)].
   
   Same logic from previous case applies here. The only difference is that we need to consider the value of P i.e the LCA separately, as it would not be counted in the query range.
+  
+#### SPOJ COT2 - Count on a tree II
+
+You are given a tree with N nodes. The tree nodes are numbered from 1 to N. Each node has an integer weight.
+
+We will ask you to perform the following operation:
+
+u v : ask for how many different integers that represent the weight of nodes there are on the path from u to v. (N <= 40000, Queries M <= 100000)
+
+Solution: https://ideone.com/6NVoPD
 
 ## TODO: 
 
