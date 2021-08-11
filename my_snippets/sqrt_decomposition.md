@@ -538,3 +538,8 @@ https://www.hackerearth.com/practice/notes/mos-algorithm/
 https://h0rnet.hatenablog.com/entry/2016/03/03/CFR_Educational_2_E__Lomsat_gelral_(_Smaller_to_Larger_or_Time_stamp_+_Mo's_Algorithm_)
 
 TODO: https://www.geeksforgeeks.org/sqrt-square-root-decomposition-set-2-lca-tree-osqrth-time/
+
+
+Checkout: TODO: https://www.cnblogs.com/bibibi/p/8525527.html, also look at other pages on https://www.cnblogs.com/bibibi/p/?page=3
+
+https://codeforces.com/blog/entry/92568
