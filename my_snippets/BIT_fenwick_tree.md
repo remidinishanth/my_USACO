@@ -334,6 +334,55 @@ Now, let's say we called query(p). We have three cases:
 * p > b. p will be affected by the update(a,v) since p >= a, and update(b+1,-v) since p >= b+1, therefore, v-v=0 so everything cancels out and query(p) will not be affected and return the correct result
 * a ≤ p ≤ b. p is only affected by update(a,v), but not update(b+1,-v), therefore, query(p)'s value is increased by v, and will return the correct result
 
+<details>
+	<summary> CSES Problem Range Update Queries </summary>
+
+https://cses.fi/problemset/task/1651/
+	
+```cpp
+const int nax = 2e5 + 10;
+
+template<class T> struct BIT {
+    int n; vector<T> data;
+    void init(int _n) { n = _n; data.resize(n); }
+    void add(int p, T x) { for (++p;p<=n;p+=p&-p) data[p-1] += x; }
+    T sum(int l, int r) { return sum(r+1)-sum(l); }
+    T sum(int r) { T s = 0; for(;r;r-=r&-r) s+=data[r-1]; return s; }
+    int lower_bound(T sum) {
+        if (sum <= 0) return -1;
+        int pos = 0;
+        for (int pw = 1<<25; pw; pw >>= 1) {
+            int npos = pos+pw;
+            if (npos <= n && data[npos-1] < sum)
+                pos = npos, sum -= data[pos-1];
+        }
+        return pos;
+    }
+};
+
+BIT<long long> tree;
+
+int main() {
+    tree.init(nax);
+    int n, q; scanf("%d %d", &n, &q);
+    vector<long long> V(n);
+    for(int i=0;i<n;i++) scanf("%lld", &V[i]);
+    while(q--){
+        int type; scanf("%d", &type);
+        if(type == 1){
+            int a, b, u; scanf("%d %d %d", &a, &b, &u);
+            tree.add(a-1, u);
+            tree.add(b, -u);
+        } else {
+            int k; scanf("%d", &k);
+            printf("%lld\n", V[k-1] + tree.sum(k));
+        }
+    }
+    return 0;
+}
+```
+</details>
+
 3. **Range update and range querying (c)**
 
 Similar to Range Update - Point query, we maintain a BIT (say B1)
