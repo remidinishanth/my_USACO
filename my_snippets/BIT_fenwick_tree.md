@@ -248,6 +248,8 @@ Generally BIT/Fenwick tree uses 1-based indexing. But here `data` is stored in `
 * `sum(r) = a[0] + a[1] + ... + a[r-1]`
 * `sum(l, r) = a[l] + a[l+1] + ... + a[r]` - Becareful when you are querying for sum of `n` elements. It is `sum(0, n-1)`
 
+In case you want to print data for debugging, use `debug() << imie(range(tree.data.begin(), tree.data.begin()+n));`
+
 ```cpp
 template<class T> struct BIT {
     int n; vector<T> data;
