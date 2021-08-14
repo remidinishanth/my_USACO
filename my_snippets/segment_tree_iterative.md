@@ -287,7 +287,7 @@ TODO: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-s
 
 template<class T> struct Seg { // comb(ID,b) = b
     const T ID = 0; T comb(T a, T b) { return a+b; } 
-    int n; V<T> seg;
+    int n; vector<T> seg;
     void init(int _n) { // upd, query also work if n = _n
         for (n = 1; n < _n; ) n *= 2; 
         seg.assign(2*n,ID); }
