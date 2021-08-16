@@ -3,10 +3,14 @@ code this kind of DSU, is style of bmerry : (C++)
 
 Algorithm Gym :: Data structures by DarthKnight // CF
 
+* When `data[x] < 0`, `x` is a root and `-data[x]` is its tree size. When `data[x] >= 0`, `data[x]` is x's parent.
+
+```
 initially are parents are set to -1
 
 for each root v, 
   par[v] equals the negative of number of tools in that box.
+```
 
 ```cpp
 int root(int v){return par[v] < 0 ? v : (par[v] = root(par[v]));}
