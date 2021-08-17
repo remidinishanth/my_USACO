@@ -38,7 +38,12 @@ The following are multiplicative functions.
 
 ![](images/mobius_10.png)
 
+![](images/mobius_11.png)
+
+In order to prove that sum-function of mobius function is unit function, we can use the property that mobius function is multiplicative, which implies that the sum function is multiplicative and hence F(n) = F(p1^k1) F(p2^k2) ... F(pi^ki), we know that F(pi^ki) = 1 + (-1) = 0 if ki >= 1 and F(1) = 1.
+
 source: https://codeforces.com/blog/entry/53925
+
 
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
