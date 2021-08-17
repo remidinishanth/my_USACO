@@ -11,6 +11,8 @@ source: Factors. Brilliant.org. Retrieved 00:56, August 18, 2021, from https://b
 
 ## Mobius Function
 
+An arithmetical function, or number-theoretic function is a complex-valued function defined for all positive integers. It can be viewed as a sequence of complex numbers.
+
 In number theory, a multiplicative function is an arithmetic function `f(n)` of a positive integer `n` with the property that `f(1) = 1` and `f(ab) = f(a)f(b)` whenever `a` and `b` are coprime; `gcd(a, b) = 1`. `f(n) = f(n * 1) = f(n) f(1)` hence we need the condition that `f(1) = 1`.
 
 ![](images/mobius_7.png)
