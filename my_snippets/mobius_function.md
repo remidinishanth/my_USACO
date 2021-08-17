@@ -36,6 +36,8 @@ The following are multiplicative functions.
 * The unit function `[n = 1]`, 1 if n = 1 and 0 otherwise
 * Mobius function as defined above
 
+![](images/mobius_10.png)
+
 source: https://codeforces.com/blog/entry/53925
 
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
