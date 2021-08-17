@@ -15,6 +15,8 @@ In number theory, a multiplicative function is an arithmetic function `f(n)` of 
 
 ![](images/mobius_7.png)
 
+source: https://crypto.stanford.edu/pbc/notes/numbertheory/mult.html
+
 https://codeforces.com/blog/entry/53925
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
