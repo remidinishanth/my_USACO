@@ -34,6 +34,7 @@ The following are multiplicative functions.
 * The identity function, defined by Id(n) = n 
 * Idₖ(n): The power functions, defined by `Idₖ(n) = nᵏ`
 * The unit function `[n = 1]`, 1 if n = 1 and 0 otherwise
+* Mobius function as defined above
 
 source: https://codeforces.com/blog/entry/53925
 
