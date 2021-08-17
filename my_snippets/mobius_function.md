@@ -39,6 +39,38 @@ void sieve(int maximum) {
 }
 ```
 
-source: https://codeforces.com/contest/1559/submission/125955092
+source: neal https://codeforces.com/contest/1559/submission/125955092
+
+```cpp
+const int X = 2.1e5;
+ 
+bitset<X> is_prime;
+vector<int> pr;
+vector<int> mu(X, 0);
+ 
+void init(){
+	is_prime.flip();
+	is_prime[0] = is_prime[1] = false;
+	mu[1] = 1;
+	for(int i = 2; i < X; i++){
+		if(is_prime[i]){
+			pr.push_back(i);
+			mu[i] = -1;
+		}
+		for(int p : pr){
+			if(i * p >= X) break;
+			is_prime[i * p] = false;
+			if(i % p == 0){
+				mu[i * p] = 0;
+			} else {
+				mu[i * p] = -mu[i];
+			}
+			if(i % p == 0) break;
+		}
+	}
+}
+```
+
+source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 
 Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
