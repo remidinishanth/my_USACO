@@ -25,7 +25,16 @@ In number theory, a multiplicative function is an arithmetic function `f(n)` of 
 
 source: https://crypto.stanford.edu/pbc/notes/numbertheory/mult.html
 
-https://codeforces.com/blog/entry/53925
+Let's use the notation: `[P]` refers to the boolean expression, i.e. `[P] = 1` when `P` is true, and `0` otherwise.
+
+The following are multiplicative functions.
+* The constant function, defined by I(n) = 1
+* The identity function, defined by Id(n) = n 
+* Idₖ(n): The power functions, defined by `Idₖ(n) = nᵏ`
+* The unit function `[n = 1]`, 1 if n = 1 and 0 otherwise
+
+source: https://codeforces.com/blog/entry/53925
+
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
 
