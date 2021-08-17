@@ -11,6 +11,8 @@ source: Factors. Brilliant.org. Retrieved 00:56, August 18, 2021, from https://b
 
 ## Mobius Function
 
+In number theory, a multiplicative function is an arithmetic function `f(n)` of a positive integer `n` with the property that `f(1) = 1` and `f(ab) = f(a)f(b)` whenever `a` and `b` are coprime.
+
 https://codeforces.com/blog/entry/53925
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
