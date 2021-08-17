@@ -1,4 +1,17 @@
+## Number Theory Basics
+
+![](images/mobius_1.png)
+![](images/mobius_2.png)
+![](images/mobius_3.png)
+![](images/mobius_4.png)
+![](images/mobius_5.png)
+![](images/mobius_6.png)
+
+source: Factors. Brilliant.org. Retrieved 00:56, August 18, 2021, from https://brilliant.org/wiki/factors/
+
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
+
+
 
 ```cpp
 vector<int> smallest_factor;
