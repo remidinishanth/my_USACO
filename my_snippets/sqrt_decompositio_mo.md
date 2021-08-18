@@ -529,6 +529,8 @@ With Update: https://codeforces.com/blog/entry/72690
 
 MO's Algorithm on Trees https://codeforces.com/blog/entry/43230 and https://codeforces.com/blog/entry/68271
 
+Checkout: https://discuss.codechef.com/t/mos-algorithm-uses/18482
+
 Query Sqrt decomposition: https://codeforces.com/gym/100589/problem/A
 
 Hilbert curve sorting - https://codeforces.com/blog/entry/61203
