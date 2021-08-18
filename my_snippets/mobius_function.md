@@ -11,6 +11,8 @@ source: Factors. Brilliant.org. Retrieved 00:56, August 18, 2021, from https://b
 
 In number theory, Euler's totient function counts the positive integers up to a given integer n that are relatively prime to n. It is written using the Greek letter phi as `φ(n)`, and may also be called Euler's phi function. In other words, it is the number of integers k in the range 1 ≤ k ≤ n for which the greatest common divisor gcd(n, k) is equal to 1
 
+![](images/mobius_17.png)
+
 ## Mobius Function
 
 An arithmetical function, or number-theoretic function is a complex-valued function defined for all positive integers. It can be viewed as a sequence of complex numbers.
