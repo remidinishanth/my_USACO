@@ -44,10 +44,9 @@ In order to prove that sum-function of mobius function is unit function, we can 
 
 source: https://codeforces.com/blog/entry/53925
 
-## Dirchlet Convolution
+## Dirichlet convolution
 
 ![](images/mobius_12.png)
-
 
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
