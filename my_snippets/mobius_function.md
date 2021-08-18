@@ -60,6 +60,10 @@ Dirichlet convolutions are
 
 ![](images/mobius_13.png)
 
+![](images/mobius_14.png)
+
+![](images/mobius_15.png)
+
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
 
