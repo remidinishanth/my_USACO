@@ -48,6 +48,8 @@ source: https://codeforces.com/blog/entry/53925
 
 ![](images/mobius_12.png)
 
+In other words, the convolution of f and g at n is the sum of `f(k)g(n/k)` over all positive divisors k of n.
+
 Dirichlet convolutions are
 * commutative (f ∗ g = g ∗ f), and
 * associative (f ∗ (g ∗ h) = (f ∗ g) ∗ h).
