@@ -46,6 +46,8 @@ In order to prove that sum-function of mobius function is unit function, we can 
 
 source: https://codeforces.com/blog/entry/53925
 
+Proof using Subset parity lemma https://mathlesstraveled.com/2016/12/03/the-mobius-function-proof-part-2-the-subset-parity-lemma/
+
 ## Dirichlet convolution
 
 ![](images/mobius_12.png)
