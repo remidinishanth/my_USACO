@@ -54,13 +54,15 @@ Proof using Subset parity lemma https://mathlesstraveled.com/2016/12/03/the-mobi
 
 In other words, the convolution of f and g at n is the sum of `f(k)g(n/k)` over all positive divisors k of n.
 
+![](images/mobius_14.png)
+
 Dirichlet convolutions are
 * commutative (f ∗ g = g ∗ f), and
 * associative (f ∗ (g ∗ h) = (f ∗ g) ∗ h).
 
 ![](images/mobius_13.png)
 
-![](images/mobius_14.png)
+Another proof of Mobius Inversion
 
 ![](images/mobius_15.png)
 
