@@ -48,6 +48,10 @@ source: https://codeforces.com/blog/entry/53925
 
 ![](images/mobius_12.png)
 
+Dirichlet convolutions are
+* commutative (f ∗ g = g ∗ f), and
+* associative (f ∗ (g ∗ h) = (f ∗ g) ∗ h).
+
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
 
