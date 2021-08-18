@@ -15,7 +15,7 @@ An arithmetical function, or number-theoretic function is a complex-valued funct
 
 In number theory, a multiplicative function is an arithmetic function `f(n)` of a positive integer `n` with the property that `f(1) = 1` and `f(ab) = f(a)f(b)` whenever `a` and `b` are coprime; `gcd(a, b) = 1`. `f(n) = f(n * 1) = f(n) f(1)` hence we need the condition that `f(1) = 1`.
 
-If both f(x) and g(x) are multiplicative, then `h(x) = f(x)g(x)` is also multiplicative. Hence it is associative.
+If both f(x) and g(x) are multiplicative, then `h(x) = f(x)g(x)` is also multiplicative.
 
 `d|n` means that d can divide n (without a remainder).
 
