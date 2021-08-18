@@ -64,7 +64,7 @@ Dirichlet convolutions are
 
 Another proof of Mobius Inversion
 
-![](images/mobius_15.png)
+![](images/mobius_16.png)
 
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
