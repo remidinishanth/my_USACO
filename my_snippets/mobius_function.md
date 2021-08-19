@@ -15,6 +15,23 @@ In number theory, Euler's totient function counts the positive integers up to a 
 
 ![](images/mobius_21.png)
 
+Output for `n = 50`
+```
+i = 1    n/i = 50   la = 1
+i = 2    n/i = 25   la = 2
+i = 3    n/i = 16   la = 3
+i = 4    n/i = 12   la = 4
+i = 5    n/i = 10   la = 5
+i = 6    n/i = 8    la = 6
+i = 7    n/i = 7    la = 7   // till sqrt(n)
+i = 8    n/i = 6    la = 8
+i = 9    n/i = 5    la = 10  // n/j remains n/i for i ≤ j ≤ la
+i = 11   n/i = 4    la = 12
+i = 13   n/i = 3    la = 16
+i = 17   n/i = 2    la = 25
+i = 26   n/i = 1    la = 50
+```
+
 ## Mobius Function
 
 An arithmetical function, or number-theoretic function is a complex-valued function defined for all positive integers. It can be viewed as a sequence of complex numbers.
