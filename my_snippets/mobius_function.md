@@ -15,8 +15,13 @@ In number theory, Euler's totient function counts the positive integers up to a 
 
 ![](images/mobius_21.png)
 
-Output for `n = 50`
-```
+```cpp
+int n = 50;
+for(int i = 1, la; i <= n; i = la + 1){
+    la = n/(n/i);
+    printf("i = %d   n/i = %d   la = %d\n", i, n/i, la);
+}
+ 
 i = 1    n/i = 50   la = 1
 i = 2    n/i = 25   la = 2
 i = 3    n/i = 16   la = 3
