@@ -187,9 +187,17 @@ source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 
 ![](images/mobius_25.png)
 
-Calculate `GCD(1, 1) * GCD(1, 2) * ... * GCD(1, M) * GCD(2, 1) * GCD(2, 2) * ... * GCD(2, M) * ... * GCD(N, 1) * GCD(N, 2) * ... * GCD(N, M)`.
+**Problem 5.** Calculate `GCD(1, 1) * GCD(1, 2) * ... * GCD(1, M) * GCD(2, 1) * GCD(2, 2) * ... * GCD(2, M) * ... * GCD(N, 1) * GCD(N, 2) * ... * GCD(N, M)`.
 
-where GCD is defined as the Greatest Common Divisor.
+where GCD is defined as the Greatest Common Divisor. 
+
+https://www.hackerrank.com/contests/w3/challenges/gcd-product/problem
+
+**Solution**
+
+![](images/mobius_28.png)
+
+![](images/mobius_29.png)
 
 ```cpp
 #include <cstdio>
