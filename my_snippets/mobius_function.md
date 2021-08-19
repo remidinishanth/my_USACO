@@ -233,7 +233,7 @@ int main () {
     for(i = 2; i <= n; i++) {
         // mobius function -> dp[i]
         if (i == p[i]) dp[i] = -1; 
-        else if (p[(i / p[i])] == p[i]) dp[i] = 0; 
+        else if (p[(i / p[i])] == p[i]) dp[i] = 0; // if some prime^2 divides i
         else dp[i] = -1 * dp[i / p[i]];
         pref[i] = pref[i - 1] + dp[i];
     }
