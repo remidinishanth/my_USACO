@@ -70,6 +70,8 @@ Another proof of Mobius Inversion
 
 That is, Mobius function `μ` is the inverse of constant function `I` with respect to Dirichlet convolution.
 
+![](images/mobius_18.png)
+
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
 
