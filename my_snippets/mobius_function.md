@@ -104,8 +104,6 @@ That is, Mobius function `μ` is the inverse of constant function `I` with respe
 
 ![](images/mobius_18.png)
 
-https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
-
 ```cpp
 vector<int> smallest_factor;
 vector<int8_t> smallest_power;
@@ -181,7 +179,7 @@ source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 
 ## Problems
 
-![](images/mobius_22.png)
+![](images/mobius_26.png)
 
 ![](images/mobius_23.png)
 
@@ -190,5 +188,7 @@ source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 ![](images/mobius_25.png)
 
 Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
+
+TODO: https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
 REF: https://math.berkeley.edu/~stankova/MathCircle/Multiplicative.pdf
