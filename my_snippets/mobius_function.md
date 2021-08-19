@@ -181,7 +181,7 @@ source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 
 ![](images/mobius_26.png)
 
-![](images/mobius_23.png)
+![](images/mobius_27.png)
 
 ![](images/mobius_24.png)
 
