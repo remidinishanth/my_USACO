@@ -46,6 +46,8 @@ The following are multiplicative functions.
 
 In order to prove that sum-function of mobius function is unit function, we can use the property that mobius function is multiplicative, which implies that the sum function is multiplicative and hence F(n) = F(p1^k1) F(p2^k2) ... F(pi^ki), we know that F(pi^ki) = 1 + (-1) = 0 if ki >= 1 and F(1) = 1.
 
+![](images/mobius_20.png)
+
 source: https://codeforces.com/blog/entry/53925
 
 Proof using Subset parity lemma https://mathlesstraveled.com/2016/12/03/the-mobius-function-proof-part-2-the-subset-parity-lemma/
