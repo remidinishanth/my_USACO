@@ -267,6 +267,7 @@ int main () {
                 t += p1 * 1LL * p2 * (pref[r] - pref[l - 1]);
                 l = r + 1;
             }
+            // there are only 2*sqrt(max(n,m)) different values for p1 and p2
         } else {
             // brute force computation of f(tn, tm)
             for(i = 1; sf[i] <= tm; i++) 
