@@ -263,6 +263,7 @@ int main () {
             while (l <= tm) {
                 ++c;
                 r = min(min(tn / (p1 = tn / l), tm / (p2 = tm / l)), tm);
+                // till r -> p1 & p2 doesn't change, hence use prefix sums for mobius function
                 t += p1 * 1LL * p2 * (pref[r] - pref[l - 1]);
                 l = r + 1;
             }
