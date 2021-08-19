@@ -266,6 +266,7 @@ int main () {
                 l = r + 1;
             }
         } else {
+            // brute force computation of f(tn, tm)
             for(i = 1; sf[i] <= tm; i++) 
                 t += sfm[i] * (tn / sf[i]) * (tm / sf[i]);
         }
