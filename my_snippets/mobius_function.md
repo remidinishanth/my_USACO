@@ -68,7 +68,7 @@ Another proof of Mobius Inversion
 
 ![](images/mobius_16.png)
 
-That is, Mobius function `μ` is the inverse of constant function `I` with respect to Dirichlet convolution.
+That is, Mobius function `μ` is the inverse of constant function `I` with respect to Dirichlet convolution. `μ * I = ε` 
 
 ![](images/mobius_18.png)
 
