@@ -37,6 +37,8 @@ i = 17   n/i = 2    la = 25
 i = 26   n/i = 1    la = 50
 ```
 
+Checkout Linear Seive https://codeforces.com/blog/entry/54090
+
 ## Mobius Function
 
 An arithmetical function, or number-theoretic function is a complex-valued function defined for all positive integers. It can be viewed as a sequence of complex numbers.
