@@ -240,8 +240,8 @@ int main () {
     }
     
     for(i = 1; i <= n; i++) if (dp[i] != 0) {
-        sf[++sfn] = i;
-        sfm[sfn] = dp[i];
+        sf[++sfn] = i; // square free number
+        sfm[sfn] = dp[i]; // mobius of square free number
     }
     sf[sfn + 1] = m + 1;
     ret = 1;
