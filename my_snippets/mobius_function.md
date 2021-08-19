@@ -153,3 +153,5 @@ void init() {
 source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 
 Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
+
+REF: https://math.berkeley.edu/~stankova/MathCircle/Multiplicative.pdf
