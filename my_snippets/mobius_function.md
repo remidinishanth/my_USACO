@@ -37,6 +37,8 @@ i = 17   n/i = 2    la = 25
 i = 26   n/i = 1    la = 50
 ```
 
+If for some `x` you have `⌊n/x⌋ = k` then the greatest `x'` such that `⌊n/x'⌋ = k` is `x' = ⌊n/k⌋` because `n/(n/k) = k` and if you divide `n` by any bigger number than `n/k` you get a smaller quotient than `k`.
+
 Checkout Linear Seive https://codeforces.com/blog/entry/54090
 
 ## Mobius Function
