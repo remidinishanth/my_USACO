@@ -223,6 +223,7 @@ int pw (int x, long long p) {
 int main () {
     scanf("%d %d", &n, &m);
     if (n < m) swap(n, m);
+    // smallest prime factor of i = p[i]
     for(i = 2; i <= n; i++) if (p[i] == 0) {
         j = i;
         while (j <= n) {
