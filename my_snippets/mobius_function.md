@@ -211,6 +211,7 @@ using namespace std;
 int n, m, i, j, p[maxn], dp[maxn], sf[maxn], sfn, g, tn, tm, ret, pref[maxn], l, c, p1, p2, r, carry;
 long long sfm[maxn], t;
 
+// binomial exponentiation
 int pw (int x, long long p) {
     if (!p) return 1;
     if (p == 1) return x;
