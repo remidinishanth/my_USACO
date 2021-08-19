@@ -231,7 +231,7 @@ int main () {
         }
     }
     for(i = 2; i <= n; i++) {
-        // mobius function
+        // mobius function -> dp[i]
         if (i == p[i]) dp[i] = -1; 
         else if (p[(i / p[i])] == p[i]) dp[i] = 0; 
         else dp[i] = -1 * dp[i / p[i]];
