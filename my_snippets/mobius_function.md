@@ -265,7 +265,10 @@ int main () {
                 t += p1 * 1LL * p2 * (pref[r] - pref[l - 1]);
                 l = r + 1;
             }
-        } else for(i = 1; sf[i] <= tm; i++) t += sfm[i] * (tn / sf[i]) * (tm / sf[i]);
+        } else {
+            for(i = 1; sf[i] <= tm; i++) 
+                t += sfm[i] * (tn / sf[i]) * (tm / sf[i]);
+        }
         carry = (1LL * carry * g) % mod;
     }
     ret = (ret * 1LL * pw(carry, t)) % mod;
