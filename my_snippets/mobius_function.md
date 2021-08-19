@@ -13,6 +13,8 @@ In number theory, Euler's totient function counts the positive integers up to a 
 
 ![](images/mobius_17.png)
 
+![](images/mobius_21.png)
+
 ## Mobius Function
 
 An arithmetical function, or number-theoretic function is a complex-valued function defined for all positive integers. It can be viewed as a sequence of complex numbers.
@@ -77,7 +79,6 @@ That is, Mobius function `μ` is the inverse of constant function `I` with respe
 ![](images/mobius_18.png)
 
 https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
-
 
 ```cpp
 vector<int> smallest_factor;
@@ -151,6 +152,16 @@ void init() {
 ```
 
 source: ksun48 https://codeforces.com/contest/1559/submission/125949764
+
+## Problems
+
+![](images/mobius_22.png)
+
+![](images/mobius_23.png)
+
+![](images/mobius_24.png)
+
+![](images/mobius_25.png)
 
 Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
 
