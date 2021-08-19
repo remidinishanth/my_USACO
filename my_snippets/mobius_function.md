@@ -187,7 +187,7 @@ source: ksun48 https://codeforces.com/contest/1559/submission/125949764
 
 ![](images/mobius_25.png)
 
-**Problem 5.** Calculate `GCD(1, 1) * GCD(1, 2) * ... * GCD(1, M) * GCD(2, 1) * GCD(2, 2) * ... * GCD(2, M) * ... * GCD(N, 1) * GCD(N, 2) * ... * GCD(N, M)`.
+**Example 5.** Calculate `GCD(1, 1) * GCD(1, 2) * ... * GCD(1, M) * GCD(2, 1) * GCD(2, 2) * ... * GCD(2, M) * ... * GCD(N, 1) * GCD(N, 2) * ... * GCD(N, M)`.
 
 where GCD is defined as the Greatest Common Divisor. 
 
