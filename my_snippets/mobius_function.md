@@ -11,9 +11,8 @@ source: Factors. Brilliant.org. Retrieved 00:56, August 18, 2021, from https://b
 
 In number theory, Euler's totient function counts the positive integers up to a given integer n that are relatively prime to n. It is written using the Greek letter phi as `φ(n)`, and may also be called Euler's phi function. In other words, it is the number of integers k in the range 1 ≤ k ≤ n for which the greatest common divisor gcd(n, k) is equal to 1
 
-**Problem:**
 ![](images/mobius_17.png)
-**Solution:**
+
 ![](images/mobius_21.png)
 
 ```cpp
@@ -286,7 +285,11 @@ Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
 
 TODO: https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
+**Problem:**
+
 ![](images/mobius_30.png)
+
+**Solution:**
 
 ![](images/mobius_31.png)
 
