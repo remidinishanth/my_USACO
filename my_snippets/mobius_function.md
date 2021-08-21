@@ -283,8 +283,6 @@ int main () {
 
 Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
 
-TODO: https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
-
 **Problem:**
 
 ![](images/mobius_30.png)
@@ -302,6 +300,7 @@ const int nax = 1e5 + 10;
 
 #define MOD 998244353
 
+// modular int
 struct mi {
     int v; explicit operator int() const { return v; } 
     mi() { v = 0; }
@@ -329,6 +328,7 @@ bitset<X> is_prime;
 vector<int> pr;
 int mu[nax];
 
+// computing mu
 void init() {
     is_prime.flip();
     is_prime[0] = is_prime[1] = false;
@@ -389,5 +389,7 @@ int main() {
     return 0;
 }
 ```
+
+source: https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
 REF: https://math.berkeley.edu/~stankova/MathCircle/Multiplicative.pdf
