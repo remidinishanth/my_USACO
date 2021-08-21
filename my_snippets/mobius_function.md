@@ -289,6 +289,10 @@ TODO: https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and http
 
 ![](images/mobius_30.png)
 
+**Property:**
+
+![](images/mobius_32.png)
+
 **Solution:**
 
 ![](images/mobius_31.png)
