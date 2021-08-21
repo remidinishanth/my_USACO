@@ -811,6 +811,114 @@ vector<edge> mst(int n, vector<edge> edges) {
     return res;
 }
 ```
+				     
+## Forest of Two trees
+				     
+A forest is an undirected graph without cycles (not necessarily connected).
+
+Mocha and Diana are friends in Zhijiang, both of them have a forest with nodes numbered from 1 to 𝑛, and they would like to add edges to their forests such that:
+
+* After adding edges, both of their graphs are still forests.
+* They add the same edges. That is, if an edge `(u, v)` is added to Mocha's forest, then an edge `(u, v)` is added to Diana's forest, and vice versa.
+				     
+Mocha and Diana want to know the maximum number of edges they can add, and which edges to add.
+				     
+![](images/graph_21_8_21.png)
+				     
+```cpp
+const int nax = 1e5 + 10;
+
+int fa1[nax], fa2[nax];
+set<int> row[nax], col[nax];
+map<int,int> mp[nax];
+
+int root(int *par, int v){
+    return par[v] < 0 ? v : (par[v] = root(par, par[v]));
+}
+
+void merge(int *par, int x, int y){
+    if((x = root(par, x)) == (y = root(par, y))) return;
+    if(par[y] < par[x]) swap(x, y);
+    par[x] += par[y];
+    par[y] = x;
+}
+
+void merge_row(int x, int y){
+    // Small to large merging
+    if(row[x].size() < row[y].size()) swap(x, y);
+    // merge y into x
+    for(int i:row[y]){
+        mp[x][i] = mp[y][i];
+        row[x].insert(i);
+        col[i].erase(y);
+        col[i].insert(x);
+    }
+}
+
+void merge_col(int x, int y){
+    if(col[x].size() < col[y].size()) swap(x, y);
+    for(int i:col[y]){
+        mp[i][x] = mp[i][y];
+        col[x].insert(i);
+        row[i].erase(y);
+        row[i].insert(x);
+    }
+}
+
+int main() {
+    int n, m1, m2;
+    scanf("%d %d %d", &n, &m1, &m2);
+    for(int i=1; i<=n; i++){
+        fa1[i] = fa2[i] = -1;
+    }
+    for(int i=1; i<=m1; i++){
+        int u, v; scanf("%d %d", &u, &v);
+        merge(fa1, u, v);
+    }
+    for(int i=1; i<=m2; i++){
+        int u, v; scanf("%d %d", &u, &v);
+        merge(fa2, u, v);
+    }
+    if(m1 < m2) swap(fa1, fa2);
+    for(int i=1; i<=n; i++){
+        int p1 = root(fa1, i), p2 = root(fa2, i);
+        mp[p1][p2] = i;
+        row[p1].insert(p2);
+        col[p2].insert(p1);
+    }
+    set<pair<int, int>> rows;
+    for(int i=1; i<=n; i++)
+        if(root(fa1, i) == i) // only consider roots in each components
+            rows.insert({-row[i].size(), i});
+
+    vector<pair<int, int>> ans;
+    while(rows.size() > 1){
+        // find two different components in 1st tree
+        int x = rows.begin()->second;
+        rows.erase(rows.begin());
+        int y = rows.begin()->second;
+        rows.erase(rows.begin());
+
+        if(row[x].size() < row[y].size()) swap(x, y);
+        int a = *row[x].begin(), b = *row[y].begin();
+        auto it = row[x].begin();
+        // connect different components of 2nd tree
+        if(a == b) a = *++it;
+
+        ans.push_back({mp[x][a], mp[y][b]});
+        merge_row(x, y);
+        merge_col(a, b);
+        rows.insert({-row[x].size(), x});
+    }
+    printf("%d\n", (int)ans.size());
+    for(int i=0; i<ans.size(); i++){
+        printf("%d %d\n", ans[i].first, ans[i].second);
+    }
+    return 0;
+}				     
+```
+    
+source: https://codeforces.com/contest/1559/problem/D2
 
 ## TODO: Fracturing Search
 
