@@ -285,4 +285,100 @@ Also checkout https://codeforces.com/blog/entry/8989?#comment-214114
 
 TODO: https://discuss.codechef.com/t/a-dance-with-mobius-function/11315 and https://codeforces.com/contest/1559/problem/E based on https://codeforces.com/blog/entry/93788?#comment-829004
 
+![](images/mobius_30.png)
+
+![](images/mobius_31.png)
+
+```cpp
+const int nax = 1e5 + 10;
+
+#define MOD 998244353
+
+struct mi {
+    int v; explicit operator int() const { return v; } 
+    mi() { v = 0; }
+    mi(ll _v):v(_v%MOD) { v += (v<0)*MOD; }
+};
+mi& operator+=(mi& a, mi b) { 
+    if ((a.v += b.v) >= MOD) a.v -= MOD; 
+    return a; }
+mi& operator-=(mi& a, mi b) { 
+    if ((a.v -= b.v) < 0) a.v += MOD; 
+    return a; }
+mi operator+(mi a, mi b) { return a += b; }
+mi operator-(mi a, mi b) { return a -= b; }
+mi operator*(mi a, mi b) { return mi((ll)a.v*b.v); }
+mi& operator*=(mi& a, mi b) { return a = a*b; }
+mi pow(mi a, ll p) { assert(p >= 0); // asserts are important! 
+    return p==0?1:pow(a*a,p/2)*(p&1?a:1); }
+mi inv(mi a) { assert(a.v != 0); return pow(a,MOD-2); }
+mi operator/(mi a, mi b) { return a*inv(b); }
+
+int l[nax], r[nax]; // input
+
+const int X = 1e5 + 10;
+bitset<X> is_prime;
+vector<int> pr;
+int mu[nax];
+
+void init() {
+    is_prime.flip();
+    is_prime[0] = is_prime[1] = false;
+    mu[1] = 1;
+    for (int i = 2; i < X; i++) {
+        if (is_prime[i]) {
+            pr.push_back(i);
+            mu[i] = -1;
+        }
+        for (int p: pr) {
+            if (i * p >= X) break;
+            is_prime[i * p] = false;
+            if (i % p == 0) {
+                mu[i * p] = 0;
+            } else {
+                mu[i * p] = -mu[i];
+            }
+            if (i % p == 0) break;
+        }
+    }
+}
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=0;i<n;i++) scanf("%d %d", &l[i], &r[i]);
+
+    init();
+    mi total = 0;
+    for(int d=1; d<=m; d++){
+        if(mu[d] == 0) continue;
+        // find (a1, a2,..., an) such that sum{ai} <= m/d and li/d <= ai <= ri/di
+        // Use Knapsack DP
+        int S = m/d + 1;
+        vector<mi> dp(S, 0);
+        dp[0] = 1;
+        for(int i=0; i<n; i++){
+            vector<mi> psum(S+1, 0); // prefix sums
+            for(int x=0; x<S; x++) psum[x+1] = psum[x] + dp[x];
+            int newl = (l[i] + d - 1)/d; // ceil of l[i]/d
+            int newr = r[i]/d; // floor of r[i]/d
+            vector<mi> ndp(S, 0);
+            if(newl <= newr){
+                for(int x = 0; x < S; x++){
+                    // number of pairs such that a1 + a2 + ... + ai <= x and newl <= ai <= newr
+                    // a1 + a2 + ... + a(i-1) <= x-newr and a1 + ... + a(i-1) <=  x-newl
+                    // sum[x - newl + 1]  - sum[(x - newr + 1) - 1]
+                    ndp[x] = psum[max(x - newl + 1, 0)] - psum[max(x - newr, 0)];
+                }
+            }
+            dp = ndp;
+        }
+        mi ans = 0;
+        for(mi v:dp) ans += v;
+        total += ans * mu[d];
+    }
+    printf("%d\n", (int)total);
+    return 0;
+}
+```
+
 REF: https://math.berkeley.edu/~stankova/MathCircle/Multiplicative.pdf
