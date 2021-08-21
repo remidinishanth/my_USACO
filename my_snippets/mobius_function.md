@@ -355,8 +355,8 @@ int main() {
     mi total = 0;
     for(int d=1; d<=m; d++){
         if(mu[d] == 0) continue;
-        // find (a1, a2,..., an) such that sum{ai} <= m/d and li/d <= ai <= ri/di
-        // Use Knapsack DP
+        // li/d <= ai <= ri/di
+        // Use Knapsack DP to find sum(ai) = m/d
         int S = m/d + 1;
         vector<mi> dp(S, 0);
         dp[0] = 1;
