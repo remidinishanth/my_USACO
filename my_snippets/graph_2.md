@@ -823,6 +823,20 @@ Mocha and Diana are friends in Zhijiang, both of them have a forest with nodes n
 				     
 Mocha and Diana want to know the maximum number of edges they can add, and which edges to add.
 				     
+**Solution:**
+				     
+To have a clearer understanding, let's visualize the problem with a grid where each row is a component in the left forest and each column is a component in the right forest. For example, the cell (i,j) contains vertexes which belongs to 𝑖𝑡ℎ component in the left forest and 𝑗𝑡ℎ component in the right tree. (Some cells may be empty.) An operation corresponds to finding two filled cells in different rows and different columns, merging the two rows, and merging the two columns.
+
+Now we need to make operation rapidly. For each row, we maintain a set of the different columns with filled cells in this row. Symmetrically, for each column we maintain a set of the different rows with filled cells in this column.
+
+To merge two rows, we insert the elements of the smaller set into the larger set. The smaller set is now useless, and we delete it from every column in the set and insert the larger one. Since the data structure is symmetric, merging two columns is similar.
+
+Without loss of generality, assume there are fewer rows than columns. If there is a row whose set has more than 1 element, we can pick it and any other row, and find an operation we can make. Otherwise if all rows are singletons, then we know the sets are all disjoint because there are more columns than rows. So we can pick any two sets and make an operation, and then there's a set with more than 1 element. Maintaining which rows have sets with size more than 1 is not hard.
+
+For each operation, we need to output the corresponding vertex in the original two forest. Firstly, choose a vertex as the representative of each cell, because all vertexes in a cell can be seen as equivalent. Then, when merging two rows or columns, we just insert the representative vertexes at the same time.
+
+There can be at most 2𝑛 merge operations and the total complexity of them will be O(nlog^2n). This is because an element moves to a new row/column `O(log n)` times and each move is `O(log n)` time (using STL set in cpp).
+				     
 ![](images/graph_21_8_21.png)
 				     
 ```cpp
