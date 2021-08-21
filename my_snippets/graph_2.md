@@ -825,7 +825,7 @@ Mocha and Diana want to know the maximum number of edges they can add, and which
 				     
 **Solution:**
 				     
-To have a clearer understanding, let's visualize the problem with a grid where each row is a component in the left forest and each column is a component in the right forest. For example, the cell (i,j) contains vertexes which belongs to 𝑖𝑡ℎ component in the left forest and 𝑗𝑡ℎ component in the right tree. (Some cells may be empty.) An operation corresponds to finding two filled cells in different rows and different columns, merging the two rows, and merging the two columns.
+To have a clearer understanding, let's visualize the problem with a grid where each row is a component in the left forest and each column is a component in the right forest. For example, the cell (i,j) contains vertexes which belongs to i-th component in the left forest and j-th component in the right tree. (Some cells may be empty.) An operation corresponds to finding two filled cells in different rows and different columns, merging the two rows, and merging the two columns.
 
 Now we need to make operation rapidly. For each row, we maintain a set of the different columns with filled cells in this row. Symmetrically, for each column we maintain a set of the different rows with filled cells in this column.
 
