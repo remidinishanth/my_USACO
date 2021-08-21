@@ -376,6 +376,7 @@ int main() {
             }
             dp = ndp;
         }
+        // find the dp sum to satisfy '<' condition
         mi ans = 0;
         for(mi v:dp) ans += v;
         total += ans * mu[d];
