@@ -368,8 +368,8 @@ int main() {
             vector<mi> ndp(S, 0);
             if(newl <= newr){
                 for(int x = 0; x < S; x++){
-                    // number of pairs such that a1 + a2 + ... + ai <= x and newl <= ai <= newr
-                    // a1 + a2 + ... + a(i-1) <= x-newr and a1 + ... + a(i-1) <=  x-newl
+                    // number of pairs such that a1 + a2 + ... + ai = x and newl <= ai <= newr
+                    // a1 + a2 + ... + a(i-1) in between [x-newr,  x-newl]
                     // sum[x - newl + 1]  - sum[(x - newr + 1) - 1]
                     ndp[x] = psum[max(x - newl + 1, 0)] - psum[max(x - newr, 0)];
                 }
