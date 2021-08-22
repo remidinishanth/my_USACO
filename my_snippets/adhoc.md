@@ -13,3 +13,5 @@ https://stackoverflow.com/questions/52244676/given-an-array-you-have-to-find-the
 DSU https://leetcode.com/problems/rank-transform-of-a-matrix/discuss/909212/C%2B%2B-with-picture
 
 Strings https://codeforces.com/contest/1560/submission/126302860 Nice solution: Explanation: https://www.youtube.com/watch?v=kCMGWkJIILQ
+
+TODO: Problems of this contest https://codeforces.com/contest/1549/submission/124567744 - D nice problem with gcd over array
