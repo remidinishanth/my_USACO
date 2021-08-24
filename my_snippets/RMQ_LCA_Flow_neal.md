@@ -736,3 +736,192 @@ int main() {
 ```
 
 source: https://codeforces.com/contest/1521/submission/115574965
+
+
+Closest Left and Closest Right and RMQ
+
+```cpp
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <chrono>
+#include <cmath>
+#include <cstring>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <vector>
+using namespace std;
+
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0200r0.html
+template<class Fun> class y_combinator_result {
+    Fun fun_;
+public:
+    template<class T> explicit y_combinator_result(T &&fun): fun_(std::forward<T>(fun)) {}
+    template<class ...Args> decltype(auto) operator()(Args &&...args) { return fun_(std::ref(*this), std::forward<Args>(args)...); }
+};
+template<class Fun> decltype(auto) y_combinator(Fun &&fun) { return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun)); }
+
+
+template<typename A, typename B> ostream& operator<<(ostream &os, const pair<A, B> &p) { return os << '(' << p.first << ", " << p.second << ')'; }
+template<typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type> ostream& operator<<(ostream &os, const T_container &v) { os << '{'; string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << '}'; }
+
+void dbg_out() { cerr << endl; }
+template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
+#ifdef NEAL_DEBUG
+#define dbg(...) cerr << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
+#else
+#define dbg(...)
+#endif
+
+template<typename T, bool maximum_mode = false>
+struct RMQ {
+    static int highest_bit(int x) {
+        return x == 0 ? -1 : 31 - __builtin_clz(x);
+    }
+
+    int n = 0;
+    vector<T> values;
+    vector<vector<int>> range_low;
+
+    RMQ(const vector<T> &_values = {}) {
+        if (!_values.empty())
+            build(_values);
+    }
+
+    // Note: when `values[a] == values[b]`, returns b.
+    int better_index(int a, int b) const {
+        return (maximum_mode ? values[b] < values[a] : values[a] < values[b]) ? a : b;
+    }
+
+    void build(const vector<T> &_values) {
+        values = _values;
+        n = int(values.size());
+        int levels = highest_bit(n) + 1;
+        range_low.resize(levels);
+
+        for (int k = 0; k < levels; k++)
+            range_low[k].resize(n - (1 << k) + 1);
+
+        for (int i = 0; i < n; i++)
+            range_low[0][i] = i;
+
+        for (int k = 1; k < levels; k++)
+            for (int i = 0; i <= n - (1 << k); i++)
+                range_low[k][i] = better_index(range_low[k - 1][i], range_low[k - 1][i + (1 << (k - 1))]);
+    }
+
+    // Note: breaks ties by choosing the largest index.
+    int query_index(int a, int b) const {
+        assert(0 <= a && a < b && b <= n);
+        int level = highest_bit(b - a);
+        return better_index(range_low[level][a], range_low[level][b - (1 << level)]);
+    }
+
+    T query_value(int a, int b) const {
+        return values[query_index(a, b)];
+    }
+};
+
+// For every i, finds the largest j < i such that `compare(values[j], values[i])` is true, or -1 if no such j exists.
+template<typename T, typename T_compare>
+vector<int> closest_left(const vector<T> &values, T_compare &&compare) {
+    int n = int(values.size());
+    vector<int> closest(n);
+    vector<int> stack;
+
+    for (int i = 0; i < n; i++) {
+        while (!stack.empty() && !compare(values[stack.back()], values[i]))
+            stack.pop_back();
+
+        closest[i] = stack.empty() ? -1 : stack.back();
+        stack.push_back(i);
+    }
+
+    return closest;
+}
+
+// For every i, finds the smallest j > i such that `compare(values[j], values[i])` is true, or `n` if no such j exists.
+template<typename T, typename T_compare>
+vector<int> closest_right(vector<T> values, T_compare &&compare) {
+    int n = int(values.size());
+    reverse(values.begin(), values.end());
+    vector<int> closest = closest_left(values, compare);
+    reverse(closest.begin(), closest.end());
+
+    for (auto &c : closest)
+        c = n - 1 - c;
+
+    return closest;
+}
+
+
+void run_case() {
+    int N;
+    cin >> N;
+    vector<int64_t> A(N);
+
+    for (auto &a : A)
+        cin >> a;
+
+    vector<int64_t> prefix_sum(N + 1, 0);
+
+    for (int i = 0; i < N; i++)
+        prefix_sum[i + 1] = prefix_sum[i] + A[i];
+
+    RMQ<int64_t, true> rmq(A);
+    RMQ<int64_t> prefix_min(prefix_sum);
+    RMQ<int64_t, true> prefix_max(prefix_sum);
+    vector<int> left = closest_left(A, greater<int64_t>());
+    vector<int> right = closest_right(A, greater<int64_t>());
+
+    cout << y_combinator([&](auto recurse, int start, int end) -> int64_t {
+        if (end - start <= 1)
+            return 0;
+
+        int big = rmq.query_index(start, end);
+        int64_t ans = max(recurse(start, big), recurse(big + 1, end));
+        int64_t left_min = prefix_sum[big];
+        int64_t right_max = prefix_sum[big + 1];
+        int64_t second_max = 0;
+        int x = big, y = big + 1;
+
+        while (x > start || y < end) {
+            if (y == end || (x > start && A[x - 1] < A[y])) {
+                second_max = max(second_max, A[x - 1]);
+                x = left[x - 1] + 1;
+                left_min = min(left_min, prefix_min.query_value(x, big + 1));
+            } else {
+                second_max = max(second_max, A[y]);
+                y = right[y];
+                right_max = max(right_max, prefix_max.query_value(big + 1, y + 1));
+            }
+
+            ans = max(ans, right_max - left_min - A[big] - second_max);
+        }
+
+        return ans;
+    })(0, N) << '\n';
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+#ifndef NEAL_DEBUG
+    cin.tie(nullptr);
+#endif
+
+    int tests;
+    cin >> tests;
+
+    while (tests-- > 0)
+        run_case();
+}
+```
+
+source: https://www.codechef.com/viewsolution/50079473
