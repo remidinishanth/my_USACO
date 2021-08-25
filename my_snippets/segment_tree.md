@@ -1093,5 +1093,37 @@ int IcelandRingRoad::solve(int N, int P, int M, long long state) {
     
 </details>
 
+### Chef 2 Chef - Codechef August Cook-Off 2021
 	
-## TODO: https://discuss.codechef.com/t/c2c-editorial/93710
+**Problem** You have an array of length `N`. You can pick any subarray of size `2` or more of this array, after which Chef removes 2 elements from it. Your score is computed as the sum of the remaining elements.
+	
+Maximize your score, given that Chef always chooses elements to minimize your score once a subarray is chosen.
+	
+<details>
+	<summary>Explanation & CPP Solution </summary>
+	
+* Chef always picks the largest and second largest element of the subarray
+* Iterate over the position of the second largest element
+* Once the second largest is fixed, the largest element is either to its left or its right - try both cases. The positions of these elements can be precomputed with a stack
+* Also compute the positions of the second closest larger element to the left/right
+* Once all these positions are known, the best answer for a given position can be computed by a couple of range minimum/maximum queries
+
+Consider the following, for better visualisation
+	
+```
+	---- L ------ i1 ------ i2 ------- i3 ------ R ------
+
+	i2: is your current 2nd maximum
+	i1: is first previous greater element of i2
+	i3: is first next greater element of i2
+	L: is second previous greater element of i2
+	R: is second next greater element of i2
+```
+	
+If `i2` is our current 2nd-maximum then the subarray can contain either `i1` or `i3` but not both. Suppose it contains `i1` then the subarary must start after `L` and end before `i3`.
+
+source: https://discuss.codechef.com/t/c2c-editorial/93710
+	
+</details>	
+	
+
