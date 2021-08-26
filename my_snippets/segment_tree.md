@@ -1121,6 +1121,158 @@ Consider the following, for better visualisation
 ```
 	
 If `i2` is our current 2nd-maximum then the subarray can contain either `i1` or `i3` but not both. Suppose it contains `i1` then the subarary must start after `L` and end before `i3`.
+	
+```cpp
+struct SEGTREE {
+
+    struct NODE { 
+        T sum;
+        T pre;
+        T suf;
+    };  
+
+    NODE merge(const NODE &A,const NODE &B) {
+        NODE C;
+        C.sum = A.sum + B.sum;
+        C.pre = max(A.pre, A.sum + B.pre);
+        C.suf = max(B.suf, B.sum + A.suf);
+        return C;
+    }
+
+    vector<NODE> t, a;
+    int n;
+    
+    void init(vector<T> A) { // initialize on vector
+        n = A.size();
+        t.resize(4 * n);
+        for (auto it : A) 
+            a.push_back(NODE{it, it, it});
+        build(0, 0, n - 1);     
+    }
+
+    void build(int u, int tl, int tr) {
+        if (tl == tr) {
+            t[u] = a[tl];
+            return;
+        }
+        int tm = (tl + tr) >> 1;
+        build(2 * u + 1, tl, tm);
+        build(2 * u + 2, tm + 1, tr);
+        t[u] = merge(t[2 * u + 1], t[2 * u + 2]);
+    }
+
+    NODE query(int l, int r) {
+        if (l > r) return NODE{0, 0, 0};
+        return _query(0, 0, n - 1, l, r);
+    }
+
+    NODE _query(int u, int tl, int tr, int l, int r) {
+        if (tl == l && tr == r)
+            return t[u];
+        int tm = (tl + tr) >> 1;
+        if(r <= tm) return _query(2 * u + 1, tl, tm, l, r);
+        else if(l > tm) return _query(2 * u + 2, tm + 1, tr, l, r);
+        else return merge(_query(2 * u + 1, tl, tm, l, tm), _query(2 *u + 2, tm + 1, tr, tm + 1, r));
+    }
+};
+
+void solve() {
+
+    int n;
+    cin >> n;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++ i) cin >> a[i];
+
+    // INITIATE SEGMENT TREE FOR MAX SUFFIX AND PREFIX
+    SEGTREE<long long> seg;
+    seg.init(a);
+
+    // CALCULATE NEXT GREATER 1 and 2
+    vector<int> nge1(n, n), nge2(n, n);
+    {
+        vector<pair<long long, int>> st1, st2;
+        for (int i = 0; i < n; ++ i) {
+
+            while (!st2.empty() && st2.back().first < a[i]) {
+                nge2[st2.back().second] = i;
+                st2.pop_back();
+            }
+
+            vector<pair<long long, int>> add;
+            while (!st1.empty() && st1.back().first <= a[i]) {
+                nge1[st1.back().second] = i;
+                add.push_back(st1.back());
+                st1.pop_back();
+            }
+            st2.insert(st2.end(), add.rbegin(), add.rend());
+
+            st1.push_back({a[i], i});
+        }
+    }
+
+    // CALCULATE PREVIOUS GREATER 1 and 2
+    vector<int> pge1(n, -1), pge2(n, -1);
+    {
+        vector<pair<long long, int>> st1, st2;
+        for (int i = n - 1; i >= 0; -- i) {
+
+            while (!st2.empty() && st2.back().first < a[i]) { 
+                pge2[st2.back().second] = i;
+                st2.pop_back();
+            }
+
+            vector<pair<long long, int>> add;
+            while (!st1.empty() && st1.back().first <= a[i]) {
+                pge1[st1.back().second] = i;
+                add.push_back(st1.back());
+                st1.pop_back();
+            }
+            st2.insert(st2.end(), add.rbegin(), add.rend());
+
+            st1.push_back({a[i], i});
+        }
+    }
+
+    long long ans = 0;
+
+    // BRUTE FORCE FOR 2nd MAXIMUM
+    for (int i2 = 0; i2 < n; ++ i2) {
+        int i1 = pge1[i2];
+        int i3 = nge1[i2];
+        int L = pge2[i2];
+        int R = nge2[i2];
+       
+        // CASE 1
+        if (i1 != -1) {
+            long long between = seg.query(i1 + 1, i2 - 1).sum;
+            int modified_i3 = (i3 < n && a[i3] == a[i2]) ? R : i3;
+            long long after = max(0LL, seg.query(i2 + 1, modified_i3 - 1).pre);
+            long long before  = max(0LL, seg.query(L + 1, i1 - 1).suf);
+            ans = max(ans, before + between + after);
+        }
+
+        // CASE 2
+        if (i3 != n) {
+            long long between = seg.query(i2 + 1, i3 - 1).sum;
+            long long after = max(0LL, seg.query(i3 + 1, R - 1).pre);
+            int modified_i1 = (i1 >= 0 && a[i1] == a[i2]) ? L : i1;
+            long long before = max(0LL, seg.query(modified_i1 + 1, i2 - 1).suf);
+            ans = max(ans, before + between + after);
+        }
+    }
+
+    cout << ans << '\n';
+}
+
+int main() {
+    int tt;
+    cin >> tt;
+    while (tt --) {
+        solve();
+    }
+    return 0;
+}
+```
 
 source: https://discuss.codechef.com/t/c2c-editorial/93710
 	
