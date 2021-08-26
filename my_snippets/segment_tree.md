@@ -1285,16 +1285,16 @@ source: https://discuss.codechef.com/t/c2c-editorial/93710
 Another way of calculating greater elements
 	
 ```
-	---- L ------ i1 ------ i2 ------- i3 ------ R ------
+	---- y2 ------ y1 ------ p ------- x1 ------ x2 ------
 
-	i2: is your current 2nd maximum
-	i1: is first previous greater element of i2
-	i3: is first next greater element of i2
-	L: is second previous greater element of i2
-	R: is second next greater element of i2
+	p: is your current 2nd maximum
+	y1: is first previous greater element of i2
+	x1: is first next greater element of i2
+	y2: is second previous greater element of i2
+	x2: is second next greater element of i2
 ```
 	
-Using prefix sums we can caculate the subarray sum as follows: Suppose that `i2` is our current second maximum and say `i1` is the first maximum, then we can consider our subarray between `(L, i3)`, We can choose the minimum prefix sum between (L, i1)
+Using prefix sums we can caculate the subarray sum as follows: Suppose that `p` is our current second maximum and say `y1` is the first maximum, then we can consider our subarray between `(y2, p)`, We can choose the minimum prefix sum between `(y2, p)`. We will consider the minimum prefix sum between `y1 and `y2` to delete and maximum prefix sum between `p` and `x1`.
 	
 ```cpp
 #include "bits/stdc++.h"
