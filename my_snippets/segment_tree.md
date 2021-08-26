@@ -1284,6 +1284,18 @@ source: https://discuss.codechef.com/t/c2c-editorial/93710
 
 Another way of calculating greater elements
 	
+```
+	---- L ------ i1 ------ i2 ------- i3 ------ R ------
+
+	i2: is your current 2nd maximum
+	i1: is first previous greater element of i2
+	i3: is first next greater element of i2
+	L: is second previous greater element of i2
+	R: is second next greater element of i2
+```
+	
+Using prefix sums we can caculate the subarray sum as follows: Suppose that `i2` is our current second maximum and say `i1` is the first maximum, then we can consider our subarray between `(L, i3)`, We can choose the minimum prefix sum between (L, i1)
+	
 ```cpp
 #include "bits/stdc++.h"
 #pragma GCC optimize ("O3")
@@ -1433,13 +1445,13 @@ void solve() {
     trav(a, vals) {
         int p = a.s;
         auto it = used.lb(p);
-        int x1 = *it;
+        int x1 = *it; // next greater element
         it--;
-        int y1 = *it;
+        int y1 = *it; // previous greater element
         it++;
         if (x1 != N) {
             it++;
-            int x2 = *it;
+            int x2 = *it; // second next greater element
             it--;
             ckmax(ans, seg1.query(x1+1, x2) - seg2.query(y1+1, p) - A[p] - A[x1]);
             /*if (p == 3) {
@@ -1449,7 +1461,7 @@ void solve() {
         if (y1 != -1) {
             it--;
             it--;
-            int y2 = *it;
+            int y2 = *it; // second previous greater element
             ckmax(ans, seg1.query(p+1, x1) - seg2.query(y2+1, y1) - A[p] - A[y1]);
         }
         used.ins(p);
@@ -1460,7 +1472,7 @@ void solve() {
         seg1.update(i, -1e18);
         seg2.update(i, 1e18);
     }
-
+	
 }
  
 int main() {
@@ -1475,8 +1487,7 @@ int main() {
     while(T--) {
         solve();
     }
-
-	return 0;
+    return 0;
 }
 ```
 	
