@@ -1442,6 +1442,7 @@ void solve() {
     used.ins(-1); used.ins(N);
     ll ans = 0;
     trav(a, vals) {
+	// y2 ... y1 ... p ... x1 ... x2
         int p = a.s;
         auto it = used.lb(p);
         int x1 = *it; // next greater element
