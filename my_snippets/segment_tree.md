@@ -1426,7 +1426,6 @@ Seg2 seg2;
 
 void solve() {
     int N; cin >> N;
-
     ll A[N]; F0R(i, N) cin >> A[i];
     ll cur = 0;
     seg1.update(0, 0);
