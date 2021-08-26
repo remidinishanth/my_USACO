@@ -1107,6 +1107,11 @@ Maximize your score, given that Chef always chooses elements to minimize your sc
 * Once the second largest is fixed, the largest element is either to its left or its right - try both cases. The positions of these elements can be precomputed with a stack
 * Also compute the positions of the second closest larger element to the left/right
 * Once all these positions are known, the best answer for a given position can be computed by a couple of range minimum/maximum queries
+	
+Let us instead approach the problem differently: suppose we fixed which two elements were being deleted, say `A_L` and `A_R` where `L ≤ R`. Then, the maximum sum of a subarray containing these two points can be broken into 3 parts: 
+* The sum of elements from positions `L+1` to `R−1`. 
+* The maximum sum of a subarray ending at `L−1`.
+* The maximum sum of a subarray starting at `R+1`	
 
 Consider the following, for better visualisation
 	
