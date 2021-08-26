@@ -1124,6 +1124,8 @@ If `i2` is our current 2nd-maximum then the subarray can contain either `i1` or 
 
 source: https://discuss.codechef.com/t/c2c-editorial/93710
 	
+Also checkout https://www.codechef.com/viewsolution/50089654 and neal's https://www.codechef.com/viewsolution/50079473
+	
 </details>	
 	
 
