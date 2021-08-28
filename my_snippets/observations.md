@@ -5,6 +5,7 @@
 * If you see “rollbacks” in the problem statement - this is 99.9% a reference to persistence problem.
 * If you can solve the problem for a chain using a segment tree, then there is a very good chance that you can solve the problem for a tree using HLD. Indeed, if you make segment trees over the heavy edges, then the answer for your path X-Y can be broken up into two paths from X to LCA(X, Y) and from Y to LCA(X, Y). Then, using that you make only logN shifts from one heavy-chain to another, you are actually making only log(N) segment-tree queries.
 * All trees are bipartite, If we color them black and white, The min(number of black, number of white) nodes is ≤ ⌈n/2⌉. source: https://codeforces.com/contest/1534/problem/D
+* If the given array is of odd length and we reverse prefix of odd length, then parity of number at some index doesn't change. https://codeforces.com/contest/1561/problem/E
 
 ```cpp
 /* stuff you should look for
