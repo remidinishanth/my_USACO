@@ -17,3 +17,5 @@ Strings https://codeforces.com/contest/1560/submission/126302860 Nice solution: 
 TODO: Problems of this contest https://codeforces.com/contest/1549/submission/124567744 - D nice problem with gcd over array
 
 Math, Greedy - https://leetcode.com/problems/patching-array/discuss/280183/Detailed-Explanation-with-Example
+
+Array filling - https://atcoder.jp/contests/abc214/editorial/2446
