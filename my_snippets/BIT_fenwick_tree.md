@@ -385,6 +385,7 @@ int main() {
 ```
 </details>
 
+
 3. **Range update and range querying (c)**
 
 Similar to Range Update - Point query, we maintain a BIT (say B1)
