@@ -1,0 +1,1 @@
+https://usaco.guide/plat/DC-SRQ?lang=cpp and https://discuss.codechef.com/t/segprod-editorial/17346 and https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RangeQuery.h
