@@ -1,1 +1,1 @@
-# my_USACO
+Competitive Programming Notes
