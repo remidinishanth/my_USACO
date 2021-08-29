@@ -46,6 +46,8 @@ So, the overall complexity of the algorithm is `<Preprocessing, Query> = <O(N lo
 
 source: <https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%20Lowest%20Common%20Ancestor>
 
+Note: Sparse table requires the operation to be idempotent. More at: https://discuss.codechef.com/t/segprod-editorial/17346
+
 ### Implementation
 
 #### Baba's implementation
