@@ -6,31 +6,31 @@ Look at the middle answer, if it is satisfied go to a possible better
 answer, otherwise go to a half containing answer.
 
 ```cpp
-void binary_search(){
-	L=0, R=N-1;
-	while L <=R :
-		mid = L + (R-L)/2
-		if a[mid]==target:
-			return mid
-		if a[mid]<target:
-			L=mid+1
-		else:
-			R=mid-1
-	return -1
+void binary_search() {
+    L = 0, R = N - 1;
+    while L <= R:
+        mid = L + (R - L) / 2
+    if a[mid] == target:
+        return mid
+    if a[mid] < target:
+        L = mid + 1
+    else :
+        R = mid - 1
+    return -1
 }
 
-void lower_bound(){
-	L=0,R=N-1;
-	ans=-1;
-	while L<=R:
-		mid=L+(R-L)/2
-		if a[mid]>=target:
-			// better values to the leftmost
-			ans=mid // a[mid]
-			R=mid-1 // look for better values
-		else:
-			L=mid+1
-	return ans
+void lower_bound() {
+    L = 0, R = N - 1;
+    ans = -1;
+    while L <= R:
+        mid = L + (R - L) / 2
+    if a[mid] >= target:
+        // better values to the leftmost
+        ans = mid // a[mid]
+    R = mid - 1 // look for better values
+    else :
+        L = mid + 1
+    return ans
 }
 ```
 
@@ -312,6 +312,16 @@ Using this, I have been able to avoid guessing about one-off errors for 6 years 
 In case of float: `for (double k = MAX_N; k > EPS; k /= 2)`
 
 source: <https://codeforces.com/blog/entry/84150?#comment-716582>
+
+```python
+Function binarySearch
+    pos ← 0
+    max ← upper bound of search space
+    for (a = max; a ≥ 1; a /= 2) do
+        while check(pos + a) do
+            pos ← pos + a
+    return pos
+```
 
 ### Motivation
 
