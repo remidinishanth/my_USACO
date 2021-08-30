@@ -1,4 +1,7 @@
-Two Sum
+### Two Sum
+
+Given an array of N elements (1 ≤ N ≤ 10^5), find two elements that sum to X, if they
+exist.
 
 ```cpp
 int left = 0;
@@ -15,8 +18,33 @@ while (left < right) {
 // if left >= right after the loop ends, no answer exists.
 ```
 
+### Subarray Sum
 
-Ferris Wheel https://cses.fi/problemset/task/1090/
+Given an array of N (1 ≤ N ≤ 10^5) positive elements, find a contiguous subarray that
+sums to X.
+
+Solution: We can do this in a similar manner to how we did the 2SUM problem: except
+this time we start both pointers at the left, and the pointers mark the beginning and end of
+the subarray we are currently checking. We advance the right pointer one step to the right if
+the total of the current subarray is too small, advance the left pointer one step to the right if
+the current total is too large, and we are done when we find the correct total.
+
+```cpp
+int left = 0; int right = 0; int sum = arr[0];
+for (right = 0; right < n; right++) {
+    sum += arr[right];
+    while (sum > x && left < right) {
+        sum -= arr[left];
+        left++;
+    }
+    if (sum == x) {
+        break;
+    }
+}
+```
+
+
+### Ferris Wheel https://cses.fi/problemset/task/1090/
 
 ```cpp
 int main() {
