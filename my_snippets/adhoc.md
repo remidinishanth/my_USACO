@@ -16,6 +16,18 @@ Strings https://codeforces.com/contest/1560/submission/126302860 Nice solution: 
 
 TODO: Problems of this contest https://codeforces.com/contest/1549/submission/124567744 - D nice problem with gcd over array
 
-Math, Greedy - https://leetcode.com/problems/patching-array/discuss/280183/Detailed-Explanation-with-Example
+Missing coin sum - https://cses.fi/problemset/task/2183, Extensions -> Math, Greedy - https://leetcode.com/problems/patching-array/discuss/280183/Detailed-Explanation-with-Example - Nice idea
+
+```cpp
+ll l = 0, r = 0;
+ll ans = -1;
+for(int v:V){
+    if(v + l > r + 1){
+        ans = r+1;
+        break;
+    }
+    r += v;
+}
+```
 
 Array filling - https://atcoder.jp/contests/abc214/editorial/2446
