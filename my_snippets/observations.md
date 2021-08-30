@@ -7,6 +7,7 @@
 * All trees are bipartite, If we color them black and white, The min(number of black, number of white) nodes is ≤ ⌈n/2⌉. source: https://codeforces.com/contest/1534/problem/D
 * If the given array is of odd length and we reverse prefix of odd length, then parity of number at some index doesn't change. https://codeforces.com/contest/1561/problem/E
 * When order of the numbers doesn't matter, it is better to sort the numbers, https://www.codechef.com/problems/THREEDIF
+* If the problem is complex, first try to solve simplified version of the problem. For e.g If the problem is of higher dimensions say 2, check what happens in linear case first and then try to generalize etc.
 
 ```cpp
 /* stuff you should look for
