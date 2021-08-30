@@ -12,3 +12,6 @@
 * http://noi-ph-training.herokuapp.com/topics
 * https://www.fatalerrors.org/a/basic-mo-team-algorithm.html
 * https://aryansh.gitbook.io/informatics-notes/binary-lifting/binary-lifting-gold-part-1
+
+Problems
+* https://codeforces.com/blog/entry/55274
