@@ -84,14 +84,6 @@ using pi = pair<int,int>;
 #define f first
 #define s second
 #define mp make_pair
-
-void setIO(string name = "") {
-    cin.tie(0)->sync_with_stdio(0); // see /general/fast-io
-    if (sz(name)) {
-        freopen((name + ".in").c_str(), "r", stdin); // see /general/input-output
-        freopen((name + ".out").c_str(), "w", stdout);
-    }
-}
 //EndCodeSnip
 
 mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
@@ -108,16 +100,11 @@ struct chash { /// use most bits rather than just the lowest ones
 template<class K,class V> using ht = gp_hash_table<K,V,chash>;
 
 int main() {
-    setIO();
-
     int n, x; cin >> n >> x;
-
     vi v(n);
-
     for(int i = 0; i < n; i++) cin >> v[i];
 
     ht<int, pi> hm;
-
     for(int i = n - 1; i >= 0; i--) {
         for(int j = i - 1; j >= 0; j--) {
             int idx = x - v[i] - v[j];
@@ -129,11 +116,11 @@ int main() {
 
         for(int j = i + 1; j < n; j++) hm[v[i] + v[j]] = {i, j};
     }
-
     cout << "IMPOSSIBLE\n";
 }
 ```
 
+source: https://usaco.guide/problems/cses-1642-sum-of-four-values/solution
 
 ### Card Groups (CS Academy)
 source: https://csacademy.com/contest/round-60/task/card-groups/statement/
