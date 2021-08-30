@@ -1,3 +1,21 @@
+Two Sum
+
+```cpp
+int left = 0;
+int right = n - 1;
+while (left < right) {
+    if (arr[left] + arr[right] == x) {
+        break;
+    } else if (arr[left] + arr[right] < x) {
+        left++;
+    } else {
+        right--;
+    }
+}
+// if left >= right after the loop ends, no answer exists.
+```
+
+
 Ferris Wheel https://cses.fi/problemset/task/1090/
 
 ```cpp
