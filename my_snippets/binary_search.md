@@ -122,20 +122,20 @@ In the above code to figure out `mid = (l+r)/2` or `mid = (l+r+1)/2`, you can th
 
 ```cpp
 int lo = 0,
-hi = n - 1;
+    hi = n - 1;
 while (lo < hi) {
-	int m = (lo + hi) / 2;
-	if (p(m)) {
-		hi = m;
-	} else {
-		lo = m + 1;
-	}
+    int m = (lo + hi) / 2;
+    if (p(m)) {
+        hi = m;
+    } else {
+        lo = m + 1;
+    }
 }
 
 if (lo == hi && p(lo)) {
-	printf("lowest index is %d\n", lo);
+    printf("lowest index is %d\n", lo);
 } else {
-	printf("no such index\n");
+    printf("no such index\n");
 }
 ```
 
@@ -145,12 +145,12 @@ if (lo == hi && p(lo)) {
 double EPS = 1e-10, lo = -1000.0, hi = 1000.0;
 
 while (hi - lo > EPS) {
-	double mid = (lo + hi) / 2.0;
-	if (p(mid)) {
-		hi = mid;
-	} else {
-		lo = mid;
-	}
+    double mid = (lo + hi) / 2.0;
+    if (p(mid)) {
+        hi = mid;
+    } else {
+        lo = mid;
+    }
 }
 printf("%0.10lf\n", lo);
 ```
@@ -183,24 +183,24 @@ int upper_bound(int A[], int n, int c) {
 ## Benq's Template
 
 ```cpp
-#define tcT template<class T
+#define tcT template < class T
 #define tcTU tcT, class U
 
-tcTU> T fstTrue(T lo, T hi, U f) {
-	hi ++; assert(lo <= hi); // assuming f is increasing
-	while (lo < hi) { // find first index such that f is true 
-		T mid = lo+(hi-lo)/2;
-		f(mid) ? hi = mid : lo = mid+1; 
-	} 
-	return lo;
+tcTU > T fstTrue(T lo, T hi, U f) {
+    hi++; assert(lo <= hi); // assuming f is increasing
+    while (lo < hi) { // find first index such that f is true 
+        T mid = lo + (hi - lo) / 2;
+        f(mid) ? hi = mid : lo = mid + 1;
+    }
+    return lo;
 }
-tcTU> T lstTrue(T lo, T hi, U f) {
-	lo --; assert(lo <= hi); // assuming f is decreasing
-	while (lo < hi) { // find first index such that f is true 
-		T mid = lo+(hi-lo+1)/2;
-		f(mid) ? lo = mid : hi = mid-1;
-	} 
-	return lo;
+tcTU > T lstTrue(T lo, T hi, U f) {
+    lo--; assert(lo <= hi); // assuming f is decreasing
+    while (lo < hi) { // find first index such that f is true 
+        T mid = lo + (hi - lo + 1) / 2;
+        f(mid) ? lo = mid : hi = mid - 1;
+    }
+    return lo;
 }
 ```
 
@@ -223,24 +223,26 @@ If [a,b] is an interval of integers:
 
 ```cpp
 int l = a, r = b;
-while(l < r) {
-  int m = (l+r) >> 1; // take the center of the interval
-  // replace the interval [a,b] with either [a,m] or [m+1,b],
-  // depending on whether P(m) is already satisfied
-  if(P(m)) r = m; else l = m+1;
-  }
-x=l;
+while (l < r) {
+    int m = (l + r) >> 1; // take the center of the interval
+    // replace the interval [a,b] with either [a,m] or [m+1,b],
+    // depending on whether P(m) is already satisfied
+    if (P(m)) r = m;
+    else l = m + 1;
+}
+x = l;
 ```
 
 If [a,b] is an interval of real numbers:
 
 ```cpp
 double l = a, r = b;
-for(int iterations=0; iterations<100; iterations++) {
-  double m = (a+b)/2;
-  if(P(m)) r = m; else l = m;
-  }
-x=l;
+for (int iterations = 0; iterations < 100; iterations++) {
+    double m = (a + b) / 2;
+    if (P(m)) r = m;
+    else l = m;
+}
+x = l;
 ```
 
 Discussion:
@@ -274,13 +276,14 @@ For reals, use the following algorithm, known as ternary search:
 
 ```cpp
 double l = a, r = b;
- 
-for(int i=0; i<200; i++) {
-  double l1 = (l*2+r)/3;
-  double l2 = (l+2*r)/3;
-  if(f(l1) > f(l2)) r = l2; else l = l1;
+
+for (int i = 0; i < 200; i++) {
+    double l1 = (l * 2 + r) / 3;
+    double l2 = (l + 2 * r) / 3;
+    if (f(l1) > f(l2)) r = l2;
+    else l = l1;
 }
- 
+
 x = l;
 ```
 
@@ -299,9 +302,9 @@ I'm sure there have been tutorials etc about this trick but since people are tal
 ```cpp
 int ans = 0;
 for (int k = 1 << MAX_LG; k != 0; k /= 2) {
-  if (!has_some_property(ans + k)) {
-    ans += k;
-  }
+    if (!has_some_property(ans + k)) {
+        ans += k;
+    }
 }
 ```
 
