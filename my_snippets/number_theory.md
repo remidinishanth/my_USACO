@@ -145,3 +145,5 @@ int main()
 https://codeforces.com/blog/entry/54090 and https://codeforces.com/blog/entry/53925
 
 TODO: https://open.kattis.com/problems/coprimeintegers
+
+TODO: https://github.com/miguelAlessandro/library/tree/master/Number%20theory
