@@ -88,6 +88,30 @@ def find_next_smaller_elements(xs):
 [4, 2, -1]
 ```
 
+CSES: Nearest Smaller Values - Nearest smallest element to the left of the element in the array
+
+source: https://cses.fi/problemset/task/1645/
+
+```cpp
+int main() {
+    dsd(n);
+    vi V(n+1);
+    REP1(i, n) sd(V[i]);
+    vector<int> S; // stack
+    S.push_back(0);
+    vector<int> ans(n+1);
+    REP1(i, n){
+        while(V[S.back()] >= V[i]) S.pop_back();
+        ans[i] = S.back();
+        S.push_back(i);
+    }
+    REP1(i, n) printf("%d ", ans[i]);
+    printf("\n");
+    return 0;
+}
+
+```
+
 ### Brian Bi t3nsor
 
 ```cpp
