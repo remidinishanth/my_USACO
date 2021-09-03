@@ -120,7 +120,38 @@ int main() {
 }
 ```
 
-Distinct Value Queries https://cses.fi/problemset/task/1734
+### Subarray Distinct Values
+
+https://cses.fi/problemset/task/2428
+
+Given an array of n integers, your task is to calculate the number of subarrays that have at most k distinct values.
+
+
+```cpp
+int main() {
+    dsd2(n, k);
+    int left = 0;
+    map<int, int> M;
+    vi V(n);
+    ll ans = 0;
+    REP(i, n){
+        scanf("%d", &V[i]);
+        M[V[i]]++;
+        while(M.size() > k){
+            M[V[left]]--;
+            if(M[V[left]]==0) M.erase(V[left]);
+            left++;
+        }
+        ans += i - left + 1;
+    }
+    pl(ans);
+    return 0;
+}
+```
+
+### Distinct Value Queries 
+
+https://cses.fi/problemset/task/1734
 
 Sort the queries in a specific order before answering them.
 
