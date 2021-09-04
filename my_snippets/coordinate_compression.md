@@ -111,3 +111,16 @@ for(int i = 0; i < n; ++i) {
 source: https://codeforces.com/blog/entry/84164?#comment-716682
 
 ### TODO: https://qr.ae/pGs3Wi
+
+```cpp
+	cin >> n >> k;
+	for (int i = 1; i <= n; i++){
+		cin >> a[i];
+		compressed[a[i]] = 0;
+	}
+	int index = 1;
+	for (auto& i : compressed){
+		i.second = index++;
+		decompress[i.second] = i.first;
+	}
+```
