@@ -123,6 +123,8 @@ multiset<int> s;
 s.erase(s.lower_bound(value));
 ```
 
+Never use `count` with multiset, if you find existence, use `S.find(x) != S.end()` instead
+
 source: https://stackoverflow.com/questions/9167745/in-stdmultiset-is-there-a-function-or-algorithm-to-erase-just-one-sample-unic
 
 ### Pairs unpacking
