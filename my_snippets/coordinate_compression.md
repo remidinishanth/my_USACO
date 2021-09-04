@@ -112,6 +112,7 @@ source: https://codeforces.com/blog/entry/84164?#comment-716682
 
 ### TODO: https://qr.ae/pGs3Wi
 
+map<int, int> compressed, decompress;
 ```cpp
 cin >> n >> k;
 for (int i = 1; i <= n; i++) {
