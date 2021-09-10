@@ -850,6 +850,7 @@ int main() {
 	
 <details>
 	<summary>Printing a negative cycle</summary>
+	
 CSES Cycle Finding https://cses.fi/problemset/task/1197/
 	
 ```cpp
@@ -902,6 +903,8 @@ int main() {
     return 0;
 }
 ```
+	
+source: https://cp-algorithms.com/graph/finding-negative-cycle-in-graph.html
 </details>
 
 ## Floyd Warshall All pairs shortest Path
