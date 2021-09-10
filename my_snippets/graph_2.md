@@ -847,6 +847,62 @@ int main() {
 ```
 	
 </details>
+	
+<details>
+	<summary>Printing a negative cycle</summary>
+CSES Cycle Finding https://cses.fi/problemset/task/1197/
+	
+```cpp
+struct Edge {
+    int a, b, cost;
+};
+
+int n, m;
+vector<Edge> edges;
+
+const int nax = 2510;
+
+ll dist[nax];
+int par[nax];
+
+int main() {
+    scanf("%d %d", &n, &m);
+    for(int i=0;i<m;i++){
+        int a, b, c;
+        scanf("%d %d %d", &a, &b, &c);
+        edges.push_back({a, b, c});
+    }
+    dist[1] = 0;
+    int x;
+    for(int i=0;i<n;i++){ // n times
+        x = -1; // check if there is some change in the last iteration
+        for(Edge e:edges){
+            if(dist[e.b] > dist[e.a] + e.cost){
+                dist[e.b] = dist[e.a] + e.cost;
+                par[e.b] = e.a;
+                x = e.b;
+            }
+        }
+    }
+    // no change in the n-th iteration
+    if(x == -1) return !printf("NO");
+
+    // reach negative cycle from x
+    for (int i = 0; i < n; ++i) x = par[x];
+
+    vector<int> cycle;
+    for(int v = x; ; v = par[v]){
+        cycle.push_back(v);
+        if(v == x && cycle.size() > 1) break;
+    }
+    reverse(cycle.begin(), cycle.end());
+    printf("YES\n");
+    for(int u:cycle) printf("%d ", u);
+    printf("\n");
+    return 0;
+}
+```
+</details>
 
 ## Floyd Warshall All pairs shortest Path
 
