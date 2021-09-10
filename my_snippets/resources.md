@@ -13,6 +13,7 @@
 * https://www.fatalerrors.org/a/basic-mo-team-algorithm.html
 * https://aryansh.gitbook.io/informatics-notes/binary-lifting/binary-lifting-gold-part-1
 * https://github.com/nealwu/competitive-programming
+* https://ekzlib.netlify.app/home
 
 Problems
 * https://codeforces.com/blog/entry/55274
