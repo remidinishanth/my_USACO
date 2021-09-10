@@ -783,6 +783,70 @@ are computed
 edge u → v of cost c, dv ≤ du + c holds
     * Unless there is a negative-weight cycle
     * This is how the negative-weight cycle detection works
+			  
+<details>
+	<summary>Checking if some vertex can be reached via a negative cycle</summary>
+	
+CSES High Score https://cses.fi/problemset/task/1673/
+	
+Mark the nodes that are part of the cycle and then check reachability from these marked nodes to node `n`
+	
+```cpp
+const int nax = 2510;
+
+vector<ii> adj[nax], radj[nax];
+ll dist[nax];
+bool mark[nax], vis[nax];
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=0;i<m;i++){
+        int a, b, c; scanf("%d %d %d", &a, &b, &c);
+        c = -c;
+        adj[a].push_back({b, c});
+        radj[b].push_back({a, c});
+    }
+    for(int i=1;i<=n;i++) dist[i] = 1ll << 60;
+    dist[1] = 0;
+    for(int i=1;i<n;i++){ // n - 1 times
+        for(int u=1; u<=n; u++){
+            if(dist[u] == 1ll << 60) continue;
+            for(auto [v, c]:adj[u]){
+                dist[v] = min(dist[v], dist[u] + c);
+            }
+        }
+    }
+    // one more pass to check
+    bool hasNegativeCycle = false;
+    for(int u=1; u<=n; u++){
+        if(dist[u] == 1ll << 60) continue;
+        for(auto [v, c]: adj[u]){
+            if(dist[v] > dist[u] + c){
+                dist[v] = dist[u] + c;
+                mark[v] = 1; // nodes which can be relaxed further
+            }
+        }
+    }
+    // is there a path from negative cycle to node 'n'
+    queue<int> Q;
+    Q.push(n);
+    vis[n] = 1;
+    while(!Q.empty()){
+        int u = Q.front(); Q.pop();
+        for(auto [v, c]: radj[u])
+            if(!vis[v]){
+                if(mark[v]) hasNegativeCycle = true;
+                vis[v] = 1;
+                Q.push(v);
+            }
+    }
+    if(hasNegativeCycle) printf("-1\n");
+    else printf("%lld\n", -dist[n]);
+    return 0;
+}
+```
+	
+</details>
 
 ## Floyd Warshall All pairs shortest Path
 
