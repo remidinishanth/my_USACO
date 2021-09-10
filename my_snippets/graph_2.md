@@ -666,6 +666,67 @@ to BFS and Prim’s code
         pq.push(ii(dist[v.first], v.first));
   } } }  // note: this variant can cause duplicate items in the priority queue
 ```
+	
+Flight discount https://cses.fi/problemset/task/1195/
+
+<details>
+    <summary> CPP solution </summary>
+
+Say we use the discount coupon on the edge between cities A and B.
+
+There are two cases: we can go from $1\rightarrow A\rightarrow B\rightarrow N$,
+or 1 → B → A → N. We need to know the distance between 1 and A, and N and B.
+
+We can use Dijkstra's to compute the distance from `1` and `N` to every vertex.
+Then our answer is `min{A → B} = dist1[A] + c(A,B) + distN[B]`, where `c(A,B)` is the cost to travel from city `A` to city `B` after applying the
+coupon to that flight, `dist1[A]` is the cost to travel from city `1`
+to city `A` and `distN[B]` is the cost to travel from city `B` to city `N`.
+	
+```cpp
+const int nax = 1e5 + 10;
+
+vector<ii> adj[nax], radj[nax];
+vector<vector<int>> E;
+ll dist[2][nax];
+
+priority_queue<pll, vector<pll>, greater<pll>> Q;
+
+void bfs(int k){
+    auto Adj = adj;
+    if(k==1) Adj = radj;
+    while(!Q.empty()){
+        auto [x, u] = Q.top(); Q.pop();
+        if(dist[k][u] < x) continue;
+        for(auto [v, c]:Adj[u]){
+            if(dist[k][v] > dist[k][u] + c){
+                dist[k][v] = dist[k][u] + c;
+                Q.push({dist[k][v], v});
+            }
+        }
+    }
+}
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=0;i<m;i++){
+        int a, b, c; scanf("%d %d %d", &a, &b, &c);
+        adj[a].push_back({b, c});
+        radj[b].push_back({a, c});
+        E.push_back({a, b, c});
+    }
+    for(int i=1;i<=n;i++) dist[0][i] = dist[1][i] = 1LL << 60;
+    dist[0][1] = 0; Q.push({0, 1}); bfs(0);
+    dist[1][n] = 0; Q.push({0, n}); bfs(1);
+    ll ans = min(dist[0][n], dist[1][1]);
+    for(auto V: E){
+        int u = V[0], v = V[1], c = V[2];
+        ans = min(ans, dist[0][u] + c/2 + dist[1][v]);
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+</details>
 
 ## SSSP on Graph with Negative Weight Cycle
 
