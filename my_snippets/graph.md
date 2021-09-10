@@ -38,6 +38,58 @@ for(int i = 0; i < n; i++)
     if(color[i] == 0) dfs(i, -1); // IF NODE IS WHITE, START NEW DFS
 ```
 
+<details>
+    <summary> CSES Round Trip II </summary>
+https://cses.fi/problemset/task/1678/
+    
+```cpp
+const int nax = 1e5 + 10;
+
+vector<int> adj[nax];
+int col[nax];
+vector<int> V;
+
+void dfs(int u, int p){
+    col[u] = 1;
+    V.push_back(u);
+    for(int v:adj[u]){
+        if(col[v] == 0){
+            dfs(v, u);
+        } else if(col[v] == 1){
+            vector<int> cycle;
+            cycle.push_back(v);
+            while(V.back() != v){
+                cycle.push_back(V.back());
+                V.pop_back();
+            }
+            cycle.push_back(v);
+            printf("%d\n", cycle.size());
+            reverse(cycle.begin(), cycle.end());
+            for(int i:cycle) printf("%d ", i);
+            printf("\n");
+            exit(0);
+        }
+    }
+    col[u] = 2;
+    V.pop_back();
+}
+
+int main() {
+    int n, m;
+    scanf("%d %d", &n, &m);
+    for(int i=0;i<m;i++){
+        int a, b; scanf("%d %d", &a, &b);
+        adj[a].push_back(b);
+    }
+    for(int i=1;i<=n;i++){
+        if(col[i] == 0) dfs(i, 0);
+    }
+    printf("IMPOSSIBLE\n");
+    return 0;
+}
+```
+</details>
+
 ### Implementation trick
 * If you want to store vector of edges then you can store them as vector<pair<int,int>> V, {u,v}, then it is better to store them in {min(u,v), max(u,v)}.
 
