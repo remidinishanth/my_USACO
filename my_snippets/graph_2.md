@@ -20,7 +20,6 @@ path, following the path of previous locations and storing the direction
 traveled.
 	
 `int paths[mn][mn];` → time till which this node is reachable by A
-Using 1-based indexing for storing the given matrix
 	
 ```cpp
 #include <iostream>
@@ -35,6 +34,7 @@ using namespace std;
 
 int N, M;
 queue<pii> q;
+// Using 1-based indexing for storing the given matrix
 int paths[mn][mn]; // time till which this node is reachable by A
 pii from[mn][mn];
 int oo = INT_MAX;
