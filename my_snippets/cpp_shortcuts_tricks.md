@@ -61,6 +61,8 @@ If `LLONG_MAX` or `INT_MAX` is not available in the online judge then use `INT32
 ```cpp
 #define LLONG_MAX INT64_MAX
 #define LLONG_MIN INT64_MIN
+
+const ll inf = 1LL << 62;
 ```
 
 or use `#include <climits> // all useful constants`
