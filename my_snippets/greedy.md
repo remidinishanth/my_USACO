@@ -179,3 +179,7 @@ int main()
     cout << endl;
 }
 ```
+
+Solving using Bellmann Constrained equations
+
+![](images/abc216_g_sol.png)
