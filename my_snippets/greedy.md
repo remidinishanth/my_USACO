@@ -73,3 +73,55 @@ class Solution:
                 time_taken += heapq.heappop(pq)  # Pop and return the smallest item from the heap, hence using negative values
         return len(pq)
 ```
+
+### ABC 216 G 01 - Sequence
+
+![](images/abc216g.png)
+
+```cpp
+template<class T> struct BIT {
+    int n; vector<T> data;
+    void init(int _n) { n = _n; data.resize(n); }
+    void add(int p, T x) { for (++p;p<=n;p+=p&-p) data[p-1] += x; }
+    T sum(int l, int r) { return sum(r+1)-sum(l); }
+    T sum(int r) { T s = 0; for(;r;r-=r&-r) s+=data[r-1]; return s; }
+    int lower_bound(T sum) {
+        if (sum <= 0) return -1;
+        int pos = 0;
+        for (int pw = 1<<25; pw; pw >>= 1) {
+            int npos = pos+pw;
+            if (npos <= n && data[npos-1] < sum)
+                pos = npos, sum -= data[pos-1];
+        }
+        return pos;
+    }
+};
+
+BIT<int> tree;
+
+
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    vector<vector<int>> V;
+    for(int i=0;i<m;i++){
+        int l, r, x; scanf("%d %d %d", &l, &r, &x);
+        V.push_back({r,l, x});
+    }
+    sort(V.begin(), V.end());
+    set<int> S;
+    for(int i=1;i<=n;i++) S.insert(-i);
+    tree.init(n+1);
+    for(auto v:V){
+        int r = v[0], l = v[1], x = v[2];
+        debug() << imie(l) imie(r) imie(x);
+        while(tree.sum(l, r) < x){
+            int i = *S.lower_bound(-r);
+            tree.add(-i, 1);
+            S.erase(i);
+        }
+    }
+    for(int i=1;i<=n;i++) printf("%d ", tree.sum(i, i));
+    printf("\n");
+    return 0;
+}
+```
