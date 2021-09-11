@@ -179,7 +179,3 @@ int main()
     cout << endl;
 }
 ```
-
-Solving using Constrained equations
-
-![](images/abc216_g_sol.png)
