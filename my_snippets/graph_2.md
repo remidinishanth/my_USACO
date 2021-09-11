@@ -1034,50 +1034,62 @@ Solving using Constrained equations
 ![](images/abc216_g_sol.png)
 
 ```cpp
-#include "bits/stdc++.h"
-
+#include<bits/stdc++.h>
+ 
 using namespace std;
-using ll = long long;
-using pii = pair < int, int > ;
 
-int main() {
-    int n, m;
-    cin >> n >> m;
-    vector < vector < pair < int, int >>> g(n + 1);
-    for (int i = 1; i <= n; i++)
-        g[i].push_back({i-1,0});
-    for (int i = 0; i < m; i++) {
-        int l, r, x;
-        cin >> l >> r >> x;
-        l--;
-        g[r].push_back({l,-x});
+#define pb push_back
+ 
+template<class T,class S>
+inline bool chmin(T &a, S b) {
+    if(a > b) {
+        a = (T)b;
+        return true;
     }
-    vector < int > d(n + 1);
-    bool change = true;
-    while (change) {
-        change = false;
-        for (int i = n; i >= 0; i--) {
-            for (auto & [u, to]: g[i]) {
-                if (d[u] > d[i] + to) change = true;
-                d[u] = min(d[i] + to, d[u]);
+    return false;
+}
+
+template <class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+ 
+typedef long long ll;
+typedef pair<ll,ll> l_l;
+typedef vector<ll> vl;
+
+ll inf=(ll)1E18;
+const int nax = 2e5 + 10;
+
+vector<l_l> adj[nax];
+
+int main(){
+    ll n,m; cin >> n >> m;
+    vl L(m),R(m),X(m);
+    for(int z=0;z<m;z++){
+        cin >> L[z] >> R[z] >> X[z];
+        // B_R - B_{L-1} <= R - L + 1 - X
+        // add edge from L-1 to R with weight R - L + 1 - X
+        adj[L[z]-1].pb({R[z], R[z]-L[z]+1-X[z]});
+    }
+    for(int i=0;i<n;i++){
+    	// B_{i+1} <= B_i + 1
+        adj[i].pb({i+1,1});
+        // B_i <= B_{i+1}
+        adj[i+1].pb({i,0});
+    }
+    vl d(n+1,inf); d[0]=0; // B_0 = 0
+    pqg<l_l> Q; Q.push({d[0],0});
+    while(!Q.empty()){
+        auto [weight, u] = Q.top(); Q.pop();
+        if(d[u] != weight) continue;
+        for(auto [v, cost]:adj[u]){
+            if(chmin(d[v], cost + d[u])){
+                Q.push({d[v], v});
             }
         }
-        for (int i = 0; i < n; i++) {
-            if (d[i] + 1 < d[i + 1])
-                change = true;
-            d[i + 1] = min(d[i] + 1, d[i + 1]);
-        }
     }
-    string s;
-    for (int i = 0; i < n; i++) {
-        assert(d[i + 1] - d[i] >= 0);
-        assert(d[i + 1] - d[i] <= 1);
-        if (d[i + 1] - d[i] == 0)
-            cout << 0 << " ";
-        else
-            cout << 1 << ' ';
-    }
-    cout << '\n';
+    vl ans(n+1);
+    for(int i=1;i<=n;i++) ans[i] = 1-(d[i]-d[i-1]);
+    for(int i=1;i<=n;i++) cout << ans[i] << " ";
+    return 0;
 }
 ```
 </details>
