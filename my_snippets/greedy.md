@@ -180,6 +180,6 @@ int main()
 }
 ```
 
-Solving using Bellmann Constrained equations
+Solving using Constrained equations
 
 ![](images/abc216_g_sol.png)
