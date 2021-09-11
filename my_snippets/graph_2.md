@@ -1022,6 +1022,8 @@ It turns out that our solution minimizes the span of the variables: max xi − m
 
 source: Stanford CS 97SI: Introduction to Programming Contests
 	
+TODO: https://www.codechef.com/COOK105A/problems/GUESSAGE
+	
 <details>
 	<summary>Applications ABC 216 G - 01 Sequence</summary>
 	
