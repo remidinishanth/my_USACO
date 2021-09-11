@@ -1025,6 +1025,10 @@ source: Stanford CS 97SI: Introduction to Programming Contests
 <details>
 	<summary>Applications ABC 216 G - 01 Sequence</summary>
 	
+![](images/abc216g.png)
+
+source: https://atcoder.jp/contests/abc216/tasks/abc216_g
+	
 Solving using Constrained equations
 
 ![](images/abc216_g_sol.png)
