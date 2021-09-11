@@ -127,3 +127,55 @@ int main() {
     return 0;
 }
 ```
+
+Instead of using `set` and `lower_bound`, we can also use at stack to maintain the unused zeros 
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <atcoder/fenwicktree.hpp>
+using namespace std;
+
+int main()
+{
+    int N, M;
+    cin>>N>>M;
+    vector<int> L(M), R(M), X(M);
+    for (int i=0; i<M; i++)
+    {
+        cin >> L[i] >> R[i] >> X[i];
+        L[i]--;
+    }
+
+    vector<int> I(M);
+    for (int i=0; i<M; i++) I.push_back(i);
+    sort(I.begin(), I.end(), [&](int x, int y){return R[x]<R[y];});
+
+    vector<int> A(N);
+    atcoder::fenwick_tree<int> FT(N);
+    //  Position where 1 can be written
+    vector<int> Q;
+    //  Minimum position not added to Q
+    int q = 0;
+    for (int i: I)
+    {
+        for (; q<R[i]; q++)
+            Q.push_back(q);
+
+        //  Number of 1s that must be written
+        int n = X[i]-FT.sum(L[i], R[i]);
+        for (int j=0; j<n; j++)
+        {
+            int p = Q.back();
+            Q.pop_back();
+
+            A[p] = 1;
+            FT.add(p, 1);
+        }
+    }
+
+    for (int i=0; i<N; i++) cout << (i==0 ? "" : " ") << A[i];
+    cout << endl;
+}
+```
