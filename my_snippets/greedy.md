@@ -78,6 +78,8 @@ class Solution:
 
 ![](images/abc216g.png)
 
+source: https://atcoder.jp/contests/abc216/tasks/abc216_g?lang=en
+
 ```cpp
 template<class T> struct BIT {
     int n; vector<T> data;
