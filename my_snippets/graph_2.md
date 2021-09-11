@@ -1038,50 +1038,46 @@ Solving using Constrained equations
 
 using namespace std;
 using ll = long long;
-using pii = pair<int,int>;
+using pii = pair < int, int > ;
 
-int main()
-{
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-
-  int n,m;
-  cin >> n >> m;
-  vector<vector<pair<int,int>>> g(n+1);
-  for (int i = 1; i <= n; i++)
-    g[i].push_back({i-1,0});
-  for (int i =0; i < m; i++) {
-    int l,r,x;
-    cin >> l >> r >> x;
-    l--;
-    g[r].push_back({l,-x});
-  }
-  vector<int> d(n+1);
-  bool change = true;
-  while(change) {
-    change = false;
-    for (int i = n; i >= 0; i--) {
-      for (auto& [u,to] : g[i]) {
-        if (d[u] > d[i]+to) change = true;
-        d[u] = min(d[i]+to,d[u]);
-      }
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector < vector < pair < int, int >>> g(n + 1);
+    for (int i = 1; i <= n; i++)
+        g[i].push_back({i-1,0});
+    for (int i = 0; i < m; i++) {
+        int l, r, x;
+        cin >> l >> r >> x;
+        l--;
+        g[r].push_back({l,-x});
     }
+    vector < int > d(n + 1);
+    bool change = true;
+    while (change) {
+        change = false;
+        for (int i = n; i >= 0; i--) {
+            for (auto & [u, to]: g[i]) {
+                if (d[u] > d[i] + to) change = true;
+                d[u] = min(d[i] + to, d[u]);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (d[i] + 1 < d[i + 1])
+                change = true;
+            d[i + 1] = min(d[i] + 1, d[i + 1]);
+        }
+    }
+    string s;
     for (int i = 0; i < n; i++) {
-      if (d[i]+1<d[i+1])
-        change = true;
-      d[i+1] = min(d[i]+1,d[i+1]);
+        assert(d[i + 1] - d[i] >= 0);
+        assert(d[i + 1] - d[i] <= 1);
+        if (d[i + 1] - d[i] == 0)
+            cout << 0 << " ";
+        else
+            cout << 1 << ' ';
     }
-  }
-  string s;
-  for (int i = 0; i < n; i++) {
-    assert(d[i+1]-d[i] >= 0);
-    assert(d[i+1]-d[i] <= 1);
-    if (d[i+1] -d[i] == 0)
-      cout << 0 << " ";
-    else
-      cout << 1 << ' ';
-  }
-  cout << '\n';
+    cout << '\n';
 }
 ```
 </details>
