@@ -1,3 +1,5 @@
+Meet in the middle is a search technique used when the input size is small but not small enough to use direct brute force.
+
 ### 4sum (popular interview question)
 
 Given A, an array of integers, find out if there are any four numbers in the array that sum up to zero (the same element can be used multiple times). 
