@@ -32,6 +32,8 @@ for(int v:V){
 
 Array filling - https://atcoder.jp/contests/abc214/editorial/2446
 
+Nested Range count - CSES - https://discuss.codechef.com/t/help-needed-with-nested-range-count-cses/84014
+
 ### Contribution to the sum
 
 Facebook Hackercup 2021 Problem A2: Weak Typing - Chapter 2
