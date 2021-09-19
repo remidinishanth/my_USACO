@@ -4,7 +4,7 @@ Formally, an instance of the maximum flow problem is specified as follows:
 * a directed graph G, with vertices V and directed edges E;
 * a source vertex `s ∈ V`;
 * a sink vertex `t ∈ V`;
-* a nonnegative and integral capacity c(e) for each edge `e ∈ E`;
+* a nonnegative and **integral** capacity c(e) for each edge `e ∈ E`;
 
 ![](images/mflow_0.png)
 
@@ -48,4 +48,8 @@ Happily, if we just run the natural greedy algorithm in the current residual net
 
 ![](images/mflow_5.png)
 
+We claim that the Ford-Fulkerson algorithm eventually terminates with a feasible flow. This follows from two invariants, both proved by induction on the number of iterations.
 
+* Claim: (Optimality Conditions for Maximum Flow) If f is a flow in G such that the residual network Gf has no s-t path, then the f is a maximum flow. 
+
+The Ford-Fulkerson algorithm is guaranteed to terminate with a maximum flow.
