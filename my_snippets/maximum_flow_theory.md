@@ -129,9 +129,17 @@ In Ford-Fulkerson algorithm, we choose s-t paths arbitrarily, This motivates cho
 
 The Edmonds-Karp algorithm is the same as the Ford-Fulkerson algorithm, except that it always chooses a shortest augmenting path of the residual graph (i.e., with the fewest number of hops). Upon hearing “shortest paths” you may immediately think of Dijkstra’s algorithm, but this is overkill here — breadth-first search already computes (in linear time) a path with the fewest number of hops(we are only worried about hop counts here).
 
-Edmonds-Karp is obviously correct because it is specilization of Ford-Fulkerson algorithm. The Running time of Edmonds karp algorithm is O(m²n).
+Edmonds-Karp is obviously correct because it is specilization of Ford-Fulkerson algorithm. The Running time of Edmonds karp algorithm is `O(m²n)`.
 
 Why study Edmonds-Karp, when we’re just going to learn faster algorithms later? Because it provides a gentle introduction to some fundamental ideas in the analysis of maximum flow algorithms.
+
+#### EK Progress Lemma
+
+Fix a network G. For a flow `f`, let `d(f)` denote the number of hops in a shortest `s-t` path(with positive residual capacity) in `G_f`, or `+∞` if no such path exists
+* `d(f)` never decreases during the execution of the Edmonds-Karp algorithm
+* `d(f)` increases at least once per `m` iterations.
+
+Since `d(f) ∈ {0, 1, 2, . . . , n − 2, n − 1, +∞}`, once `d(f) ≥ n` we know that `d(f) = +∞` and `s` and `t` are disconnected in `G_f`. Thus, Lemma implies that the Edmonds-Karp algorithm terminates after at most `mn` iterations. Since each iteration just involves a breadth-first search computation, we get the running time of `O(m²n)`.
 
 ## REF:
 
