@@ -6,7 +6,7 @@ Formally, an instance of the maximum flow problem is specified as follows:
 * a sink vertex `t ∈ V`;
 * a nonnegative and integral capacity c(e) for each edge `e ∈ E`;
 
-![](images/mflow_1.png)
+![](images/mflow_0.png)
 
 Since the point is to push flow from s to t, we can assume without loss of generality that `s` has no incoming edges and `t` has no outgoing edges.
 
