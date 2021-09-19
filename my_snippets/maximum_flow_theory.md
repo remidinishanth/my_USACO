@@ -91,6 +91,21 @@ To see why the claim yields the desired implication, suppose that (2) holds. Thi
 
 **(1) ⇒ (3)**: We prove the contrapositive. Suppose `f` is a flow such that `G_f` has an `s-t` path `P` with positive residual capacity. As in the Ford-Fulkerson algorithm, we augment along `P` to produce a new flow `f'` with strictly larger value. This shows that `f` is not a maximum flow.
 
+**(3) ⇒ (2)**: This proof is constructive. The trick is to define `A = { v ∈ V : there is an s ⇝ v path in G_f}`.
+
+Conceptually, start graph search subroutine(BFS or DFS) from `s` untill you get stuck; A is the set of vertices you get stuck at. Note that `(A, V − A)` is an `(s, t)-cut`. Certainly `s ∈ A`, so `s` can reach itself in `G_f` . By assumption, `G_f` has no `s-t` path, so `t ∉ A`. The reason is that if there
+were such an edge sticking out of A, then our graph search would not have gotten stuck at A, and A would be a bigger set. 
+
+![](images/mflow_10.png)
+
+The above picture is of residual graph which attains maximum flow. Let's see how the edges compare to original network G.
+* Every edge sticking out of A in G is saturated (meaning `f_e = c_e`). If `f_e < c_e` then we have a forward edge with positive residual capacity which is a contradiction.
+* Every edge sticking into in A in G is zeroed out (f_e = 0). Otherwise `c_e - f_e > 0`, then the residual netowrk G_f would contain a forward edge of e, contradiction.
+
+![](images/mflow_11.png)
+
+Corollary: **(Max-Flow/Min-Cut Theorem)** In every network, maximum value of a flow = minimum capacity of an (s, t)-cut.
+
 ## REF:
 
 * CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
