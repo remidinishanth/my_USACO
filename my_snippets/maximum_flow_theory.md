@@ -114,7 +114,7 @@ Running time of Ford-Fulkerson Algorithm is `𝑂(𝐸𝑓)` - applies only when
 The problem is that the algorithm can keep choosing a “bad path” over and over again. (Recall that when the current residual network has multiple s-t paths, the Ford-Fulkerson algorithm chooses arbitrarily.)
 
 Consider the following graph:
-![](images/mflow_12.png)
+![](images/mflow_13.png)
 
 With each augmentation the flow increases by exactly 1 as the algorithm changes its mind about whether to use the middle edge; it takes 200 augmentations before the algorithm terminates, even though choosing the high-capacity top and bottom paths at the start could finish in 2.
 
