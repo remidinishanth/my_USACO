@@ -109,6 +109,8 @@ Corollary: **(Max-Flow/Min-Cut Theorem)** In every network, maximum value of a f
 Corollary: Given a maximum flow, and minimum cut can be computed in linear time. Use BFS or DFS to compute, in linear time, the set A from the third part of the
 proof of Theorem. The proof shows that (A, V − A) is a minimum cut.
 
+### The Edmonds-Karp Algorithm: Shortest Augmenting Paths
+
 ## REF:
 
 * CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
