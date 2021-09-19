@@ -111,11 +111,14 @@ proof of Theorem. The proof shows that (A, V − A) is a minimum cut.
 
 Running time of Ford-Fulkerson Algorithm is `𝑂(𝐸𝑓)` - applies only when the edge capacities are integers.
 
-Consider the following graph:
+The problem is that the algorithm can keep choosing a “bad path” over and over again. (Recall that when the current residual network has multiple s-t paths, the Ford-Fulkerson algorithm chooses arbitrarily.)
 
+Consider the following graph:
 ![](images/mflow_12.png)
 
 With each augmentation the flow increases by exactly 1 as the algorithm changes its mind about whether to use the middle edge; it takes 200 augmentations before the algorithm terminates, even though choosing the high-capacity top and bottom paths at the start could finish in 2.
+
+
 
 Since we can do at most `𝑓`  iterations, and each iteration takes  𝑂(𝐸+𝑉)  time, the worst-case run time is `𝑂((𝐸+𝑉)𝑓)` which is `𝑂(𝐸𝑓)`.
 
