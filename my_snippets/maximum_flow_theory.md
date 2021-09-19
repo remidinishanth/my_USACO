@@ -105,6 +105,7 @@ The above picture is of residual graph which attains maximum flow. Let's see how
 ![](images/mflow_11.png)
 
 Corollary: **(Max-Flow/Min-Cut Theorem)** In every network, maximum value of a flow = minimum capacity of an (s, t)-cut.
+Corollary: Given a maximum flow, and minimum cut can be computed in linear time.
 
 ## REF:
 
