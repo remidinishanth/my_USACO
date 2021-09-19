@@ -106,7 +106,8 @@ The above picture is of residual graph which attains maximum flow. Let's see how
 
 Corollary: **(Max-Flow/Min-Cut Theorem)** In every network, maximum value of a flow = minimum capacity of an (s, t)-cut.
 
-Corollary: Given a maximum flow, and minimum cut can be computed in linear time.
+Corollary: Given a maximum flow, and minimum cut can be computed in linear time. Use BFS or DFS to compute, in linear time, the set A from the third part of the
+proof of Theorem. The proof shows that (A, V − A) is a minimum cut.
 
 ## REF:
 
