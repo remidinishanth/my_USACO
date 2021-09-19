@@ -127,7 +127,7 @@ We now focus on optimizing the running time.
 
 In Ford-Fulkerson algorithm, we choose s-t paths arbitrarily, This motivates choosing augmenting paths more intelligently.
 
-The Edmonds-Karp algorithm is the same as the Ford-Fulkerson algorithm, except that it always chooses a shortest augmenting path of the residual graph (i.e., with the fewest number of hops). Upon hearing “shortest paths” you may immediately think of Dijkstra’s algorithm, but this is overkill here — breadth-first search already computes (in linear time) a path with the fewest number of hops.
+The Edmonds-Karp algorithm is the same as the Ford-Fulkerson algorithm, except that it always chooses a shortest augmenting path of the residual graph (i.e., with the fewest number of hops). Upon hearing “shortest paths” you may immediately think of Dijkstra’s algorithm, but this is overkill here — breadth-first search already computes (in linear time) a path with the fewest number of hops(we are only worried about hop counts here).
 
 Edmonds-Karp is obviously correct because it is specilization of Ford-Fulkerson algorithm. The Running time of Edmonds karp algorithm is O(m²n).
 
