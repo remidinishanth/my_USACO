@@ -119,6 +119,8 @@ With each augmentation the flow increases by exactly 1 as the algorithm changes 
 
 Since we can do at most `𝑓`  iterations, and each iteration takes  𝑂(𝐸+𝑉)  time, the worst-case run time is `𝑂((𝐸+𝑉)𝑓)` which is `𝑂(𝐸𝑓)`.
 
+We now focus on optimizing the running time.
+
 ### The Edmonds-Karp Algorithm: Shortest Augmenting Paths
 
 ## REF:
