@@ -141,6 +141,8 @@ Fix a network G. For a flow `f`, let `d(f)` denote the number of hops in a short
 
 Since `d(f) ∈ {0, 1, 2, . . . , n − 2, n − 1, +∞}`, once `d(f) ≥ n` we know that `d(f) = +∞` and `s` and `t` are disconnected in `G_f`. Thus, Lemma implies that the Edmonds-Karp algorithm terminates after at most `mn` iterations. Since each iteration just involves a breadth-first search computation, we get the running time of `O(m²n)`.
 
+#### Proof
+
 ## REF:
 
 * CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
