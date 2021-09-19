@@ -58,6 +58,37 @@ We'll prove this claim with Maximum-Flow/Minimum-Cut Theorem.
 
 The Ford-Fulkerson algorithm repeatedly finds an s-t path P in the current residual graph G_f , and augments along p as much as possible subject to the capacity constraints of the residual network.
 
+### (s,t)-Cuts
+
+An `(s, t)-cut` of a graph `G = (V, E)` is a partition of `V` into sets `A`, `B` with `s ∈ A` and `t ∈ B`.
+
+Such a cut buckets the edges of the graph into four categories: those with both endpoints in A, those with both endpoints in B, those sticking out of A (with tail in A and head in B), and those sticking into A (with head in A and tail in B).
+
+![](images/mflow_6.png)
+
+The capacity of an (s, t)-cut (A, B) is defined as sum of capacities of edges sticking out of A. Note that edges sticking in to the source-side of an (s, t)-cut to do not contribute to its capacity. A minimum cut is one with the smallest capacity.
+
+### Optimiality Conditions for the Maximum Flow Problem
+
+Let f be a flow in a graph G. The following are equivalent:
+* f is a maximum flow of G;
+* there is an `(s, t)-cut` `(A, B)` such that the value of `f` equals the capacity of `(A, B)`;
+* there is no s-t path (with positive residual capacity) in the residual network G_f.
+
+Corollary: If f is a flow in G such that the residual network Gf has no s-t path, then the f is a maximum flow.
+
+#### Proof
+
+(2) => (1): We claim that, for every flow f and every (s, t)-cut (A, B), value of f ≤ capacity of (A, B). This claim implies that all flow values are at most all cut values; The claim implies that there no “x” strictly to the right of the “o”.
+
+![](images/mflow_7.png)
+
+To see why the claim yields the desired implication, suppose that (2) holds. This corresponds to an “x” and “o” that are co-located in the above figure. By the claim, no “x”s can appear to the right of this point. Thus no flow has larger value than f, as desired.
+
+![](images/mflow_8.png)
+
+![](images/mflow_9.png)
+
 ## REF:
 
 * CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
