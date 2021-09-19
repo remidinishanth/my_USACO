@@ -143,11 +143,40 @@ Fix a network G. For a flow `f`, let `d(f)` denote the number of hops in a short
 
 Since `d(f) ∈ {0, 1, 2, . . . , n − 2, n − 1, +∞}`, once `d(f) ≥ n` we know that `d(f) = +∞` and `s` and `t` are disconnected in `G_f`. Thus, Lemma implies that the Edmonds-Karp algorithm terminates after at most `mn` iterations. Since each iteration just involves a breadth-first search computation, we get the running time of `O(m²n)`.
 
-#### Proof
+#### Observations
+
+For the analysis, imagine running breadth-first search (BFS) in `G_f` starting from the source `s`. Recall that BFS discovers vertices in “layers,” with `s` in the `0th` layer, and layer `i + 1` consisting of those vertices not in a previous layer and reachable in one hop from a vertex in the `i-th` layer. We can then classify the edges of `G_f` as forward (meaning going from layer `i` to layer `i + 1`, for some `i`), sideways (meaning both endpoints are in the same layer),
+and backwards (traveling from a layer `i` to some layer `j` with `j < i`). By the definition of breadth-first search, no forward edge of `G_f` can shortcut over a layer; every forward edge goes only to the next layer.
+
+We define `L_f` , with the L standing for “layered,” as the subgraph of Gf consisting only of the forward edges.(Vertices in layers after the one containing t are irrelevant, so they can be discarded if desired).
+
+![](images/mflow_17.png)
+
+Why bother defining `L_f` ? Because it is a succinct encoding of all of the shortest `s-t` paths of `G_f` — the paths on which the Edmonds-Karp algorithm might augment. Formally, every `s-t` in `L_f` comprises only forward edges of the BFS and hence has exactly `d(f)` hops, the minimum possible. Conversely, an `s-t` path that is in `G_f` but not `L_f` must contain at least one detour (a sideways or backward edge) and hence requires at least `d(f) + 1` hops to get to `t`.
+
+Therefore, `s-t` path in `L_f` ⇔ Shortest `s-t` paths of `G_f`
+
+For example, Let's see how `d(f)` changes as we simulate the algorithm for our example graph. Since we begin with the zero flow,
+initially the residual graph `G_f` is the original graph `G`. Let dashed edges denote the edges which are either sideways or backward.
 
 ![](images/mflow_15.png)
 
+The `0-th` layer is s, the first layer has two vertices, and the second layer is t. Thus d(f) = 2 initially. There are two shortest paths. Suppose the Edmonds-Karp algorithm chooses to augment on the upper path, sending two units of flow. The layers remain the same: {s}, {v, w}, and {t}, with d(f) still equal to 2.
+
 ![](images/mflow_16.png)
+
+#### Proof
+
+Note that the only thing we’re worried about is that an augmentation somehow introduces a new, shortest path that shortcuts over some layers of `L_f`.
+
+Suppose the Edmonds-Karp algorithm augments the current flow `f` by routing flow on the path `P`. Because `P` is a shortest `s-t` path in `G_f`, it is also a path in the layered graph `L_f`. The only new edges created by augmenting on `P` are edges that go in the reverse direction of `P`. These are all backward edges, so any `s-`t of `G_f` that uses such an edge has at least `d(f) + 2` hops. Thus, no new shorter paths are formed in `G_f` after the augmentation.
+
+Now consider a run of `t` iterations of the Edmonds-Karp algorithm in which the value of `d(f) = c` stays constant. We need to show that `t ≤ m`. Before the first of these iterations, we save a copy of the current layered network: let `F` denote the edges of `L_f` at this time, and `V0 = {s}, V1, V2, . . . , Vc` the vertices if the various layers.
+
+Consider the first of these t iterations. The only new edges introduced go backward from layer `i` to layer `i-1`. By assumption, after the augmentation, there is still an `s-t` path in the new residual graph with only c hops. Since no edge of of such a path can shortcut over one of the layers `V0, V1, . . . , Vc`, it must consist only of edges in `F`. 
+
+Inductively, every one of these t iterations augments on a path consisting solely of edges in F. Each such iteration zeroes out at least one edge `e = (v, w)` of `F` (the one with minimum residual capacity), at which point edge `e` drops out of the current residual graph. The only way `e` can reappear in the residual graph is if there is an augmentation in the reverse direction (the direction (w, v)). But since (w, v) goes backward (from some Vi to Vi−1) and all of the
+`t` iterations route flow only on edges of F (from some Vi to to Vi+1), this can never happen. Since F contains at most `m` edges, there can only be m iterations before `d(f)` increases (or the algorithm terminates).
 
 ## REF:
 
