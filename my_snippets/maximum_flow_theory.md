@@ -52,7 +52,11 @@ We claim that the Ford-Fulkerson algorithm eventually terminates with a feasible
 
 * Claim: (Optimality Conditions for Maximum Flow) If f is a flow in G such that the residual network Gf has no s-t path, then the f is a maximum flow. 
 
-Corollary: The Ford-Fulkerson algorithm is guaranteed to terminate with a maximum flow.
+Corollary: The Ford-Fulkerson algorithm is guaranteed to terminate with a maximum flow. 
+
+We'll prove this claim with Maximum-Flow/Minimum-Cut Theorem.
+
+The Ford-Fulkerson algorithm repeatedly finds an s-t path P in the current residual graph G_f , and augments along p as much as possible subject to the capacity constraints of the residual network.
 
 ## REF:
 
