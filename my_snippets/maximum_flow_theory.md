@@ -53,3 +53,7 @@ We claim that the Ford-Fulkerson algorithm eventually terminates with a feasible
 * Claim: (Optimality Conditions for Maximum Flow) If f is a flow in G such that the residual network Gf has no s-t path, then the f is a maximum flow. 
 
 Corollary: The Ford-Fulkerson algorithm is guaranteed to terminate with a maximum flow.
+
+## REF:
+
+* CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
