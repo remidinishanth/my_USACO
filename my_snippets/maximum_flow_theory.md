@@ -79,7 +79,7 @@ Corollary: If f is a flow in G such that the residual network Gf has no s-t path
 
 #### Proof
 
-**(2) => (1)**: We claim that, for every flow f and every (s, t)-cut (A, B), value of f ≤ capacity of (A, B). This claim implies that all flow values are at most all cut values; The claim implies that there no “x” strictly to the right of the “o”.
+**(2) ⇒ (1)**: We claim that, for every flow f and every (s, t)-cut (A, B), value of f ≤ capacity of (A, B). This claim implies that all flow values are at most all cut values; The claim implies that there no “x” strictly to the right of the “o”.
 
 ![](images/mflow_7.png)
 
@@ -88,6 +88,8 @@ To see why the claim yields the desired implication, suppose that (2) holds. Thi
 ![](images/mflow_8.png)
 
 ![](images/mflow_9.png)
+
+**(1) ⇒ (3)**: We prove the contrapositive. Suppose `f` is a flow such that `G_f` has an `s-t` path `P` with positive residual capacity. As in the Ford-Fulkerson algorithm, we augment along `P` to produce a new flow `f'` with strictly larger value. This shows that `f` is not a maximum flow.
 
 ## REF:
 
