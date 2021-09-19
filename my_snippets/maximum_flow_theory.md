@@ -119,13 +119,15 @@ Consider the following graph:
 
 With each augmentation the flow increases by exactly 1 as the algorithm changes its mind about whether to use the middle edge; it takes 200 augmentations before the algorithm terminates, even though choosing the high-capacity top and bottom paths at the start could finish in 2.
 
-
-
 Since we can do at most `𝑓`  iterations, and each iteration takes  𝑂(𝐸+𝑉)  time, the worst-case run time is `𝑂((𝐸+𝑉)𝑓)` which is `𝑂(𝐸𝑓)`.
 
 We now focus on optimizing the running time.
 
 ### The Edmonds-Karp Algorithm: Shortest Augmenting Paths
+
+In Ford-Fulkerson algorithm, we choose s-t paths arbitrarily, This motivates choosing augmenting paths more intelligently.
+
+The Edmonds-Karp algorithm is the same as the Ford-Fulkerson algorithm, except that it always chooses a shortest augmenting path of the residual graph (i.e., with the fewest number of hops). Upon hearing “shortest paths” you may immediately think of Dijkstra’s algorithm, but this is overkill here — breadth-first search already computes (in linear time) a path with the fewest number of hops.
 
 ## REF:
 
