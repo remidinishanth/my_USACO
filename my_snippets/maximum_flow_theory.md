@@ -227,6 +227,8 @@ In this sense, the maximum flow problem reduces to `n` instances of the blocking
 
 The Edmonds-Karp algorithm and its proof effectively shows how to compute a blocking flow in `O(m²)` time, by repeatedly sending as much flow as possible on a single path of `L_f` with positive residual capacity. We can compute blocking flow in `O(mn)` using depth first search.
 
+![](images/mflow_41.png)
+
 Dinic’s algorithm uses DFS technique to find a shortest path in **layered network**. Only O(n) time is needed as it exploits level numbers of nodes. In contrast, Edmonds-Karp algorithm uses BFS technique to find a shortest path in **residual graph**, which needs O(m) time.
 
 ### Bipartite graph
