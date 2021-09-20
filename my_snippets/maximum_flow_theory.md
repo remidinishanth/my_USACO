@@ -214,14 +214,18 @@ Example of blocking flow. This is not a maximum flow.
 
 ![](images/mflow_27.png)
 
-**Dinic Progress Lemma**: Fix a network `G`. For a flow `f`, let `d(f)` denote the number of hops in a shortest `s-t` path (with positive residual capacity) in `G_f`,(or `+∞` if no such paths exist). If `h` is obtained from `f` by augmenting a blocking flow `g` in `G_f`, then `d(h)` > `d(f)`.
-
-That is, every iteration of Dinic’s algorithm strictly increases the `s-t` distance in the current residual graph.
-
 ![](images/mflow_33.png) ![](images/mflow_34.png)
 ![](images/mflow_35.png) ![](images/mflow_36.png)
 ![](images/mflow_37.png) ![](images/mflow_38.png)
 ![](images/mflow_39.png) ![](images/mflow_40.png)
+
+**Dinic Progress Lemma**: Fix a network `G`. For a flow `f`, let `d(f)` denote the number of hops in a shortest `s-t` path (with positive residual capacity) in `G_f`,(or `+∞` if no such paths exist). If `h` is obtained from `f` by augmenting a blocking flow `g` in `G_f`, then `d(h)` > `d(f)`.
+
+That is, every iteration of Dinic’s algorithm strictly increases the `s-t` distance in the current residual graph.
+
+In this sense, the maximum flow problem reduces to `n` instances of the blocking flow problem (in layered networks). The running time of Dinic’s algorithm is `O(n ·BF)`, where `BF` denotes the running time required to compute a blocking flow in a layered network.
+
+The Edmonds-Karp algorithm and its proof effectively shows how to compute a blocking flow in `O(m²)` time, by repeatedly sending as much flow as possible on a single path of `L_f` with positive residual capacity. We can compute blocking flow in `O(mn)` using depth first search.
 
 Dinic’s algorithm uses DFS technique to find a shortest path in **layered network**. Only O(n) time is needed as it exploits level numbers of nodes. In contrast, Edmonds-Karp algorithm uses BFS technique to find a shortest path in **residual graph**, which needs O(m) time.
 
