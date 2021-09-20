@@ -194,6 +194,8 @@ Dinic’s algorithm can only terminate with a residual network with no s-t path,
 While in the Edmonds-Karp algorithm we only formed the layered network Lf in the analysis (in the proof of EK Lemma), Dinic’s algorithm explicitly
 constructs this network in each iteration.
 
+If we examine what EK does, we see that it generates a sequence of augmenting paths of nondecreasing length. What Dinic’s algorithm does is it finds all the necessary augmenting paths of a given length with one blocking flow computation. It then augments the graph by this blocking flow, and repeats.
+
 A blocking flow is, intuitively, a bunch of shortest augmenting paths that get processed as a batch. Somewhat more formally, blocking flows are precisely the possible outputs of the naive greedy algorithm discussed at the beginning.
 
 **Blocking Flow**: A blocking flow `g` in a network `G` is a feasible flow such that, for every `s-t` path `P` of `G`, some edge `e` is saturated by `g` `(i.e.,. fe = ue)`.
