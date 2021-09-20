@@ -152,6 +152,8 @@ We define `L_f` , with the L standing for “layered,” as the subgraph of Gf c
 
 ![](images/mflow_17.png)
 
+![](images/mflow_20.png) ![](images/mflow_21.png)
+
 Why bother defining `L_f` ? Because it is a succinct encoding of all of the shortest `s-t` paths of `G_f` — the paths on which the Edmonds-Karp algorithm might augment. Formally, every `s-t` in `L_f` comprises only forward edges of the BFS and hence has exactly `d(f)` hops, the minimum possible. Conversely, an `s-t` path that is in `G_f` but not `L_f` must contain at least one detour (a sideways or backward edge) and hence requires at least `d(f) + 1` hops to get to `t`.
 
 Therefore, `s-t` path in `L_f` ⇔ Shortest `s-t` paths of `G_f`
