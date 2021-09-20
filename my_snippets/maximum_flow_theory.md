@@ -183,6 +183,8 @@ Note: The residual and layered networks change during these iterations, but `F` 
 
 ### Dinic's Algorithm: Blocking Flows
 
+The basic idea is to compute all the augmenting paths that have a certain number of edges at once, in what is called a blocking flow computation. Each iteration of this process increases the length of the shortest path from `s` to `t` by at least `1`. So the number of iterations is at most `n`.
+
 ![](images/mflow_18.png)
 
 Dinic’s algorithm can only terminate with a residual network with no s-t path, that is, with a maximum flow.
