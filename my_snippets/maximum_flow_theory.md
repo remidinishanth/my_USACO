@@ -210,7 +210,7 @@ Example of blocking flow. This is not a maximum flow.
 
 ![](images/mflow_27.png)
 
-Example:
+
 ![](images/mflow_33.png) ![](images/mflow_34.png)
 ![](images/mflow_35.png) ![](images/mflow_36.png)
 ![](images/mflow_37.png) ![](images/mflow_38.png)
