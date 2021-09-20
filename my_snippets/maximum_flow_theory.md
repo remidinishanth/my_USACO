@@ -220,6 +220,12 @@ Example of blocking flow. This is not a maximum flow.
 ![](images/mflow_37.png) ![](images/mflow_38.png)
 ![](images/mflow_39.png) ![](images/mflow_40.png)
 
+Dinic’s algorithm uses DFS technique to find a shortest path in **layered network**. Only O(n) time is needed as it exploits level numbers of nodes. In contrast, Edmonds-Karp algorithm uses BFS technique to find a shortest path in **residual graph**, which needs O(m) time.
+
+### Bipartite graph
+Note: when running on bi-partite graph, the Dinic’s algorithm
+turns into the Hopcroft-Karp algorithm.
+
 ## REF:
 
 * CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
