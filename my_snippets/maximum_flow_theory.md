@@ -181,6 +181,8 @@ Inductively, every one of these `t` iterations augments on a path consisting sol
 
 Note: The residual and layered networks change during these iterations, but `F` and `V0, . . . , Vc` always refer to networks before the first of these iterations.
 
+We can improve this algorithm to O(n²m) by reorganizing the computation
+
 ### Dinic's Algorithm: Blocking Flows
 
 The basic idea is to compute all the augmenting paths that have a certain number of edges at once, in what is called a blocking flow computation. Each iteration of this process increases the length of the shortest path from `s` to `t` by at least `1`. So the number of iterations is at most `n`.
