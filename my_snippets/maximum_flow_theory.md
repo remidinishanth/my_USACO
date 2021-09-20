@@ -208,7 +208,6 @@ That is, a blocking flow zeroes out an edge of every s-t path.
 Example of blocking flow. This is not a maximum flow.
 ![](images/mflow_30.png)
 
-Summary:
 ![](images/mflow_27.png)
 
 ## REF:
