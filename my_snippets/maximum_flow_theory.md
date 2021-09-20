@@ -177,6 +177,26 @@ Consider the first of these `t` iterations. The only new edges introduced go bac
 
 Inductively, every one of these `t` iterations augments on a path consisting solely of edges in `F`. Each such iteration zeroes out at least one edge `e = (v, w)` of `F` (the one with minimum residual capacity), at which point edge `e` drops out of the current residual graph. The only way `e` can reappear in the residual graph is if there is an augmentation in the reverse direction (the direction `(w, v)`). But since `(w, v)` goes backward (from some `Vi` to `Vi−1`) and all of the `t` iterations route flow only on edges of `F` (from some `Vi` to to `Vi+1`), this can never happen. Since `F` contains at most `m` edges, there can only be `m` iterations before `d(f)` increases (or the algorithm terminates).
 
+Note: The residual and layered networks change during these iterations, but `F` and `V0, . . . , Vc` always refer to networks before the first of these iterations.
+
+### Dinic's Algorithm: Blocking Flows
+
+![](images/mflow_18.png)
+
+Dinic’s algorithm can only terminate with a residual network with no s-t path, that is, with a maximum flow.
+
+While in the Edmonds-Karp algorithm we only formed the layered network Lf in the analysis (in the proof of EK Lemma), Dinic’s algorithm explicitly
+constructs this network in each iteration.
+
+A blocking flow is, intuitively, a bunch of shortest augmenting paths that get processed as a batch. Somewhat more formally, blocking flows are precisely the possible outputs of the naive greedy algorithm discussed at the beginning.
+
+**Blocking Flow**: A blocking flow `g` in a network `G` is a feasible flow such that, for every `s-t` path `P` of `G`, some edge `e` is saturated by `g` `(i.e.,. fe = ue)`.
+
+That is, a blocking flow zeroes out an edge of every s-t path.
+
+Example of blocking flow. This is not a maximum flow.
+![](images/mflow_19.png)
+
 ## REF:
 
 * CS261 Stanford Time Roughgarden 2016 http://timroughgarden.org/w16/l/l1.pdf
