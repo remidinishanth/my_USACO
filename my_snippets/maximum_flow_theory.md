@@ -196,6 +196,13 @@ A blocking flow is, intuitively, a bunch of shortest augmenting paths that get p
 
 That is, a blocking flow zeroes out an edge of every s-t path.
 
+![](images/mflow_22.png) ![](images/mflow_23.png)
+![](images/mflow_24.png) ![](images/mflow_25.png)
+![](images/mflow_26.png)
+
+![](images/mflow_28.png) ![](images/mflow_29.png)
+
+
 Example of blocking flow. This is not a maximum flow.
 ![](images/mflow_30.png)
 
