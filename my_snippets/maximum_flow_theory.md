@@ -214,7 +214,9 @@ Example of blocking flow. This is not a maximum flow.
 
 ![](images/mflow_27.png)
 
-**Dinic Progress Lemma**: Fix a network `G`. For a flow `f`, let `d(f)` denote the number of hops in a shortest `s-t` path (with positive residual capacity) in `G_f`,(or `+∞` if no such paths exist). If `h` is obtained from `f` by augmenting a blocking flow `g` in `Gf`, then `d(h)` > `d(f)`.
+**Dinic Progress Lemma**: Fix a network `G`. For a flow `f`, let `d(f)` denote the number of hops in a shortest `s-t` path (with positive residual capacity) in `G_f`,(or `+∞` if no such paths exist). If `h` is obtained from `f` by augmenting a blocking flow `g` in `G_f`, then `d(h)` > `d(f)`.
+
+That is, every iteration of Dinic’s algorithm strictly increases the `s-t` distance in the current residual graph.
 
 ![](images/mflow_33.png) ![](images/mflow_34.png)
 ![](images/mflow_35.png) ![](images/mflow_36.png)
