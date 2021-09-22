@@ -179,6 +179,8 @@ Standard euclid algorithm proceeds in the following way
 
 ![Extended Euclid](images/extended_euclid_1.svg)
 
+Check example from https://www.math.cmu.edu/~bkell/21110-2010s/extended-euclidean.html for intuition
+
 The extended Euclidean algorithm proceeds similarly, but adds two other sequences, as follows
 
 ![Extended Euclid](images/extended_euclid_2.svg)
