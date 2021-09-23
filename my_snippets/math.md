@@ -179,7 +179,24 @@ Standard euclid algorithm proceeds in the following way
 
 ![Extended Euclid](images/extended_euclid_1.svg)
 
-Check example from https://www.math.cmu.edu/~bkell/21110-2010s/extended-euclidean.html for intuition
+Check example from https://www.math.cmu.edu/~bkell/21110-2010s/extended-euclidean.html for intuition.
+
+Let `a = 1398` and `b = 324`. `gcd(1398, 324) = 6`.
+
+`1398 % 324 = 102 = 1398 − 4(324) = 102 = a − 4b`
+
+`324 % 102 = 18 = 324 − 3(102) = b − 3(a − 4b) = −3a + 13b`
+
+`102 % 18 = 12 = 102 − 5(18) = (a − 4b) − 5(−3a + 13b) = 16a − 69b`
+
+`18 % 12 = 6 = 18 − 1(12) = (−3a + 13b) − 1(16a − 69b) = −19a + 82b`
+
+`12 % 9 = 0 = 12 − 2(6) = (16a − 69b) − 2(−19a + 82b) = 54a − 233b`
+
+Since we reached `0` we have `gcd(1398, 324) = 6 = −19a + 82b`
+
+![](images/egcd_22_9_2021_2.png)
+![](images/egcd_22_9_2021_1.png)
 
 The extended Euclidean algorithm proceeds similarly, but adds two other sequences, as follows
 
