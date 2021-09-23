@@ -175,11 +175,10 @@ Here, we can use inv(𝑎) as follows
 
 ## Extended Euclid Algorithm
 
-Standard euclid algorithm proceeds in the following way
+Let's start with example(source:https://www.math.cmu.edu/~bkell/21110-2010s/extended-euclidean.html) for intuition.
 
-![Extended Euclid](images/extended_euclid_1.svg)
-
-Check example from https://www.math.cmu.edu/~bkell/21110-2010s/extended-euclidean.html for intuition.
+![](images/egcd_22_9_2021_2.png)
+![](images/egcd_22_9_2021_1.png)
 
 Let `a = 1398` and `b = 324`. `gcd(1398, 324) = 6`.
 
@@ -195,8 +194,9 @@ Let `a = 1398` and `b = 324`. `gcd(1398, 324) = 6`.
 
 Since we reached `0` we have `gcd(1398, 324) = 6 = −19a + 82b`
 
-![](images/egcd_22_9_2021_2.png)
-![](images/egcd_22_9_2021_1.png)
+Standard euclid algorithm proceeds in the following way
+
+![Extended Euclid](images/extended_euclid_1.svg)
 
 The extended Euclidean algorithm proceeds similarly, but adds two other sequences, as follows
 
