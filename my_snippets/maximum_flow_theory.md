@@ -68,6 +68,11 @@ Such a cut buckets the edges of the graph into four categories: those with both 
 
 The capacity of an (s, t)-cut (A, B) is defined as sum of capacities of edges sticking out of A. Note that edges sticking in to the source-side of an (s, t)-cut to do not contribute to its capacity. A minimum cut is one with the smallest capacity.
 
+![](images/mflow_42.png)
+![](images/mflow_43.png)
+![](images/mflow_44.png)
+![](images/mflow_45.png)
+
 ### Optimiality Conditions for the Maximum Flow Problem
 
 Let f be a flow in a graph G. The following are equivalent:
