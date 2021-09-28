@@ -308,6 +308,18 @@ while(push(s, inf) > 0){
 
 Inspired from Endagorion https://codeforces.com/contest/512/submission/9684294
 
+### Edmonds-Karp Implementation Details
+
+```pascal
+maximum_flow = 0; residual_graph = network_graph
+while residual_graph contains an s − t path P do:
+     Let P be an s − t path in residual_graph with the minimum number of edges.
+     Augment maximum_flow using P.
+     Update residual_graph
+end while
+return maximum_flow
+```
+
 ### Bipartite graph
 Note: when running on bi-partite graph, the Dinic’s algorithm
 turns into the Hopcroft-Karp algorithm.
