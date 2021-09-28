@@ -250,7 +250,7 @@ The Edmonds-Karp algorithm and its proof effectively shows how to compute a bloc
 
 Dinic’s algorithm uses DFS technique to find a shortest path in **layered network**. Only O(n) time is needed as it exploits level numbers of nodes. In contrast, Edmonds-Karp algorithm uses BFS technique to find a shortest path in **residual graph**, which needs O(m) time.
 
-### Implementation details
+### Ford-Fulkerson Implementation details
 
 We use a struct to denote an edge. An edge is denoted by the `start(from)`, the `finish(to)`, we also store the capacity `cap` and the `flow(f)` currently through this edge.
 
@@ -295,6 +295,14 @@ int push(int v, int w){ // starting from v, we can push atmost w units
         return res; // we were able to push this amount of flow
     }
     return 0;
+}
+```
+
+Now we want to push as much as flow as long as we have some path
+
+```cpp
+while(push(s, inf) > 0){
+    vis.clear();
 }
 ```
 
