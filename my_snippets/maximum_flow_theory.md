@@ -320,6 +320,108 @@ end while
 return maximum_flow
 ```
 
+```cpp
+void augment(int v, int minEdge) { // traverse BFS spanning tree from s to t
+    if (v == s) { f = minEdge; return; } // record minEdge in a global variable f
+    else if (p[v] != -1) {
+        augment(p[v], min(minEdge, res[p[v]][v])); // recursive
+        cap[p[v]][v] -= f; cap[v][p[v]] += f;
+    } // update
+}
+
+int main() {
+    scanf("%d %d %d", & V, & s, & t);
+
+    for (int i = 0; i < V; i++) {
+        scanf("%d", & k);
+        for (int j = 0; j < k; j++) {
+            scanf("%d %d", & vertex, & weight);
+            cap[i][vertex] = weight;
+        }
+    }
+
+    mf = 0; // mf stands for max_flow
+    while (1) { // O(VE^2) (actually O(V^3E) Edmonds Karp's algorithm
+        f = 0;
+        // run BFS to find the shortest augmenting path
+        vi dist(MAX_V, INF);
+        dist[s] = 0;
+        queue < int > q;
+        q.push(s);
+        p.assign(MAX_V, -1); // record the BFS spanning tree, from s to t!
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            if (u == t) break; // immediately stop BFS if we already reach sink t
+            for (int v = 0; v < MAX_V; v++) // note: this part is slow
+                if (res[u][v] > 0 && dist[v] == INF)
+                    dist[v] = dist[u] + 1, q.push(v), p[v] = u;
+        }
+        augment(t, INF); // find the min edge weight `f' along this path, if any
+        if (f == 0) break; // we cannot send any more flow (`f' = 0), terminate
+        mf += f; // we can still send a flow, increase the max flow!
+    }
+
+    printf("%d\n", mf); // this is the max flow value
+
+    return 0;
+}
+```
+
+source: Steven halim CP3
+
+We can do somewhat better using adjacency list like https://cp-algorithms.com/graph/edmonds_karp.html
+
+```cpp
+int n;
+vector<vector<int>> capacity;
+vector<vector<int>> adj;
+
+int bfs(int s, int t, vector<int>& parent) {
+    fill(parent.begin(), parent.end(), -1);
+    parent[s] = -2;
+    queue<pair<int, int>> q;
+    q.push({s, INF});
+
+    while (!q.empty()) {
+        int cur = q.front().first;
+        int flow = q.front().second;
+        q.pop();
+
+        for (int next : adj[cur]) {
+            if (parent[next] == -1 && capacity[cur][next]) {
+                parent[next] = cur;
+                int new_flow = min(flow, capacity[cur][next]);
+                if (next == t)
+                    return new_flow;
+                q.push({next, new_flow});
+            }
+        }
+    }
+
+    return 0;
+}
+
+int maxflow(int s, int t) {
+    int flow = 0;
+    vector<int> parent(n);
+    int new_flow;
+
+    while (new_flow = bfs(s, t, parent)) {
+        flow += new_flow;
+        int cur = t;
+        while (cur != s) {
+            int prev = parent[cur];
+            capacity[prev][cur] -= new_flow;
+            capacity[cur][prev] += new_flow;
+            cur = prev;
+        }
+    }
+
+    return flow;
+}
+```
+
 ### Bipartite graph
 Note: when running on bi-partite graph, the Dinic’s algorithm
 turns into the Hopcroft-Karp algorithm.
