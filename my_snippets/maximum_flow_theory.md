@@ -152,6 +152,8 @@ Edmonds-Karp is obviously correct because it is specilization of Ford-Fulkerson 
 
 ![](images/mflow_14.png)
 
+Intuition: The requirement that edges must go from level `L` to `L+1` prunes backwards and sideways edges. We reach `sink` as soon quickly, Thus reducing the time complexity.
+
 Why study Edmonds-Karp, when we’re just going to learn faster algorithms later? Because it provides a gentle introduction to some fundamental ideas in the analysis of maximum flow algorithms.
 
 #### EK Progress Lemma
