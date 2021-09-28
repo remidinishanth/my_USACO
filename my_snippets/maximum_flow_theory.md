@@ -279,6 +279,24 @@ void add_edge(int from, int to, int cap){
 }
 ```
 
+Let's write the main procedure that actually pushes some flow, we will use DFS. This function returns how much value we were able to push.
+
+```cpp
+int push(int v, int w){ // starting from v, we can push atmost w units
+    if(vis[v]) return 0;
+    vis[v] = 1;
+    for(int ind: adj[v]){
+        if(edges[ind].f == edges[ind].c) continue;
+        int res == push(edges[ind].to, min(w, edges[ind].cap - edges[ind].f));
+        if(res == 0) continue;
+        edges[ind].f += res;
+        edges[ind^1].f -= res;
+        return res; // we were able to push this amount of flow
+    }
+    return 0;
+}
+```
+
 Inspired from Endagorion https://codeforces.com/contest/512/submission/9684294
 
 ### Bipartite graph
