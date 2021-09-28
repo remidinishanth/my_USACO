@@ -250,6 +250,35 @@ The Edmonds-Karp algorithm and its proof effectively shows how to compute a bloc
 
 Dinic’s algorithm uses DFS technique to find a shortest path in **layered network**. Only O(n) time is needed as it exploits level numbers of nodes. In contrast, Edmonds-Karp algorithm uses BFS technique to find a shortest path in **residual graph**, which needs O(m) time.
 
+### Implementation details
+
+We use a struct to denote an edge. An edge is denoted by the `start(from)`, the `finish(to)`, we also store the capacity `cap` and the `flow(f)` currently through this edge.
+
+```cpp
+struct TEdge{
+    int from, to, cap, f;
+}
+```
+
+We use a vector to store all the edges,
+
+```cpp
+vector<TEdge> edges;
+
+vector<int> adj[VCOUNT];
+```
+
+Trick/Hack: To store the residual network, whenever we store an edge at index `i`, we store the reverse edge at index `i^1`. This way original edges are stored at even vertices `2k` and reverse edges are stored at `2k + 1`.
+
+```cpp
+void add_edge(int from, int to, int cap){
+    adj[from].push_back(edges.size());
+    edges.push_back({from,to,cap,0});
+    adj[to].push_back(edges.size());
+    edges.push_back({to,from,0,0});
+}
+```
+
 ### Bipartite graph
 Note: when running on bi-partite graph, the Dinic’s algorithm
 turns into the Hopcroft-Karp algorithm.
