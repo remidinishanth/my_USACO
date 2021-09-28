@@ -48,6 +48,20 @@ Happily, if we just run the natural greedy algorithm in the current residual net
 
 ![](images/mflow_5.png)
 
+```cpp
+    setup directed residual graph with edge capacity = original graph weights
+    mf = 0 // this is an iterative algorithm, mf stands for max_flow
+    while (there exists an augmenting path p from s to t) {
+        // p is a path from s to t that pass through +ve edges in residual graph
+        augment/send flow f along the path p (s -> ... -> i -> j -> ... t)
+          1. find f, the minimum edge weight along the path p
+          2. decrease capacity of forward edges (e.g. i -> j) along path p by f
+          3. increase capacity of backward edges (e.g. j -> i) along path p by f
+        mf += f // we can send a flow of size f from s to t, increase mf
+    }
+    output mf // this is the max flow value
+```
+
 We claim that the Ford-Fulkerson algorithm eventually terminates with a feasible flow. This follows from two invariants, both proved by induction on the number of iterations.
 
 * Claim: (Optimality Conditions for Maximum Flow) If f is a flow in G such that the residual network Gf has no s-t path, then the f is a maximum flow. 
