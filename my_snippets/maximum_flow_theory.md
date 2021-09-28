@@ -426,6 +426,10 @@ int maxflow(int s, int t) {
 }
 ```
 
+### Dinic Implementation Details
+
+Check: https://codeforces.com/contest/1184/submission/56653284 and SPOJ submission https://www.spoj.com/status/MTOTALF,nishanth2066/
+
 ### Bipartite graph
 Note: when running on bi-partite graph, the Dinic’s algorithm
 turns into the Hopcroft-Karp algorithm.
