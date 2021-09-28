@@ -279,6 +279,8 @@ void add_edge(int from, int to, int cap){
 }
 ```
 
+Inspired from Endagorion https://codeforces.com/contest/512/submission/9684294
+
 ### Bipartite graph
 Note: when running on bi-partite graph, the Dinic’s algorithm
 turns into the Hopcroft-Karp algorithm.
