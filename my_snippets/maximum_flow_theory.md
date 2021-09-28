@@ -283,6 +283,7 @@ Let's write the main procedure that actually pushes some flow, we will use DFS. 
 
 ```cpp
 int push(int v, int w){ // starting from v, we can push atmost w units
+    if(v == t) return w; // in case we reach the sink
     if(vis[v]) return 0;
     vis[v] = 1;
     for(int ind: adj[v]){
