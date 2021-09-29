@@ -618,6 +618,12 @@ struct Dinic {
 
 ### Scaling Algorithm
 
+The scaling algorithm uses depth-first search to find paths where each edge weight is at least a threshold value. Initially, the threshold value is some large number, for example the sum of all edge weights of the graph. Always when a path cannot be found, the threshold value is divided by 2. The time complexity
+of the algorithm is `O(m² logc)`, where c is the initial threshold value.
+
+In practice, the scaling algorithm is easier to implement, because depth-first search can be used for finding paths.
+
+
 Check Algorithm Design - Klienberg and Tardos
 
 
