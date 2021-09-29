@@ -520,6 +520,11 @@ int main() {
 
 Check: https://codeforces.com/contest/1184/submission/56653284 and SPOJ submission https://www.spoj.com/status/MTOTALF,nishanth2066/
 
+Running time of the above implementation: `O(n²m)`, source: https://codeforces.com/blog/entry/52077
+
+![](images/mflow_47.png)
+
+
 CP Algorithms OOP based code
 
 ```cpp
