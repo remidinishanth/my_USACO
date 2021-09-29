@@ -436,7 +436,7 @@ struct edge {
 vector<edge> ed; //edges
 vector<vector<int>> adj;
 vector<int> dist, pt; //dist and ptr
-int N, S, T; // src,sink
+int N, S, T; // src, sink
 
 void init(int n, int s, int t) {
     N = n, S = s, T = t;
