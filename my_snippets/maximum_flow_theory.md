@@ -616,6 +616,8 @@ struct Dinic {
 };
 ```
 
+TODO: Benq's https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Flows%20(12.3)/Dinic.h
+
 ### Scaling Algorithm
 
 The scaling algorithm uses depth-first search to find paths where each edge weight is at least a threshold value. Initially, the threshold value is some large number, for example the sum of all edge weights of the graph. Always when a path cannot be found, the threshold value is divided by 2. The time complexity
