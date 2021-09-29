@@ -623,6 +623,15 @@ of the algorithm is `O(m² logc)`, where c is the initial threshold value.
 
 In practice, the scaling algorithm is easier to implement, because depth-first search can be used for finding paths.
 
+![](images/mflow_48.png)
+
+![](images/mflow_49.png)
+
+![](images/mflow_50.png)
+
+![](images/mflow_51.png)
+
+![](images/mflow_52.png)
 
 Check Algorithm Design - Klienberg and Tardos
 
