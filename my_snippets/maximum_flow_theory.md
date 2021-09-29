@@ -437,6 +437,8 @@ Instead of deleting the node and incoming edges, we store a pointer `pt` which i
 
 In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from `s` to `t` in the layered network while it can be pushed. **In order to do it more quickly, we must remove the edges which can't be used to push anymore.** To do this we can keep a pointer in each vertex which points to the next edge which can be used. Each pointer can be moved at most `E` times, so each phase works in `O(VE)`.
 
+* `pt[v]` stores the index of the first edge in the adj list which is not removed yet.
+
 ```cpp
 struct edge {
     int from, to, cap, f;
@@ -523,6 +525,9 @@ Check: https://codeforces.com/contest/1184/submission/56653284, https://codeforc
 Running time of the above implementation: `O(n²m)`, source: https://codeforces.com/blog/entry/52077
 
 ![](images/mflow_47.png)
+
+* There are atmost `m` paths, because each path atleast saturates one edge. Each path will be found in O(n) because we are doing DFS and everytime we either move to next layer or remove an edge.
+* Total time to remove the edges is `O(nm)`
 
 
 CP Algorithms OOP based code
