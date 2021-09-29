@@ -427,6 +427,8 @@ int maxflow(int s, int t) {
 ```
 
 ### Dinic Implementation Details
+`
+In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from `s` to `t in the layered network while it can be pushed. **In order to do it more quickly, we must remove the edges which can't be used to push anymore.** To do this we can keep a pointer in each vertex which points to the next edge which can be used. Each pointer can be moved at most `E` times, so each phase works in `O(VE)`.
 
 ```cpp
 struct edge {
