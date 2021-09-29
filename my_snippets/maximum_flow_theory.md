@@ -428,6 +428,87 @@ int maxflow(int s, int t) {
 
 ### Dinic Implementation Details
 
+```cpp
+struct edge {
+    int from, to, cap, f;
+};
+
+vector<edge> ed; //edges
+vector<vector<int>> adj;
+vector<int> dist, pt; //dist and ptr
+int N, S, T; // src,sink
+
+void init(int n, int s, int t) {
+    N = n, S = s, T = t;
+    dist = vector<int> (N);
+    pt = vector<int> (N);
+    adj = vector<vector<int>>(N);
+}
+
+void add_edge(int from, int to, int cap) {
+    adj[from].push_back(ed.size());
+    ed.push_back({from, to, cap, 0});
+    adj[to].push_back(ed.size());
+    ed.push_back({to, from, 0, 0});
+}
+
+bool bfs() {
+    fill(dist.begin(), dist.end(), N + 1);
+    queue<int> q;
+    dist[S] = 0;
+    q.push(S);
+    while (!q.empty()) {
+        int v = q.front(); q.pop();
+        if (v == T) break; // reached sink
+        for (int id: adj[v]) {
+            int to = ed[id].to;
+            if (dist[to] > dist[v] + 1 && ed[id].f < ed[id].cap)
+                dist[to] = dist[v] + 1, q.push(to);
+        }
+    }
+    // check if there is some augmenting path
+    return dist[T] != N + 1; // checking if sink is reachable from source
+}
+
+int dfs(int v, int w) {
+    if (v == T || w == 0) return w;
+    int res = 0;
+    // pt[v] stores the next nonzero edge we can take from v
+    for (; pt[v] < (int)adj[v].size(); pt[v]++) {
+        int id = adj[v][pt[v]];
+        int to = ed[id].to;
+        int go = ed[id].cap - ed[id].f;
+        if (dist[to] != dist[v] + 1) continue;
+        int fl = dfs(to, min(w, go));
+        w -= fl; res += fl;
+        ed[id].f += fl; ed[id ^ 1].f -= fl;
+        if (!w) return res;
+    }
+    return res;
+}
+
+ll dinic() {
+    ll res = 0;
+    while (bfs()) {
+        fill(pt.begin(), pt.end(), 0);
+        while(int fl = dfs(S, INF)) res += fl;
+    }
+    return res;
+}
+
+int main() {
+    int n; scanf("%d", &n);
+    init(100, 0, 25);
+    for(int i=0; i<n; i++){
+        char a, b; int c;
+        scanf("%c %c %d", &a, &b, &c);
+        add_edge(a - 'A', b - 'A', c);
+    }
+    printf("%lld\n", dinic());
+    return 0;
+}
+```
+
 Check: https://codeforces.com/contest/1184/submission/56653284 and SPOJ submission https://www.spoj.com/status/MTOTALF,nishanth2066/
 
 ### Scaling Algorithm
