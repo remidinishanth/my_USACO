@@ -6,3 +6,7 @@
 
 
 ### Bipartite matching
+
+### Edge-disjoint paths
+
+### Vertex-disjoint paths
