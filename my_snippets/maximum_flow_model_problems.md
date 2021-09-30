@@ -9,4 +9,4 @@
 
 ### Edge-disjoint paths
 
-### Vertex-disjoint paths
+### Node-disjoint paths
