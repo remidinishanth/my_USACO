@@ -16,6 +16,5 @@ number of disjoint paths from the source to the sink.
 
 ![](images/mflow_53.png)
 
-
 ![](images/mflow_54.png)
 ![](images/mflow_55.png)
