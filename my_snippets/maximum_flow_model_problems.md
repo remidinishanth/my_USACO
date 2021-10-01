@@ -1,3 +1,13 @@
+How to recognize max-flow problems? Often they are hard to detect and usually boil down to maximizing the movement of something from a location to another. We need to look at the constraints when we think we have a working solution based on maximum flow – they should suggest at least an `O(N³)` approach. If the number of locations is large, another algorithm (such as dynamic programming or greedy), is more appropriate.
+
+If the problem description sugggest multiple sources and/or sunks. We can convert this to a network that has a unique source and sink. We can just add node(call it super-source) and add edge with infinite capacity to every source.
+
+![](images/mflow_67.png)
+
+Say we have restriction of some node(say a city is only allowed some maximum amount of water), we can create an edge between two vertices with this capacity.
+
+![](images/mflow_66.png)
+
 ## Flow Graph Modeling
 
 * Recognizing that the problem is indeed a Network Flow problem(this will get better after you solve more Network Flow problems).
