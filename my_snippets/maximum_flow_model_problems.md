@@ -14,11 +14,8 @@ problem. Our first example of such a problem is as follows: we are given a
 directed graph with a source and a sink, and our task is to find the maximum
 number of disjoint paths from the source to the sink.
 
-#### Edge-disjoint paths
-
 ![](images/mflow_53.png)
 
-#### Node-disjoint paths
 
 ![](images/mflow_54.png)
 ![](images/mflow_55.png)
