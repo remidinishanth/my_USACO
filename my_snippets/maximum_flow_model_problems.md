@@ -24,6 +24,9 @@ that contains all nodes of the graph.
 ![](images/mflow_58.png)
 ![](images/mflow_59.png)
 
+![](images/mflow_60.png)
+![](images/mflow_61.png)
+
 ### Disjoint paths
 
 Many graph problems can be solved by reducing them to the maximum flow
