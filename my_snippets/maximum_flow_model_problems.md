@@ -31,6 +31,11 @@ that contains all nodes of the graph.
 
 A minimum node cover of a graph is a minimum set of nodes such that each edge of the graph has at least one endpoint in the set. In a general graph, finding a minimum node cover is a NP-hard problem. However, if the graph is bipartite, Konig’s theorem ˝ tells us that the size of a minimum node cover and the size of a maximum matching are always equal. Thus, we can calculate the size of a minimum node cover using a maximum flow algorithm.
 
+![](images/mflow_62.png)
+![](images/mflow_63.png)
+![](images/mflow_64.png)
+![](images/mflow_65.png)
+
 ### Disjoint paths
 
 Many graph problems can be solved by reducing them to the maximum flow
