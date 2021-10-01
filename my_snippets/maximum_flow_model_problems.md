@@ -16,6 +16,14 @@ contests. However, in bipartite graphs, the maximum matching problem is much eas
 ![](images/mflow_56.png)
 ![](images/mflow_57.png)
 
+Hall’s theorem can be used to find out whether a bipartite graph has a matching
+that contains all left or right nodes. If the number of left and right nodes is the
+same, Hall’s theorem tells us if it is possible to construct a perfect matching
+that contains all nodes of the graph.
+
+![](images/mflow_58.png)
+![](images/mflow_59.png)
+
 ### Disjoint paths
 
 Many graph problems can be solved by reducing them to the maximum flow
