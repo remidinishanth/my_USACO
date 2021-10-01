@@ -6,7 +6,7 @@ If the problem description sugggest multiple sources and/or sunks. We can conver
 
 Say we have restriction of some node(say a city is only allowed some maximum amount of water), we can create an edge between two vertices with this capacity.
 
-![](images/mflow_66.png)
+![](images/mflow_66.gif)
 
 ## Flow Graph Modeling
 
