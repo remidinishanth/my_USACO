@@ -28,7 +28,7 @@ Let's try to find minimum-cut with the minimum number of edges. An idea would be
 * Notice what happens if we multiply each edge capacity with a constant T. Clearly, the value of the maximum flow is multiplied by T, thus the value of the minimum cut is T times bigger than the original. A minimum cut in the original network is a minimum cut in the modified one as well.
 * Now suppose we add `1` to the capacity of each edge. Is a minimum cut in the original network a minimum cut in this one? The answer is no, see the below figure, take T = 2, each edge weight will be `2*e + 1`.
 
-![](images/mflow_75.png)
+![](images/mflow_74.gif)
 
 ## Flow Graph Modeling
 
