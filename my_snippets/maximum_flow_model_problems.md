@@ -8,7 +8,6 @@ Say we have restriction of some node(say a city is only allowed some maximum amo
 
 ![](images/mflow_66.gif)
 
-
 Maximum flow problems may appear out of nowhere. For example: “You are given the in and out degrees of the vertices of a directed graph. Your task is to find the edges (assuming that no edge can appear more than once).”
 
 **Solution:** First, notice that we can perform this simple test at the beginning. We can compute the number `M` of edges by summing the out-degrees or the in-degrees of the vertices. If these numbers are not equal, clearly there is no graph that could be built. This doesn’t solve our problem, though. There are some greedy approaches that come to mind, but none of them work. 
@@ -22,6 +21,14 @@ For each edge drawn from the super-source we assign a capacity equal to the out-
 An example is given below where the out-degrees are (2, 1, 1, 1) and the in-degrees (1, 2, 1, 1).
 
 ![](images/mflow_73.png)
+
+Some other problems may ask to separate two locations minimally. Some of these problems usually can be reduced to minimum-cut in a network.
+
+Let's try to find minimum-cut with the minimum number of edges. An idea would be to try to modify the original network in such a way that the minimum cut here is the minimum cut with the minimum edges in the original one.
+* Notice what happens if we multiply each edge capacity with a constant T. Clearly, the value of the maximum flow is multiplied by T, thus the value of the minimum cut is T times bigger than the original. A minimum cut in the original network is a minimum cut in the modified one as well.
+* Now suppose we add `T` to the capacity of each edge. Is a minimum cut in the original network a minimum cut in this one? The answer is no, see the below figure, take T = 2.
+
+![](images/mflow_74.png)
 
 ## Flow Graph Modeling
 
