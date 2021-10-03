@@ -37,6 +37,13 @@ that contains all nodes of the graph.
 ![](images/mflow_60.png)
 ![](images/mflow_61.png)
 
+### Vertex Cover in Bipartite Graphs
+
+* A vertex cover in a graph is a set of vertices that includes at least one endpoint of every edge, and a vertex cover is minimum if no other vertex cover has fewer vertices.
+* A matching in a graph is a set of edges, no two of which share an endpoint, and a matching is maximum if no other matching has more edges.
+* It is obvious from the definition that any vertex-cover set must be at least as large as any matching set (since for every edge in the matching, at least one vertex is needed in the cover). 
+* In particular, the minimum vertex cover set is at least as large as the maximum matching set. Kőnig's theorem states that, in any bipartite graph, the minimum vertex cover set and the maximum matching set have in fact the same size.
+
 #### Kőnig’s theorem
 
 A minimum node cover of a graph is a minimum set of nodes such that each edge of the graph has at least one endpoint in the set. In a general graph, finding a minimum node cover is a NP-hard problem. However, if the graph is bipartite, Konig’s theorem ˝ tells us that the size of a minimum node cover and the size of a maximum matching are always equal. Thus, we can calculate the size of a minimum node cover using a maximum flow algorithm.
@@ -48,12 +55,7 @@ A minimum node cover of a graph is a minimum set of nodes such that each edge of
 
 ![](images/mflow_65.png)
 
-#### Vertex Cover in Bipartite Graphs
-
-* A vertex cover in a graph is a set of vertices that includes at least one endpoint of every edge, and a vertex cover is minimum if no other vertex cover has fewer vertices.
-* A matching in a graph is a set of edges no two of which share an endpoint, and a matching is maximum if no other matching has more edges.
-* It is obvious from the definition that any vertex-cover set must be at least as large as any matching set (since for every edge in the matching, at least one vertex is needed in the cover). 
-* In particular, the minimum vertex cover set is at least as large as the maximum matching set. Kőnig's theorem states that, in any bipartite graph, the minimum vertex cover set and the maximum matching set have in fact the same size.
+Example:
 
 ![](images/mflow_68.png)
 
