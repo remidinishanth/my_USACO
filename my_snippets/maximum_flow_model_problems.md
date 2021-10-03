@@ -40,6 +40,10 @@ It is now true that a minimum-cut in the new network is minimum in the original 
 
 Let’s illustrate some more the min-cut pattern: “An undirected graph is given. What is the minimum number of edges that should be removed in order to disconnect the graph?” In other words the problem asks us to remove some edges in order for two nodes to be separated. This should ring a bell – a minimum cut approach might work. 
 
+We are not asked to separate two given vertices, but rather to disconnect optimally any two vertices, so we must take every pair of vertices and treat them as the source and the sink and keep the best one from these minimum-cuts.
+
+ An improvement can be made, however. Take one vertex, let’s say vertex numbered `1`. Because the graph should be disconnected, there must be another vertex unreachable from it. So it suffices to treat vertex `1` as the source and iterate through every other vertex and treat it as the sink.
+
 ## Flow Graph Modeling
 
 * Recognizing that the problem is indeed a Network Flow problem(this will get better after you solve more Network Flow problems).
