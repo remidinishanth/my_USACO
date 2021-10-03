@@ -36,6 +36,10 @@ We can fix this by choosing `T` large enough to neutralize the difference in the
 
 It is now true that a minimum-cut in the new network is minimum in the original network as well. However the converse is not true, and it is to our advantage. Notice how the difference between minimum cuts is now made by the number of edges in the cut. So we just find the min-cut in this new network to solve the problem correctly.
 
+#### Min-cut pattern
+
+Let’s illustrate some more the min-cut pattern: “An undirected graph is given. What is the minimum number of edges that should be removed in order to disconnect the graph?” In other words the problem asks us to remove some edges in order for two nodes to be separated. This should ring a bell – a minimum cut approach might work. 
+
 ## Flow Graph Modeling
 
 * Recognizing that the problem is indeed a Network Flow problem(this will get better after you solve more Network Flow problems).
