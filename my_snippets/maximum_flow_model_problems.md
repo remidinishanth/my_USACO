@@ -42,7 +42,9 @@ Let’s illustrate some more the min-cut pattern: “An undirected graph is give
 
 We are not asked to separate two given vertices, but rather to disconnect optimally any two vertices, so we must take every pair of vertices and treat them as the source and the sink and keep the best one from these minimum-cuts.
 
- An improvement can be made, however. Take one vertex, let’s say vertex numbered `1`. Because the graph should be disconnected, there must be another vertex unreachable from it. So it suffices to treat vertex `1` as the source and iterate through every other vertex and treat it as the sink.
+An improvement can be made, however. Take one vertex, let’s say vertex numbered `1`. Because the graph should be disconnected, there must be another vertex unreachable from it. So it suffices to treat vertex `1` as the source and iterate through every other vertex and treat it as the sink.
+ 
+What if instead of edges we now have to remove a minimum number of vertices to disconnect the graph? Now we are asked for a different min-cut, composed of vertices. We must somehow convert the vertices to edges though. Recall the problem above where we converted vertex-capacities to edge-capacities. The same trick works here. First “un-direct” the graph as in the previous example. Next double the number of vertices and deal edges the same way: an edge x-y is directed from the out-x vertex to in-y. Then convert the vertex to an edge by adding a 1-capacity arc from the in-vertex to the out-vertex. Now for each two vertices we must solve the sub-problem of minimally separating them. So, just like before take each pair of vertices and treat the out-vertex of one of them as the source and the in-vertex of the other one as the sink (this is because the only arc leaving the in-vertex is the one that goes to the out-vertex) and take the lowest value of the maximum flow. This time we can’t improve in the quadratic number of steps needed, because the first vertex may be in an optimum solution and by always considering it as the source we lose such a case 
 
 ## Flow Graph Modeling
 
