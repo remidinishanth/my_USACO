@@ -30,6 +30,10 @@ Let's try to find minimum-cut with the minimum number of edges. An idea would be
 
 ![](images/mflow_74.gif)
 
+Why did this happen? Take an arbitrary cut. The value of the cut will be T times the original value of the cut, plus the number of edges in it. Thus, a non-minimum cut in the first place could become minimum if it contains just a few edges. This is because the constant might not have been chosen properly in the beginning, as is the case in the example above.
+
+We can fix this by choosing `T` large enough to neutralize the difference in the number of edges between cuts in the network. In the above example `T = 4` would be enough, but to generalize, we take T = 10, one more than the number of edges in the original network, and one more than the number of edges that could possibly be in a minimum-cut. 
+
 ## Flow Graph Modeling
 
 * Recognizing that the problem is indeed a Network Flow problem(this will get better after you solve more Network Flow problems).
