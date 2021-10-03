@@ -34,6 +34,8 @@ Why did this happen? Take an arbitrary cut. The value of the cut will be T times
 
 We can fix this by choosing `T` large enough to neutralize the difference in the number of edges between cuts in the network. In the above example `T = 4` would be enough, but to generalize, we take T = 10, one more than the number of edges in the original network, and one more than the number of edges that could possibly be in a minimum-cut. 
 
+It is now true that a minimum-cut in the new network is minimum in the original network as well. However the converse is not true, and it is to our advantage. Notice how the difference between minimum cuts is now made by the number of edges in the cut. So we just find the min-cut in this new network to solve the problem correctly.
+
 ## Flow Graph Modeling
 
 * Recognizing that the problem is indeed a Network Flow problem(this will get better after you solve more Network Flow problems).
