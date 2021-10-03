@@ -52,7 +52,11 @@ A minimum node cover of a graph is a minimum set of nodes such that each edge of
 
 ![](images/mflow_68.png)
 
+Let `G=(V,E)` be a bipartite graph and let `L, R` be the two parts of the vertex set `V`. Suppose that `M` is a maximum matching for `G`. No vertex in a vertex cover can cover more than one edge of `M` (because the edge half-overlap would prevent M from being a matching in the first place), so if a vertex cover with `|M|` vertices can be constructed, it must be a minimum cover.
+
 ![](images/mflow_69.png)
+
+Let `Z` be the set of vertices reachable from `s` in the residual graph with maximum flow, then `(L - Z) ∪ (R ∩ Z)` forms minimum vertex cover. Look at the following constructive proof.
 
 ![](images/mflow_72.png)
 
