@@ -50,9 +50,14 @@ A minimum node cover of a graph is a minimum set of nodes such that each edge of
 
 #### Vertex Cover in Bipartite Graphs
 
+* A vertex cover in a graph is a set of vertices that includes at least one endpoint of every edge, and a vertex cover is minimum if no other vertex cover has fewer vertices.
+* A matching in a graph is a set of edges no two of which share an endpoint, and a matching is maximum if no other matching has more edges.
+* It is obvious from the definition that any vertex-cover set must be at least as large as any matching set (since for every edge in the matching, at least one vertex is needed in the cover). 
+* In particular, the minimum vertex cover set is at least as large as the maximum matching set. Kőnig's theorem states that, in any bipartite graph, the minimum vertex cover set and the maximum matching set have in fact the same size.
+
 ![](images/mflow_68.png)
 
-Let `G=(V,E)` be a bipartite graph and let `L, R` be the two parts of the vertex set `V`. Suppose that `M` is a maximum matching for `G`. No vertex in a vertex cover can cover more than one edge of `M` (because the edge half-overlap would prevent M from being a matching in the first place), so if a vertex cover with `|M|` vertices can be constructed, it must be a minimum cover.
+Let `G = (V,E)` be a bipartite graph and let `L, R` be the two parts of the vertex set `V`. Suppose that `M` is a maximum matching for `G`. No vertex in a vertex cover can cover more than one edge of `M` (because the edge half-overlap would prevent M from being a matching in the first place), so if a vertex cover with `|M|` vertices can be constructed, it must be a minimum cover.
 
 ![](images/mflow_69.png)
 
