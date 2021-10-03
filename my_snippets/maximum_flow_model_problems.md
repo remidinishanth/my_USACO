@@ -26,9 +26,9 @@ Some other problems may ask to separate two locations minimally. Some of these p
 
 Let's try to find minimum-cut with the minimum number of edges. An idea would be to try to modify the original network in such a way that the minimum cut here is the minimum cut with the minimum edges in the original one.
 * Notice what happens if we multiply each edge capacity with a constant T. Clearly, the value of the maximum flow is multiplied by T, thus the value of the minimum cut is T times bigger than the original. A minimum cut in the original network is a minimum cut in the modified one as well.
-* Now suppose we add `T` to the capacity of each edge. Is a minimum cut in the original network a minimum cut in this one? The answer is no, see the below figure, take T = 2.
+* Now suppose we add `1` to the capacity of each edge. Is a minimum cut in the original network a minimum cut in this one? The answer is no, see the below figure, take T = 2, each edge weight will be `2*e + 1`.
 
-![](images/mflow_74.png)
+![](images/mflow_75.png)
 
 ## Flow Graph Modeling
 
