@@ -8,6 +8,21 @@ Say we have restriction of some node(say a city is only allowed some maximum amo
 
 ![](images/mflow_66.gif)
 
+
+Maximum flow problems may appear out of nowhere. For example: “You are given the in and out degrees of the vertices of a directed graph. Your task is to find the edges (assuming that no edge can appear more than once).”
+
+**Solution:** First, notice that we can perform this simple test at the beginning. We can compute the number `M` of edges by summing the out-degrees or the in-degrees of the vertices. If these numbers are not equal, clearly there is no graph that could be built. This doesn’t solve our problem, though. There are some greedy approaches that come to mind, but none of them work. 
+
+We will combine the tricks discussed above to give a max-flow algorithm that solves this problem.
+
+First, build a network that has `2` (in/out) vertices for each initial vertex. Now draw an edge from every out vertex to every in vertex. Next, add a super-source and draw an edge from it to every out-vertex. Add a super-sink and draw an edge from every in vertex to it. We now need some capacities for this to be a flow network.
+
+For each edge drawn from the super-source we assign a capacity equal to the out-degree of the vertex it points to. As there may be only one arc from a vertex to another, we assign a 1 capacity to each of the edges that go from the outs to the ins. The capacities of the edges that enter the super-sink will be equal to the in-degrees of the vertices. If the maximum flow in this network equals `M` – the number of edges, we have a solution.
+
+An example is given below where the out-degrees are (2, 1, 1, 1) and the in-degrees (1, 2, 1, 1).
+
+![](images/mflow_73.png)
+
 ## Flow Graph Modeling
 
 * Recognizing that the problem is indeed a Network Flow problem(this will get better after you solve more Network Flow problems).
