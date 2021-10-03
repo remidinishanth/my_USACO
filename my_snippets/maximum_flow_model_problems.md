@@ -67,6 +67,8 @@ Let `Z` be the set of vertices reachable from `s` in the residual graph with max
 
 ![](images/mflow_72.png)
 
+The nodes that do not belong to a minimum node cover form a maximum independent set. This is the largest possible set of nodes such that no two nodes in the set are connected with an edge. Once again, finding a maximum independent set in a general graph is a NP-hard problem, but in a bipartite graph we can use Konig’s theorem to solve the problem efficiently
+
 ### Disjoint paths
 
 Many graph problems can be solved by reducing them to the maximum flow
