@@ -54,8 +54,6 @@ A minimum node cover of a graph is a minimum set of nodes such that each edge of
 
 ![](images/mflow_69.png)
 
-![](images/mflow_70.png)
-
 ![](images/mflow_71.png)
 
 ### Disjoint paths
