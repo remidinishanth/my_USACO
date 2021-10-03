@@ -48,6 +48,16 @@ A minimum node cover of a graph is a minimum set of nodes such that each edge of
 
 ![](images/mflow_65.png)
 
+#### Vertex Cover in Bipartite Graphs
+
+![](images/mflow_68.png)
+
+![](images/mflow_69.png)
+
+![](images/mflow_70.png)
+
+![](images/mflow_71.png)
+
 ### Disjoint paths
 
 Many graph problems can be solved by reducing them to the maximum flow
