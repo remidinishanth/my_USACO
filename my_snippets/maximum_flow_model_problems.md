@@ -68,11 +68,11 @@ each node belongs to at most one pair.
 There are polynomial algorithms for finding maximum matchings in general graphs, but such algorithms are complex and rarely seen in programming
 contests. However, in bipartite graphs, the maximum matching problem is much easier to solve, because we can reduce it to the maximum flow problem.
 
-![](images/mflow_87.png)
-![](images/mflow_88.png)
-
 ![](images/mflow_56.png)
 ![](images/mflow_57.png)
+
+![](images/mflow_87.png)
+![](images/mflow_88.png)
 
 Hall’s theorem can be used to find out whether a bipartite graph has a matching
 that contains all left or right nodes. If the number of left and right nodes is the
