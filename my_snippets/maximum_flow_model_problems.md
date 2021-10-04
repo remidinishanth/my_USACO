@@ -147,3 +147,9 @@ A path cover is a set of paths in a graph such that each node of the graph belon
 ![](images/mflow_79.png)
 
 ![](images/mflow_80.png)
+
+![](images/mflow_84.png)
+
+![](images/mflow_85.png)
+
+![](images/mflow_86.png)
