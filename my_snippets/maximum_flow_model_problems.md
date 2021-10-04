@@ -68,6 +68,9 @@ each node belongs to at most one pair.
 There are polynomial algorithms for finding maximum matchings in general graphs, but such algorithms are complex and rarely seen in programming
 contests. However, in bipartite graphs, the maximum matching problem is much easier to solve, because we can reduce it to the maximum flow problem.
 
+![](images/mflow_87.png)
+![](images/mflow_88.png)
+
 ![](images/mflow_56.png)
 ![](images/mflow_57.png)
 
