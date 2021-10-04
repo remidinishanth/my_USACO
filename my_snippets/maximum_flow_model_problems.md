@@ -125,3 +125,13 @@ number of disjoint paths from the source to the sink.
 
 ![](images/mflow_54.png)
 ![](images/mflow_55.png)
+
+### Path Covers
+
+A path cover is a set of paths in a graph such that each node of the graph belongs to at least one path. It turns out that in directed, acyclic graphs, we can reduce the problem of finding a minimum path cover to the problem of finding a maximum flow in another graph.
+
+![](images/mflow_75.png)
+
+![](images/mflow_76.png)
+
+
