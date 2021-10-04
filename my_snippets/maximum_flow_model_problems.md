@@ -171,7 +171,7 @@ If there were no edges, what should we do? Take all vertices with positive weigh
 
 Let's choose all the vertices with positive weight `A = { v | cost(v) ≥ 0 }` and exclude all the vertices with negative vertices `B = { v | cost(v) < 0 }`, and resolve conflicts. We either need to take negative vertices if there is a edge or exclude some positive vertices. This looks like a min-cut problem.
 
-We will need to make costs positive otherwise the problem cannot be solved in polynomial time.
+We cannot add negative weight edges instead we can add edges to sink. We will need to make costs positive otherwise the problem cannot be solved in polynomial time.
 
 To add restrictions of choosing vertices, we add edges of inifinite capacities so that if we choose the starting vertex of edge, then the ending vertex is also present in the cut. Infinite capacity edges forbids us from putting endpoints in different cuts.
 
