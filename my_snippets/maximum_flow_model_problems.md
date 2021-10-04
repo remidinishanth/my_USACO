@@ -173,7 +173,7 @@ Let's choose all the vertices with positive weight `A = { v | cost(v) ≥ 0 }` a
 
 We will need to make costs positive otherwise the problem cannot be solved in polynomial time.
 
-To add restrictions of choosing vertices, we add edges of inifinite capacities so that if we choose the starting vertex of edge, then the ending vertex is also present in the cut.
+To add restrictions of choosing vertices, we add edges of inifinite capacities so that if we choose the starting vertex of edge, then the ending vertex is also present in the cut. Infinite capacity edges forbids us from putting endpoints in different cuts.
 
 ![](images/mflow_90.png)
 
