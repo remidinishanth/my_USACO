@@ -156,3 +156,16 @@ A path cover is a set of paths in a graph such that each node of the graph belon
 ![](images/mflow_85.png)
 
 ![](images/mflow_86.png)
+
+### Closure Problem
+
+A closure of a directed graph is a set of vertices C, such that no edges leave C - There shouldn't be any edges going out of C, there can be edges into C.  The closure problem is the task of finding the maximum-weight or minimum-weight closure in a vertex-weighted directed graph.
+
+Reduction to maximum flow problem
+* For each vertex `v` with positive weight in `G`, the augmented graph `H` contains an edge from `s` to `v` with capacity equal to the weight of `v`
+* For each vertex v with negative weight in G, the augmented graph H contains an edge from `v` to `t` whose capacity is the negation of the weight of `v`. 
+* All of the edges in G are given infinite capacity in H.
+
+A minimum cut separating `s` from `t` in this graph cannot have any edges of `G` passing in the forward direction across the cut: a cut with such an edge would have infinite capacity and would not be minimum. Therefore, the set of vertices on the same side of the cut as s automatically forms a closure C. 
+
+We are asked to find subset of V with maximum cost such that if `u ∈ S` and `uv ∈ E` => `v ∈ S`.
