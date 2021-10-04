@@ -169,3 +169,5 @@ Reduction to maximum flow problem
 A minimum cut separating `s` from `t` in this graph cannot have any edges of `G` passing in the forward direction across the cut: a cut with such an edge would have infinite capacity and would not be minimum. Therefore, the set of vertices on the same side of the cut as s automatically forms a closure C. 
 
 We are asked to find subset of V with maximum cost such that if `u ∈ S` and `uv ∈ E` => `v ∈ S`.
+
+Why shouldn't we take all the vertices? Some of the costs might be negative, if all costs are positive then ofcourse we can take all the vertices.
