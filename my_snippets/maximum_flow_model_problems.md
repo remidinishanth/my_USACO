@@ -161,13 +161,27 @@ A path cover is a set of paths in a graph such that each node of the graph belon
 
 A closure of a directed graph is a set of vertices C, such that no edges leave C - There shouldn't be any edges going out of C, there can be edges into C.  The closure problem is the task of finding the maximum-weight or minimum-weight closure in a vertex-weighted directed graph.
 
+We are asked to find subset of V with maximum cost such that if `u ∈ S` and `uv ∈ E` => `v ∈ S`.
+
+Why shouldn't we take all the vertices? Some of the costs might be negative, if all costs are positive then ofcourse we can take all the vertices.
+
+**Solution:**
+
+If there were no edges, what should we do? Take all vertices with positive weight.
+
+Let's choose all the vertices with positive weight `A = { v | cost(v) ≥ 0 }` and exclude all the vertices with negative vertices `B = { v | cost(v) < 0 }`, and resolve conflicts. We either need to take negative vertices if there is a edge or exclude some positive vertices. This looks like a min-cut problem.
+
+We will need to make costs positive otherwise the problem cannot be solved in polynomial time.
+
+To add restrictions of choosing vertices, we add edges of inifinite capacities so that if we choose the starting vertex of edge, then the ending vertex is also present in the cut.
+
+![](images/mflow_90.png)
+
 Reduction to maximum flow problem
 * For each vertex `v` with positive weight in `G`, the augmented graph `H` contains an edge from `s` to `v` with capacity equal to the weight of `v`
 * For each vertex v with negative weight in G, the augmented graph H contains an edge from `v` to `t` whose capacity is the negation of the weight of `v`. 
 * All of the edges in G are given infinite capacity in H.
 
+![](images/mflow_89.png)
+
 A minimum cut separating `s` from `t` in this graph cannot have any edges of `G` passing in the forward direction across the cut: a cut with such an edge would have infinite capacity and would not be minimum. Therefore, the set of vertices on the same side of the cut as s automatically forms a closure C. 
-
-We are asked to find subset of V with maximum cost such that if `u ∈ S` and `uv ∈ E` => `v ∈ S`.
-
-Why shouldn't we take all the vertices? Some of the costs might be negative, if all costs are positive then ofcourse we can take all the vertices.
