@@ -1,3 +1,6 @@
+### TODO 
+https://codeforces.com/blog/entry/74684
+
 ### Use member initialization lists for struct constructor
 
 ```cpp
