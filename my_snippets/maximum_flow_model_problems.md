@@ -182,8 +182,11 @@ Reduction to maximum flow problem
 * For each vertex v with negative weight in G, the augmented graph H contains an edge from `v` to `t` whose capacity is the negation of the weight of `v`. 
 * All of the edges in G are given infinite capacity in H.
 
+A minimum cut separating `s` from `t` in this graph cannot have any edges of `G` passing in the forward direction across the cut: a cut with such an edge would have infinite capacity and would not be minimum. Therefore, the set of vertices on the same side of the cut as s automatically forms a closure C. 
+
+![](images/mflow_93.png)
+
 ![](images/mflow_91.png)
 ![](images/mflow_92.png)
 
-
-A minimum cut separating `s` from `t` in this graph cannot have any edges of `G` passing in the forward direction across the cut: a cut with such an edge would have infinite capacity and would not be minimum. Therefore, the set of vertices on the same side of the cut as s automatically forms a closure C. 
+The flow network for the example dependency graph, along with its minimum cut. The cut has capacity `13` and `C = 15`, so the total profit for the selected jobs is `2`.
