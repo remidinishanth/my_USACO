@@ -197,5 +197,6 @@ If we are given positive and negative costs/scores on nodes, then we can think i
 
 * Firstly, we assume that we take all the positive weight nodes, then we can think that we include positive weighted node, we will get score[x] as penality. Therefore, we draw edge from `s` to `node` meaning that including it gives us no penality.
 * For a node with negative weight, we can think that if we include it, then we have to pay penality, hence if node is part of S of s-t cut, we get penalised by weight. Therefore, we draw an edge from `node` to `t`.
+* Minimizing the cut is equivalent to minimizing the penalty.
 
 ![](images/mflow_94.png)
