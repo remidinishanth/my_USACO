@@ -29,20 +29,21 @@ https://codeforces.com/contest/1278/submission/67749296
 	   
 ```cpp	   
 template<int um> class UF {
-	public:
-	vector<int> par,rank,cnt;
-	UF() {par=rank=vector<int>(um,0); cnt=vector<int>(um,1); for(int i=0;i<um;i++) par[i]=i;}
-	void reinit() {for(int i=0;i<um;i++) rank[i]=0,cnt[i]=1,par[i]=i;}
-	int operator[](int x) {return (par[x]==x)?(x):(par[x] = operator[](par[x]));}
-	int count(int x) { return cnt[operator[](x)];}
-	int operator()(int x,int y) {
-		if((x=operator[](x))==(y=operator[](y))) return x;
-		cnt[y]=cnt[x]=cnt[x]+cnt[y];
-		if(rank[x]>rank[y]) return par[x]=y;
-		rank[x]+=rank[x]==rank[y]; return par[y]=x;
-	}
+    public:
+    vector<int> par,rank,cnt;
+    UF() {par=rank=vector<int>(um,0); cnt=vector<int>(um,1); for(int i=0;i<um;i++) par[i]=i;}
+    void reinit() {for(int i=0;i<um;i++) rank[i]=0,cnt[i]=1,par[i]=i;}
+    int operator[](int x) {return (par[x]==x)?(x):(par[x] = operator[](par[x]));}
+    int count(int x) { return cnt[operator[](x)];}
+    int operator()(int x,int y) {
+        if((x=operator[](x))==(y=operator[](y))) return x;
+        cnt[y]=cnt[x]=cnt[x]+cnt[y];
+        if(rank[x]>rank[y]) return par[x]=y;
+        rank[x]+=rank[x]==rank[y]; return par[y]=x;
+    }
 };
 UF<500000> uf;
+
 ```
 
 Can directly use uf[y]==uf[x] to check whether both are in same union and uf(y,x); to combine both of them
