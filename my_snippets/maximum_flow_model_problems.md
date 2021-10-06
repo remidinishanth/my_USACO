@@ -190,3 +190,12 @@ A minimum cut separating `s` from `t` in this graph cannot have any edges of `G`
 ![](images/mflow_92.png)
 
 The flow network for the example dependency graph, along with its minimum cut. The cut has capacity `13` and `C = 15`, so the total profit for the selected jobs is `2`.
+
+#### How to model Minimum cut problems?
+
+If we are given positive and negative costs/scores on nodes, then we can think in terms of penality. Firstly, we should make all the edges positives. Minimum cut tries to minimize the edge weights, hence we can think the give costs as penalities.
+
+* Firstly, we assume that we take all the positive weight nodes, then we can think that we include positive weighted node, we will get score[x] as penality. Therefore, we draw edge from `s` to `node` meaning that including it gives us no penality.
+* For a node with negative weight, we can think that if we include it, then we have to pay penality, hence if node is part of S of s-t cut, we get penalised by weight. Therefore, we draw an edge from `node` to `t`.
+
+![](images/mflow_94.png)
