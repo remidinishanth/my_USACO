@@ -182,6 +182,8 @@ Reduction to maximum flow problem
 * For each vertex v with negative weight in G, the augmented graph H contains an edge from `v` to `t` whose capacity is the negation of the weight of `v`. 
 * All of the edges in G are given infinite capacity in H.
 
-![](images/mflow_89.png)
+![](images/mflow_91.png)
+![](images/mflow_92.png)
+
 
 A minimum cut separating `s` from `t` in this graph cannot have any edges of `G` passing in the forward direction across the cut: a cut with such an edge would have infinite capacity and would not be minimum. Therefore, the set of vertices on the same side of the cut as s automatically forms a closure C. 
