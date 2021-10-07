@@ -575,3 +575,19 @@ fun main(args: Array<String>) {
     println(s.joinToString("\n"))
 }
 // source: https://codeforces.com/contest/1170/submission/54762607
+
+// Usage of string in kotlin
+fun main() {
+    repeat(readInt()) {
+        var s = readLine()!!
+        val i = s.indexOf('1')
+        if (i == -1) {
+            println(0)
+        } else {
+            val j = s.lastIndexOf('1')
+            val ans = s.substring(i until j).count {it == '0'}
+            println(ans)
+        }
+    }
+}
+// source: tourist https://codeforces.com/contest/1570/submission/130540347
