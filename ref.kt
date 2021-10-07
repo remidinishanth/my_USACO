@@ -351,6 +351,10 @@ val list = listOf('a', 'A', 'b', 'B', 'A', 'a')
 println(list.distinct()) // [a, A, b, B]
 println(list.distinctBy { it.toUpperCase() }) // [a, b]
 
+// sortedBy
+val list = listOf("aaa", "cc", "bbbb")
+val sorted = list.sortedBy { it.length }
+
 
 val numbers = listOf(5, 2, 10, 4)
 val sum = numbers.reduce { sum, element -> sum + element } // 21
@@ -367,8 +371,29 @@ v.sortBy({it.first})
 v.sortWith(compareBy({it.first},{it.second}))
 v[i].first
 
+// Working with Pairs or tuples
 val cnd = mutableListOf<Pair<Long, Long>>()
 cnd.sortBy { it.first }
+
+// Working with Pair<Int, Int>, sorting based on first key
+val n = readInt()
+var arr = readInts()
+var V = mutableListOf<Pair<Int, Int>>()
+for(i in 1..n){
+    V.add(Pair(-arr[i-1], i))
+}
+var nV = V.sortedBy { i -> i.first };
+var ans = 0
+for(i in 1..n) {
+    ans += -nV[i-1].first*(i-1) + 1
+}
+
+// same as above can be done by
+V.sortBy{it.first};
+var ans = 0
+for(i in 1..n) {
+    ans += -V[i-1].first*(i-1) + 1
+}
 
 val opts = ArrayList<Triple<Int, Int, Int>>()
 opts.sortBy { it.third }
@@ -439,20 +464,3 @@ fun main(){
     }
 }
 // source: https://codeforces.com/contest/1533/problem/D
-
-// Working with Pair<Int, Int>, sorting based on first key
-val n = readInt()
-var arr = readInts()
-var V = mutableListOf<Pair<Int, Int>>()
-for(i in 1..n){
-    V.add(Pair(-arr[i-1], i))
-}
-var nV = V.sortedBy { i -> i.first };
-var ans = 0
-for(i in 1..n) {
-    ans += -nV[i-1].first*(i-1) + 1
-}
-
-// sortedBy
-val list = listOf("aaa", "cc", "bbbb")
-val sorted = list.sortedBy { it.length }
