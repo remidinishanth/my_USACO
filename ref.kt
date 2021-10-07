@@ -65,7 +65,7 @@ operator fun plus(other: Int): Int
 operator fun String?.plus(other: Any?): String
 
 // Assignment Operators
-a +=b
+a += b
 
 // Unary prefix and Increment / Decrement Operators
 ++a, !a, -a
