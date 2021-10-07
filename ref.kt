@@ -452,3 +452,7 @@ var ans = 0
 for(i in 1..n) {
     ans += -nV[i-1].first*(i-1) + 1
 }
+
+// sortedBy
+val list = listOf("aaa", "cc", "bbbb")
+val sorted = list.sortedBy { it.length }
