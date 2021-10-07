@@ -208,9 +208,6 @@ val strings = listOf("Anne", "Karen", "Peter") // List<String>
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)  // Map<String, Int>
 val set = setOf("a", "b", "c")                 // Set<String>
 
-val numbers = mutableListOf("one", "two", "three", "four")
-numbers.add("five")   // this is OK    
-//numbers = mutableListOf("six", "seven")      // compilation error
 
 // A pair of interfaces represent each collection type:
 // A read-only interface that provides operations for accessing collection elements.
@@ -221,7 +218,7 @@ numbers.add("five")   // this is OK
 // Although, if you try to reassign a val collection, you'll get a compilation error.
 val numbers = mutableListOf("one", "two", "three", "four")
 numbers.add("five")   // this is OK    
-//numbers = mutableListOf("six", "seven")      // compilation error
+// numbers = mutableListOf("six", "seven")      // compilation error
 
 // Collection - Collection<T> is the root of the collection hierarchy.
 // Collection inherits from the Iterable<T> interface that defines the operations for iterating elements.
