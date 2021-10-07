@@ -169,6 +169,7 @@ using namespace std;
 tcT> using V = vector<T>;
 
 #define each(a,x) for (auto& a: x)
+#define pb push_back
 
 using pi = pair<int,int>;
 using vi = V<int>;
