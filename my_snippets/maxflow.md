@@ -170,6 +170,7 @@ tcT> using V = vector<T>;
 
 #define each(a,x) for (auto& a: x)
 #define pb push_back
+#define sz(x) int((x).size())
 
 using pi = pair<int,int>;
 using vi = V<int>;
