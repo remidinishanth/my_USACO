@@ -439,3 +439,16 @@ fun main(){
     }
 }
 // source: https://codeforces.com/contest/1533/problem/D
+
+// Working with Pair<Int, Int>, sorting based on first key
+val n = readInt()
+var arr = readInts()
+var V = mutableListOf<Pair<Int, Int>>()
+for(i in 1..n){
+    V.add(Pair(-arr[i-1], i))
+}
+var nV = V.sortedBy { i -> i.first };
+var ans = 0
+for(i in 1..n) {
+    ans += -nV[i-1].first*(i-1) + 1
+}
