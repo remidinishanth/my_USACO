@@ -415,3 +415,42 @@ fun f(x: Int): Int {
     while (cur % 10 == 0) cur /= 10
     return cur
 }
+
+
+import kotlin.math.round
+ 
+private fun readLn() = readLine()!! // string line
+private fun readInt() = readLn().toInt() // single int
+private fun readLong() = readLn().toLong() // single long
+private fun readDouble() = readLn().toDouble() // single double
+private fun readStrings() = readLn().split(" ") // list of strings
+private fun readInts() = readStrings().map { it.toInt() } // list of ints
+private fun readLongs() = readStrings().map { it.toLong() } // list of longs
+private fun readDoubles() = readStrings().map { it.toDouble() } // list of doubles
+ 
+fun main(){
+    // var TC = readInt()
+    var TC = 1
+    for(tc in 1..TC){
+        var (n, m) = readInts()
+        var S = mutableSetOf<String>()
+        for(i in 1..n){
+            var s = readLn()
+            S.add(s)
+        }
+        var Q = readInt()
+        for(q in 1..Q){
+            var s = readLn()
+            var Ans = mutableSetOf<String>()
+            for(i in 0..m){
+                // from 0..i-1 & i+1..
+                var t = s.substring(0, i) + s.substring(i+1)
+                // println("Debug $i, $t")
+                if(S.contains(t)) Ans.add(t)
+            }
+            println(Ans.size)
+        }
+    }
+}
+
+// source: https://codeforces.com/contest/1533/problem/D
