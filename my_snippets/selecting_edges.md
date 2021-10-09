@@ -2,6 +2,30 @@ Given an arbitrary undirected graph, find the maximum number of pairs of edges s
 
 ![](images/edge_select_2.png)
 
+Example:
+
+Input
+```
+7
+4 1 5 1
+1 1 1 1
+3 3 3 3
+1 1 4 1
+6 1 1 1
+5 1 4 1
+6 1 1 1
+```
+
+Output
+```
+3
+1 6
+2 4
+5 7
+```
+
+Here are the points and the moves for the ones that get chosen for the moves from the first example:
+
 ![](images/edge_select_3.png)
 
 source: https://codeforces.com/contest/1519/problem/E
