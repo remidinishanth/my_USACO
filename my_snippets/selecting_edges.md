@@ -32,6 +32,8 @@ source: https://codeforces.com/contest/1519/problem/E
 
 ![](images/edge_select_1.png)
 
+![](images/edge_select_4.png)
+
 ```cpp
 #include <iostream>
 #include <cstdio>
