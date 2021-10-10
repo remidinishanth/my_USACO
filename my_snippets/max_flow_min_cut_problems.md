@@ -28,4 +28,6 @@ Consider the flow network as follows:
 * `m` arcs from the vertices representing the keys to the sink(each with capacity `bⱼ`)
 * For each chosen lock, an arc from the respective chest-vertex to the respective key-vertex with infinite capacity.
 
+![](images/mflow_p_5.png)
+
 If we find the minimum cut from the source to the sink, then Bob's profit is `sum(aᵢ) - min_cut`.
