@@ -21,3 +21,11 @@ We have to minimise the cost paid by Alice, how about modelling as as flow probl
 ![](images/mflow_p_2.png)
 
 ![](images/mflow_p_4.png)
+
+Consider the flow network as follows:
+* Each chest and each key represents a vertex
+* `n` arcs from the source to the chests(each having capacity `aᵢ`)
+* `m` arcs from the vertices representing the keys to the sink(each with capacity `bⱼ`)
+* For each chosen lock, an arc from the respective chest-vertex to the respective key-vertex with infinite capacity.
+
+If we find the minimum cut from the source to the sink, then Bob's profit is `sum(aᵢ) - min_cut`.
