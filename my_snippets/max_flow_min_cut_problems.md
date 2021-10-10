@@ -50,6 +50,8 @@ If Alice has to win, we need to make sure that Bob will not be able to make posi
 Problem boils down to
 * Finding subset of edges from `c_ij` which saturates outgoing edges from `s`.
 
+We have `6` nodes on the chests of the graph, each node can store flow from `0` to `4`, so we have `5^6` states for flow. We can find what is the minimum cost required for the prefix on the left to maintain this flow, to do this we can go through one by one node for each of the keys nodes and use dynamic programming.
+
 Here the constraints on `a𝑖`, `n` and `m` come in handy. We can use a dynamic programming with the flow over all arcs going from the source as one of the states. One of the ways to implement it is to have `(f₁, f₂ ,…, fₙ , i, j, r)` as the state, where `f₁` through `fₙ` are the values of the flow going from the arcs from the source, `i` is the current vertex in the left part we consider,`j` is the current vertex in the right part we consider, and `r` is the flow we already pushed through the arc connecting vertex `j` of the right part to the sink (and the value we store for this state is the minimum cost Alice has pay to reach this state). 
 
 There are two basic types of transitions in this dynamic programming: we either skip the arc from `i` to `j`, or pick it and transfer some flow through it; and no matter what we've chosen, we move to the next vertex of the left part (or to 1 and increase `j` by 1 if we are already considering the `n-th` vertex of the left part). The constraints were loose enough to implement this dp basically in any form (there was no need to compress the states into single integers).
