@@ -38,7 +38,7 @@ If we find the minimum cut from the source to the sink, then Bob's profit is `su
 * What ever edges from `s` to `chests` in the cut, Bob will not get these coins
 * For edges `keys` to `t` which are int he cut, Bob will have to pay for the keys
 
-If Alice has to win, we need to make sure that Bob will not be able to make positive profit, in other words, `project_total - min_cost = 0` that is `project_total = maximum_flow`. So essentially, we will need to choose minimum cost pairs `{chests, locks}` that is `c_ij` which saturates the graph from `s`.
+If Alice has to win, we need to make sure that Bob will not be able to make positive profit, in other words, `project_total - min_cost = 0` that is `project_total = maximum_flow`. So essentially, we will need to choose minimum cost pairs `{chests, locks}` that is `c_ij` which saturates the edges outgoing from `s`, thus disconnecting s from other nodes in the graph.
 
 Unfortunately, even iterating through all subsets of locks is too slow. To improve this solution, we should look at the minimum cut and its usage a bit more in detail. Notice that Bob can always take no keys and open no chests to get a profit of zero, so Alice's goal is to ensure that it is the best Bob's option. If Bob takes no chests and no keys, it means that the cut divides the network into two parts: the source and all other vertices. And, in terms of flows, it means that the maximum flow in this network **should saturate all arcs going from the source** (I highlighted it because it is the key idea of the solution).
 
