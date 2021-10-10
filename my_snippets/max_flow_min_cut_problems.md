@@ -10,4 +10,6 @@ Clearly, if the sum of the coins in all the chests > cost of buying all the keys
 
 Observation: Note that here `n`, `m`, `aᵢ` and `bⱼ` are small.
 
+Brute force solution is to iterate over each pair of (chest, lock) and decide whether we have to put this lock on the chest or not. We have `mn` number of pairs, so it will time out.
+
 Firstly, let's try to find some naive solution for this problem. Let's iterate on the subset of locks Alice puts on the chests. After choosing the subset of locks, how to check whether Bob can gain positive profit? We can iterate on the subset of keys he can buy as well, but in fact, this problem has a polynomial solution.
