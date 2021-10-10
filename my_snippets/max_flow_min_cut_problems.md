@@ -22,6 +22,8 @@ We have to minimise the cost paid by Alice, Let's say Alice has picked his locks
 
 ![](images/mflow_p_4.png)
 
+Here basically, chests are projects and keys are tools.
+
 If we iterate over the subset of locks, we choose to put then,
 
 Consider the flow network as follows:
