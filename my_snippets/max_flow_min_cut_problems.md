@@ -24,7 +24,7 @@ We have to minimise the cost paid by Alice, Let's say Alice has picked his locks
 
 Here basically, chests are projects and keys are tools.
 
-If we iterate over the subset of locks, we choose to put then,
+Suppose that we have decided the subset of pairs `{chests, locks}` that Alice has decided, then:
 
 Consider the flow network as follows:
 * Each chest and each key represents a vertex
