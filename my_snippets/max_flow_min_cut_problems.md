@@ -47,6 +47,7 @@ Unfortunately, even iterating through all subsets of locks is too slow. To impro
 
 If Alice has to win, we need to make sure that Bob will not be able to make positive profit, in other words, `project_total - min_cost = 0` that is `project_total = maximum_flow`. So essentially, we will need to choose minimum cost pairs `{chests, locks}` that is `c_ij` which saturates the edges outgoing from `s`, thus disconnecting s from other nodes in the graph.
 
+* Find subset of edges from `c_ij` which saturates outgoing edges from `s`.
 
 Here the constraints on `a𝑖`, `n` and `m` come in handy. We can use a dynamic programming with the flow over all arcs going from the source as one of the states. One of the ways to implement it is to have `(f₁, f₂ ,…, fₙ , i, j, r)` as the state, where `f₁` through `fₙ` are the values of the flow going from the arcs from the source, `i` is the current vertex in the left part we consider,`j` is the current vertex in the right part we consider, and `r` is the flow we already pushed through the arc connecting vertex `j` of the right part to the sink (and the value we store for this state is the minimum cost Alice has pay to reach this state). 
 
