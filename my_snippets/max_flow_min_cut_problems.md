@@ -38,6 +38,8 @@ If we find the minimum cut from the source to the sink, then Bob's profit is `su
 * What ever edges from `s` to `chests` in the cut, Bob will not get these coins
 * For edges `keys` to `t` which are int he cut, Bob will have to pay for the keys
 
+**Key idea**
+
 If Alice has to win, we need to make sure that Bob will not be able to make positive profit, in other words, `project_total - min_cost = 0` that is `project_total = maximum_flow`. So essentially, we will need to choose minimum cost pairs `{chests, locks}` that is `c_ij` which saturates the edges outgoing from `s`, thus disconnecting s from other nodes in the graph.
 * `min_cut ≤ sum(aᵢ)` because weight of outgoing edges of `s` equal to `sum(aᵢ)` is a cut which disconnects `s` and `t`
 * Bob can always take no keys and open no chests and get a profit of zero, so Bob will try to make profit `≥ 0`
