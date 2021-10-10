@@ -14,6 +14,8 @@ Firstly, let's try to find some naive solution for this problem. Let's iterate o
 
 Brute force solution is to iterate over each pair of (chest, lock) and decide whether we have to put this lock on the chest or not. We have `mn = 36` number of pairs, So `2^36` will time out.
 
+Constriants are small, can we use dp? We will need to store a lot of information in each state.
+
 We have to minimise the cost paid by Alice, how about modelling as as flow problem and minimize the cost we have to pay? Motivation for this is Project and tools problem. Source: Neal
 
 ![](images/mflow_p_2.png)
