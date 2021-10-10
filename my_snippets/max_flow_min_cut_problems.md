@@ -22,6 +22,8 @@ We have to minimise the cost paid by Alice, how about modelling as as flow probl
 
 ![](images/mflow_p_4.png)
 
+If we iterate over the subset of locks, we choose to put then,
+
 Consider the flow network as follows:
 * Each chest and each key represents a vertex
 * `n` arcs from the source to the chests(each having capacity `aᵢ`)
@@ -31,3 +33,7 @@ Consider the flow network as follows:
 ![](images/mflow_p_5.png)
 
 If we find the minimum cut from the source to the sink, then Bob's profit is `sum(aᵢ) - min_cut`.
+* What ever edges from `s` to `chests` in the cut, Bob will not get these coins
+* For edges `keys` to `t` which are int he cut, Bob will have to pay for the keys
+
+Unfortunately, even iterating through all subsets of locks is too slow. To improve this solution, we should look at the minimum cut and its usage a bit more in detail. Notice that Bob can always take no keys and open no chests to get a profit of zero, so Alice's goal is to ensure that it is the best Bob's option. If Bob takes no chests and no keys, it means that the cut divides the network into two parts: the source and all other vertices. And, in terms of flows, it means that the maximum flow in this network **should saturate all arcs going from the source** (I highlighted it because it is the key idea of the solution).
