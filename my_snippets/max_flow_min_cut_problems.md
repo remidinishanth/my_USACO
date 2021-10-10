@@ -16,7 +16,7 @@ Brute force solution is to iterate over each pair of (chest, lock) and decide wh
 
 Constriants are small, can we use dp? We will need to store a lot of information in each state.
 
-We have to minimise the cost paid by Alice, how about modelling as as flow problem and minimize the cost we have to pay? Motivation for this is Project and tools problem. Source: Neal
+We have to minimise the cost paid by Alice, Let's say Alice has picked his locks, what will Bob do? how about modelling as as flow problem? Motivation for this is Project and tools problem. Source: Neal
 
 ![](images/mflow_p_2.png)
 
