@@ -18,4 +18,4 @@ We have to minimise the cost paid by Alice, how about modelling as as flow probl
 
 ![](images/mflow_p_2.png)
 
-![](images/mflow_p_3.png)
+![](images/mflow_p_4.png)
