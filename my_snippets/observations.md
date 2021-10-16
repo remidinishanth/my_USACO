@@ -20,4 +20,15 @@
 	* WRITE STUFF DOWN
 	* DON'T GET STUCK ON ONE APPROACH
 */
+
+// Do something instead of nothing, stay organised, stay ahead!, WRITE STUFF DOWN
+
+// WA
+// 1. overflow
+// 2. re-initialize global variables for every test case.
+// 3. edge cases like n=1
+
+// Run time error
+// 1. division by zero.
+// 2. array bounds.
 ```
