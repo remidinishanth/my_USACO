@@ -99,7 +99,7 @@ We can see that whenever the above while executes, `R` value increased and it ca
 
 Def:
 
-Two observations:
+Two observations: https://cp-algorithms.com/string/prefix-function.html
 
 ```cpp
 vector<int> prefix_function(string s) {
