@@ -96,3 +96,23 @@ We can see that whenever the above while executes, `R` value increased and it ca
 * Search with atmost `1` mistake, we have to pattern matching such that pattern differs in atmost `1` position. For example `t = abcabdababc` and pattern = `abaa`, the answer is `Yes`. We have to find `p#t`, if `Z[i] = len(p)` then answer is `Yes`, If not, we can use reverse of string and find Z-function `rev(p)#rev(t)` and now use them to find the answer.
 
 ### Prefix function (KMP algorithm)
+
+Def:
+
+Two observations:
+
+```cpp
+vector<int> prefix_function(string s) {
+    int n = (int)s.length();
+    vector<int> pi(n);
+    for (int i = 1; i < n; i++) {
+        int j = pi[i-1];
+        while (j > 0 && s[i] != s[j])
+            j = pi[j-1];
+        if (s[i] == s[j])
+            j++;
+        pi[i] = j;
+    }
+    return pi;
+}
+```
