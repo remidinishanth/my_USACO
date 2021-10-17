@@ -54,14 +54,14 @@ E.g: `s = abacabc`, gray strings(`a`, `aba`, `abacaba` ...) . Let's calculate Z 
 #### Applications:
 * For pattern matching, say we are given pattern `p` and text `t`, then we can compute Z-function of `p#t` to find all the substrings that match with `p`.
 
-Algorithm:
+#### Algorithm:
 
 ```cpp
 for (int i = 1; i < n; ++i) 
 	while (i + z[i] < n && s[z[i]] == s[i + z[i]]) ++z[i];
 ```  
 	
-The above works but is too slow.
+The above works but is too slow `O(n^2)`.
 
 
 Consider a Z-block say `L` to `R`, which consists of current index `i`, then we can see that `Z[i]` can be `R - i + 1` or `Z[i-L]`
