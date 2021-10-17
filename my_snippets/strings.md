@@ -8,6 +8,14 @@ Strings - sequence of characters
 
 Pattern Searching - Given pattern(s) and text(s), we want to find all the occurences of patterns in the given text.
 
+In C++, `std::strstr()` is a predefined function, which takes two strings `s1` and `s2` as an argument and finds the first occurrence of the sub-string `s2` in the string `s1`.
+
+```cpp
+    char str[] = "Use your brain and heart";
+    char target[] = "brain";
+    char *p = strstr(str, target);
+```
+
 Types - Preprocess what you are searching for, or what you are searching in
 
 Preprocess patterns
