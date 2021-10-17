@@ -6,7 +6,7 @@ Strings - sequence of characters
 
 ## String Algorithms
 
-Pattern Searching
+Pattern Searching - Given pattern(s) and text(s), we want to find all the occurences of patterns in the given text.
 
 Types - Preprocess what you are searching for, or what you are searching in
 
