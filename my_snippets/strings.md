@@ -16,6 +16,14 @@ In C++, `std::strstr()` is a predefined function, which takes two strings `s1` a
     char *p = strstr(str, target);
 ```
 
+`size_t find (const string& str, size_t pos = 0);`
+
+Function parameters:
+
+* `str` : The sub-string to be searched.
+* `s` : The sub-string to be searched, given as C style string.
+* `pos` : The initial position from where the string search is to begin.
+
 Types - Preprocess what you are searching for, or what you are searching in
 
 Preprocess patterns
