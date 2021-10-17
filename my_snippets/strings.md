@@ -2,6 +2,8 @@ TODO: https://codeforces.com/contest/1535/problem/F & https://codeforces.com/blo
 
 Read from https://usaco.guide/PAPS.pdf#page=243
 
+Strings - sequence of characters
+
 ## String Algorithms
 
 Pattern Searching
