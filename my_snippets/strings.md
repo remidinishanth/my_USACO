@@ -24,7 +24,11 @@ Function parameters:
 * `s` : The sub-string to be searched, given as C style string.
 * `pos` : The initial position from where the string search is to begin.
 
-Types - Preprocess what you are searching for, or what you are searching in
+Generally, the above mentioned algorithms use naive way of finding substrings which is `O(nm)`.
+
+### Preprocessing
+
+Two different ways - Preprocess what you are searching for, or what you are searching in
 
 Preprocess patterns
 * **1 pattern & 1 text** setup --> Z function, Prefix algorithm == KMP algorithm, Hashing
