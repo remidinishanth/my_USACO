@@ -463,3 +463,5 @@ Look at https://stackoverflow.com/questions/2023977/difference-of-keywords-typen
 Summary: Stroustrup originally used class to specify types in templates to avoid introducing a new keyword. Some in the committee worried that this overloading of the keyword led to confusion. Later, the committee introduced a new keyword typename to resolve syntactic ambiguity, and decided to let it also be used to specify template types to reduce confusion, but for backward compatibility, class kept its overloaded meaning. [REF](https://stackoverflow.com/questions/213121/use-class-or-typename-for-template-parameters?noredirect=1&lq=1)
 
 TODO: https://discuss.codechef.com/t/c-oops-concepts/74361
+
+* ALWAYS use custom hash function when dealing with unordered map no matter how unnecesary in a codeforces contest, see https://codeforces.com/blog/entry/95890?#comment-849896
