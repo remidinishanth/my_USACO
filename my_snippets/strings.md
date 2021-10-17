@@ -17,3 +17,36 @@ Preprocess patterns
 In the following we first preprocess text
 * **1 text & multiple pattern** --> Process texts before, allows us to search in time proportional to pattern not text, only text pre-processing takes time. Suffix structure -> Suffix arrays, suffix tree and suffix automaton. Can be generalized 
 * **Multiple patterns & multiple texts** --> Which you preprocess is important
+
+
+### Z-function
+
+The Z-function for a string(of length n) is an array of length n where the i-th element is equal to the greatest number of characters starting from the position i that coincide with the first characters of s.
+
+Function Z : {1,…,n-1} -> {0,…,n-1} such that `Z[i] = max{j: s[0..j-1] = s[i..i+j-1]}`
+
+Algorithm:
+
+```cpp
+for (int i = 1; i < n; ++i) 
+	while (i + z[i] < n && s[z[i]] == s[i + z[i]]) ++z[i];
+```  
+	
+The above works but is too slow.
+
+
+Consider a Z-block say `L` to `R`, which consists of current index `i`, then we can see that `Z[i]` can be `R - i + 1` or `Z[i-L]`
+
+```cpp
+if (i <= R) 
+	z[i] = min (R - i + 1, z[i - L]); // Initialization
+while (i + z[i] < n && s[z[i]] == s[i + z[i]]) 
+	++z[i]; 
+if (i + z[i] - 1 > R) L = i, R = i + z[i] - 1;
+```
+
+Initialization step `Z[i] = min()`, `Z > R-i+1` is impossible to start, by definition of `Z`.
+
+We can see that whenever the above while executes, `R` value increased and it can increase to at most `n`
+
+Now we can use this like this `pat$text`, and this requires `O(m+n)` time, where `m = |pat|` and `n = |text|` and `O(m)` space and we no need to store `z[i]` for text, if we just want to find substring matching.
