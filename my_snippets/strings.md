@@ -23,9 +23,9 @@ In the following we first preprocess text
 
 ### Z-function
 
-The Z-function for a string(of length n) is an array of length n where the i-th element is equal to the greatest number of characters starting from the position i that coincide with the first characters of s.
+The Z-function for a string(of length n) is an array of length n where the i-th element is equal to the greatest number of characters starting from the position `i` that coincide with the first characters of `s`.
 
-Function Z : {1,…,n-1} -> {0,…,n-1} such that `Z[i] = max{j: s[0..j-1] = s[i..i+j-1]}`
+Function `Z : {1,…,n-1} -> {0,…,n-1}` such that `Z[i] = max{ j: s[0..j-1] = s[i..i+j-1] }`
 
 Algorithm:
 
