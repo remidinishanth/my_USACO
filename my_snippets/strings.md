@@ -63,6 +63,7 @@ for (int i = 1; i < n; ++i)
 	
 The above works but is too slow `O(n^2)`.
 
+![](images/astrings_1.png)
 
 Consider a Z-block say `L` to `R`, which consists of current index `i`, then we can see that `Z[i]` can be `R - i + 1` or `Z[i-L]`
 
