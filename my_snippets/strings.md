@@ -93,3 +93,4 @@ We can see that whenever the above while executes, `R` value increased and it ca
 ![](images/astrings_3.png)
 
 * We can also find the total length of all different substrings.
+* Search with atmost `1` mistake, we have to pattern matching such that pattern differs in atmost `1` position. For example `t = abcabdababc` and pattern = `abaa`, the answer is `Yes`.
