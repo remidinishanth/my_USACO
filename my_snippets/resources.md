@@ -15,5 +15,10 @@
 * https://github.com/nealwu/competitive-programming
 * https://ekzlib.netlify.app/home
 
+
+Topics from Harbour Space Advanced Data Structure Course
+
+![](images/topics_adv_ds.png)
+
 Problems
 * https://codeforces.com/blog/entry/55274
