@@ -68,11 +68,13 @@ The above works but is too slow `O(n^2)`.
 Consider a Z-block say `L` to `R`, which consists of current index `i`, then we can see that `Z[i]` can be `R - i + 1` or `Z[i-L]`
 
 ```cpp
-if (i <= R) 
-	z[i] = min (R - i + 1, z[i - L]); // Initialization
-while (i + z[i] < n && s[z[i]] == s[i + z[i]]) 
-	++z[i]; 
-if (i + z[i] - 1 > R) L = i, R = i + z[i] - 1;
+L = R = 0
+for (int i = 1; i < n; ++i) 
+	if (i <= R) 
+		z[i] = min (R - i + 1, z[i - L]); // Initialization
+	while (i + z[i] < n && s[z[i]] == s[i + z[i]]) 
+		++z[i]; 
+	if (i + z[i] - 1 > R) L = i, R = i + z[i] - 1;
 ```
 
 Initialization step `Z[i] = min()`, `Z > R-i+1` is impossible to start, by definition of `Z`.
