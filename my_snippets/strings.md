@@ -8,7 +8,7 @@ Strings - sequence of characters
 
 Pattern Searching
 
-Types - Preprocess what you are searching for or what you are searching in
+Types - Preprocess what you are searching for, or what you are searching in
 
 Preprocess patterns
 * **1 pattern & 1 text** setup --> Z function, Prefix algorithm == KMP algorithm, Hashing
