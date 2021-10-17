@@ -33,3 +33,5 @@
 // 1. division by zero.
 // 2. array bounds.
 ```
+
+![](images/observations_17_oct_2021.png)
