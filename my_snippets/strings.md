@@ -91,3 +91,5 @@ We can see that whenever the above while executes, `R` value increased and it ca
   * Let's start with empty string and add one by one character and calculate the answer, for emtpy string `""` - the answer is 0, Let's add first character `a` - the answer is `1`, let's add `b`, then our string is `ab` - we get 3 = `1`(`a`) + 2 more (`b` and `ab`); For `abc` the answer is `6`, `3` from `ab` and `c`, `bc` and `abc`. Let's consider `aba` then the answer is `3+2 = 5`. Whenever we add a letter to end, all the suffixes might increment the answer. For `abac` - answer increments by `4` from `aba` because all the suffixes are unique. For a given string, we want to find the longest suffix which has already appeared, all other suffixes will be the ones which we didn't see earlier. We can use Z-function to claclulate the longest suffix by first reversing the string and finding maximum `Z[i]`.
 
 ![](images/astrings_3.png)
+
+* We can also find the total length of all different substrings.
