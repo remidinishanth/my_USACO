@@ -82,4 +82,7 @@ Initialization step `Z[i] = min()`, `Z > R-i+1` is impossible to start, by defin
 
 We can see that whenever the above while executes, `R` value increased and it can increase to at most `n`
 
-Now we can use this like this `pat$text`, and this requires `O(m+n)` time, where `m = |pat|` and `n = |text|` and `O(m)` space and we no need to store `z[i]` for text, if we just want to find substring matching.
+#### Applications
+
+* Now we can use this like this `pat$text`, and this requires `O(m+n)` time, where `m = |pat|` and `n = |text|` and `O(m)` space and we no need to store `z[i]` for text, if we just want to find substring matching.
+* If we want to count number of different substrings of `s`, say `s = abacaba`, there are `3` substrings of length `1` - `a`, `b`, `c`; `4` substrings of length `2` - `ab`, `ba`, `ac`, `ca`; `4` substrings of length 3 - `aba`, `bac`, `aca`, `cab` and so on, there are total `17` different substrings.
