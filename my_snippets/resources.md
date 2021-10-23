@@ -14,7 +14,7 @@
 * https://aryansh.gitbook.io/informatics-notes/binary-lifting/binary-lifting-gold-part-1
 * https://github.com/nealwu/competitive-programming
 * https://ekzlib.netlify.app/home
-
+* https://mzhang2021.github.io/cp-blog/berlekamp-massey/
 
 Topics from Harbour Space Advanced Data Structure Course
 
