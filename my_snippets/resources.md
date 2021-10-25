@@ -15,6 +15,8 @@
 * https://github.com/nealwu/competitive-programming
 * https://ekzlib.netlify.app/home
 * https://mzhang2021.github.io/cp-blog/berlekamp-massey/
+* CRT https://forthright48.com/chinese-remainder-theorem-part-2-non-coprime-moduli/
+* https://codeforces.com/blog/entry/95106
 
 Topics from Harbour Space Advanced Data Structure Course
 
