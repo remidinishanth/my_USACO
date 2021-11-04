@@ -419,3 +419,38 @@ template<class K,class V> using um = unordered_map<K,V,chash>;
 template<class K,class V> using ht = gp_hash_table<K,V,chash>;
 template<class K,class V> V get(ht<K,V>& u, K x) {
 	auto it = u.find(x); return it == end(u) ? 0 : it->s; }
+
+
+// Josephus Problem II CSES
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/trie_policy.hpp>
+ 
+using namespace std;
+using namespace __gnu_pbds;
+ 
+ 
+typedef tree<
+int,
+null_type,
+less<int>,
+rb_tree_tag,
+tree_order_statistics_node_update>
+ordered_set;
+ 
+ 
+int main() {
+    int n,k;cin>>n>>k;
+	ordered_set josep; 
+	for(int i=1;i<=n;++i)josep.insert(i);
+	int pos=0;
+	while(josep.size()>1)
+	{
+		pos=(pos+k)%(int)josep.size();
+		cout<<*(josep.find_by_order(pos))<<' ';
+		josep.erase(*(josep.find_by_order(pos)));
+		pos%=(int)josep.size();
+	}
+	cout<<*(josep.find_by_order(0))<<endl;
+    return 0;
+}
