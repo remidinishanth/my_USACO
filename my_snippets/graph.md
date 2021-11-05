@@ -1288,6 +1288,7 @@ source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
     
 #### Constructing Condensed Graph
     
+How to construct the condensed graph efficiently after finding SCC? https://codeforces.com/blog/entry/9566    
 ```python
 fill(mark, false)
 for c in components:
