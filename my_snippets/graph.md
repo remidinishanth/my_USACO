@@ -1284,3 +1284,21 @@ struct SCC {
 
 source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
 </details>
+
+    
+#### Constructing Condensed Graph
+    
+```python
+fill(mark, false)
+for c in components:
+    for v in c:
+        for u in original_edges(v):
+            if non mark[comp(u)]:
+                # If edge is not added to comp(v)
+                add_comp_edge(c, comp(u))
+            mark[comp(u)] = true
+
+    for v in c:
+        for u in original_edges(v):
+            mark[comp(u)] = false
+```
