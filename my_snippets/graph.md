@@ -127,7 +127,7 @@ class Solution:
         # Make a adjecency list from edge list
         g = collections.defaultdict(list)
         for e in edges:
-            u,v = e
+            u, v = e
             g[u].append(v)
 
         res = set() # smallest set of vertices
