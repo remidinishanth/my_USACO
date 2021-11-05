@@ -901,6 +901,12 @@ The crucial invariant property is that a node remains on the stack after it has 
 
 At the end of the call that visits v and its descendants, we know whether v itself has a path to any node earlier on the stack. If so, the call returns, leaving v on the stack to preserve the invariant. If not, then v must be the root of its strongly connected component, which consists of v together with any nodes later on the stack than v (such nodes all have paths back to v but not to any earlier node, because if they had paths to earlier nodes then v would also have paths to earlier nodes which is false). The connected component rooted at v is then popped from the stack and returned, again preserving the invariant.
 
+**Implementation Details:**
+* On top of computing `dfs_num(u)` and `dfs_low(u)` for each vertex, we also append vertex `u` to
+the back of a stack `S` (here the stack is implemented with a vector) and keep track of the
+vertices that are currently explored via `vi visited`. 
+* The condition to update `dfs_low(u)` is slightly different from the previous DFS algorithm for finding articulation points and bridges. Here, only vertices that currently have visited flag turned on (part of the current SCC) that can update dfs_low(u).     
+    
 ```cpp
 vi S, visited;                                    // additional global variables
 int numSCC;
