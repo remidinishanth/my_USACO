@@ -904,8 +904,8 @@ At the end of the call that visits v and its descendants, we know whether v itse
 **Implementation Details:**
 * On top of computing `dfs_num(u)` and `dfs_low(u)` for each vertex, we also append vertex `u` to
 the back of a stack `S` (here the stack is implemented with a vector) and keep track of the
-vertices that are currently explored via `vi visited`. 
-* The condition to update `dfs_low(u)` is slightly different from the previous DFS algorithm for finding articulation points and bridges. Here, only vertices that currently have visited flag turned on (part of the current SCC) that can update dfs_low(u).     
+vertices that are currently explored via `vi visited`. `visited[u]` tells whether `u` is on the stack.
+* The condition to update `dfs_low(u)` is slightly different from the previous DFS algorithm for finding articulation points and bridges. Here, only vertices that currently have visited flag turned on (part of the current SCC) that can update `dfs_low(u)`.     
     
 ```cpp
 vi S, visited;                                    // additional global variables
@@ -925,7 +925,7 @@ void tarjanSCC(int u) {
 
   if (dfs_low[u] == dfs_num[u]) {         // if this is a root (start) of an SCC
     printf("SCC %d:", ++numSCC);            // this part is done after recursion
-    while (1) {
+    while (true) {
       int v = S.back(); S.pop_back(); visited[v] = 0;
       printf(" %d", v);
       if (u == v) break;
@@ -938,6 +938,8 @@ void tarjanSCC(int u) {
 
 source: [Wiki](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm)
 
+Check the solutions below for other/better implementations.
+    
 #### Problems
 
 https://codeforces.com/contest/1534/problem/F1
