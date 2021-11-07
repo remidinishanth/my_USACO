@@ -179,3 +179,66 @@ int main()
     cout << endl;
 }
 ```
+
+### CF 753 Div 3 G
+
+You are given array `ai` and array `bi`, We will need to remove `m` items from each of `i` (given that `ai + bi <= m`)  we want to minimize the absolute difference after removing  `| sum(ai) - sum(bi) |`
+
+source: https://codeforces.com/contest/1607/problem/G
+
+![](images/cf753_div3_g_7_nov.png)
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef pair<int, int> pii;
+typedef long long ll;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<pii> dishes(n);
+        ll balance = 0;
+        ll max_a = 0, max_b = 0;
+        ll total_eat = static_cast<long long>(n) * m;
+
+        for (int i = 0; i < n; i++) {
+            cin >> dishes[i].first >> dishes[i].second;
+            balance += dishes[i].first - dishes[i].second;
+            max_a += min(m, dishes[i].first);
+            max_b += min(m, dishes[i].second);
+        }
+        ll max_delta = 2 * max_a - total_eat, min_delta = total_eat - 2 * max_b;
+        ll min_a = total_eat - max_b;
+
+        ll eat_a;
+        if (balance < 0) {
+            eat_a = min_a;
+            if (balance - min_delta >= 0)
+                eat_a = min(max_a, (total_eat + balance + 1) / 2);
+        } else {
+            eat_a = max_a;
+            if (balance - max_delta <= 0)
+                eat_a = min(max_a, (total_eat + balance + 1) / 2);
+        }
+        ll ans = abs(balance - 2 * eat_a + total_eat);
+
+        cout << ans << '\n';
+        ll rest_a = eat_a - min_a;
+        for (int i = 0; i < n; i++) {
+            ll cur_a = 0;
+            if (dishes[i].second < m)
+                cur_a += m - dishes[i].second;
+            ll add = min(rest_a, min(m - cur_a, dishes[i].first - cur_a));
+            cur_a += add;
+            rest_a -= add;
+            cout << cur_a << ' ' << m - cur_a << '\n';
+        }
+    }
+}
+```
