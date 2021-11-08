@@ -12,6 +12,7 @@
 * If the problem is complex, first try to solve simplified version of the problem. For e.g If the problem is of higher dimensions say 2, check what happens in linear case first and then try to generalize etc.
 * Whenever something is done with 2 difference, check if you handle even and odd case seperately, https://codeforces.com/contest/1567/problem/C
 * When constrains are too small, say ~ 40, think if we can think DP of higher mutil-dimensions or some flow problem. https://codeforces.com/contest/1593/problem/D2
+* Strings — if the sum of lengths is `𝑆` then there are at most `√𝑆` distinct lengths.
 
 ```cpp
 /* stuff you should look for
