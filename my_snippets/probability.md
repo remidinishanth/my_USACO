@@ -121,3 +121,5 @@ Find expected value of maximum of `n` dice roll. First find the probability that
 ![](images/probability_453_a.png)
 
 source: https://codeforces.com/problemset/problem/453/A
+
+Follow up: https://math.stackexchange.com/questions/1696623/what-is-the-expected-value-of-the-largest-of-the-three-dice-rolls
