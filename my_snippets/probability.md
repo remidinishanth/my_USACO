@@ -113,3 +113,11 @@ int main() {
 ```
 
 source: tourist https://codeforces.com/contest/1540/submission/120542169
+
+### Maximum of n Dice Roll
+
+Find expected value of maximum of `n` dice roll. First find the probability that maximum of `n` dice roll is `x`
+
+![](images/probability_453_a.png)
+
+source: https://codeforces.com/problemset/problem/453/A
