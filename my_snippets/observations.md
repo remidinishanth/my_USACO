@@ -1,4 +1,7 @@
-* First, **reread the problem statement**. Did you miss something important? Are you sure you have understood what the problem is asking for? Double-check your understanding on the sample input and output. Break down the problem and make progress by attacking
+* First, **reread the problem statement**. Did you miss something important? Are you sure you have understood what the problem is asking for? Double-check your understanding on the sample input and output. Break down the problem and make progress by attacking.
+* While answering/solving questions, try to keep the problem at the center of your thought process. Using
+known patterns or adapting one to the problem is encouraged so long as it doesn’t require force
+fitting. If you are unable to find a natural fit, prefer thinking from scratch.
 the parts.
 * Test given in the bold is very important, make sure that you use all the information and constriants given in the problem statement.
 * If you are asked to count/find something, check if finding the complement of it is easier.
