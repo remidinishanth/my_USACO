@@ -113,3 +113,77 @@ void init() {
 ```
 
 source: https://usaco.guide/plat/bitsets?lang=cpp
+
+
+## Union Find Data Structure Application
+
+You are given an integer n indicating the number of people in a network. Each person is labeled from `0` to `n - 1`.
+
+You are also given a 0-indexed 2D integer array restrictions, where `restrictions[i] = [xi, yi]` means that person `xi` and person `yi` cannot become friends, either directly or indirectly through other people.
+
+Initially, no one is friends with each other. You are given a list of friend requests as a 0-indexed 2D integer array requests, where `requests[j] = [uj, vj]` is a friend request between person `uj` and person `vj`.
+
+A friend request is successful if `uj` and `vj` can be friends. Each friend request is processed in the given order (i.e., `requests[j]` occurs before `requests[j + 1]`), and upon a successful request, `uj` and `vj` become direct friends for all future friend requests.
+
+Return a boolean array result, where each `result[j]` is `true` if the `jth` friend request is successful or `false` if it is not.
+
+Note: If `uj` and `vj` are already direct friends, the request is still successful.
+
+```python
+class Solution(object):
+    def friendRequests(self, n, restrictions, requests):
+        """
+        :type n: int
+        :type restrictions: List[List[int]]
+        :type requests: List[List[int]]
+        :rtype: List[bool]
+        """
+        ufp = [-1] * n
+        ufr = [0] * n
+
+        def _find(u):
+            p = []
+            while ufp[u] >= 0:
+                p.append(u)
+                u = ufp[u]
+            for v in p:
+                ufp[v] = u
+            return u
+
+        def _union(u, v):
+            u = _find(u)
+            v = _find(v)
+            if u == v:
+                return
+            if ufr[u] < ufr[v]:
+                u, v = v, u
+            ufp[v] = u
+            if ufr[u] == ufr[v]:
+                ufr[u] += 1
+
+        def _check(u, v):
+            u = _find(u)
+            v = _find(v)
+            if u == v:
+                return True
+            for x, y in restrictions:
+                x = _find(x)
+                y = _find(y)
+                assert x != y
+                if x == u and y == v:
+                    return False
+                if x == v and y == u:
+                    return False
+            return True
+
+        r = []
+        for u, v in requests:
+            u = _find(u)
+            v = _find(v)
+            if _check(u, v):
+                r.append(True)
+                _union(u, v)
+            else:
+                r.append(False)
+        return r
+```
