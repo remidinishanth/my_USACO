@@ -9,4 +9,5 @@ source: https://math.stackexchange.com/questions/113270/the-median-minimizes-the
 ![](images/median_3.png)
 
 Solution:
+
 ![](images/median_2.png)
