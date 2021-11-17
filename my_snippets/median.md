@@ -4,7 +4,7 @@ L1 norm: Suppose we have a set 𝑆 of real numbers. Show that `∑ 𝑠 ∈ S |
 
 source: https://math.stackexchange.com/questions/113270/the-median-minimizes-the-sum-of-absolute-deviations-the-ell-1-norm
 
-Applications:
+### Applications:
 
 ![](images/median_3.png)
 
