@@ -441,25 +441,25 @@ A[0], A[1], ..., A[i-1]  |  A[i], A[i+1], ..., A[m-1]
 B[0], B[1], ..., B[j-1]  |  B[j], B[j+1], ..., B[n-1]
 ```
 
-If we can ensure that `len(left_part) == len(right_part)` and `max(left_part) <= min(right_part)` then median will be `median = (max(left_part) + min(right_part))/2 (when m + n is even)` or `max(A[i-1], B[j-1]) (when m + n is odd)`
+If we can ensure that `len(left_part) == len(right_part)` and `max(left_part) ≤ min(right_part)` then median will be `median = (max(left_part) + min(right_part))/2 (when m + n is even)` or `max(A[i-1], B[j-1]) (when m + n is odd)`
 
 We will need,
 
-* If m+n is even, `i + j = (m - i) + (n - j) => j = (m + n)/2 - i`
+* If m+n is even, `i + j = (m - i) + (n - j) ⇒ j = (m + n)/2 - i`
 
-* If m+n is odd, let's assume median in left part, then `i + j = (m - i) + (n - j) + 1 => j = (m + n + 1)/2 - i`
+* If m+n is odd, let's assume median in left part, then `i + j = (m - i) + (n - j) + 1 ⇒ j = (m + n + 1)/2 - i`
 
 Under Integer division, these two cases can be clubbed into `j = (m + n + 1)/2 - i`
 
 Hence we will need to have 
 ```
 (1) i + j == m - i + n - j (or: m - i + n - j + 1)
-    if n >= m, we just need to set: i = 0 ~ m, j = (m + n + 1)/2 - i
+    if n ≥ m, we just need to set: i = 0 ~ m, j = (m + n + 1)/2 - i
 
-(2) B[j-1] <= A[i] and A[i-1] <= B[j]
+(2) B[j-1] ≤ A[i] and A[i-1] ≤ B[j]
 ```
 
-We have `j = (m + n + 1)/2 - i`, since `0 <= i <= m`, `(m + n + 1)/2 - m <= j <= (m + n + 1)/2` which can be simplified to `(n - m + 1)/2 <= j <= (m + n + 1)/2`. For the left side: `(n - m + 1)/2 <= j` => `n - m >= 0`. Therefore We need `n>=m` otherwise `j` might be negative, hence if `A.size() > B.size()` we will swap them.
+We have `j = (m + n + 1)/2 - i`, since `0 ≤ i ≤ m`, `(m + n + 1)/2 - m ≤ j ≤ (m + n + 1)/2` which can be simplified to `(n - m + 1)/2 ≤ j ≤ (m + n + 1)/2`. For the left side: `(n - m + 1)/2 ≤ j` => `n - m >= 0`. Therefore We need `n ≥ m` otherwise `j` might be negative, hence if `A.size() > B.size()` we will swap them.
 
 ```python
  def median(A, B):
