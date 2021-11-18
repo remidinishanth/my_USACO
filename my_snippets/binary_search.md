@@ -433,22 +433,22 @@ int main(){
 ## Search in a Rotated Sorted Array
 	
 ```cpp
-int search(vector<int>& V, int target) {
-    int n=V.size();
-    if(n == 0) return -1;
-    int l = 0,r = n-1;
-    while(l < r){
-    	int mid = (l+r)/2;
-    	if(V[mid] > V[r]){ // not sorted
-    	    if(V[l] <= target && target <= V[mid]) r=mid;
-    	    else l = mid+1;
-		} else {
-		    if(V[mid] < target && target <= V[r]) l=mid+1;
-		    else r = mid;
-		}
-	}
-	if(V[l] == target) return l;
-	return -1;
+int search(vector < int > & V, int target) {
+    int n = V.size();
+    if (n == 0) return -1;
+    int l = 0, r = n - 1;
+    while (l < r) {
+        int mid = (l + r) / 2;
+        if (V[mid] > V[r]) { // not sorted
+            if (V[l] <= target && target <= V[mid]) r = mid;
+            else l = mid + 1;
+        } else {
+            if (V[mid] < target && target <= V[r]) l = mid + 1;
+            else r = mid;
+        }
+    }
+    if (V[l] == target) return l;
+    return -1;
 }
 ```
 
