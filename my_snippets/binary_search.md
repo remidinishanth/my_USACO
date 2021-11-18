@@ -455,6 +455,7 @@ Hence we will need to have
 ```
 (1) i + j == m - i + n - j (or: m - i + n - j + 1)
     if n >= m, we just need to set: i = 0 ~ m, j = (m + n + 1)/2 - i
+
 (2) B[j-1] <= A[i] and A[i-1] <= B[j]
 ```
 
