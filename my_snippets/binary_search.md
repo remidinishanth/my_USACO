@@ -459,7 +459,9 @@ Hence we will need to have
 (2) B[j-1] ≤ A[i] and A[i-1] ≤ B[j]
 ```
 
-We have `j = (m + n + 1)/2 - i`, since `0 ≤ i ≤ m`, `(m + n + 1)/2 - m ≤ j ≤ (m + n + 1)/2` which can be simplified to `(n - m + 1)/2 ≤ j ≤ (m + n + 1)/2`. For the left side: `(n - m + 1)/2 ≤ j` => `n - m >= 0`. Therefore We need `n ≥ m` otherwise `j` might be negative, hence if `A.size() > B.size()` we will swap them.
+We have `j = (m + n + 1)/2 - i`, since `0 ≤ i ≤ m`, `(m + n + 1)/2 - m ≤ j ≤ (m + n + 1)/2` which can be simplified to `(n - m + 1)/2 ≤ j ≤ (m + n + 1)/2`. 
+	
+For the left side: `(n - m + 1)/2 ≤ j` => `n - m ≥ 0`. Therefore We need `n ≥ m` otherwise `j` might be negative, hence if `A.size() > B.size()` we will swap them.
 
 ```python
  def median(A, B):
