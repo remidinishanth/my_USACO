@@ -433,13 +433,15 @@ int main(){
 
 ## Median of two Sorted arrays
 
-Let's call the arrays A and B. If we combine these 2 arrays, then median divide the array into 2 parts: left and right whose length are the "same". The left part consists of `(part of  A) + (part of B)`, so we can divide both A and B to 2 smaller parts, Let's break the array A at index `i` and array B at index `j`.
+Let's call the arrays `A` and `B`. If we combine these 2 arrays, then median divide the array into 2 parts: left and right whose length are the "same". The left part consists of `(part of  A) + (part of B)`, so we can divide both A and B to 2 smaller parts, Let's break the array A at index `i` and array B at index `j`.
 
 ```
       left_part          |        right_part
 A[0], A[1], ..., A[i-1]  |  A[i], A[i+1], ..., A[m-1]
 B[0], B[1], ..., B[j-1]  |  B[j], B[j+1], ..., B[n-1]
 ```
+	
+The main idea is to **binary search** on the value of `i`.
 
 If we can ensure that `len(left_part) == len(right_part)` and `max(left_part) ≤ min(right_part)` then median will be `median = (max(left_part) + min(right_part))/2 (when m + n is even)` or `max(A[i-1], B[j-1]) (when m + n is odd)`
 
