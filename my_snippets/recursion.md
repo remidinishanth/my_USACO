@@ -123,3 +123,8 @@ int main()
 source: https://csacademy.com/submission/318817/
 
 The solution can also be implemented iteratively for example source: https://csacademy.com/submission/292131/
+
+
+## Deleting Node in a BST
+
+https://leetcode.com/problems/delete-node-in-a-bst/discuss/93293/Very-Concise-C%2B%2B-Solution-for-General-Binary-Tree-not-only-BST
