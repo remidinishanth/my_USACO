@@ -25,13 +25,13 @@ Some facts:
 - gcd(a, 0) = a
 - gcd(a, b) is the smallest positive number in {ax + by | x, y ∈ Z}
 
-### Proof gcd(𝑎,𝑏) = gcd(𝑎+𝑏,𝑏)
+### Proof gcd(a, b) = gcd(a+b, b)
 
-Let gcd(𝑎,𝑏)=𝑑 with 𝑑 ∈ N. We have 𝑎=𝑑𝑎<sub>1</sub>,𝑏=𝑑𝑏<sub>1</sub> with 𝑎<sub>1</sub>,𝑏<sub>1</sub> ∈ ℕ and gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1.
+Let `gcd(a, b) = d` with d ∈ N. We have `a = da₁ , b = db₁` with `a₁ , b₁ ∈ ℕ` and `gcd(a₁, b₁) = 1`.
 
-We have 𝑎+𝑏=𝑑(𝑎<sub>1</sub>+𝑏<sub>1</sub>) and 𝑏=𝑑𝑏<sub>1</sub>. Since gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1 then gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=1. Therefore gcd(𝑑(𝑎<sub>1</sub>+𝑏<sub>1</sub>),𝑑𝑏<sub>1</sub>)=𝑑 or gcd(𝑎+𝑏,𝑏)=𝑑=gcd(𝑎,𝑏).
+We have `a + b = d(a₁ + b₁)` and `b = db₁` Since `gcd(a₁, b₁)=1` then `gcd(a₁ + b₁, b₁) = 1`. Therefore `gcd(d(a₁+b₁), db₁) = d` or `gcd(a+b, b) = d = gcd(a, b)`.
 
-REMARK. To prove gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=1 with gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1. You assume that if gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>)=𝑚 > 1. Then 𝑚|𝑏<sub>1</sub> and 𝑚|(𝑎<sub>1</sub>+𝑏<sub>1</sub>)−𝑏<sub>1</sub> or 𝑚|𝑎<sub>1</sub>, a contradiction since gcd(𝑎<sub>1</sub>,𝑏<sub>1</sub>)=1. Thus, gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏1<sub>1</sub>)=1.
+REMARK: To prove gcd(𝑎<sub>1</sub> + 𝑏<sub>1</sub>, 𝑏<sub>1</sub>) = 1 with gcd(𝑎<sub>1</sub>, 𝑏<sub>1</sub>) = 1. You assume that if gcd(𝑎<sub>1</sub> + 𝑏<sub>1</sub> , 𝑏<sub>1</sub>) = 𝑚 > 1. Then 𝑚 | 𝑏<sub>1</sub> and 𝑚 | (𝑎<sub>1</sub>+𝑏<sub>1</sub>) − 𝑏<sub>1</sub> or 𝑚 | 𝑎<sub>1</sub>, a contradiction since gcd(𝑎<sub>1</sub>, 𝑏<sub>1</sub>) = 1. Thus, gcd(𝑎<sub>1</sub>+𝑏<sub>1</sub>,𝑏<sub>1</sub>) = 1.
 
 ## The Euclidean Algorithm
 
