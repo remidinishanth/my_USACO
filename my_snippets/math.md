@@ -299,6 +299,8 @@ int crt(vi r, vi m) {
 }
 ```
 
+Nice problem: https://codeforces.com/contest/1612/problem/D
+
 ### Recursive GCD
 
 ```cpp
