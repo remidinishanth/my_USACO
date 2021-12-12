@@ -7,3 +7,5 @@ Today
 * https://atcoder.jp/contests/abc219/tasks/abc219_g
 * https://docs.google.com/document/d/1kmHSpaZCWv3sKWDmWvUXLvWxKTZkpn15NP8h7PEURBs/edit
 * Strings https://stackoverflow.com/a/57516363/8352968
+Solution: ![image](https://user-images.githubusercontent.com/19663316/145713320-2bce141e-d0b0-46d8-8948-c84bdb308528.png)
+
