@@ -6,3 +6,4 @@ Today
 * https://www.topcoder.com/thrive/articles/Geometry%20Concepts%20part%203:%20Using%20Geometry%20in%20Topcoder%20Problems
 * https://atcoder.jp/contests/abc219/tasks/abc219_g
 * https://docs.google.com/document/d/1kmHSpaZCWv3sKWDmWvUXLvWxKTZkpn15NP8h7PEURBs/edit
+* Strings https://stackoverflow.com/a/57516363/8352968
