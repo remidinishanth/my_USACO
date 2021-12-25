@@ -102,4 +102,14 @@ def main():
 
 Check Japanese Editorial: https://atcoder.jp/contests/abc230/editorial/3082 and https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
 
+### Another interpretation
+
+Since each element of the sequence created after the operation is the interval sum of the original sequence, the problem can be read as follows.
+
+"Put some partitions in the middle of the sequence. Take the sum in each section between the partitions to make a new sequence. How many types can you make?"
+
+For example: Seqence `A = (1, 2, 3, −1, 1, 0)`, then if we place partitions like `(1, 2, 3 |  −1, 1 | 0) = (6, 0, 0)`
+
+Now say we have the number of sequences till `A[:i]`, and say that we are adding `A[i+1]`
+
 Also https://atcoder.jp/contests/abc230/editorial/3034
