@@ -45,6 +45,8 @@ The answer is the sum of `DP[k]` for `k(>0)` such that `A[k] + A[k+1] + ⋯ + A[
 
 ### Other ways of finding the answer:
 
+If `A[j] + A[j+1] + ⋯ + A[i] = 0` then
+
 From the editorial, then `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`, then using prefix sums `preDP` we get `DP[i] = preDP[i-1] - preDP[j-1]`, then `preDP[i] = preDP[i-1] + DP[i]` which is nothing but `preDP[i] = 2*preDP[i-1] - preDP[j-1]`
 
 Check Japanese Editorial: https://atcoder.jp/contests/abc230/editorial/3082 and https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
