@@ -162,3 +162,9 @@ How do we make sure that we count this subsequence only once? Idea: Out of the d
 Say we are given `s = "nyanpasu"`, then we should be counting `"nas"` only once even though `"nas"` occurs at (1, 3, 7), (1, 3, 7) and (4, 6, 7) characters.
 
 ![](images/sub_sequence_dp.png)
+
+Example:
+
+* S = "abcde" there are 32 sub-sequences of string possible (all characters are different 2^5 = 32)
+* S = "aaaaa" there are 6 strings possible ("", "a", "aa", "aaa", "aaaa", "aaaaa")
+* S = "aba" there are 7 strings possible ("", "a", "b", "aa", "ab", "ba", "aba")
