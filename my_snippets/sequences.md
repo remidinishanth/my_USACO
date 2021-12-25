@@ -21,7 +21,7 @@ The following four sequences can result from zero or more operations.
 1
 ```
 
-### Solution:
+### Solution Idea:
 
 We consider the correspondence between a resulting integer sequence with a sequence of operations. 
 
@@ -31,9 +31,14 @@ A suffix of A that does not correspond to any element of the desired sequence ma
 
 Since the sequence of operations in this greedy method and the resulting array correspond one-by-one, so it is sufficient to find the number of possible sequences of operations.
 
-TODO: https://atcoder.jp/contests/abc230/editorial/3033
+### Dynamic Programming solution:
 
-Also checkout: https://www.youtube.com/watch?v=dRLt9nki_MI&t=1798s
+We use DP (Dynamic Programming). Let `DP[i]` be the number of suffixes of sequences of operations of the greedy algorithm such that the first `i` elements of `A` correspond to the elements of desired sequence. 
+
+Then, for the maximum `j(<i)` such that `A[j] + A[j+1] + ⋯ + A[i] = 0`, it holds that `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`. 
+
+For each `k(<j)`, the sum of elements from `A[k]` through `A[j−1]` is equal to that of `A[k]` through `A[i]`(that is `A[k] + ... + A[j-1] = A[k] + ... + A[i]`), and in the greedy algorithm the former correspond to an element, so there is no transition from `DP[i]` to `DP[k]`.
+
 
 From the editorial, then `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`, then using prefix sums `preDP` we get `DP[i] = preDP[i-1] - preDP[j-1]`, then `preDP[i] = preDP[i-1] + DP[i]` which is nothing but `preDP[i] = 2*preDP[i-1] - preDP[j-1]`
 
