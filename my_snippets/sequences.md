@@ -153,4 +153,10 @@ Given A, Let's denote the cumulative sum of `A` as `A'` that is `A'[i] = sum(A[0
 
 Let the final sequence formed after these operations `B`, let the cumulative sum of `B` be `B'`. Now `B'` is a subsequence of `B'`. We have a one-to-one mapping between `B'` and `B`. All we need to find is the number of subsequences of `A'`.
 
-Known problem: DP that finds substrings of strings without duplication, REF: https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
+Known problem: DP that finds subsequences of a string without duplication, REF: https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
+
+Say we are given `s = "nyanpasu"`, then we should be counting `"nas"` only once even though `"nas"` occurs at (1, 3, 7), (1, 6, 7) and (4, 6, 7) characters.
+
+How do we make sure that we count this subsequence only once? Idea: Out of the dictionary order of the sequences, choose the first one, there for out of (1, 3, 7), (1, 6, 7) and (4, 6, 7) we count only (1, 3, 7).
+
+Say we are given `s = "nyanpasu"`, then we should be counting `"nas"` only once even though `"nas"` occurs at (1, 3, 7), (1, 3, 7) and (4, 6, 7) characters.
