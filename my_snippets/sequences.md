@@ -203,15 +203,15 @@ int main() {
     string S; cin >> S;
     int n = (int)S.size();
 
-    // 前処理配列
+    // Preprocessing
     vector<vector<int> > next = calcNext(S);
 
     // DP
     vector<long long> dp(n+1, 0);
-    dp[0] = 1; // 初期化、空文字列 "" に対応
+    dp[0] = 1; // empty string
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < 26; ++j) {
-            if (next[i][j] >= n) continue; // 次の文字 j がもうない場合はスルー
+            if (next[i][j] >= n) continue; // next character is not present
             add(dp[next[i][j] + 1], dp[i]);
         }
     }
