@@ -90,7 +90,7 @@ def main():
         prefix_sum += A[i]
         tmp = total_seq
         total_seq = (2*total_seq - mp[prefix_sum]) % md
-        mp[prefix_sum] = tmp
+        mp[prefix_sum] = tmp  # store the previous count
 
     print(total_seq % md)
 ```
