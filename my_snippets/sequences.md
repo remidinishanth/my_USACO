@@ -62,16 +62,17 @@ def main():
     mp = defaultdict(int)
     total_seq = 1
     prefix_sum = 0
+    md = 998244353
 
     for i in range(N):
         prefix_sum += A[i]
 
         new_seq = total_seq - mp[prefix_sum]
 
-        mp[prefix_sum] += new_seq
-        total_seq += new_seq
+        mp[prefix_sum] = (mp[prefix_sum] + new_seq) % md
+        total_seq = (total_seq + new_seq) % md
 
-    print(mp[prefix_sum] % 998244353)
+    print(mp[prefix_sum] % md)
 
 
 if __name__ == "__main__":
