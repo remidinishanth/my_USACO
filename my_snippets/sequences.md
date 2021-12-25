@@ -62,30 +62,6 @@ def main():
     prefix_sum = 0
     md = 998244353
 
-    for i in range(N):
-        prefix_sum += A[i]
-
-        new_seq = total_seq - mp[prefix_sum]
-
-        mp[prefix_sum] = (mp[prefix_sum] + new_seq) % md
-        total_seq = (total_seq + new_seq) % md
-
-    print(mp[prefix_sum] % md)
-```
-
-Another way of implementation
-
-```python
-def main():
-    N = int(input())
-    A = [int(i) for i in input().split()]
-
-    # prefix sum to index map
-    mp = defaultdict(int)
-    total_seq = 1
-    prefix_sum = 0
-    md = 998244353
-
     for i in range(N-1):
         prefix_sum += A[i]
         tmp = total_seq
