@@ -41,8 +41,6 @@ For each `k(<j)`, the sum of elements from `A[k]` through `A[j−1]` is equal to
 
 In order to find `j`, compute the cumulative sums of `A` from the left, and for each cumulative sum manage the largest index less than `i` with a data structure like a map. Also, compute the cumulative sums of DP from the left so as to find `DP[i]` in an `O(1)` time each.
 
-### Other ways of finding the answer:
-
 If `A[j] + A[j+1] + ⋯ + A[i] = 0` then `preSum[j-1] = preSum[i]`.
 
 From the editorial, then `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`, then using prefix sums `preDP` we get `DP[i] = preDP[i-1] - preDP[j-1]`, then `preDP[i] = preDP[i-1] + DP[i]` which is nothing but `preDP[i] = 2*preDP[i-1] - preDP[j-1]`
