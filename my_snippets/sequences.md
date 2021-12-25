@@ -241,6 +241,8 @@ Here, for the sake of simplicity, it is a problem to take `T` as the inverted ch
 
 For each alphabet `c` we get `dp[ns[i][c]+1][nt[j][c]+1] += dp[i][j]`
 
+Finally, we need to add odd length palindromes to our answer.
+
 ```cpp
 #include <iostream>
 #include <string>
