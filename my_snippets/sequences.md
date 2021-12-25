@@ -172,4 +172,4 @@ Example:
 
 Let us define `dp[i]` as the number of strings possible such that we take few characters from `s[0..(i-1)]` and always include the `i`-th character.
 
-That is for `s = "nyanpasu"`, `dp[0] = 1`, the empty string, `dp[1] = 1` "n", and `dp[2] = 2`, "y" and "ny".
+That is for `s = "nyanpasu"`, `dp[0] = 1`, the empty string, `dp[1] = 1` "n", and `dp[2] = 2`, "y" and "ny". The answer would be `sum(dp[i])` for all i.
