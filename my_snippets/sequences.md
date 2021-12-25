@@ -49,6 +49,35 @@ If `A[j] + A[j+1] + ⋯ + A[i] = 0` then `preSum[j-1] = preSum[i]`.
 
 From the editorial, then `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`, then using prefix sums `preDP` we get `DP[i] = preDP[i-1] - preDP[j-1]`, then `preDP[i] = preDP[i-1] + DP[i]` which is nothing but `preDP[i] = 2*preDP[i-1] - preDP[j-1]`
 
+
+```python
+from collections import defaultdict
+
+
+def main():
+    N = int(input())
+    A = [int(i) for i in input().split()]
+
+    # prefix sum to index map
+    mp = defaultdict(int)
+    total_seq = 1
+    prefix_sum = 0
+
+    for i in range(N):
+        prefix_sum += A[i]
+
+        new_seq = total_seq - mp[prefix_sum]
+
+        mp[prefix_sum] += new_seq
+        total_seq += new_seq
+
+    print(mp[prefix_sum] % 998244353)
+
+
+if __name__ == "__main__":
+    main()
+```
+
 Check Japanese Editorial: https://atcoder.jp/contests/abc230/editorial/3082 and https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
 
 Also https://atcoder.jp/contests/abc230/editorial/3034
