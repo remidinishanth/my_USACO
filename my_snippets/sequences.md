@@ -79,6 +79,28 @@ if __name__ == "__main__":
     main()
 ```
 
+Another implementation
+
+```python
+def main():
+    N = int(input())
+    A = [int(i) for i in input().split()]
+
+    # prefix sum to index map
+    mp = defaultdict(int)
+    total_seq = 1
+    prefix_sum = 0
+    md = 998244353
+
+    for i in range(N-1):
+        prefix_sum += A[i]
+        tmp = total_seq
+        total_seq = (2*total_seq - mp[prefix_sum]) % md
+        mp[prefix_sum] = tmp
+
+    print(total_seq % md)
+```
+
 Check Japanese Editorial: https://atcoder.jp/contests/abc230/editorial/3082 and https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
 
 Also https://atcoder.jp/contests/abc230/editorial/3034
