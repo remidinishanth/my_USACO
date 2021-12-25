@@ -110,6 +110,41 @@ Since each element of the sequence created after the operation is the interval s
 
 For example: Seqence `A = (1, 2, 3, −1, 1, 0)`, then if we place partitions like `(1, 2, 3 |  −1, 1 | 0) = (6, 0, 0)`
 
-Now say we have the number of sequences till `A[:i]`, and say that we are adding `A[i+1]`
+Now say we have the number of sequences till `A[:i]`, and say that we are adding `A[i+1]`:
+* Either we can include `A[i+1]` in the last partition of the sequence
+* Or create a new partition for `A[i+1]`
+
+Suppose A = (1, 2, 4), then either A = (1 | 2 ) + 4 or A = (1, 2) + 4, so in total we get (1 | 2 | 4), (1 | 2, 4) = (1 | 6) and (3 | 4) or (3 + 4) = (7).
+
+Looks like `DP[i+1] = 2*DP[i]`, but there would be a problem if sum of a partition is zero, consider (1 ,0 ,4 ) then (1 , 0 | 4) and (1 | 0, 4) would give the same sequence.
+
+Similarly, when A = (1, 2, −2, 3, −3), we get same sequence for (1, 2, −2 | 3, −3) and (1 | 2, −2, 3, −3)
+
+We can observe that `DP[i + 1] = 2*DP[i] − DP[f(i)]`, where `f(i)` is the `prefix_sum[:i]`
+
+```python
+from collections import defaultdict
+
+N = int(input())
+A = [0]+list(map(int,input().split()))
+f = [0]*(N+1)
+ 
+# Precalculation of f
+# When f(i) does not exist, f(i) = 0 can be set (because DP[0] = 0).
+s = 0
+d = defaultdict(int)
+for i in range(N+1):
+  s += A[i]  # prefix_sum
+  f[i] = d[s]
+  d[s] = i
+ 
+DP = [0]*(N+1)
+DP[1] = 1
+# Calculate DP
+for i in range(1,N):
+  DP[i+1] = (DP[i]*2 - DP[f[i]]) % 998244353
+ 
+print(DP[N])
+```
 
 Also https://atcoder.jp/contests/abc230/editorial/3034
