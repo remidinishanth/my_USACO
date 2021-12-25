@@ -182,7 +182,7 @@ using namespace std;
 
 const int MOD = 1000000007;
 
-// res[i][c] := i 文字目以降で最初に文字 c が登場する index (存在しないときは n)
+// res[i][c] := index of occurence of character `c` starting from `i`
 vector<vector<int> > calcNext(const string &S) {
     int n = (int)S.size();
     vector<vector<int> > res(n+1, vector<int>(26, n));
@@ -193,14 +193,13 @@ vector<vector<int> > calcNext(const string &S) {
     return res;
 }
 
-// mod 1000000007 の世界で a += b する関数
+// mod 1000000007, a += b mod MOD
 void add(long long &a, long long b) {
     a += b;
     if (a >= MOD) a -= MOD;
 }
 
 int main() {
-    // 入力
     string S; cin >> S;
     int n = (int)S.size();
 
@@ -217,7 +216,6 @@ int main() {
         }
     }
 
-    // 集計
     long long res = 0;
     for (int i = 0; i <= n; ++i) add(res, dp[i]);
 
