@@ -45,6 +45,38 @@ If `A[j] + A[j+1] + ⋯ + A[i] = 0` then `preSum[j-1] = preSum[i]`.
 
 From the editorial, then `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`, then using prefix sums `preDP` we get `DP[i] = preDP[i-1] - preDP[j-1]`, then `preDP[i] = preDP[i-1] + DP[i]` which is nothing but `preDP[i] = 2*preDP[i-1] - preDP[j-1]`
 
+```python
+from itertools import accumulate
+from collections import defaultdict
+
+
+def main():
+    N = int(input())
+    A = [int(i) for i in input().split()]
+    prefix_sum = list(accumulate(A))
+    prefix_ans = [1]*N
+
+    # prefix sum to index map
+    mp = dict()
+    md = 998244353
+
+    for i in range(N - 1):
+        if prefix_sum[i] in mp:
+            j = mp[prefix_sum[i]]
+            prefix_ans[i] = (2 * prefix_ans[i-1] - prefix_ans[j-1]) % md
+        else:
+            prefix_ans[i] = 2 * prefix_ans[i-1] % md
+        mp[prefix_sum[i]] = i
+
+    print(prefix_ans[N-2] % md)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+The above code can be simplified to
+
 
 ```python
 from collections import defaultdict
