@@ -176,6 +176,12 @@ That is for `s = "nyanpasu"`, `dp[0] = 1`, the empty string, `dp[1] = 1` "n", an
 
 Calculating our transitions, for each `dp[i]`, we want to choose the next character possible.
 
+* DP Transitions => For each character c, if `next[i][c] < n`, then `dp[next[i][c] + 1]  += dp[i]`
+
+* DP initial conditions => dp[0] = 1
+    
+* Required value => ∑n dp[i]
+
 ```cpp
 #include <iostream>
 #include <string>
