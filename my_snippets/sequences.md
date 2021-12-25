@@ -35,13 +35,12 @@ Since the sequence of operations in this greedy method and the resulting array c
 
 We use DP (Dynamic Programming). Let `DP[i]` be the number of suffixes of sequences of operations of the greedy algorithm such that the first `i` elements of `A` correspond to the elements of desired sequence. 
 
-Then, for the maximum `j(<i)` such that `A[j] + A[j+1] + ⋯ + A[i] = 0`, it holds that `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`. 
+Then, for the maximum `j(<i)` such that `A[j] + A[j+1] + ⋯ + A[i] = 0`, it holds that `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`. To find `j` we can use `prefix_sum[j-1] = prefix_sum[i]`.
 
 For each `k(<j)`, the sum of elements from `A[k]` through `A[j−1]` is equal to that of `A[k]` through `A[i]`(that is `A[k] + ... + A[j-1] = A[k] + ... + A[i]`), and in the greedy algorithm the former correspond to an element, so there is no transition from `DP[i]` to `DP[k]`.
 
 In order to find `j`, compute the cumulative sums of `A` from the left, and for each cumulative sum manage the largest index less than `i` with a data structure like a map. Also, compute the cumulative sums of DP from the left so as to find `DP[i]` in an `O(1)` time each.
 
-If `A[j] + A[j+1] + ⋯ + A[i] = 0` then `preSum[j-1] = preSum[i]`.
 
 From the editorial, then `DP[i] = DP[j] + DP[j+1] + ⋯ + DP[i−1]`, then using prefix sums `preDP` we get `DP[i] = preDP[i-1] - preDP[j-1]`, then `preDP[i] = preDP[i-1] + DP[i]` which is nothing but `preDP[i] = 2*preDP[i-1] - preDP[j-1]`
 
