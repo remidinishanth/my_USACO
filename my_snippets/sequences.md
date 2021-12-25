@@ -148,4 +148,9 @@ print(DP[N])
 ```
 
 Also https://atcoder.jp/contests/abc230/editorial/3034
-TODO: https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
+
+Given A, Let's denote the cumulative sum of `A` as `A'` that is `A'[i] = sum(A[0..i])`.
+
+Let the final sequence formed after these operations `B`, let the cumulative sum of `B` be `B'`. Now `B'` is a subsequence of `B'`. We have a one-to-one mapping between `B'` and `B`. All we need to find is the number of subsequences of `A'`.
+
+Known problem: DP that finds substrings of strings without duplication, REF: https://qiita.com/drken/items/a207e5ae3ea2cf17f4bd
