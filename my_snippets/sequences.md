@@ -160,3 +160,5 @@ Say we are given `s = "nyanpasu"`, then we should be counting `"nas"` only once 
 How do we make sure that we count this subsequence only once? Idea: Out of the dictionary order of the sequences, choose the first one, there for out of (1, 3, 7), (1, 6, 7) and (4, 6, 7) we count only (1, 3, 7).
 
 Say we are given `s = "nyanpasu"`, then we should be counting `"nas"` only once even though `"nas"` occurs at (1, 3, 7), (1, 3, 7) and (4, 6, 7) characters.
+
+![](images/sub_sequence_dp.png)
