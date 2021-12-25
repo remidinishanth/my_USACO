@@ -253,7 +253,7 @@ using namespace std;
 
 const int MOD = 1000000007;
 
-// res[i][c] := i 文字目以降で最初に文字 c が登場する index (存在しないときは n)
+
 vector<vector<int> > calcNext(const string &S) {
     int n = (int)S.size();
     vector<vector<int> > res(n + 1, vector<int>(26, n));
