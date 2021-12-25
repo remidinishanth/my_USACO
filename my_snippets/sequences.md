@@ -168,3 +168,8 @@ Example:
 * S = "abcde" there are 32 sub-sequences of string possible (all characters are different 2^5 = 32)
 * S = "aaaaa" there are 6 strings possible ("", "a", "aa", "aaa", "aaaa", "aaaaa")
 * S = "aba" there are 7 strings possible ("", "a", "b", "aa", "ab", "ba", "aba")
+
+
+Let us define `dp[i]` as the number of strings possible such that we take few characters from `s[0..(i-1)]` and always include the `i`-th character.
+
+That is for `s = "nyanpasu"`, `dp[0] = 1`, the empty string, `dp[1] = 1` "n", and `dp[2] = 2`, "y" and "ny".
