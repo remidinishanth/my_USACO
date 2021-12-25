@@ -73,13 +73,9 @@ def main():
         total_seq = (total_seq + new_seq) % md
 
     print(mp[prefix_sum] % md)
-
-
-if __name__ == "__main__":
-    main()
 ```
 
-Another implementation
+Another way of implementation
 
 ```python
 def main():
