@@ -174,6 +174,8 @@ Let us define `dp[i]` as the number of strings possible such that we take few ch
 
 That is for `s = "nyanpasu"`, `dp[0] = 1`, the empty string, `dp[1] = 1` "n", and `dp[2] = 2`, "y" and "ny". The answer would be `sum(dp[i])` for all i.
 
+Calculating our transitions, for each `dp[i]`, we want to choose the next character possible.
+
 ```cpp
 #include <iostream>
 #include <string>
