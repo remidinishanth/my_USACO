@@ -17,6 +17,11 @@ the parts.
 * Whenever something is done with 2 difference, check if you handle even and odd case seperately, https://codeforces.com/contest/1567/problem/C
 * When constrains are too small, say ~ 40, think if we can think DP of higher mutil-dimensions or some flow problem. https://codeforces.com/contest/1593/problem/D2
 * Strings — if the sum of lengths is `𝑆` then there are at most `√𝑆` distinct lengths.
+* Say, you are given two types of operations: 1) Incrementing/Decremening the number. 2) Swapping one index with another index. In other words, the only procedure allowed is:
+
+   - first perform swaps any number of (possible zero) times;
+   - then perform increment/decrement any number of (possible zero) times.
+This modification does not change the answer. Because, “swapping after incrementing/decrementing” can be replaced with “incrementing/decrementing after swapping.”
 
 ```cpp
 /* stuff you should look for
