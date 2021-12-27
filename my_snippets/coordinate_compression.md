@@ -1,3 +1,15 @@
+Simple implementation
+
+```cpp
+void comp(vector<int>&a){
+  set<int>s(a.begin(),a.end());
+  map<int,int>d;
+  int cnt=0;
+  for(auto x:s)d[x]=cnt++;
+  for(auto&x:a)x=d[x];
+}
+```
+
 Coordinate compression is a procedure that takes some points and reassigns their coordinates to remove "gaps". 
 For example, if point P1 is located at x = 5, point P2 is located at x = 27, and point P3 is located at x = 65, 
 then, after coordinate compression, P1 may be located at x = 0, P2 may be located at x = 1, and P3 may be located at x = 2. 
