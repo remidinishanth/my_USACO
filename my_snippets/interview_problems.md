@@ -29,6 +29,7 @@ Execution order left to right
 ![image](https://user-images.githubusercontent.com/19663316/147833861-9c3af599-c162-44cb-b752-5918b6142f4b.png)
 
 
+
 ```cpp
 void inorderMorrisTraversal(TreeNode * root) {
     TreeNode * cur = root, * prev = NULL;
