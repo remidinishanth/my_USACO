@@ -26,7 +26,7 @@ Morris Traversal method traverses the binary tree (non-recursive, no stack, O(1)
 
 Execution order left to right
 
-![image](https://user-images.githubusercontent.com/19663316/147833861-9c3af599-c162-44cb-b752-5918b6142f4b.png)
+![image](images/morris_trav1.jpg)
 
 
 
@@ -58,3 +58,26 @@ void inorderMorrisTraversal(TreeNode * root) {
     }
 }
 ```
+
+#### Complexity Analysis
+
+Complexity analysis:
+
+Space complexity: O(1), because only two auxiliary pointers are used.
+
+Time complexity: O(n). Prove that the time complexity is O(n). The biggest doubt is the time complexity of finding the predecessor node of all nodes in the binary tree under the middle order traversal, that is, the following two lines of code:
+
+```cpp
+while (prev->right != NULL && prev->right != cur)
+    prev = prev->right;
+```
+
+Intuitively, I think its complexity is O(nlgn), because finding the predecessor node of a single node is related to the height of the tree. 
+
+But in fact, it only takes O(n) time to find the predecessor nodes of all nodes. There are a total of n-1 edges in a binary tree of n nodes. 
+
+In the whole process, each edge can only go up to 2 times, once to locate a certain node, and the other time to find the predecessor node of a certain node above, as shown in the figure below. As shown, the red line is to locate a certain node, and the black line is to find the predecessor node. So the complexity is O(n).
+
+![image](images/morris_trav2.jpg)
+
+source: https://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
