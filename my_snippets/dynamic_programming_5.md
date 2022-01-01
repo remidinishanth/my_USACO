@@ -8,7 +8,7 @@ using namespace std;
 
 #define forn(i, n) for (int i = 0; i < int(n); i++)
 
-    const int N = 505;
+const int N = 505;
 int a[N];
 int z[2][N][N];
 
