@@ -43,6 +43,8 @@ int main() {
 
 source: https://leetcode.com/problems/burst-balloons/
 
+Key idea: In the range `[i:j]`, we want to choose the last ballon which we want to burst, call it `k`, then we get `nums[i-1]*nums[k]*nums[j+1]` coins.
+
 ```cpp
 int maxCoins(vector <int> & nums) {
     int N = nums.size();
