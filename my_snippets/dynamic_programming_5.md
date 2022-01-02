@@ -74,3 +74,5 @@ int maxCoins(vector <int> & nums) {
     return dp[1][N];
 }
 ```
+
+TODO: https://leetcode.com/problems/minimum-cost-to-merge-stones/discuss/247567/JavaC%2B%2BPython-DP
