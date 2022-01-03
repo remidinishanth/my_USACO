@@ -51,3 +51,45 @@ This modification does not change the answer. Because, “swapping after increme
 ![image](https://user-images.githubusercontent.com/19663316/140021439-6df2a48e-391b-491a-a412-37de619028ac.png)
 
 ![image](https://user-images.githubusercontent.com/19663316/142221056-b26cb7bf-0d78-4b4d-90ab-248aa93656f8.png)
+
+
+### LeetCode Patterns
+
+If input array is sorted then
+- Binary search
+- Two pointers
+
+If asked for all permutations/subsets then
+- Backtracking
+
+If given a tree then
+- DFS
+- BFS
+
+If given a graph then
+- DFS
+- BFS
+
+If given a linked list then
+- Two pointers
+
+If recursion is banned then
+- Stack
+
+If must solve in-place then
+- Swap corresponding values
+- Store one or more different values in the same pointer
+
+If asked for maximum/minumum subarray/subset/options then
+- Dynamic programming
+
+If asked for top/least K items then
+- Heap
+
+If asked for common strings then
+- Map
+- Trie
+
+Else
+- Map/Set for O(1) time & O(n) space
+- Sort input for O(nlogn) time and O(1) space
