@@ -529,6 +529,10 @@ source: https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2755/9
 # 1) i + j == after
 # 2) (j>=1 and a[i] >= b[j-1]) or j==0
 # 3) (i>=1 and b[j] >= a[i-1]) or i==0
+	
+# j = after - i
+# if (j - 1 < 0) or a[i] >= b[j - 1]
+# if (after-i-1 < 0) or a[i] >= b[after-i-1]:
 
 def findMedianSortedArrays(self, nums1, nums2):
     a, b = sorted((nums1, nums2), key=len)
