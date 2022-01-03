@@ -523,6 +523,13 @@ For the left side: `(n - m + 1)/2 ≤ j` => `n - m ≥ 0`. Therefore We need `n 
 source: https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2755/9-lines-O(log(min(mn)))-Python	
 
 ```python
+# Determine i, j that a[0:i] + b[0:j] (exclusive) is the most small "after" numbers.
+# There could multiple pairs of such (i, j) if there are some duplicated numbers.
+# Each each such pair satisfies the following criteria at the same time:
+# 1) i + j == after
+# 2) (j>=1 and a[i] >= b[j-1]) or j==0
+# 3) (i>=1 and b[j] >= a[i-1]) or i==0
+
 def findMedianSortedArrays(self, nums1, nums2):
     a, b = sorted((nums1, nums2), key=len)
     m, n = len(a), len(b)
