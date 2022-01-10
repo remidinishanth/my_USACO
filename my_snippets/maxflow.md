@@ -156,6 +156,8 @@ source: http://neerc.ifmo.ru/trains/toulouse/2016/code/dinic.html
 
 Check Um_nik https://codeforces.com/contest/1184/submission/56662441
 
+Check Neal's implementation: https://codeforces.com/contest/1624/submission/142198189
+
 
 ### Benq's Dinic implementation
 
