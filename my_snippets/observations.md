@@ -22,7 +22,7 @@ the parts.
    - first perform swaps any number of (possible zero) times;
    - then perform increment/decrement any number of (possible zero) times.
 This modification does not change the answer. Because, “swapping after incrementing/decrementing” can be replaced with “incrementing/decrementing after swapping.”
-* A common technique to minimize/maximize a bitwise function is that, we can optimize for the most significant bit(MSB) first to least significant bit. For minimum bitwise OR, any solution with MSB 0 is better than any solution with MSB 1. REF: https://codeforces.com/contest/1624/problem/G
+* A common technique to minimize/maximize a bitwise function is that, we can optimize for the most significant bit(MSB) first to least significant bit. For minimum bitwise OR, any solution with MSB 0 is better than any solution with MSB 1. REF: https://codeforces.com/contest/1624/problem/G (For this problem: Iterate through the bits in decreasing order and try to check if we solve the problem with edges with bit zero can make a spanning tree. You can use disjoint set union to check if edges with bit zero can make the graph connected).
 
 ```cpp
 /* stuff you should look for
