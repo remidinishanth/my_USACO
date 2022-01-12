@@ -1,3 +1,3 @@
 Competitive Programming Notes
 
-![](images/algo_topics.jpg)
+![](my_snippets/images/algo_topics.jpg)
