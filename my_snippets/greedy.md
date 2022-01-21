@@ -242,3 +242,85 @@ int main() {
     }
 }
 ```
+
+### LeetCode 134. Gas Station
+
+There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.
+
+Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique
+
+```cpp
+class Solution {
+public:
+    int canCompleteCircuit(vector<int> &gas, vector<int> &cost) {
+        int i, j, n = gas.size();
+
+        /*
+         * If we start from i and stop before station x -> no station k from i + 1 to x - 1 can reach x.
+         * Bcoz if so, i can reach k and k can reach x, then i reaches x. Contradiction.
+         * Thus i can jump directly to x instead of i + 1, bringing complexity from O(n^2) to O(n).
+         */
+        // start from station i
+        for (i = 0; i < n; i += j) {
+            int gas_left = 0;
+            // forward j stations
+            for (j = 1; j <= n; j++) {
+                int k = (i + j - 1) % n;
+                gas_left += gas[k] - cost[k];
+                if (gas_left < 0)
+                    break;
+            }
+            if (j > n)
+                return i;
+        }
+
+        return -1;
+    }
+};
+```
+
+Another solution:
+
+Let i be the index such that the the partial sum `prefix_sum[i] = gas[0]-cost[0]+gas[1]-cost[1]+...+gas[i]-cost[i]` is the smallest, 
+then the start position should be start=i+1 ( start=0 if i=n-1). 
+
+Consider any other partial sum, for example,
+
+`gas[0]-cost[0]+gas[1]-cost[1]+...+gas[i]-cost[i]+gas[i+1]-cost[i+1]` then `gas[i+1]-cost[i+1]>=0` because `prefix_sum[i]` is the smallest.
+
+From this same reasoning, we can observe that 
+
+```
+ gas[i+1]-cost[i+1]>=0
+ gas[i+1]-cost[i+1]+gas[i+2]-cost[i+2]>=0
+ .......
+ gas[i+1]-cost[i+1]+gas[i+2]-cost[i+2]+...+gas[n-1]-cost[n-1]>=0
+```
+ 
+Now what about the wrap around? If `total[i] >= 0`, then any wrap around is greater than zero is `prefix_sum[i]` is the smallest.
+
+```
+total[i] = gas[i+1]-cost[i+1]+...+gas[n-1]-cost[n-1] + gas[0]-cost[0]+gas[1]-cost[1]+...+gas[j]-cost[j]>=0
+```
+
+```cpp
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int prefix_sum = 0, min_pref = 0, ans = 0;
+        for(int i=0;i<gas.size();i++){
+            prefix_sum += gas[i] - cost[i];
+            if(prefix_sum < min_pref){
+                ans = i+1; // start from next station
+                min_pref = prefix_sum;
+            }
+        }
+        if(prefix_sum < 0) return -1; // no feasible solution
+        return ans;
+    }
+};
+```
+
+REF: https://leetcode.com/problems/gas-station/discuss/42572/Proof-of-%22if-total-gas-is-greater-than-total-cost-there-is-a-solution%22
