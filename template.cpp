@@ -3,6 +3,7 @@
 #include <cstdlib> // random
 #include <algorithm>
 #include <cmath>
+#include <utility>
 #include <vector>
 #include <climits> // all useful constants
 #include <array>
@@ -73,8 +74,8 @@ typedef map<int, int> mii;
 #define dsl2(a,b) ll a,b; scanf("%lld%lld",&a,&b)
 #define sl3(a,b,c) scanf("%lld%lld%lld",&a,&b,&c)
 #define dsl3(a,b,c) ll a,b,c; scanf("%lld%lld%lld",&a,&b,&c)
-#define pl(n) printf("%lld\n",n)  
-#define pls(n) printf("%lld ",n)  
+#define pl(n) printf("%lld\n",n)
+#define pls(n) printf("%lld ",n)
 
 #define sim template < class c
 #define ris return * this
@@ -96,7 +97,7 @@ sim, class b dor(pair < b, c > d) {
 sim dor(rge<c> d) {
   *this << "[";
   for (auto it = d.b; it != d.e; ++it)
-    *this << ", " + 2 * (it == d.b) << *it;
+    *this << (it == d.b ? "" : ", ") << *it;
   ris << "]";
 }
 #else
@@ -130,6 +131,18 @@ template<class T> bool uax(T &a,T b) {return a < b ? (a=b, true):false;}
 /////////////////////////////////////////////////////////////////////
 
 int main() {
+    dsd(TC);
+    while(TC--){
+    }
     return 0;
 }
 // Do something instead of nothing, stay organised, stay ahead!, WRITE STUFF DOWN
+
+// WA
+// 1. overflow
+// 2. re-initialize global variables for every test case.
+// 3. edge cases like n=1
+
+// Run time error
+// 1. division by zero.
+// 2. array bounds.
