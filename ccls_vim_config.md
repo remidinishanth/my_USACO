@@ -37,3 +37,5 @@ In Vim, run :CocConfig to open the configuration file of coc.nvim and add the fo
     }
 }
 ```
+
+Ref: https://ianding.io/2019/07/29/configure-coc-nvim-for-c-c++-development/
