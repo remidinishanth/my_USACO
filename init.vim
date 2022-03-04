@@ -28,7 +28,6 @@ Plug 'airblade/vim-rooter'
 
 " Colorizer
 Plug 'morhetz/gruvbox'
-Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'yggdroot/indentline'  " Show indentation lines
 
@@ -37,9 +36,12 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Codeforces
+Plug 'searleser97/cpbooster.vim'
+
 call plug#end()
 
-" Try not to put settings you don’t understand in your .vimrc
+" Try not to put settings you don't understand in your .vimrc
 
 set clipboard=unnamed " copy vim clipboard to system clipboard
 set backspace=indent,eol,start "to make backspace work as expected
