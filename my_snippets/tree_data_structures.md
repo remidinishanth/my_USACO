@@ -18,4 +18,4 @@ We will look at different data structures for trees and when to use them:
   * How to construct this? Consider the heaviest edge of the tree as the root node, split the tree by removing this edge. Attach the reachability tree of the components as left and right nodes of the edge we removed. If the subtree formed is a single node, attach it as a leaf node. This can be constructed recursively. Height of this tree can be upto N.
   * LCA of two nodes of this tree will give us the maximum weight of edge we need to traverse.
 
-# TODO https://codeforces.com/blog/entry/88669
+## TODO https://codeforces.com/blog/entry/88669
