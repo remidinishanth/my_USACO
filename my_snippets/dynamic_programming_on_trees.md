@@ -1,6 +1,13 @@
+### Matching on Trees:
+
+![](images/dp_on_trees.png)
+
+Ref: https://codeforces.com/blog/entry/2059
+
+### Independent Set
 Ref: https://codeforces.com/blog/entry/100584 Problem D https://codeforces.com/contest/1646/problem/D
 
-**Problem:** You are given a tree of 𝑛 vertices numbered from 1 to 𝑛. A tree is a connected undirected graph without cycles.
+**Problem:** You are given a tree of `n` vertices numbered from `1` to `n`. A tree is a connected undirected graph without cycles.
 
 For each `i = 1, 2, ... , n` , let `w_i` be the weight of the i-th vertex. A vertex is called good if its weight is equal to the sum of the weights of all its neighbors.
 
