@@ -1,3 +1,5 @@
+Check this out: https://codeforces.com/blog/entry/78255
+
 ```cpp
 vi match,vis;
 
