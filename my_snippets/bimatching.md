@@ -1,3 +1,4 @@
+```cpp
 vi match,vis;
 
 int Aug(int v){ // return 1 if an augmenting path is found
@@ -23,6 +24,7 @@ for(int v=0;v<n;v++){
     vis.assign(n,0);
     MCBM+=Aug(v);
 }
+```
 
 // This algorithm will keep doing this process of finding augmenting paths and eliminating
 // them until there is no more augmenting path.
@@ -82,6 +84,7 @@ called TO. If TO has no adjacent marked edges, dfs will return true, because it 
 If it has, we will call dfs from TO’s neighbor on marked edge and return true if it returned true.
 */
 
+```cpp
 // Pseudocode:
 bool kuhn(vertex v) 
 {
@@ -105,9 +108,11 @@ find_max_matching
                 kuhn(v);
         }
 }
+```
 
 // Implementation (C++):
 
+```cpp
 #include<vector>
 #include<utility>
 using namespace std;
@@ -164,6 +169,7 @@ public:
  
 	}
 };
+```
 
 
 // Improved implementation:
@@ -173,6 +179,8 @@ public:
 // One such phase takes strictly O(V+E) time (graph full traversal) and can find more than one increasing path at once. 
 // Moreover, the first phase will behave precisely as greedy algorithm (which is also improvement). 
 // After running each phase you should clear used and run the next phase. Terminate when no path is found during one phase.
+
+```cpp
 #include<vector>
 #include<utility>
 using namespace std;
@@ -238,8 +246,7 @@ public:
 		return res;
 	}
 };
-
-
+```
 
 // Second way: Maximum flow algorithm.
 
@@ -253,6 +260,7 @@ It is easier to understand, especially if you understand and know how to code ma
 
 // Implementation:
 
+```cpp
 #include<vector>
 #include<utility>
 using namespace std;
@@ -315,6 +323,7 @@ public:
 		return res;
 	}
 };
+```
 
 // DISCUSSION
 // Solving maximum bipartite problem can be useful to solve problems using Hungarian algorithm, minimum vertex cover, etc. 
@@ -338,6 +347,7 @@ return obj.find_max_matching(g, n, k).size();
 // Terminate when no path is found during one phase.
 
 To apply this improvement to your simple implementation do the following:
+
 1. Store pairs for vertices of left part too.
 Add declaration: vector<int> pair2;
 Add initialization: pair2 = vector<int> (n, -1);
@@ -345,7 +355,10 @@ Do not forget to set it in DFS:
 pairs [to] = v;
 pair2 [v] = to; //added line
 return true;
+	
 2. Replace your DFS(kuhn) calls code in find_max_matching with this:
+	
+```cpp	
     int phases = 0;
 		
     bool haschanged;
@@ -358,8 +371,177 @@ return true;
           haschanged |= kuhn (i);
       phases++;
     } while (haschanged);
-
+```
 
 // The full working time is O(P(N + M)) where P is number of phases. It is clear that it won't exceed min(n, k)<=V.
 // This acceleration is also applicable to maxflow problem with unit capacities. Run DFS series in a single phase 
 // without clearing used in between. And do not use "used" mark for source/sink.
+
+
+Ref: https://csacademy.com/contest/archive/task/no-prime-sum/solution/
+														   
+```cpp
+#include <cassert>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+typedef long long int64;
+
+const int kMaxN = 1e4, kMaxVal = 2e5+5;
+
+vector<int> left_nodes, right_nodes;
+vector<int> vertex[kMaxN];
+
+bool is_prime[kMaxVal];
+
+void Init() {
+    for (int i = 2; i < kMaxVal; i += 1) {
+        is_prime[i] = true;
+    }
+
+    for (int i = 2; i < kMaxVal; i += 1) {
+        if (not is_prime[i]) {
+            continue;
+        }
+
+        for (int64 j = 1LL * i * i; j < kMaxVal; j += i) {
+            is_prime[j] = false;
+        }
+    }
+}
+
+bool visited[kMaxN], matched[kMaxN];
+int match_pair[kMaxN];
+
+bool Match(int node) {
+    visited[node] = true;
+
+    for (auto itr : vertex[node]) {
+        if (not matched[itr]) {
+            matched[node] = true;
+            matched[itr] = true;
+
+            match_pair[node] = itr;
+            match_pair[itr] = node;
+
+            return true;
+        }
+    }
+
+    for (auto itr : vertex[node]) {
+        if (not visited[match_pair[itr]] and Match(match_pair[itr])) {
+            matched[node] = true;
+
+            match_pair[node] = itr;
+            match_pair[itr] = node;
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int main() {
+    Init();
+    
+    int n;
+    cin >> n;
+    vector<int> elements(n);
+    
+    for (auto itr : elements) {
+        cin >> itr;
+        if (itr & 1) {
+            left_nodes.push_back(itr);
+        } else {
+            right_nodes.push_back(itr);
+        }
+    }
+
+    // add edges between nodes which have a prime sum
+    for (int i = 0; i < (int)left_nodes.size(); i += 1) {
+        for (int j = 0; j < (int)right_nodes.size(); j += 1) {
+            if (not is_prime[left_nodes[i] + right_nodes[j]]) {
+                continue;
+            }
+
+            int a = i;
+            int b = j + left_nodes.size();
+            vertex[a].push_back(b);
+        }
+    }
+    
+    // get the maximum matching
+    bool ok = true;
+    while (ok) {
+        ok = false;
+
+        for (int i = 0; i < (int)left_nodes.size(); i += 1) {
+            visited[i] = false;
+        }
+
+        for (int i = 0; i < (int)left_nodes.size(); i += 1) {
+            if (visited[i] or matched[i]) {
+                continue;
+            }
+
+            if (Match(i)) {
+                ok = true;
+            }
+        }
+    }
+
+    // the actual elements that should be erased in order to not have
+    // a prime sum
+    vector<int> unselected_q;
+    vector<int> selected(n, 0);
+    for (int i = 0; i < (int)left_nodes.size(); i += 1) {
+        if (matched[i]) {
+            selected[i] = true;
+        } else {
+            unselected_q.push_back(i);
+        }
+    }
+
+    while (unselected_q.size()) {
+        int node = unselected_q.back();
+        unselected_q.pop_back();
+
+        for (auto itr : vertex[node]) {
+            if (not selected[itr]) {
+                int oth = match_pair[itr];
+                if (selected[oth]) {
+                    unselected_q.push_back(oth);
+                    selected[oth] = false;
+                }
+                selected[itr] = true;
+            }
+        }
+    }
+
+    // print the solution :)
+    int r = 0;
+    for (auto itr : selected) {
+        r += itr;
+    }
+
+    cout << r << '\n';
+    for (int i = 0; i < n; i += 1) {
+        if (not selected[i]) {
+            continue;
+        }
+
+        if (i < (int)left_nodes.size()) {
+            cout << left_nodes[i] << ' ';
+        } else {
+            cout << right_nodes[i - (int)left_nodes.size()] << ' ';
+        }
+    }
+
+    cout << '\n';
+
+    return 0;
+}
+```														   
