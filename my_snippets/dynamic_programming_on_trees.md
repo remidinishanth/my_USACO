@@ -2,6 +2,8 @@
 
 ![](images/dp_on_trees.png)
 
+The problem is to find matching in tree, so we can use dynamic programming. Hopcroft-Karp algorithm is for cyclic bipartite graphs, although it can't find weighted matching. To find maximal matching in tree is quite easier than in cyclic graph.
+
 Ref: https://codeforces.com/blog/entry/2059
 
 ### Independent Set
