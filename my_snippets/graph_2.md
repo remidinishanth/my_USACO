@@ -727,6 +727,94 @@ int main() {
 }
 ```
 </details>
+	
+#### Dijktra's Application on Directed Graphs
+
+<details>
+        <summary> Leetcode problem </summary>
+	
+You are given an integer `n` denoting the number of nodes of a weighted directed graph. The nodes are numbered from `0` to `n - 1`.
+
+You are also given a 2D integer array edges where `edges[i] = [fromi, toi, weighti]` denotes that there exists a directed edge from `fromi` to `toi` with weight `weighti`.
+
+Lastly, you are given three distinct integers `src1`, `src2`, and `dest` denoting three distinct nodes of the graph.
+
+Return the minimum weight of a subgraph of the graph such that it is possible to reach dest from both `src1` and `src2` via a set of edges of this subgraph. In case such a subgraph does not exist, return `-1`.
+
+A subgraph is a graph whose vertices and edges are subsets of the original graph. The weight of a subgraph is the sum of weights of its constituent edges.
+	
+![](images/min_weight_subgraph_with_req_paths.png)
+	
+src1 = 0, src2 = 1, dest = 5, answer = 9
+	
+The blue edges represent one of the subgraphs that yield the optimal answer.
+
+Note that the subgraph [[1,0,3],[0,5,6]] also yields the optimal answer.
+	
+```cpp
+#define ll long long
+#define pii pair<ll, ll>
+#define mp make_pair
+#define f first
+#define s second
+const ll INF = 1000000000000000000;
+
+vector<pii> adj[100005], adj2[100005];
+int N;
+
+vector<ll> dijkstra(int start, bool orig) {
+    vector<ll> dist(N, INF);
+    priority_queue<pii, vector<pii>, greater<pii>> pq;
+    pq.push({0, start});
+    dist[start] = 0;
+    while (!pq.empty()) {
+        pii cur = pq.top();
+        pq.pop();
+        if (cur.f > dist[cur.s]) continue;
+        if (orig) {
+            for (pii i : adj[cur.s]) {
+                if (dist[i.f] > cur.f+i.s) {
+                    dist[i.f] = cur.f+i.s;
+                    pq.push({dist[i.f], i.f});
+                }
+            }
+        } else {
+            for (pii i : adj2[cur.s]) {
+                if (dist[i.f] > cur.f+i.s) {
+                    dist[i.f] = cur.f+i.s;
+                    pq.push({dist[i.f], i.f});
+                }
+            }
+        }
+    }
+    return dist;
+}
+
+class Solution {
+public:
+    long long minimumWeight(int n, vector<vector<int>>& edges, int src1, int src2, int dest) {
+        N = n;
+        for (int i=0; i<n; i++) {
+            adj[i].clear();
+            adj2[i].clear();
+        }
+        for (auto& e : edges) {
+            adj[e[0]].push_back(mp(e[1], e[2]));
+            adj2[e[1]].push_back(mp(e[0], e[2]));
+        }
+        vector<ll> a = dijkstra(src1, 1), b = dijkstra(src2, 1), c = dijkstra(dest, 0);
+        ll res = INF;
+        for (int i=0; i<n; i++) {
+            ll cur = a[i]+b[i]+c[i];
+            //printf("%d %lld %lld %lld\n", i, a[i], b[i], c[i]);
+            res = min(res, cur);
+        }
+        return (res == INF) ? -1 : res;
+    }
+};
+```
+
+</details>
 
 ## SSSP on Graph with Negative Weight Cycle
 
