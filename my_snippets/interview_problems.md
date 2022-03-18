@@ -1,3 +1,25 @@
+### Smallest Subsequence of Distinct Characters
+
+Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the **smallest in lexicographical order** among all possible results.
+
+```cpp
+string removeDuplicateLetters(string s) {
+  vector<int> V(26); // count of letters
+  for(char c:s) V[c-'a']++;
+  string ans;
+  for(char c: s){
+      if(ans.find(c) == string::npos){
+          // if the character is not considered already
+          while(ans.back() > c && V[ans.back()-'a']){
+              ans.pop_back();
+          }
+          ans.push_back(c);
+      }
+      V[c-'a']--;
+  }
+  return ans;
+}
+```
 ### Morris Traversal - InOrder Traversal without stack
 
 Morris Traversal method traverses the binary tree (non-recursive, no stack, O(1) space)
