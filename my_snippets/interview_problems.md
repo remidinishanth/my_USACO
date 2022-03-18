@@ -15,8 +15,11 @@ int scoreOfParentheses(string s) {
     int cnt = 0;
     vector<int> V;
     for(char c: s){
+        // if we find open parenthesis
+        // push the current score into the stack
         if(c == '('){
             V.push_back(cnt);
+            // reset the score to 0
             cnt = 0;
         } else {
             cnt = V.back() + max(2*cnt, 1);
@@ -24,6 +27,26 @@ int scoreOfParentheses(string s) {
         }
     }
     return cnt;
+}
+```
+
+Without using stack
+
+```cpp
+int scoreOfParentheses(string s) {
+    int depth = 0, res = 0;
+    char prev = '(';
+    for (const char & ch: s) {
+        if (ch == '(')
+            depth++;
+        else {
+            depth--;
+            if (prev == '(')
+                res += pow(2, depth);
+        }
+        prev = ch;
+    }
+    return res;
 }
 ```
 
