@@ -1,3 +1,32 @@
+### Score of Parentheses
+
+Given a balanced parentheses string s, return the score of the string.
+
+The score of a balanced parentheses string is based on the following rule:
+
+* "()" has score 1.
+* `AB` has score score(A) + score(B), where `A` and `B` are balanced parentheses strings.
+* `(A)` has score 2 * score(A), where `A` is a balanced parentheses string.
+
+
+```cpp
+int scoreOfParentheses(string s) {
+    int ans = 0;
+    int cnt = 0;
+    vector<int> V;
+    for(char c: s){
+        if(c == '('){
+            V.push_back(cnt);
+            cnt = 0;
+        } else {
+            cnt = V.back() + max(2*cnt, 1);
+            V.pop_back();
+        }
+    }
+    return cnt;
+}
+```
+
 ### Smallest Subsequence of Distinct Characters
 
 Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the **smallest in lexicographical order** among all possible results.
