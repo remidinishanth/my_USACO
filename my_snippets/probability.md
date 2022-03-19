@@ -18,7 +18,7 @@ source: https://codeforces.com/contest/1540/problem/B
 
 **Solution:** 
 
-Fix the initial node chosen and root the tree there, what is the contribution of each pair of nodes? Say we have two nodes `a` and `b` and  value at `a < b` now a inversion pair `(a, b)` is counted only if `b` is choosen before `a`. Nothing matters besides the path from node `a` to node `b`, and the initially chosen node `c`.
+Fix the initial node chosen and root the tree there, what is the **contribution of each pair of nodes**? Say we have two nodes `a` and `b` and  value at `a < b` now a inversion pair `(a, b)` is counted only if `b` is choosen before `a`. Nothing matters besides the path from node `a` to node `b`, and the initially chosen node `c`.
 
 Suppose we start by marking the root. To mark a or b, we must first mark the lca, so we may assume that the lca has just been marked. Before marking the lca, there is no way to make more progress towards 𝑏 than 𝑎 or vice versa.
 
