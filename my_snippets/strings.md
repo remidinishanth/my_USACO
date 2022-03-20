@@ -129,7 +129,7 @@ https://leetcode.com/contest/weekly-contest-285/problems/longest-substring-of-on
 
 **Idea:** We can store the string as segments of repeating characters. This way we can do queries efficiently. If we use segment trees(storing left and right sum for each character, we will get TLE).
 
-```
+```cpp
 vector < int > longestRepeating(string s, string queryCharacters, vector < int > & queryIndices) {
     int n = s.size(), k = queryCharacters.size();
     multiset < int > ms; // to store length of repeating subarray
