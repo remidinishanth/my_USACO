@@ -116,3 +116,64 @@ vector<int> prefix_function(string s) {
     return pi;
 }
 ```
+
+### Length of the longest substring of s consisting of only one repeating character 
+
+Given a string `s`, we need to perform queries of the form:
+
+The i-th query updates the character in `s` at index `queryIndices[i]` to the character `queryCharacters[i]`.
+
+Return an array lengths of length `k` where `lengths[i]` is the length of the **longest substring** of s consisting of **only one repeating character** after the ith query is performed.
+
+https://leetcode.com/contest/weekly-contest-285/problems/longest-substring-of-one-repeating-character/
+
+**Idea:** We can store the string as segments of repeating characters. This way we can do queries efficiently. If we use segment trees(storing left and right sum for each character, we will get TLE).
+
+```
+vector < int > longestRepeating(string s, string queryCharacters, vector < int > & queryIndices) {
+    int n = s.size(), k = queryCharacters.size();
+    multiset < int > ms; // to store length of repeating subarray
+    set < pair < int, int >> sp; // store segments [a, b]
+    for (int i = 0, j = 0; i < s.size(); i = j) {
+        while (j < s.size() and s[i] == s[j]) j += 1;
+        sp.emplace(i, j - 1);
+        ms.insert(j - i);
+    }
+    vector < int > res(k);
+    for (int i = 0; i < k; i += 1) {
+        int p = queryIndices[i];
+        char c = queryCharacters[i];
+        if (c != s[p]) {
+            auto pr = * prev(sp.upper_bound(make_pair(p, n)));
+            ms.erase(ms.find(pr.second - pr.first + 1));
+            sp.erase(pr);
+            if (pr.first < p) {
+                sp.emplace(pr.first, p - 1);
+                ms.insert(p - pr.first);
+            }
+            if (pr.second > p) {
+                sp.emplace(p + 1, pr.second);
+                ms.insert(pr.second - p);
+            }
+            s[p] = c;
+            int L = p, R = p;
+            if (p + 1 < n and s[p + 1] == c) {
+                auto it = sp.upper_bound(make_pair(p, n));
+                R = it -> second;
+                ms.erase(ms.find(it -> second - it -> first + 1));
+                sp.erase(it);
+            }
+            if (p and s[p - 1] == c) {
+                auto it = prev(sp.upper_bound(make_pair(p, n)));
+                L = it -> first;
+                ms.erase(ms.find(it -> second - it -> first + 1));
+                sp.erase(it);
+            }
+            sp.emplace(L, R);
+            ms.insert(R - L + 1);
+        }
+        res[i] = * ms.rbegin();
+    }
+    return res;
+}
+```
