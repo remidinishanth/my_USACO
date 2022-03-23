@@ -23,6 +23,16 @@ the parts.
    - then perform increment/decrement any number of (possible zero) times.
 This modification does not change the answer. Because, “swapping after incrementing/decrementing” can be replaced with “incrementing/decrementing after swapping.”
 * A common technique to minimize/maximize a bitwise function is that, we can optimize for the most significant bit(MSB) first to least significant bit. For minimum bitwise OR, any solution with MSB 0 is better than any solution with MSB 1. REF: https://codeforces.com/contest/1624/problem/G (For this problem: Iterate through the bits in decreasing order and try to check if we solve the problem with edges with bit zero can make a spanning tree. You can use disjoint set union to check if edges with bit zero can make the graph connected).
+* In problem when we need to convert a number startValue to target, sometimes it is better if we can think in reverse. Example: We need to covert source to target using 1) multiply the number on display by 2, or 2) subtract 1 from the number on display. Instead of making startValue equal to target by `*1` and `-1` We can use `/2` and `+1` operation to reduce target to startValue and count steps. Ref: https://leetcode.com/problems/broken-calculator/
+```cpp
+    int brokenCalc(int startValue, int target) {
+        if(target <= startValue) return startValue - target;
+        if(target & 1) {
+            return 1 + brokenCalc(startValue, target+1);
+        }
+        return 1 + brokenCalc(startValue, target/2);
+    }
+```
 
 ```cpp
 /* stuff you should look for
@@ -63,11 +73,7 @@ If input array is sorted then
 If asked for all permutations/subsets then
 - Backtracking
 
-If given a tree then
-- DFS
-- BFS
-
-If given a graph then
+If given a tree/graph then
 - DFS
 - BFS
 
