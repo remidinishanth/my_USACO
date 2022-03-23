@@ -24,6 +24,11 @@ the parts.
 This modification does not change the answer. Because, “swapping after incrementing/decrementing” can be replaced with “incrementing/decrementing after swapping.”
 * A common technique to minimize/maximize a bitwise function is that, we can optimize for the most significant bit(MSB) first to least significant bit. For minimum bitwise OR, any solution with MSB 0 is better than any solution with MSB 1. REF: https://codeforces.com/contest/1624/problem/G (For this problem: Iterate through the bits in decreasing order and try to check if we solve the problem with edges with bit zero can make a spanning tree. You can use disjoint set union to check if edges with bit zero can make the graph connected).
 * In problem when we need to convert a number startValue to target, sometimes it is better if we can think in reverse. Example: We need to covert source to target using 1) multiply the number on display by 2, or 2) subtract 1 from the number on display. Instead of making startValue equal to target by `*1` and `-1` We can use `/2` and `+1` operation to reduce target to startValue and count steps. Ref: https://leetcode.com/problems/broken-calculator/
+
+The motivation for this is that it turns out we always greedily divide by 2:
+* If say target is even, then if we perform 2 additions and one division, we could instead perform one division and one addition for less operations [`(target + 2) / 2` vs `target / 2 + 1`].
+* If say target is odd, then if we perform 3 additions and one division, we could instead perform 1 addition, 1 division, and 1 addition for less operations [`(target + 3) / 2` vs `(target + 1) / 2 + 1`].
+
 ```cpp
     int brokenCalc(int startValue, int target) {
         if(target <= startValue) return startValue - target;
