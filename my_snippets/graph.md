@@ -1338,9 +1338,9 @@ int main(void) {
 	vector<int> out(n, 0);
 	int x, y, sz, cur;
 	for (int i = 0; i < m; i++) {
+                // edge goes from x to y
+                // we store the reverse edges      
 		cin >> x >> y;
-        // edge goes from x to y
-        // we store the reverse edges
 		e[y - 1].push_back(x - 1);
 		out[x - 1]++;
 	}
