@@ -938,7 +938,7 @@ void tarjanSCC(int u) {
 
 source: [Wiki](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm)
     
-Ref: https://atcoder.github.io/ac-library/document_en/scc.html
+Atcoder Library Implementation: https://atcoder.github.io/ac-library/document_en/scc.html and https://github.com/atcoder/ac-library/blob/master/atcoder/internal_scc.hpp
 
 This returns "list of the vertices" sorted in **topological order**, i.e, for two vertices `u, v` in different strongly connected components, if there is a directed path from `u` to `v`, the list contains uu appears earlier than the list contains `v`.
 
@@ -982,9 +982,10 @@ int main(void) {
 	return 0;
 }
 ```
-</details>
     
-Ref: https://atcoder.jp/contests/abc245/editorial/3664    
+Ref: https://atcoder.jp/contests/abc245/editorial/3664   
+	
+</details> 
     
 Check the solutions below for other/better implementations.
     
