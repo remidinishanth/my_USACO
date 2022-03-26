@@ -1331,35 +1331,38 @@ When implementing the solution above, it is easier to reverse the edges.
 using namespace std;
 
 int main(void) {
-	int n, m;
-	cin >> n >> m;
+    int n, m;
+    cin >> n >> m;
 
-	vector<vector<int> > e(n);
-	vector<int> out(n, 0);
-	int x, y, sz, cur;
-	for (int i = 0; i < m; i++) {
-                // edge goes from x to y
-                // we store the reverse edges      
-		cin >> x >> y;
-		e[y - 1].push_back(x - 1);
-		out[x - 1]++;
-	}
+    vector<vector<int> > e(n);
+    vector<int> out(n, 0);
+    int x, y, sz, cur;
+    for (int i = 0; i < m; i++) {
+        // edge goes from x to y
+        // we store the reverse edges
+        cin >> x >> y;
+        e[y - 1].push_back(x - 1);
+        out[x - 1]++;
+    }
 
-	queue<int>que;
-	int ans = n;
+    queue<int> que;
+    int ans = n;
 
-	for (int i = 0; i < n; i++)if (out[i] == 0)que.push(i);
-	while (!que.empty()) {
-		ans--;
-		cur = que.front();
-		que.pop();
-		sz = e[cur].size();
-		for (int i = 0; i < sz; i++) {
-			out[e[cur][i]]--;
-			if (out[e[cur][i]] == 0)que.push(e[cur][i]);
-		}
-	}
-	cout << ans << endl;
-	return 0;
+    for (int i = 0; i < n; i++)
+        if (out[i] == 0)
+            que.push(i);
+    while (!que.empty()) {
+        ans--;
+        cur = que.front();
+        que.pop();
+        sz = e[cur].size();
+        for (int i = 0; i < sz; i++) {
+            out[e[cur][i]]--;
+            if (out[e[cur][i]] == 0)
+                que.push(e[cur][i]);
+        }
+    }
+    cout << ans << endl;
+    return 0;
 }
 ```
