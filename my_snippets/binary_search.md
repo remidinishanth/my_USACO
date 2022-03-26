@@ -10,12 +10,12 @@ void binary_search() {
     L = 0, R = N - 1;
     while L <= R:
         mid = L + (R - L) / 2
-    if a[mid] == target:
-        return mid
-    if a[mid] < target:
-        L = mid + 1
-    else :
-        R = mid - 1
+        if a[mid] == target:
+            return mid
+        if a[mid] < target:
+            L = mid + 1
+        else :
+            R = mid - 1
     return -1
 }
 
@@ -24,12 +24,12 @@ void lower_bound() {
     ans = -1;
     while L <= R:
         mid = L + (R - L) / 2
-    if a[mid] >= target:
-        // better values to the leftmost
-        ans = mid // a[mid]
-    R = mid - 1 // look for better values
-    else :
-        L = mid + 1
+        if a[mid] >= target:
+            // better values to the leftmost
+            ans = mid // a[mid]
+            R = mid - 1 // look for better values
+        else :
+            L = mid + 1
     return ans
 }
 ```
