@@ -525,6 +525,8 @@ source: https://ideone.com/6NVoPD
 
 ### Template
 
+One more small optimization done here is that when `L` is in the same block, for even sqrt-block, we go from left to right, for odd, we go from right to left. This way our constant in complexity is smaller.
+
 ```cpp
 struct Mo {
   int n;
