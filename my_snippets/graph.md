@@ -805,22 +805,22 @@ In the following diagram, different colours represent different biconnected comp
 
 <img src="images/Articulation_points_bridges_3.png"  width="500">
 
-Any connected graph decomposes into a tree of biconnected components called the block-cut tree of the graph. The blocks are attached to each other at shared vertices called cut vertices or articulation points.
+Interaction of biconnected components:
+* An edge belongs to exactly one biconnected component
+* A nonseparation vertex belongs to exactly one biconnected component
+* A separation vertex belongs to two or more biconnected components 
 
+Any connected graph decomposes into a tree of biconnected components called the block-cut tree of the graph. The blocks are attached to each other at shared vertices called cut vertices or articulation points.
+    
 **Block Cut Tree:** If each biconnected component of a given graph is shrinked into / represented as a single node called a block, and these blocks are attached to each other at shared vertices (articulation points), then the resulting tree formed is called a Block-Cut tree. 
 
 The following would be the block-cut tree of the above graph, where A,B,C are blocks attached to the articulation vertices 3 and 4.
 
 <img src="images/Articulation_points_bridges_4.png"  width="500">
 
-A = represents vertices 1,2,3
-B = represents vertices 3,4
-C = represents vertices 4,5,6
-
-Interaction of biconnected components:
-* An edge belongs to exactly one biconnected component
-* A nonseparation vertex belongs to exactly one biconnected component
-* A separation vertex belongs to two or more biconnected components 
+* A = represents vertices 1,2,3
+* B = represents vertices 3,4
+* C = represents vertices 4,5,6
 
 REF: https://www.ics.uci.edu/~goodrich/teach/cs260P/notes/Biconnectivity.pdf
 
