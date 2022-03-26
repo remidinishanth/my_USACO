@@ -1288,7 +1288,10 @@ source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
     
 #### Constructing Condensed Graph
     
-How to construct the condensed graph efficiently after finding SCC? https://codeforces.com/blog/entry/9566    
+How to construct the condensed graph efficiently after finding SCC? https://codeforces.com/blog/entry/9566  
+
+We can obviously use a `vector<set<int>> adj` and the do `adj[comp[u]].insert(comp[v])`, but can we do it without using set?    
+    
 ```python
 fill(mark, false)
 for c in components:
