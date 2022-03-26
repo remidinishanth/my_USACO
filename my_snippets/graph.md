@@ -946,6 +946,7 @@ Topological ordering might be useful in the following problem:
  
 <details>
     <summary>How many vertices can reach a strongly connected component with 2 or more vertices?</summary>
+	
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
