@@ -1307,3 +1307,59 @@ for c in components:
         for u in original_edges(v):
             mark[comp(u)] = false
 ```
+
+#### Applications
+
+* How many vertices can reach a strongly connected component with 2 or more vertices?
+    
+The following approach doesn't built SCC.
+    
+Consider repeatedly performing the following operation of writing integers on vertices of graph G given in the input as many times as possible. Initially, no vertex has an integer written on it.
+
+In the i-th operation, find “a vertex of G such that no integer is yet written on it, and it has no outgoing edges or every vertices pointed by its outgoing edges has an integer written on it.” If such a vertex exists, write i on it; if not, terminate the sequence of operations without performing the (i+1)-th operation.
+
+The sequence of operations terminates after at most N operations.
+
+When it is terminated, by the conditions of writing integers, every vertex with an integer written on it has no outgoing edges, or every destination of its outgoing edges has a smaller integer. Thus, no matter which edge he chooses, he will reach another vertex with a strictly smaller integer written on it. Therefore, from a vertex with i written on it, Takahashi can travel at most (i−1) times. Thus, he can only move finite number of times.
+    
+If you implement it naively, it will cost O(NM) time, which will not finish in the time limit. Here, note that once a vertex satisfied the condition for an integer to be written, the vertex never becomes invalid until an integer is actually written. So consider repeating putting the vertices that satisfied the condition to a queue, popping vertices as much as possible from the queue, and writing integers on them.    
+    
+When implementing the solution above, it is easier to reverse the edges.    
+    
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(void) {
+	int n, m;
+	cin >> n >> m;
+
+	vector<vector<int> > e(n);
+	vector<int> out(n, 0);
+	int x, y, sz, cur;
+	for (int i = 0; i < m; i++) {
+		cin >> x >> y;
+        // edge goes from x to y
+        // we store the reverse edges
+		e[y - 1].push_back(x - 1);
+		out[x - 1]++;
+	}
+
+	queue<int>que;
+	int ans = n;
+
+	for (int i = 0; i < n; i++)if (out[i] == 0)que.push(i);
+	while (!que.empty()) {
+		ans--;
+		cur = que.front();
+		que.pop();
+		sz = e[cur].size();
+		for (int i = 0; i < sz; i++) {
+			out[e[cur][i]]--;
+			if (out[e[cur][i]] == 0)que.push(e[cur][i]);
+		}
+	}
+	cout << ans << endl;
+	return 0;
+}
+```
