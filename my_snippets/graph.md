@@ -1415,3 +1415,5 @@ int main(void) {
     return 0;
 }
 ```
+
+Alternate easy explanation: Suppose that we have a vertex with indegree 0, then we can safely remove it, because it is not part of the answer, when we remove this vertex, some other vertices degree might become zero, continue this process.
