@@ -8,6 +8,19 @@ Ref: https://atcoder.jp/contests/abc245/tasks/abc245_e
 
 We are given chocolates and boxes which are rectangular in shape with length and width, a `chocolate[i]` fits in `box[j]` only if `chocolate[i].length <= box[i].length && chocolate[i].width <= box[i].width`. Find whether all chocolates fits in the given boxes.
 
+#### Solution
+
+First, make a list containing all the chocolates and all the boxes, and sort it in the decreasing order of their widths. 
+
+If there is a chocolate and a box with the same width, order the box first. 
+Prepare an empty integer sequence multiset `S=()`. 
+
+Inspect each element as follows. 
+* If the inspected element is a box `(Ci ,Di)` Add `Di` to `S`. 
+* If the inspected element is a chocolate `(Ai, Bi)` Remove the smallest element of S greater than or equal to `Bi`. If there is no element to remove, the answer is No. 
+
+If all the elements were successfully inspected, then the answer is Yes.
+
 ```cpp
 #include <bits/stdc++.h>
 
