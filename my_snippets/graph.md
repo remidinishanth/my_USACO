@@ -1290,7 +1290,7 @@ source: https://github.com/t3nsor/codebook/blob/master/scc.cpp
     
 How to construct the condensed graph efficiently after finding SCC? https://codeforces.com/blog/entry/9566  
 
-We can obviously use a `vector<set<int>> adj` and the do `adj[comp[u]].insert(comp[v])`, but can we do it without using set?    
+We can obviously use a `vector<set<int>> adj` and the do `adj[comp[u]].insert(comp[v])`, Finally we can copy set into a vector. Can we do it without using set?    
     
 ```python
 fill(mark, false)
@@ -1301,7 +1301,8 @@ for c in components:
                 # If edge is not added to comp(v)
                 add_comp_edge(c, comp(u))
             mark[comp(u)] = true
-
+    
+    # Reset all the marks for next iteration
     for v in c:
         for u in original_edges(v):
             mark[comp(u)] = false
