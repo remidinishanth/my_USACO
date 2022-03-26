@@ -109,7 +109,7 @@ Given a Graph G(V, E). Find the smallest set of vertices from which all nodes in
   To solve this, we can compress all strongly connected components in the graph (using Tarjan's Algorithm or Kosaraju's Algorithm), leaving us with a directed acyclic graph. From this graph, it is enough if we consider vertices with `in_degree = 0`.
 
  <details>
-    <summary>DFS solution of DAG</summary>
+    <summary>DFS solution of DAG without using in_degree</summary>
     
 ```python
 class Solution:
