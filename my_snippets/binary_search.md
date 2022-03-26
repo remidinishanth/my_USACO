@@ -38,7 +38,14 @@ void lower_bound() {
 }
 ```
 
-Well, imagine you an array `[0..n - 1]` and let us have an invariant: some function F which returns True for every a[i] as an argument for any i from `[0..k]` and False for every `a[j]` for `j` from `[k + 1..n - 1]`. Then my binary search which actually finds the border between these two parts of the array looks the following way:
+If you are not sure whether to use `<=` or `<` or `mid = (L + R)/2` or `mid = (L + R + 1)/2`, think what happens for the case whether `L = k` and `R = k + 1`.
+
+### Finding borders of the True and False
+Well, imagine you an array `[0..n - 1]` and let us have an invariant: some function `F` which returns 
+* True for every `a[i]` as an argument for any `i` from `[0..k]`
+* False for every `a[j]` for `j` from `[k + 1..n - 1]`
+
+Then the following binary search which actually finds the border between these two parts of the array looks the following way:
 
 ```python
 l, r = -1, n
