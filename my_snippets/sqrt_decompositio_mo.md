@@ -1,3 +1,5 @@
+### Usecase: Answering queries on a static array, offline (Mo's algorithm)
+
 ## Anudeep's blog
 
 source: https://blog.anudeep2011.com/mos-algorithm/
