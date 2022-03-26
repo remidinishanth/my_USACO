@@ -564,6 +564,38 @@ struct Mo {
 };
 ```
 
+Usage: SPOJ DQUERY - Finding distinct elements in a range
+
+```cpp
+int main() {
+  int N;
+  cin >> N;
+  vector< int > A(N);
+  for(auto &a: A) cin >> a;
+  int Q;
+  cin >> Q;
+  Mo mo(N);
+  for(int i = 0; i < Q; i++) {
+    int a, b;
+    cin >> a >> b;
+    mo.add(a - 1, b);
+  }
+  vector< int > cnt(1000001), ans(Q);
+  int sum = 0;
+  auto add = [&](int i) {
+    if(cnt[A[i]]++ == 0) ++sum;
+  };
+  auto erase = [&](int i) {
+    if(--cnt[A[i]] == 0) --sum;
+  };
+  auto out = [&](int q) {
+    ans[q] = sum;
+  };
+  mo.build(add, erase, out);
+  for(auto &p: ans) cout << p << "\n";
+}
+```
+
 Ref: https://ei1333.hateblo.jp/entry/2017/09/11/211011
 
 ## TODO: 
