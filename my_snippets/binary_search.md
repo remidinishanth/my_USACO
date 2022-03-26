@@ -18,7 +18,11 @@ void binary_search() {
             R = mid - 1
     return -1
 }
+```
 
+We are using `<=` because if array is of length `1`, for example `arr = [5]` and searching for `5`, then if we use `L < R`, then it won't work.
+
+```cpp
 void lower_bound() {
     L = 0, R = N - 1;
     ans = -1;
@@ -34,7 +38,7 @@ void lower_bound() {
 }
 ```
 
-Well, imagine you an array [0..n - 1] and let us have an invariant: some function F which returns True for every a[i] as an argument for any i from [0..k] and False for every a[j] for j from [k + 1..n - 1]. Then my binary search which actually finds the border between these two parts of the array looks the following way:
+Well, imagine you an array `[0..n - 1]` and let us have an invariant: some function F which returns True for every a[i] as an argument for any i from `[0..k]` and False for every `a[j]` for `j` from `[k + 1..n - 1]`. Then my binary search which actually finds the border between these two parts of the array looks the following way:
 
 ```python
 l, r = -1, n
@@ -46,9 +50,9 @@ while r-l > 1:
         r = m
 ```
 
-You can easily prove that l = k and r = k + 1 by the end of the while loop. In this case no worries about whether to increase m by 1 or not.
+You can easily prove that `l = k` and `r = k + 1` by the end of the while loop. In this case no worries about whether to increase `m` by `1` or not.
 
-As an example this is the code which determines whether an element x exists in the sorted array [0..n-1]:
+As an example this is the code which determines whether an element x exists in the sorted array `[0..n-1]`:
 
 ```python
 def BinarySearch(x):
