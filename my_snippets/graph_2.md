@@ -1369,7 +1369,7 @@ Without loss of generality, assume there are fewer rows than columns. If there i
 
 For each operation, we need to output the corresponding vertex in the original two forest. Firstly, choose a vertex as the representative of each cell, because all vertexes in a cell can be seen as equivalent. Then, when merging two rows or columns, we just insert the representative vertexes at the same time.
 
-There can be at most 2𝑛 merge operations and the total complexity of them will be O(nlog^2n). This is because an element moves to a new row/column `O(log n)` times and each move is `O(log n)` time (using STL set in cpp).
+There can be at most 2𝑛 merge operations and the total complexity of them will be `O(nlog^2n)`. This is because an element moves to a new row/column `O(log n)` times and each move is `O(log n)` time (using STL set in cpp).
 				     
 ![](images/graph_21_8_2021.png)
 				     
