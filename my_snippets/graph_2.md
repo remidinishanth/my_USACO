@@ -1427,6 +1427,7 @@ int main() {
         int u, v; scanf("%d %d", &u, &v);
         merge(fa2, u, v);
     }
+    // make sure that number of components in forest 1 >= forest 2
     if(m1 < m2) swap(fa1, fa2);
     for(int i=1; i<=n; i++){
         int p1 = root(fa1, i), p2 = root(fa2, i);
