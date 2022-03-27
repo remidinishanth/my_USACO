@@ -816,7 +816,7 @@ public:
 
 </details>
 	
-#### Dijsktra's with Multiple sources and Other city constraint - First and Second minimum costs
+#### Dijkstra's with Multiple sources and Other city constraint - First and Second minimum costs
 	
 Given person and friendships(edges between person) and cities, each person belong to some in city. There are some popular persons in each city, For each person we want to find minimum distance to some popular person in different city.
 
