@@ -1430,7 +1430,7 @@ int main() {
     if(m1 < m2) swap(fa1, fa2);
     for(int i=1; i<=n; i++){
         int p1 = root(fa1, i), p2 = root(fa2, i);
-        mp[p1][p2] = i; // to connect p1 and p2 components, store if for answer
+        mp[p1][p2] = i; // to connect p1 and p2 components, store this info for answer
         row[p1].insert(p2);
         col[p2].insert(p1);
     }
