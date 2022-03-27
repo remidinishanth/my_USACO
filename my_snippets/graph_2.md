@@ -728,7 +728,7 @@ int main() {
 ```
 </details>
 	
-#### Dijktra's Application on Directed Graphs
+#### Dijkstra's Application on Directed Graphs
 
 <details>
         <summary> Leetcode problem </summary>
@@ -815,6 +815,84 @@ public:
 ```
 
 </details>
+	
+#### Dijsktra's with Multiple sources and Other city constraint - First and Second minimum costs
+	
+Given person and friendships(edges between person) and cities, each person belong to some in city. There are some popular persons in each city, For each person we want to find minimum distance to some popular person in different city.
+
+https://atcoder.jp/contests/abc245/tasks/abc245_g
+	
+<details>
+	<summary>Foreign Friends Solution</summary>	
+
+The basic idea of the solution is Dijkstra’s algorithm, which varies in two steps. 
+	
+* Step 1: Dijkstra’s algorithm with multiple sources.
+  - First, let’s ignore the condition of “belonging to a different country” and consider how to find the minimum cost required for each people to be an indirect friend of a popular person. 
+  - A simple solution is to find, for each fixed popular person, the minimum cost required to become an indirect person for every other people, and find the minimum value. 
+  - However it costs about `Θ(LNlogM)` time, which does not finish in time. 
+  - Here, by adding additional virtual vertex `S` and edges from `S` to the vertices corresponding to `L` popular people, the desired values can be found as the minimum distances from Vertex `S` to each vertex. 
+	
+* Step 2: Dijkstra’s algorithm in which each vertex is inspected multiple times. 
+  - Now, let’s consider the problem in which the condition of “belonging to a different country” is added. 
+  - Normal Dijkstra’s method determines the “distance from the starting vertex” in the “vertex set” in the increasing order of the distances; by determining “the minimum cost required for each popular person belonging in `Country i` to become an indirect friend of `Person j`” in the “set of pairs of `(Country i, Person j)`”, this problem can be solved in a similar way. 
+  - However, directly implementing this requires a total complexity of `Θ(KNlogKM)` or `Θ(K(M+NlogKN))`. Here, for each person `j`, among the elements of “the set of pairs of `(Country i, Person j)`”, it is sufficient to find “the minimum, and the second minimum, cost required for each popular person belonging in Country i to become an indirect friend of `Person j`.” 
+  - This is because, for these two countries `i1` and `i2` `(i1 !=i 2)`, `Person j` does not belong to at least one of `i1` or `i2`, and any path from `S` to a vertex that contains a sub-path with the third-minimum cost does never contribute to another path from `S` to another vertex with the minimum or the second-minimum cost. In this algorithm, each vertex is inspected at most twice, so the time complexity is `O(NlogM)` using a priority queue using binary tree.	
+	
+```cpp
+int main() {
+    int N, M, K, L;
+    scanf("%d %d %d %d", &N, &M, &K, &L);
+    vector<int> city(N);
+    for(int i=0;i<N;i++) scanf("%d", &city[i]);
+    // vector of {distance, city, person}
+    priority_queue<vector<long long>, vector<vector<long long>>, greater<>> Q;
+    for(int i=0;i<L;i++){
+        int popular_person;
+        scanf("%d", &popular_person);
+        popular_person--;
+        Q.push({0LL, city[popular_person], popular_person});
+    }
+    vector<vector<pair<int, int>>> adj(N, vector<pair<int, int>>());
+    for(int i=0;i<M;i++){
+        int U, V, C;
+        scanf("%d %d %d", &U, &V, &C);
+        U--; V--;
+        adj[U].push_back({V, C});
+        adj[V].push_back({U, C});
+    }
+    // first minimum and second minimum {distance, city} to become indirect friend
+    vector<pair<long long, int>> dist1(N, {LLONG_MAX, -1}), dist2(N, {LLONG_MAX, -1});
+    while(!Q.empty()){
+        auto v = Q.top(); Q.pop();
+        int person = v[2], city = v[1];
+        long long dist = v[0];
+        if(dist1[person].second == -1){
+            dist1[person] = {dist, city};
+        } else if(dist2[person].second == -1 && dist1[person].second != city){
+            dist2[person] = {dist, city};
+        } else {
+            continue;
+        }
+
+        for(auto [next_person, cost]: adj[person]){
+            Q.push({dist + cost, city, next_person});
+        }
+    }
+    for(int person=0;person<N;person++){
+        long long ans;
+        if(dist1[person].second != city[person]){
+            ans = dist1[person].first;
+        } else {
+            ans = dist2[person].first;
+        }
+        printf("%lld ", ans != LLONG_MAX ? ans : -1);
+    }
+    return 0;
+}
+```
+					 
+</details>	
 
 ## SSSP on Graph with Negative Weight Cycle
 
@@ -831,7 +909,7 @@ the correct value. If we then relax an edge u → v, then dist[v] will also have
 value. If we have relaxed all E edges V -1 times, then the shortest path from the source
 vertex to the furthest vertex from the source (which will be a simple path with V -1 edges)
 should have been correctly computed. The main part of Bellman Ford’s code is simpler than
-BFS and Dijsktra’s code:
+BFS and Dijkstra’s code:
 
 ```cpp
   AdjList.assign(V, vii()); // assign blank vectors of pair<int, int>s to AdjList
