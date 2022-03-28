@@ -463,6 +463,21 @@ int search(vector < int > & V, int target) {
 }
 ```
 
+#### Rotated Sorted array with duplicates
+	
+We need to handle following cases:
+* `[1, 3, 1, 1, 1]`
+* `[1, 0, 1, 1, 1]`
+	
+We can add the following condition before starting the binary search
+	
+```cpp
+    if(V[l] == V[mid] && V[mid] == V[r]){
+	l++; r--; 
+	continue;
+    }
+```
+
 ## Median of two Sorted arrays
 
 Let's call the arrays `A` and `B`. If we combine these 2 arrays, then median divide the array into 2 parts: left and right whose length are the "same". The left part consists of `(part of  A) + (part of B)`, so we can divide both A and B to 2 smaller parts, Let's break the array A at index `i` and array B at index `j`.
