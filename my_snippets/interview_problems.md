@@ -155,3 +155,8 @@ In the whole process, each edge can only go up to 2 times, once to locate a cert
 ![image](images/morris_trav2.jpg)
 
 source: https://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
+
+
+### Different ways of finding duplicated in an array
+
+https://leetcode.com/problems/find-the-duplicate-number/solution/
