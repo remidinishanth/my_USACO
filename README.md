@@ -4,13 +4,11 @@ Competitive Programming Notes
 
 
 {% assign doclist = site.pages | sort: 'url'  %}
- <ul>
     {% for doc in doclist %}
          {% if doc.name contains '.md' or doc.name contains '.html' %}
              * <a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.url }}</a>
          {% endif %}
      {% endfor %}
- </ul>
 
 
 Use dir listing for more topics
