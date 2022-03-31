@@ -7,7 +7,7 @@ Competitive Programming Notes
  <ul>
     {% for doc in doclist %}
          {% if doc.name contains '.md' or doc.name contains '.html' %}
-             <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.url }}</a></li>
+             * <a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.url }}</a>
          {% endif %}
      {% endfor %}
  </ul>
