@@ -1,4 +1,8 @@
-[Some text](www.google.com)
+{% assign doclist = site.pages | sort: 'url'  %}
+{% for doc in doclist %}
+[Some text]({{doc.url}})
+{% endfor %}
+
 
 {% assign doclist = site.pages | sort: 'url'  %}
  <ul>
