@@ -1,6 +1,6 @@
 {% assign doclist = site.pages | sort: 'url'  %}
 {% for doc in doclist %}
-[Some text]({{doc.url}})
+[{{doc.url}}]({{ site.baseurl }}{{ doc.url }})
 {% endfor %}
 
 
