@@ -263,7 +263,7 @@ public:
             vector<int> a(n, 0);
             for(int k=j; k<m; k++){ // Prefix sum of [i][j:m]
                 for(int i=0; i<n; i++) a[i] += matrix[i][k];
-                ans=max(ans, f(a,t));
+                ans = max(ans, f(a, t));
             }
         }
         return ans;
