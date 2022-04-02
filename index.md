@@ -1,10 +1,19 @@
 <!--- Liquid Syntax -->
 
 {% assign doclist = site.pages | sort: 'url'  %}
+
 {% for doc in doclist %}
+
 {% if doc.name contains '.md' or doc.name contains '.html' %}
-[{{doc.url}}]({{ site.baseurl }}{{ doc.url }})
+
+{% if doc.url contains "/my_snippets/" %}
+
+[{{doc.name | remove_first: ".html" }}]({{ site.baseurl }}{{ doc.url }})
+
 {% endif %}
+
+{% endif %}
+
 {% endfor %}
 
 <!---
