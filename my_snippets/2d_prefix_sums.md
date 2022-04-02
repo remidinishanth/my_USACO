@@ -241,7 +241,7 @@ int main()
 
 ## Max Sum of Rectangle No Larger Than K
 
-https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/solution/
+https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k
 
 ```cpp
 class Solution {
