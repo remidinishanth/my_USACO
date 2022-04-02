@@ -252,7 +252,7 @@ public:
         for(int i=0;i<V.size();i++){
             cur += V[i];
             auto it = S.lower_bound(cur-k);
-            if(it != S.end()) ans = max(ans, cur-*it); # check if sum <= k ?
+            if(it != S.end()) ans = max(ans, cur-*it); // check if sum <= k ?
             S.insert(cur);
         }
         return ans;
@@ -261,7 +261,7 @@ public:
         int n = matrix.size(), m = matrix[0].size(), ans = INT_MIN;
         for(int j=0; j<m; j++){
             vector<int> a(n, 0);
-            for(int k=j; k<m; k++){ # Prefix sum of [i][j:m]
+            for(int k=j; k<m; k++){ // Prefix sum of [i][j:m]
                 for(int i=0; i<n; i++) a[i] += matrix[i][k];
                 ans=max(ans, f(a,t));
             }
