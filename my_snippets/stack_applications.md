@@ -2,13 +2,13 @@
 
 Important Observation
 
-Lets consider 2 consecutive histograms H[i] and H[i+1]. Lets assume `H[i+1] < H[i]`
+Lets consider 2 consecutive histograms `H[i]` and `H[i+1]`. Lets assume `H[i+1] < H[i]`
 
-In such a case, for all histograms X with index > i + 1 when traversing left for L, there is no point looking at H[i] after looking at H[i+1]. If H[i+1] > X, obviously H[i] > X as we already know H[i] > H[i+1]
+In such a case, for all histograms `X` with index `> i + 1` when traversing left for `L`, there is no point looking at `H[i]` after looking at `H[i+1]`. If `H[i+1] > X`, obviously `H[i] > X` as we already know `H[i] > H[i+1]`.
 
-Then, whats the next entry we would want to look at? We would want to look at the first histogram left of H[i+1] with height less than H[i+1].
+Then, whats the next entry we would want to look at? We would want to look at the first histogram left of `H[i+1]` with height less than `H[i+1]`.
 
-We traverse all histograms from left to right, maintain a stack of histograms. Every histogram is pushed to stack once. A histogram is popped from stack when a histogram of smaller height is seen. When a histogram is popped, we calculate the area with the popped histogram as smallest histogram. How do we get left and right indexes of the popped histogram – the current index tells us the ‘right index’ R and index of previous item in stack is the ‘left index’ L. Following is a rough
+We traverse all histograms from left to right, maintain a stack of histograms. Every histogram is pushed to stack once. A histogram is popped from stack when a histogram of smaller height is seen. When a histogram is popped, we calculate the area with the popped histogram as smallest histogram. How do we get left and right indexes of the popped histogram – the current index tells us the ‘right index’ `R` and index of previous item in stack is the ‘left index’ `L`. Following is a rough
 
 ### Linear search using a stack of incomplete subproblems
 
@@ -58,9 +58,9 @@ https://stackoverflow.com/questions/9493853/given-an-array-find-out-the-next-sma
 
 Given an array find the next smaller element in array for each element without changing the original order of the elements.
 
-For example, suppose the given array is 4,2,1,5,3.
+For example, suppose the given array is `4,2,1,5,3`.
 
-The resultant array would be 2,1,-1,3,-1.
+The resultant array would be `2,1,-1,3,-1`.
 
 ### Solution
 
@@ -149,14 +149,14 @@ source: https://github.com/t3nsor/codebook/blob/master/ansv.cpp
 
 ## Psychos in a Line
 
-There are n psychos standing in a line. Each psycho is assigned a unique integer from 1 to n. At each step every psycho who has an id greater than the psycho to his right (if exists) kills his right neighbor in the line. Note that a psycho might kill and get killed at the same step.
+There are n psychos standing in a line. Each psycho is assigned a unique integer from `1` to `n`. At each step every psycho who has an id greater than the psycho to his right (if exists) kills his right neighbor in the line. Note that a psycho might kill and get killed at the same step.
 
 You're given the initial arrangement of the psychos in the line. Calculate how many steps are needed to the moment of time such, that nobody kills his neighbor after that moment. Look notes to understand the statement more precise.
 
 Input:
-The first line of input contains integer n denoting the number of psychos, (1 ≤ n ≤ 10^5). In the second line there will be a list of n space separated distinct integers each in range 1 to n, inclusive — ids of the psychos in the line from left to right.
+The first line of input contains integer n denoting the number of psychos, `(1 ≤ n ≤ 10^5)`. In the second line there will be a list of n space separated distinct integers each in range `1` to `n`, inclusive — ids of the psychos in the line from left to right.
 
-Example: In the first sample line of the psychos transforms as follows: [10 9 7 8 6 5 3 4 2 1]  →  [10 8 4]  →  [10]. So, there are two steps.
+Example: In the first sample line of the psychos transforms as follows: `[10 9 7 8 6 5 3 4 2 1]`  →  `[10 8 4]`  →  `[10]`. So, there are two steps.
 
 ### Solution
 
