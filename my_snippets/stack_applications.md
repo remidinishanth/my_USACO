@@ -154,7 +154,7 @@ There are n psychos standing in a line. Each psycho is assigned a unique integer
 You're given the initial arrangement of the psychos in the line. Calculate how many steps are needed to the moment of time such, that nobody kills his neighbor after that moment. Look notes to understand the statement more precise.
 
 Input:
-The first line of input contains integer n denoting the number of psychos, `(1 ≤ n ≤ 10^5)`. In the second line there will be a list of n space separated distinct integers each in range `1` to `n`, inclusive — ids of the psychos in the line from left to right.
+The first line of input contains integer n denoting the number of psychos, `(1 ≤ n ≤ 10^5)`. In the second line there will be a list of `n` space separated distinct integers each in range `1` to `n`, inclusive — ids of the psychos in the line from left to right.
 
 Example: In the first sample line of the psychos transforms as follows: `[10 9 7 8 6 5 3 4 2 1]`  →  `[10 8 4]`  →  `[10]`. So, there are two steps.
 
