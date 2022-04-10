@@ -57,6 +57,20 @@ Here the constraints on `a𝑖`, `n` and `m` come in handy. We can use a dynamic
 There are two basic types of transitions in this dynamic programming: we either skip the arc from `i` to `j`, or pick it and transfer some flow through it; and no matter what we've chosen, we move to the next vertex of the left part (or to 1 and increase `j` by 1 if we are already considering the `n-th` vertex of the left part). The constraints were loose enough to implement this dp basically in any form (there was no need to compress the states into single integers).
 
 ###  Maximum weight Matching problem
+
+Problem
+
+There are N competitive programmers. 
+* The i-th competitive programmer belongs to University `Ai`, is good at Subject `Bi`, and has a power of `Ci`. 
+ 
+Consider a team consisting of some of the N people. Let us call such a team a dream team if both of the following conditions are satisfied: 
+* Any two people belonging to the team belong to different universities. 
+* Any two people belonging to the team are good at different subjects. 
+ 
+Let k be the maximum possible number of members of a dream team. For each i=1,2,…,k, solve the following question. Question: find the maximum sum of power of people belonging to a dream team consisting of i people.
+
+Solution
+
 * A maximum matching problem on a bipartite graph can be solved with minimum cost flow problem.
 * https://atcoder.jp/contests/abc247/tasks/abc247_g
 * https://atcoder.jp/contests/abc247/editorial/3770
