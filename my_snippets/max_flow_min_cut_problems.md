@@ -6,7 +6,7 @@ source: https://codeforces.com/contest/1519/problem/F
 
 **Solution:**
 
-Clearly, if the sum of the coins in all the chests > cost of buying all the keys, then Bob always gains positive profit and answer is `-1`.
+Clearly, if the sum of the coins in all the chests `>` cost of buying all the keys, then Bob always gains positive profit and answer is `-1`.
 
 Observation: Note that here `n`, `m`, `aᵢ` and `bⱼ` are small. Bob's profit should be strictly positive `> 0`.
 
