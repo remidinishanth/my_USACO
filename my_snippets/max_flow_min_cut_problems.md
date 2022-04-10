@@ -55,3 +55,9 @@ We have `6` nodes on the chests of the graph, each node can store flow from `0` 
 Here the constraints on `a𝑖`, `n` and `m` come in handy. We can use a dynamic programming with the flow over all arcs going from the source as one of the states. One of the ways to implement it is to have `(f₁, f₂ ,…, fₙ , i, j, r)` as the state, where `f₁` through `fₙ` are the values of the flow going from the arcs from the source, `i` is the current vertex in the left part we consider,`j` is the current vertex in the right part we consider, and `r` is the flow we already pushed through the arc connecting vertex `j` of the right part to the sink (and the value we store for this state is the minimum cost Alice has pay to reach this state). 
 
 There are two basic types of transitions in this dynamic programming: we either skip the arc from `i` to `j`, or pick it and transfer some flow through it; and no matter what we've chosen, we move to the next vertex of the left part (or to 1 and increase `j` by 1 if we are already considering the `n-th` vertex of the left part). The constraints were loose enough to implement this dp basically in any form (there was no need to compress the states into single integers).
+
+###  Maximum weight Matching problem
+* A maximum matching problem on a bipartite graph can be solved with minimum cost flow problem.
+* https://atcoder.jp/contests/abc247/tasks/abc247_g
+* https://atcoder.jp/contests/abc247/editorial/3770
+* You can also think it as an assignment problem. Ref: https://atcoder.jp/contests/abc247/submissions/30867023
