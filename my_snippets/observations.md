@@ -126,3 +126,6 @@ If asked for common strings then
 Else
 - Map/Set for O(1) time & O(n) space
 - Sort input for O(nlogn) time and O(1) space
+
+	
+![](images/tips_for_practice.png)
