@@ -13,6 +13,8 @@ for each root v,
 source: Algorithm Gym :: Data structures by DarthKnight https://codeforces.com/blog/entry/15729
 
 ```cpp
+vector<int> par = vector<int>(n, -1);
+
 int root(int v){return par[v] < 0 ? v : (par[v] = root(par[v]));}
 
 void merge(int x,int y){    //  x and y are some tools (vertices)
