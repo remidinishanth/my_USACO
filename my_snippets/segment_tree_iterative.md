@@ -304,6 +304,7 @@ template<class T> struct Seg { // comb(ID,b) = b
         }
         return comb(ra,rb);
     }
+    // if n is not power of two this may not work as expected
     int first_at_least(int lo, int val, int ind, int l, int r) { // if seg stores max across range
         if (r < lo || val > seg[ind]) return -1;
         if (l == r) return l;
