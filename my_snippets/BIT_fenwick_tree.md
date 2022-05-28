@@ -2,8 +2,13 @@ Suppose we have an array AA and we want to support the following two operations:
 
 * Update: change the value of an element A_i	
 * Query: find the value of a certain partial sum `A_1 + A_2 + ... + A_i` 
+
+### Note
+The Binary Indexed Tree, as presented by Peter Fenwick, cannot efficiently answer min/max kinds of queries, because, for determining the sum of 
+`A[i ... j]`, it needs to compute the difference between the sum of the first `j` elements and the sum of the first
+`i – 1` elements.
 	
- 
+### Explanation 
 A Fenwick tree or a binary indexed tree is a data structure that handles both of these efficiently. It should be noted that if we have such a data structure, we can also find the sum over an interval `[i, j]` by just calculating `sum(j) - sum(i-1)`.
 
 
