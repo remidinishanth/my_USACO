@@ -305,12 +305,24 @@ template<class T> struct Seg { // comb(ID,b) = b
         return comb(ra,rb);
     }
     // if n is not power of two this may not work as expected
+    // int first_at_least(int lo, int val, int ind, int l, int r) { // if seg stores max across range
+    //     if (r < lo || val > seg[ind]) return -1;
+    //     if (l == r) return l;
+    //     int m = (l+r)/2;
+    //     int res = first_at_least(lo,val,2*ind,l,m); if (res != -1) return res;
+    //     return first_at_least(lo,val,2*ind+1,m+1,r);
+    // }
+    // Use randon values for lo and ind -> val to compare for max, l -> starting index(0 indexing)
     int first_at_least(int lo, int val, int ind, int l, int r) { // if seg stores max across range
-        if (r < lo || val > seg[ind]) return -1;
-        if (l == r) return l;
+        if (l == r && query(l, r) >= val) return l;
+        else if(l == r) return -1;
         int m = (l+r)/2;
-        int res = first_at_least(lo,val,2*ind,l,m); if (res != -1) return res;
-        return first_at_least(lo,val,2*ind+1,m+1,r);
+        if(query(l,m) >= val){
+            return first_at_least(lo, val, ind, l, m);
+        } else if(query(m+1, r) >= val){
+            return first_at_least(lo,val,2*ind+1,m+1,r);
+        }
+        return -1;
     }
 };
 
