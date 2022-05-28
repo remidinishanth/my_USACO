@@ -274,7 +274,7 @@ TODO: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-s
 * 1D Point Update and Range query
 * Point Update: Set value at i to x
 * Range query: Query for the comb `[L, R]`
-* `seg[1] == query(0,N-1)`
+* If `N=2^p` then `seg[1] == query(0,N-1)`.
 
 ```cpp
 /**
