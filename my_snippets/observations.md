@@ -59,6 +59,28 @@ This modification does not change the answer. Because, “swapping after increme
 	    }
 	```
 	</details>
+
+* Sometimes, doing it from back might help, Ref: https://leetcode.com/contest/weekly-contest-295/problems/steps-to-make-array-non-decreasing/. You are given a `0`-indexed integer array nums. In one step, remove all elements `nums[i]` where `nums[i - 1] > nums[i]` for all `0 < i < nums.length`. Return the number of steps performed until nums becomes a non-decreasing array.
+  <details>
+  <summary> Explanation </summary>
+
+	```python
+	class Solution:
+	    def totalSteps(self, a: List[int]) -> int:
+		z = 0
+		b = []
+		n = len(a)
+		l = 0
+		for i in a[::-1]:
+		    c = 0
+		    while len(b) and i > b[-1][0]:
+			x, y = b.pop()
+			c += 1 + max(y - c - 1, 0)
+		    z = max(z, c)
+		    b.append((i, c))
+		return z
+	```
+  </details>
 				       
 ```cpp
 /* stuff you should look for
