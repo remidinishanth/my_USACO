@@ -189,7 +189,7 @@ However, there is one special case: The root of the DFS spanning tree (the verte
 
 ```cpp
 vi dfs_num, dfs_low; // additional information for articulation points/bridges/SCCs
-vi articulation_vertex;
+vi articulation_vertex, dfs_parent;
 int dfsNumberCounter, dfsRoot, rootChildren;
 
 void articulationPointAndBridge(int u) {
