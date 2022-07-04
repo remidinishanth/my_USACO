@@ -4,7 +4,66 @@ solutions: https://www.youtube.com/watch?v=ll-UwTagrU0
 
 TODO: https://leetcode.com/problems/three-equal-parts/
 
-TODO: Wrapping Chocolate https://atcoder.jp/contests/abc245/tasks/abc245_e
+#### TODO: Wrapping Chocolate 
+
+source: https://atcoder.jp/contests/abc245/tasks/abc245_e
+
+Takahashi has `N` pieces of chocolate. 
+* The i-th piece has a rectangular shape with a width of `Ai` centimeters and a length of `Bi` centimeters. 
+
+He also has `M` boxes. 
+* The i-th box has a rectangular shape with a width of `Ci` centimeters and a length of `Di` centimeters. 
+
+Determine whether it is possible to put the `N` pieces of chocolate in the boxes under the conditions below. A box can contain at most one piece of chocolate. `Ai ≤ Cj` and `Bi ≤ Dj` must hold when putting the i-th piece of chocolate in the j-th box (they cannot be rotated).
+
+```cpp
+#include <bits/stdc++.h>
+ 
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int n, m;
+    std::cin >> n >> m;
+    
+    std::vector<std::array<int, 2>> box(m), choco(n);
+    for (int i = 0; i < n; i++) {
+        std::cin >> choco[i][0];
+    }
+    for (int i = 0; i < n; i++) {
+        std::cin >> choco[i][1];
+    }
+    for (int i = 0; i < m; i++) {
+        std::cin >> box[i][0];
+    }
+    for (int i = 0; i < m; i++) {
+        std::cin >> box[i][1];
+    }
+        
+    std::sort(choco.begin(), choco.end(), std::greater());
+    std::sort(box.begin(), box.end(), std::greater());
+    
+    std::multiset<int> s;
+    for (int i = 0, j = 0; i < n; i++) {
+        // among all boxes that can fix box[i]
+        while (j < m && box[j][0] >= choco[i][0]) {
+            s.insert(box[j][1]);
+            j++;
+        }
+        // choose the smallest box
+        auto it = s.lower_bound(choco[i][1]);
+        if (it == s.end()) {
+            std::cout << "No\n";
+            return 0;
+        }
+        s.erase(it);
+    }
+    
+    std::cout << "Yes\n";
+    
+    return 0;
+}
+```
 
 Done https://atcoder.jp/contests/agc003/tasks/agc003_b Solution: https://img.atcoder.jp/data/agc/003/editorial.pdf
 
