@@ -16,7 +16,9 @@ He also has `M` boxes.
 
 Determine whether it is possible to put the `N` pieces of chocolate in the boxes under the conditions below. A box can contain at most one piece of chocolate. `Ai ≤ Cj` and `Bi ≤ Dj` must hold when putting the i-th piece of chocolate in the j-th box (they cannot be rotated).
 
-Solution: We cannot use `multiset<pair<int,int>>` directly because, Say we have `[4, 2]` and `[2, 3]` chocolates and `[5, 5]` and `[8, 2]` boxes.
+Solution: We cannot use `multiset<pair<int,int>>` directly because, Say we have `[4, 2]` and `[2, 3]` chocolates and `[5, 5]` and `[8, 2]` boxes. If we start choosing chocos from largest X, then we choose box `[5, 5]` for `[4, 2]` choco, then we will not be able to select box `[8, 2]` for `[2, 3]`.
+
+Similary, if we have chocos `[2, 3]`, `[2, 5]` and boxes `[3, 5]`, `[4, 3]`. Then if we start choosing boxes from smallest X it will not work. Hence using lower_bound in multiset won't work.
 
 ```cpp
 #include <bits/stdc++.h>
