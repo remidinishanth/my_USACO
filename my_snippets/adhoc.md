@@ -4,7 +4,7 @@ solutions: https://www.youtube.com/watch?v=ll-UwTagrU0
 
 TODO: https://leetcode.com/problems/three-equal-parts/
 
-#### TODO: Wrapping Chocolate 
+#### Wrapping Chocolate 
 
 source: https://atcoder.jp/contests/abc245/tasks/abc245_e
 
@@ -15,6 +15,8 @@ He also has `M` boxes.
 * The i-th box has a rectangular shape with a width of `Ci` centimeters and a length of `Di` centimeters. 
 
 Determine whether it is possible to put the `N` pieces of chocolate in the boxes under the conditions below. A box can contain at most one piece of chocolate. `Ai ≤ Cj` and `Bi ≤ Dj` must hold when putting the i-th piece of chocolate in the j-th box (they cannot be rotated).
+
+Solution: We cannot use `multiset<pair<int,int>>` directly because, Say we have `[4, 2]` and `[2, 3]` chocolates and `[5, 5]` and `[8, 2]` boxes.
 
 ```cpp
 #include <bits/stdc++.h>
