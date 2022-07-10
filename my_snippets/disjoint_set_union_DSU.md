@@ -189,3 +189,47 @@ class Solution(object):
                 r.append(False)
         return r
 ```
+
+#### LeetCode - Subarray With Elements Greater Than Varying Threshold
+
+You are given an integer array `nums` and an integer `threshold`.
+
+Find any subarray of `nums` of length `k` such that every element in the subarray is greater than `threshold / k`.
+
+Return the size of any such subarray. If there is no such subarray, return `-1`.
+
+
+```cpp
+class Solution {
+public:
+    vector<int> par;
+
+    int root(int v) {return par[v] < 0 ? v : (par[v] = root(par[v]));}
+
+    void merge(int x,int y){    //  x and y are some tools (vertices)
+        if((x = root(x)) == (y = root(y)))  return;
+        if(par[y] < par[x]) // balancing the height of the tree
+            swap(x, y);
+        par[x] += par[y];
+        par[y] = x;
+    }
+    
+    int validSubarraySize(vector<int>& nums, int threshold) {
+        par  = vector<int>(nums.size(), -1);
+        vector<pair<int, int>> V;
+        for(int i=0;i<nums.size();i++) V.push_back({nums[i], i});
+        sort(V.rbegin(), V.rend());
+        for(pair<int, int> x: V){
+            int i = x.second;
+            int min_element_of_group = x.first;
+            if(i > 0 && nums[i-1] >= nums[i]) merge(i-1, i);
+            if(i + 1 < nums.size() && nums[i+1] >= nums[i]) merge(i, i+1);
+            int size_of_group = -par[root(i)];
+            if(min_element_of_group*size_of_group > threshold){
+                return size_of_group;
+            }
+        }
+        return -1;
+    }
+};
+```
