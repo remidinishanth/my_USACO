@@ -76,3 +76,5 @@ int maxCoins(vector <int> & nums) {
 ```
 
 TODO: https://leetcode.com/problems/minimum-cost-to-merge-stones/discuss/247567/JavaC%2B%2BPython-DP
+
+TODO: https://leetcode.com/problems/k-inverse-pairs-array/
