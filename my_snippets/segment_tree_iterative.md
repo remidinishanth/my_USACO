@@ -407,3 +407,5 @@ struct Tree {
   }
 };
 ```
+
+Usage: 	`struct Tree st(n);`, `st.update(i, A[i]);` and `st.query(i, j+1);` because of `query [b, e)`
