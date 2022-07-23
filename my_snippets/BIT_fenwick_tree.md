@@ -30,6 +30,7 @@ Now we have a method of finding the length of any interval in O(1)O(1):
 ```cpp
 int lsb(int pos) {
     return pos & -pos;
+}
 ```
 
 `#define LSOne(S) (S&(-S))` is used to get the last set bit of `S`
