@@ -42,6 +42,8 @@ In case we have Degree Set as `{1, 2, 3, 6, 9}`.
 
 The construction is as follows:
 
+Now sure why it works:
+
 ```
 5
 1 2 3 6 9
