@@ -89,6 +89,10 @@ struct binary_indexed_tree {
         return sum(R) - sum(L);
     }
 };
+
+// Usage: 
+// struct binary_indexed_tree<int> bit(2* 1e4 + 10);
+// bit.add(i, 1);
 ```
 
 source: https://codeforces.com/contest/1535/submission/118419611
