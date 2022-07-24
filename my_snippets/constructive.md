@@ -41,25 +41,25 @@ vi degree;
 inline void solve(int l, int r, int vl, int vr) {
     if(l > r) return;
     if(l == r) {
-        // clique of vertices from [vl, vr]
+        // create a complete graph between [vl, vr]
         for(int i = vr; i > vl; --i)
             for(int j = vl; j < i; j++)
                 // add edge between i and j
                 cnt++, u[cnt] = i, v[cnt] = j;
         return;
     }
-    
+
+    // create degree[l] vertices of degree[r] from (vr - w, vr]
     int w = degree[l];
-    // create w vertices of degree[r] from the end (vr - w, vr]
     for(int  i = vr; i > vr - w; --i)
         for(int j = vl; j < i; j++)
             cnt++, u[cnt] = i, v[cnt] = j;
 
-    // Solve the sub-problem
+    // Solve the subproblem
+    int nxtl = vl + degree[r] - degree[r-1], nxtr = vr - degree[l];
     // (degree[l+1] - degree[l], ..., degree[r-1] - degree[l])
     for(int i = l + 1; i < r; i++)
         degree[i] -= degree[l];
-    int nxtl = vl + degree[r] - degree[r-1], nxtr = vr - degree[l];
     solve(l + 1, r - 1, nxtl, nxtr);
 }
 
@@ -74,6 +74,7 @@ int main() {
         printf("%d %d\n", u[i], v[i]);
     return 0;
 }
+
 ```
 
 Iterative Solution
