@@ -33,7 +33,7 @@ Solution: https://blog.csdn.net/m0_37809890/article/details/80153601
 
 Recursive Solution:
 
-```
+```cpp
 const int nax = 1e6 +  10;
 int n, cnt, u[nax], v[nax];
 vi degree;
