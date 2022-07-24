@@ -3,6 +3,22 @@
 #### Degree Set codeforces
 * https://codeforces.com/contest/976/problem/D Degree set
 
+**Solution:**
+
+We prove that the answer always always exists by constructing it.
+
+* Graph for `n = 0` is a single vertex;
+* Graph for `n = 1` is a clique of `d1 + 1` vertices;
+* Graph for some `(d1, d2, ..., dk)` is obtained from the graph `(d2 - d1, d3 - d1, ..., dk - 1 - d1)` by adding `(dk - dk - 1)` vertices initially connected to nothing and `d1` vertices connected to all previously mentioned ones.
+
+The vertices connected to nothing got degrees `d1`, the vertices from the previous step increased their degrees by `d1` and finally there appeared vertices of degree `dk`. The number is vertices is `dk + 1` as needed.
+
+If we only have degrees `{d1, d2}` in the set, then we have have complete graph with `d1` nodes and then add `(d2 - d1 + 1)` nodes connecting to `d1` nodes of complete graph.
+This way we will have `(d2 - d1 + 1)` nodes with degree `d1` and `d1` vertices with degree `(d1 - 1 + d2 - d1 + 1) = d2`
+
+
+**Intuition and Analysis:**
+
 Every node of degree `d[n]` must be connected to all other nodes, How many such nodes can exist? There should be `>= 1` and `<= d[1]`.  
 
 Let's assume that there exists `d[1]` nodes with degree `d[n]`, the node of degree `d[1]` has all sides connected to the point of degree `d[n]`, so we have `d[1]` points with degree `d[n]`, at this time, the degree of all nodes is equivalent to `d[1]`.
