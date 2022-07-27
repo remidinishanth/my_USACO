@@ -16,6 +16,8 @@ The vertices connected to nothing got degrees `d1`, the vertices from the previo
 If we only have degrees `{d1, d2}` in the set, then we have have complete graph with `d1` nodes and then add `(d2 - d1 + 1)` nodes connecting to `d1` nodes of complete graph.
 This way we will have `(d2 - d1 + 1)` nodes with degree `d1` and `d1` vertices with degree `(d1 - 1 + d2 - d1 + 1) = d2`
 
+![image](https://user-images.githubusercontent.com/19663316/181312952-bc5a5140-2c5a-47d8-92c4-7e941cffbfa6.png)
+
 
 **Intuition and Analysis:**
 
