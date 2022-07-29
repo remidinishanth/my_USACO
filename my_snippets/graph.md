@@ -921,7 +921,7 @@ void tarjanSCC(int u) {
     ii v = AdjList[u][j];
     if (dfs_num[v.first] == DFS_WHITE)
       tarjanSCC(v.first);
-    if (visited[v.first])                                // condition for update
+    if (visited[v.first])  // condition for update, check if v.first in on stack
       dfs_low[u] = min(dfs_low[u], dfs_low[v.first]);
   }
 
