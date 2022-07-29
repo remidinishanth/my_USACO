@@ -867,7 +867,7 @@ REF: https://tanujkhattar.wordpress.com/2016/01/10/the-bridge-tree-of-a-graph/, 
 
 ## Tarjan's strongly connected components algorithm
 
-Strong Connectivity applies only to **directed graphs**. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex. There are at least two known algorithms to find SCCs: Kosaraju’s algorithm and Tarjan’s algorithm.  In this section, we adopt Tarjan’s version, as it extends naturally from our previous discussion of finding Articulation Points and Bridges.
+Strong Connectivity applies only to **directed graphs**. A directed graph is strongly connected if there is a directed path from any vertex to every other vertex. There are at least two known algorithms to find SCCs: _Kosaraju’s algorithm_ and _Tarjan’s algorithm_.  In this section, we adopt Tarjan’s version, as it extends naturally from our previous discussion of finding Articulation Points and Bridges.
 
 Consider the following graph, say we start DFS from the top-left vertex.
 
