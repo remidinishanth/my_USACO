@@ -897,7 +897,9 @@ How to fix this? The **Stack Invariant**.
 New low-link update condition
 * To update node u's `low_link` value to node v's value there has to be a path of edges from `u` to `v` and node `v` must be on the stack.
 
-⚠️ The crucial invariant property is that a node remains on the stack after it has been visited if and only if there exists a path in the input graph from it to some node earlier on the stack. In other words, it means that in the DFS a node would be only removed from the stack after all its connected paths have been traversed. When the DFS will backtrack it would remove the nodes on a single path and return to the root in order to start a new path.
+⚠️ Stack Invariant:
+* The crucial invariant property is that a node remains on the stack after it has been visited if and only if there exists a path in the input graph from it to some node which was pushed earlier on the stack. 
+* In other words, it means that in the DFS a node would be only removed from the stack after all its connected paths have been traversed. When the DFS will backtrack it would remove the nodes on a single path and return to the root in order to start a new path.
 
 At the end of the call that visits v and its descendants, we know whether v itself has a path to any node earlier on the stack. If so, the call returns, leaving v on the stack to preserve the invariant. If not, then v must be the root of its strongly connected component, which consists of v together with any nodes later on the stack than v (such nodes all have paths back to v but not to any earlier node, because if they had paths to earlier nodes then v would also have paths to earlier nodes which is false). The connected component rooted at v is then popped from the stack and returned, again preserving the invariant.
 
