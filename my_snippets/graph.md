@@ -936,6 +936,8 @@ void tarjanSCC(int u) {
 } }
 ```
 
+Another readable implementation: https://yuihuang.com/cses-1682/
+
 ![](images/Tarjan's_Algorithm_Animation.gif)
 
 source: [Wiki](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm)
