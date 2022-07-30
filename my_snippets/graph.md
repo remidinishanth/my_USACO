@@ -1222,7 +1222,7 @@ But we also have the blue edges, so we visit not only this strongly connected co
 
 ![](images/kosaraju_scc_4.png)
 
-So we need a way to fix this, we want to start the DFS at vertices such that we only visit vertices of this strongly connected component but not others. The idea is to use two DFS on the graph. First one is to find the order of the vertices.
+**So we need a way to fix this** ❓, we want to start the DFS at vertices such that we only visit vertices of this strongly connected component but not others. The idea is to use two DFS on the graph. First one is to find the order of the vertices. And do second DFS in this order of vertices we got from first DFS.
 
 The first DFS is done on the original directed graph and record the ‘post-order’ traversal of the vertices as in finding topological sort. The second DFS is done on the transpose of the original directed graph using the ‘post-order’ ordering found by the first DFS. This two passes of DFS is enough to find the SCCs of the directed graph.
 
