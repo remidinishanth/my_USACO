@@ -380,6 +380,12 @@ class Roxor {
 }; 
 ```
 
+## Young diagram
+
+### E - Candy Piles
+
+source: https://atcoder.jp/contests/agc002/tasks/agc002_e
+
 ## TODO: 
 
 Problems from https://letuskode.blogspot.com/2014/08/grundy-numbers.html
