@@ -894,7 +894,7 @@ How to fix this? The **Stack Invariant**.
 * Nodes are added to the set(stack) of valid nodes as they're explored for the first time.
 * Nodes are removed from the set(stack) each time a complete SCC is found.
 
-New low-link update condition
+❗ New low-link update condition
 * To update node u's `low_link` value to node v's value there has to be a path of edges from `u` to `v` and node `v` must be on the stack.
 
 ⚠️ Stack Invariant:
