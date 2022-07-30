@@ -1,6 +1,6 @@
 Directed graphs in which every vertex has exactly one outgoing edge.
 
-source: Directed graphs in which every vertex has exactly one outgoing edge.
+source: https://usaco.guide/silver/func-graphs?lang=cpp
 
 ### Problem:
 
@@ -60,3 +60,7 @@ class Solution:
                     l.append(j)
         return max(total, best)
 ```
+
+### Planet Queries 2
+
+https://usaco.guide/problems/cses-1160-planets-queries-ii/solution
