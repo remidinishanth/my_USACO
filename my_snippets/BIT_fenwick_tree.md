@@ -25,7 +25,7 @@ To represent a negative value `−x`, we take the binary representation of `x`, 
 
 Notice the bits more significant than the lsb are different for `x` and `−x`, while the lsb and the following `0`'s are the same. Therefore, `x & -x` gives the wanted answer, in our case:
 
-Now we have a method of finding the length of any interval in O(1)O(1):
+Now we have a method of finding the length of any interval in `O(1)`:
 
 ```cpp
 int lsb(int pos) {
