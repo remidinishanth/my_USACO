@@ -69,6 +69,20 @@ int main() {
 }
 ```
 
+#### Coins AGC-18 C
+
+https://atcoder.jp/contests/agc018/tasks/agc018_c
+
+![image](https://user-images.githubusercontent.com/19663316/182018959-aaf50038-58d6-417a-b744-6991bfbc4179.png)
+
+Solution: https://atcoder.jp/contests/agc018/submissions/1449715
+
+![image](https://user-images.githubusercontent.com/19663316/182019023-c390a49c-32b7-4003-b0fe-1c1c69407a66.png)
+
+Ref: https://codeforces.com/blog/entry/53431?#comment-374498
+
+#### AGC-03 B
+
 Done https://atcoder.jp/contests/agc003/tasks/agc003_b Solution: https://img.atcoder.jp/data/agc/003/editorial.pdf
 
 ![](images/adhoc_oct_21.png)
