@@ -24,7 +24,7 @@ Persistence is the ability to return to any of the former states of the data str
 
 * Modified question: Given an index `i`, query number of elements `> K` in `[1:i]`
 
-  Given `i, K`: We can maintain have a frequency of elements in the array from `[1:i]` and return Sum of `F[p]` for `p > K`. 
+  Given `i, K`: We can maintain have a frequency of elements `F` of the given array from `[1:i]` and return Sum of `F[p]` for all `p > K`. 
   
   For a fixed `i` this can be done by segment tree range sum and point update.
   
