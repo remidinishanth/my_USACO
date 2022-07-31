@@ -75,11 +75,27 @@ https://atcoder.jp/contests/agc018/tasks/agc018_c
 
 ![image](https://user-images.githubusercontent.com/19663316/182018959-aaf50038-58d6-417a-b744-6991bfbc4179.png)
 
-Solution: https://atcoder.jp/contests/agc018/submissions/1449715
-
 ![image](https://user-images.githubusercontent.com/19663316/182019023-c390a49c-32b7-4003-b0fe-1c1c69407a66.png)
 
 Ref: https://codeforces.com/blog/entry/53431?#comment-374498
+
+**Implementation Details:**
+
+Note that from each person, we will either choose Gold, Silver or Bronze.
+
+For each container, assume we are taking the Gold at first. If at a later point, we feel that taking the Silver coins or the Bronze coins will be beneficial instead of Gold under the constraints, then we conveniently do so. Say for example, we choose Silver later, we simply add `(B_i - A_i)` to `A_i`. 
+
+For each person do: `sum += A_i` , `B_i = B_i - A_i` , `C_i = C_i - A_i`.
+
+Sort this array of tuples based on `(B_i - C_i)`. 
+
+Maintain a prefix array which for each index `i`, stores the maximum possible sum of `B_i`'s for `Y` number of persons upto index `i` (Can use min heap for this). 
+
+Similarly, store a suffix array which store the maximum possible `C_i`'s for storing the maximum possible sum of `C_i`'s for `Z` number of containers.
+
+Then the final answer will be: `ans = (max{y<=i<=n-z}(pre[i] + suf[i])) + sum`
+
+https://atcoder.jp/contests/agc018/submissions/1449715
 
 #### AGC-03 B
 
