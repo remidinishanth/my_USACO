@@ -61,7 +61,7 @@ int query(int pos) {
 
 source: https://csacademy.com/lesson/fenwick_trees/
 
-Class based implementation
+#### Struct based implementation
 
 ```cpp
 template < typename T >
@@ -70,7 +70,7 @@ struct binary_indexed_tree {
     vector<T> BIT;
     binary_indexed_tree(int N): N(N), BIT(N + 1, 0) {}
     void add(int i, T x) {
-        i++;
+        i++; // incremented internal index i
         while (i <= N) {
             BIT[i] += x;
             i += i & -i;
@@ -84,7 +84,7 @@ struct binary_indexed_tree {
         }
         return ans;
     }
-    // finds sum from [L+1, R]
+    // finds sum from [L, R)
     T sum(int L, int R) {
         return sum(R) - sum(L);
     }
@@ -93,6 +93,13 @@ struct binary_indexed_tree {
 // Usage: 
 // struct binary_indexed_tree<int> bit(2* 1e4 + 10);
 // bit.add(i, 1);
+
+
+// Use zero based indexing while updating etc
+// struct binary_indexed_tree<int> *bit;
+// bit = new binary_indexed_tree<int>(3* 1e4 + 10);
+// bit->add(i, nums[i]); // i is zero based index
+// bit->sum(left, right+1); // sum from [left, right]
 ```
 
 source: https://codeforces.com/contest/1535/submission/118419611
