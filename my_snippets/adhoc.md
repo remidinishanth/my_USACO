@@ -4,6 +4,8 @@ solutions: https://www.youtube.com/watch?v=ll-UwTagrU0
 
 TODO: https://leetcode.com/problems/three-equal-parts/
 
+Making all numbers equal: https://www.codechef.com/START50B/problems/ADDSUBTRACT
+
 #### Wrapping Chocolate 
 
 source: https://atcoder.jp/contests/abc245/tasks/abc245_e
