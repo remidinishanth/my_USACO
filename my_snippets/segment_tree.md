@@ -1496,3 +1496,8 @@ Also checkout https://www.codechef.com/viewsolution/50089654 and neal's https://
 </details>	
 	
 Checkout https://codeforces.com/contest/1550/submission/122514546
+
+
+### XOR and Segment Tree Sum - Swap and Maximum Sum
+	
+Ref: https://codeforces.com/contest/1716/problem/E
