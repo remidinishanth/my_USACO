@@ -1,0 +1,127 @@
+{
+  "contestsDirectory": "/Users/nishanth.reddy/Documents/coding/practice",
+  "port": 1327,
+  "editor": "konsole",
+  "closeAfterClone": false,
+  "showStatusPageOnSubmit": true,
+  "useUserDefaultBrowser": false,
+  "preferredLang": "cpp",
+  "hideTestCaseInput": false,
+  "cloneInCurrentDir": false,
+  "languages": {
+    "cpp": {
+      "template": "/Users/nishanth.reddy/Documents/coding/template.cpp",
+      "command": "g++ -std=gnu++17 -O2",
+      "debugCommand": "g++ -std=gnu++17 -DLOCAL -Wshadow -Wall",
+      "aliases": {
+        "codeforces": "54",
+        "atcoder": "4003",
+        "omegaup": "cpp17-gcc"
+      },
+      "type": "compiled",
+      "commentString": "//"
+    },
+    "py": {
+      "template": "",
+      "command": "python3",
+      "debugCommand": "python3 -O",
+      "aliases": {
+        "codeforces": "31",
+        "atcoder": "4006",
+        "omegaup": "py3"
+      },
+      "type": "interpreted",
+      "commentString": "#"
+    },
+    "java": {
+      "template": "",
+      "command": "javac",
+      "debugCommand": "javac",
+      "runCommand": "java",
+      "aliases": {
+        "codeforces": "36",
+        "atcoder": "4005"
+      },
+      "type": "mixed",
+      "commentString": "//"
+    },
+    "js": {
+      "template": "",
+      "command": "node",
+      "debugCommand": "node",
+      "aliases": {
+        "codeforces": "55",
+        "atcoder": "4030"
+      },
+      "type": "interpreted",
+      "commentString": "//"
+    },
+    "rb": {
+      "template": "",
+      "command": "ruby",
+      "debugCommand": "ruby",
+      "aliases": {
+        "codeforces": "67",
+        "atcoder": "4049"
+      },
+      "type": "interpreted",
+      "commentString": "#"
+    },
+    "cs": {
+      "template": "",
+      "command": "msc",
+      "debugCommand": "msc",
+      "aliases": {
+        "codeforces": "55",
+        "atcoder": "4030",
+        "omegaup": "cs"
+      },
+      "type": "compiled",
+      "commentString": "//"
+    },
+    "rs": {
+      "template": "",
+      "command": "rustc",
+      "debugCommand": "rustc",
+      "aliases": {
+        "codeforces": "49",
+        "atcoder": "4050"
+      },
+      "type": "compiled",
+      "commentString": "//"
+    },
+    "go": {
+      "template": "",
+      "command": "go build",
+      "debugCommand": "go build",
+      "aliases": {
+        "codeforces": "32",
+        "atcoder": "4026"
+      },
+      "type": "compiled",
+      "commentString": "//"
+    },
+    "kt": {
+      "template": "",
+      "command": "kotlinc",
+      "debugCommand": "kotlinc",
+      "runCommand": "kotlin",
+      "aliases": {
+        "codeforces": "48",
+        "atcoder": "4032"
+      },
+      "type": "mixed"
+    },
+    "scala": {
+      "template": "",
+      "command": "scalac",
+      "debugCommand": "scalac",
+      "runCommand": "scala",
+      "aliases": {
+        "codeforces": "20",
+        "atcoder": "4051"
+      },
+      "type": "mixed"
+    }
+  }
+}
