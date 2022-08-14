@@ -382,6 +382,40 @@ class Roxor {
 }; 
 ```
 
+### Reduction to Nim game
+
+https://www.codechef.com/START51A/problems/CCGAME
+
+Chef and Cook play a game on an array AA, alternating turns with Chef starting first. In one move, the player may choose indices `1 ≤ i < j ≤ N`, subtract `1` from `A_i`, and add `1` to `A_j`. The player who cannot make a move loses.
+
+Who wins with optimal play?
+
+#### Solution
+
+A couple of observations allow us to reduce the given game to a standard game of nim, whose solution is well-known. 
+
+Reduction For simplicity, let us say that we have `N` piles of stones, the `i-th` pile initially having `A_i` stones. 
+* A move consists of moving a single stone from one pile to a later pile. 
+* Looking at it this way, the movement of each stone is clearly independent, and so corresponds to a separate game. 
+* Now, let’s look at a single stone that is initially at position `i`. There are `N-i` possible moves that can be made to its position — add `1`, add `2`, …, add `N−i`.
+  * Let’s take one stone from some pile let’s say we take from the `i`-th pile and call it StoneA. 
+  * This stone can be shifted to `i+1`-th pile or `i+2` pile … `N`-th pile. This simulation can be treated as a nim game. (How?) 
+  * The stone which we considered earlier has `N-i` choices for piles where it can shift (`i+1`-th pile to `N`-th pile).
+  * So let’s represent the `N-i` choices as stones and shifting the StoneA by one pile(in the original pile) is equivalent to removing `1` stone from the pile of moves that we just considered! 
+  * And we can remove only `N-i` stones which satisfy the condition that the StoneA can be moved by `N-i` steps.
+* As you might notice, this is exactly the same as having a pile of `N−i` stones and playing a game of nim on it! 
+
+This gives us the desired reduction to nim: for each `1 ≤ i ≤ N`, we have `A_i` piles of `N−i` stones, and then we simply find the solution to this nim game. 
+
+The above reduction to nim creates `A_1 + A_2 + … +A_N` piles in total, which is too large to store in memory. 
+
+However, since checking who wins a game of nim depends only on the bitwise XOR-sum of all the piles’ sizes, and we have the property `x ⊕ x = 0` for any x, we can do the following: If `A_i` is even, it contributes an even number of `N-i` to the overall XOR-sum. 
+
+This makes the overall contribution of this position `0`. If `A_i` is odd, it contributes an odd number of `N−i` to the overall XOR-sum. 
+
+The overall contribution of this position is thus just `N−i`. This gives us the final solution: compute the XOR of `N−i` across all `i` such that `A_i` is odd; let this value be `X`. Player 1 wins if `X` is non-zero, and Player 2 wins otherwise.
+
+
 ## Young diagram
 
 ### E - Candy Piles
