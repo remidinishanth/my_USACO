@@ -161,7 +161,7 @@ tourist https://codeforces.com/contest/1523/submission/117878219
 
 </details>		  
 
-## Benq's short template
+### Benq's short template
 		
 ```cpp
 /**
@@ -204,7 +204,8 @@ cout << int(a*b*c) << "\n"; // 49000000
 source: https://github.com/bqi343/USACO/blob/master/Implementations/content/number-theory%20(11.1)/Modular%20Arithmetic/ModIntShort.h
 
 
-Benq's long template
+### Benq's long template
+
 ```cpp
 /**
  * Description: modular arithmetic operations 
