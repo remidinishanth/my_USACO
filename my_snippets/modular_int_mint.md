@@ -192,7 +192,7 @@ mi operator/(mi a, mi b) { return a*inv(b); }
 ```
 
 ```cpp
-/// mi a = MOD+5; ps((int)inv(a));
+// mi a = MOD+5; ps((int)inv(a));
 
 
 // Usage
