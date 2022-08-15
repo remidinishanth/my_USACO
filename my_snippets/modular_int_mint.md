@@ -1,5 +1,6 @@
 <details>
 	<summary> Umnik's and other templates </summary>
+
 ```cpp
 #include <bits/stdc++.h>
  
