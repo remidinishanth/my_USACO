@@ -1,3 +1,5 @@
+<details>
+	<summary> Umnik's and other templates </summary>
 ```cpp
 #include <bits/stdc++.h>
  
@@ -157,7 +159,10 @@ Nice blog https://discuss.codechef.com/t/guide-to-modular-arithmetic-plus-tricks
 
 tourist https://codeforces.com/contest/1523/submission/117878219
 
-Benq's short template
+</details>		  
+
+## Benq's short template
+		
 ```cpp
 /**
  * Description: Modular arithmetic.
