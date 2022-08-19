@@ -232,7 +232,7 @@ int main() {
 
 **P3** Problem is: we have n numbers, calculate how many distinct numbers we can form by sum some of these numbers.
 
-For example if we have set {17, 23, 40}, we can form {0, 17, 23, 40, 57, 63, 80}.
+For example if we have set `{17, 23, 40}`, we can form `{0, 17, 23, 40, 57, 63, 80}`.
 
 Dp solution is obvious:
 
