@@ -1,5 +1,7 @@
-## Basics
+### Basics
 
+<details>
+	
 ![image](https://user-images.githubusercontent.com/19663316/117581703-e3433d00-b11b-11eb-8cd8-d355922c6b7b.png)
 
 ```
@@ -38,8 +40,10 @@ for(int mask = 0; mask < (1 << n); mask++) {
 }
 puts("NO");
 ```
+	
+</details>	
 
-Use helpers
+#### Use helpers
 
 ```cpp
 inline int two(int n) { return 1 << n; } // 2^n
@@ -78,8 +82,8 @@ source: https://codeforces.com/blog/entry/73558
 
 ## Motivation behind bitsets
 
-Consider this problem: There are 𝑁 ≤ 5000 workers. Each worker is available during some days of this month (which has 30 days). 
-For each worker, you are given a set of numbers, each from interval [1,30], representing his/her availability. 
+Consider this problem: There are `𝑁 ≤ 5000` workers. Each worker is available during some days of this month (which has 30 days). 
+For each worker, you are given a set of numbers, each from interval `[1,30]`, representing his/her availability. 
 You need to assign an important project to two workers but they will be able to work on the project only when they are both available. 
 Find two workers that are best for the job — maximize the number of days when both these workers are available.
 
@@ -91,8 +95,8 @@ With this representation, we can count the intersection size in 𝑂(1) by using
 
 What if we are given the availability for the whole year or in general for 𝐷 days? We can handle 𝐷 ≤ 64 in a single unsigned long long, what about bigger 𝐷?
 
-We can split 𝐷 days into convenient parts of size 64 and store the availability of a single worker in an array of 𝐷64 unsigned long longs. 
-Then, the intersection can be computed in 𝑂(𝐷/64) and the whole complexity is 𝑂(𝑁<sup>2</sup>⋅𝐷/64).
+We can split `𝐷` days into convenient parts of size `64` and store the availability of a single worker in an array of 𝐷64 unsigned long longs. 
+Then, the intersection can be computed in `𝑂(𝐷/64)` and the whole complexity is 𝑂(𝑁<sup>2</sup>⋅𝐷/64).
 
 ```cpp
 const int K = MAX_D / 64 + 1;
@@ -124,7 +128,7 @@ Some functions differ, e.g. `x.count()` instead of `__builtin_popcount(x)` but i
 
 You can read and print binary numbers, construct a bitset from int or string `bitset<100> a(17); bitset<100> b("1010");`.
 
-You can even access particular bits with b[i]. Read more in C++ reference <https://en.cppreference.com/w/cpp/utility/bitset.>
+You can even access particular bits with `b[i]`. Read more in C++ reference <https://en.cppreference.com/w/cpp/utility/bitset.>
 
 ```cpp
 bitset<10> s;
