@@ -20,7 +20,7 @@ There are also bitwise shifts `<<` and `>>` operators.
 (13 << 2) =   110100                   (13 >> 2) =     11     
 ```
 
-If there is no overflow, an expression `x << b` is equal to `𝑥⋅2^𝑏`, like here we had `(13 << 2) = 52`. An expression `x >> b` is equal to the floor of `𝑥/2^𝑏`.
+If there is no overflow, an expression `x << b` is equal to `𝑥⋅2^𝑏`, like here we had `(13 << 2) = 52`. An expression `x >> b` is equal to the floor of `𝑥/(2^𝑏)`.
 
 Consider this problem: You are given 𝑁 ≤ 20 numbers, each up to 10^9. Is there a subset with sum equal to given goal S?
 ```cpp
