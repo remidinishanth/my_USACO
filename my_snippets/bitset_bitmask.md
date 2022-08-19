@@ -1,6 +1,6 @@
-### Basics
 
 <details>
+	<summary> Basics </summary>
 	
 ![image](https://user-images.githubusercontent.com/19663316/117581703-e3433d00-b11b-11eb-8cd8-d355922c6b7b.png)
 
@@ -91,7 +91,7 @@ You can compute the intersection of two workers (two sets) in O(30) by using e.g
 Doing that for every pair of workers is 𝑂(𝑁<sup>2</sup>⋅30), slightly too slow.
 
 We can think about the availability of a worker as a binary string of length 30, which can be stored in a single int. 
-With this representation, we can count the intersection size in 𝑂(1) by using `__builtin_popcount(x[i] & x[j])`. The complexity becomes 𝑂(𝑁<sup>2</sup>), fast enough.
+With this representation, we can count the intersection size in `𝑂(1)` by using `__builtin_popcount(x[i] & x[j])`. The complexity becomes 𝑂(𝑁<sup>2</sup>), fast enough.
 
 What if we are given the availability for the whole year or in general for 𝐷 days? We can handle 𝐷 ≤ 64 in a single unsigned long long, what about bigger 𝐷?
 
@@ -183,7 +183,10 @@ source: https://codeforces.com/blog/entry/43718
 
 ## Problems
 
-**P1. Different numbers** — You are given a sequence of 𝑁 ≤ 10^7 numbers, each from interval [0,10<sup>9</sup>]. How many different values appear in the sequence? 
+#### **P1. Different numbers**
+
+You are given a sequence of 𝑁 ≤ 10^7 numbers, each from interval [0,10<sup>9</sup>]. How many different values appear in the sequence? 
+
 Don't use set or unordered_set because they quite slow.
 
 <details>
@@ -196,7 +199,9 @@ Creating a boolean array instead would take 1GB because one element of this arra
 An alternative solution is to use `vector<bool> b(1000000001)` because it's memory-optimized too, so takes 128 MB. It doesn't have a count() method but it isn't necessary if you do `if(!b[x]) { count++; b[x] = 1; }`.
 </details>
 
-**P2 Knapsack** You are given 𝑁≤1000 items, each with some weight 𝑤𝑖. Is there a subset of items with total weight exactly 𝑊≤10<sup>6</sup>?
+#### P2 Knapsack
+
+You are given 𝑁≤1000 items, each with some weight 𝑤𝑖. Is there a subset of items with total weight exactly 𝑊≤10<sup>6</sup>?
 
 Standard knapsack with boolean array would be 𝑂(𝑁⋅𝑊), too slow.
 
@@ -234,7 +239,9 @@ int main() {
 }
 ```
 
-**P3** Problem is: we have n numbers, calculate how many distinct numbers we can form by sum some of these numbers.
+#### P3 
+
+Problem is: we have n numbers, calculate how many distinct numbers we can form by sum some of these numbers.
 
 For example if we have set `{17, 23, 40}`, we can form `{0, 17, 23, 40, 57, 63, 80}`.
 
