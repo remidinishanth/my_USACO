@@ -9,6 +9,10 @@ TODO https://www.students.cs.ubc.ca/~cs-490/2017W2/lec06.pdf & DP optimizations 
 ### Things to watch out
 1. Whether your subproblem array indicies become negative or will exceed bounds.
 
+### Minimum Number of Refueling Stops
+
+https://leetcode.com/problems/minimum-number-of-refueling-stops/
+
 ## Expected Number DP
 
 ### J Sushi Atcoder
