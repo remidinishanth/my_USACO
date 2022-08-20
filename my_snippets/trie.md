@@ -6,7 +6,9 @@ Using vectors instead of static arrays
 
 ![](images/trie_2.png)
 
-## Binary Trie
+## Binary Trie - maximum XOR of Y with all numbers
+
+<img width="879" alt="image" src="https://user-images.githubusercontent.com/19663316/185746063-9f02cc39-08f5-4569-bec2-a05f1fac56c1.png">
 
 ```cpp
 int tree[6000000][2];
@@ -65,7 +67,7 @@ int main()
 
 source: https://codeforces.com/contest/706/submission/19798788
 
-Max XOR of Two Numbers using Trie
+#### Max XOR of Two Numbers using Trie
 
 TODO: https://threadsiiithyderabad.quora.com/Tutorial-on-Trie-and-example-problems
 
