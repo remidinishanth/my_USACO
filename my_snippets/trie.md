@@ -70,4 +70,7 @@ source: https://codeforces.com/contest/706/submission/19798788
 TODO: https://threadsiiithyderabad.quora.com/Tutorial-on-Trie-and-example-problems
 
 
+Nice Problem: https://codeforces.com/contest/1720/problem/D2, see umnik implementation(from video) and https://codeforces.com/blog/entry/106136?#comment-944979
+
+
 TODO: https://leetcode.com/problems/word-search-ii/ and https://leetcode.com/problems/word-search-ii/discuss/59790/Python-dfs-solution-(directly-use-Trie-implemented).
