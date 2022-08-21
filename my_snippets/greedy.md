@@ -324,3 +324,5 @@ public:
 ```
 
 REF: https://leetcode.com/problems/gas-station/discuss/42572/Proof-of-%22if-total-gas-is-greater-than-total-cost-there-is-a-solution%22
+
+TODO: https://leetcode.com/problems/split-array-into-consecutive-subsequences/
