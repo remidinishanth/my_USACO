@@ -1,3 +1,59 @@
+### How to generate k largest subset sums for a given array
+
+Ref: https://leetcode.com/contest/weekly-contest-307/problems/find-the-k-sum-of-an-array/ and https://stackoverflow.com/questions/72114300/how-to-generate-k-largest-subset-sums-for-a-given-array-contains-positive-and-n/72117947#72117947
+
+Observation: The maximum sum we can get is sum of all positive numbers in the array.
+
+* First, in a single pass, we find the sum of the positive numbers. This is the maximum sum. We initialize our answer array with `[maximum_sum]`.
+
+* Next, we create an array av of the absolute values, sorted from smallest to largest.
+
+* Next, we create a priority queue upcoming. It will start with one pair in it. That pair will be `(maximum_sum - av[0], 0)`. The pairs are compared lexicographically with largest sum first.
+
+
+```
+Until we have enough elements in answer we will:
+	get (next_sum, i) from upcoming
+	add next_sum to answer
+	if i + 1 < N:
+	    add (next_sum + av[i] - av[i+1], i+1) to upcoming
+	    add (next_sum - av[i+1], i+1) to upcoming
+```
+
+This algorithm will take `O(N+k)` memory and `O(N log(N) + k log(k))` work to generate the top `k` answers. It depends on both `N` and `k` but is exponential in neither.
+
+```cpp
+long long kSum(vector<int>& nums, int k) {
+	long long sum = 0; // sum of all positive numbers
+	for(int i: nums) if(i > 0) sum += i;
+	
+	// sort the numbers based on absolute value
+	for(int &i: nums) i = abs(i);
+	sort(nums.begin(), nums.end());
+
+	multiset<pair<long long, int> > S;
+	S.insert({sum - nums[0], 0});
+
+	vector<long long> ans;
+	ans.push_back(sum);
+
+	while(ans.size() < k){
+		pair<long long, int> t = *S.rbegin();
+		ans.push_back(t.first);
+
+		S.erase(S.lower_bound(t));
+		if(t.second + 1 < nums.size()){
+			int i = t.second;
+			// remove nums[i+1], add nums[i] back
+			S.insert({t.first + nums[i] - nums[i+1], i+1});
+			// remove nums[i+1]
+			S.insert({t.first - nums[i+1], i+1});
+		}
+	}
+	return ans.back();
+}
+```
+
 ### Knapsack Problems
 
 The term knapsack refers to problems where a set of objects is given, and subsets with some properties have to be found. Knapsack problems can often be solved using dynamic programming.
