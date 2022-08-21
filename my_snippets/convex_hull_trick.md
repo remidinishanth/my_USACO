@@ -377,7 +377,7 @@ struct HullDynamic : public multiset<Line> {
 
 // Usage
 HullDynamic cht;
-cht.insert(slope, constant);
+cht.insert_line(slope, constant);
 min_val = cht.eval(x_val); // min value at point x_val
 ```
 source: Tanuj Khattar https://pastebin.com/XF5WQ2YR
