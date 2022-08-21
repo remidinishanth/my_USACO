@@ -2,7 +2,7 @@ The convex hull trick is a technique (perhaps best classified as a data structur
 
 ### Motivation
 
-**Problem :** [Covered Walkway](https://open.kattis.com/problems/coveredwalkway) We need to cover a walkway consisting of n(1 ≤ n ≤ 10^6) points. To cover the walkway from a point at 𝑥 to a point at 𝑦, they will charge `c + (x − y)²`, where c is a constant. Note that it is possible for x=y. If so, then the contractor would simply charge c.
+**Problem :** [Covered Walkway](https://open.kattis.com/problems/coveredwalkway) We need to cover a walkway consisting of `n(1 ≤ n ≤ 10^6`) points. To cover the walkway from a point at `x` to a point at `y`, they will charge `c + (x − y)²`, where `c` is a constant. Note that it is possible for `x = y`. If so, then the contractor would simply charge `c`.
 
 **Solution :**
 
