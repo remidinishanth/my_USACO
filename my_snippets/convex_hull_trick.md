@@ -221,7 +221,7 @@ int main() {
 </details> 
 
 <details>
- <summary>CHT using deque O(N) as slopes and x are monotonic</summary> 
+ <summary>CHT using deque `O(N)` as slopes and `x` are monotonic</summary> 
  
 ```cpp
 #define fi first
