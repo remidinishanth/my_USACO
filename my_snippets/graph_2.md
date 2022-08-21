@@ -667,7 +667,7 @@ to BFS and Prim’s code
   } } }  // note: this variant can cause duplicate items in the priority queue
 ```
 	
-Flight discount https://cses.fi/problemset/task/1195/
+#### Flight discount https://cses.fi/problemset/task/1195/
 
 <details>
     <summary> CPP solution </summary>
@@ -675,7 +675,7 @@ Flight discount https://cses.fi/problemset/task/1195/
 Say we use the discount coupon on the edge between cities A and B.
 
 There are two cases: we can go from $1\rightarrow A\rightarrow B\rightarrow N$,
-or 1 → B → A → N. We need to know the distance between 1 and A, and N and B.
+or $1\rightarrow B\rightarrow A\rightarrow N$. We need to know the distance between 1 and A, and N and B.
 
 We can use Dijkstra's to compute the distance from `1` and `N` to every vertex.
 Then our answer is `min{A → B} = dist1[A] + c(A,B) + distN[B]`, where `c(A,B)` is the cost to travel from city `A` to city `B` after applying the
