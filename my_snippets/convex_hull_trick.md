@@ -98,7 +98,7 @@ int main() {
  <details>
    <summary> Using CHT, Faster solution since slopes are sorted </summary>
  
- Since we go from left to right, x is increasing, we can store them in stack.
+ Since we go from left to right, `x` is increasing, we can store them in stack.
  
  ```cpp
  struct convex_hull_trick {
