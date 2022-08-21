@@ -728,6 +728,10 @@ int main() {
 ```
 </details>
 	
+#### Dijkstra with K shortcuts
+
+Ref: https://codeforces.com/contest/1715/submission/169162508
+	
 #### Dijkstra's Application on Directed Graphs
 
 <details>
