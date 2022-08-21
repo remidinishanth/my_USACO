@@ -6,9 +6,9 @@ The convex hull trick is a technique (perhaps best classified as a data structur
 
 **Solution :**
 
-* Cover n points on the plane with some number of segments.
-* The cost of segment (l,r) is c + (r − l)².
-* Straightforward DP is O(N²) and is too slow.
+* Cover `n` points on the plane with some number of segments.
+* The cost of segment `(l,r)` is  `c + (r − l)²`.
+* Straightforward DP is `O(N²)` and is too slow.
 
 Convex Hull Optimization
 * Consider a data structure that hold linear functions yi(x) = ai x + bi
