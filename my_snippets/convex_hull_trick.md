@@ -434,18 +434,18 @@ https://github.com/SuprDewd/CompetitiveProgramming/blob/master/code/data-structu
 
 Li-Chao Segment Trees can be used to solve problems of the format:
 
-You're given a set S containing function of the same "type" (ex. lines, y = ax + b). The type of function need to have the transcending property. You need to handle two type of queries:
+You're given a set `S` containing function of the same "type" (ex. lines, `y = ax + b`). The type of function need to have the transcending property. You need to handle two type of queries:
 
-* Add a function to S
-* Answer the maximum/minimum value at x = t considering all functions in S
+* Add a function to `S`
+* Answer the maximum/minimum value at `x = t` considering all functions in `S`
  
 A type of function has **transcending property** if:
 
-Given two functions f(x), g(x) of that type, if f(t) is greater than/smaller than g(t) for some x = t, then f(x) will be greater than/smaller than g(x) for x > t. In other words, once f(x) "win/lose" g(x), f(x) will continue to "win/lose" g(x).
+Given two functions `f(x)`, `g(x)` of that type, if `f(t)` is greater than/smaller than `g(t)` for some `x = t`, then `f(x)` will be greater than/smaller than `g(x)` for `x > t`. In other words, once `f(x)` "win/lose" `g(x)`, `f(x)` will continue to "win/lose" `g(x)`.
 
 Since it's basically a segment tree, it has a big advantage over convex hull: supporting segments. It's also easier to code, and the order of slope doesn't matter.
 
-Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress x-coordinates (offline approach) or use dynamic segment tree (online approach) to support large x-coordinates. This is not a problem with convex hull.
+Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress x-coordinates (offline approach) or use dynamic segment tree (online approach) to support large `x`-coordinates. This is not a problem with convex hull.
 
 TODO: https://csacademy.com/contest/archive/task/squared-ends/statistics/
 
