@@ -445,7 +445,10 @@ Given two functions `f(x)`, `g(x)` of that type, if `f(t)` is greater than/small
 
 Since it's basically a segment tree, it has a big advantage over convex hull: supporting segments. It's also easier to code, and the order of slope doesn't matter.
 
-Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress `x`-coordinates (offline approach) or use dynamic segment tree (online approach) to support large `x`-coordinates. This is not a problem with convex hull.
+Disadvantages: 
+* Its advantage is also its disadvantage, thought. Since it's a segment tree, you have to compress `x`-coordinates (offline approach) or use dynamic 
+segment tree (online approach) to support large `x`-coordinates. This is not a problem with convex hull.
+* However, LC has a limitation that CHT does not - LC can answer queries of type 2. only for integer coordinates X, and at that, since it is very similar to a segment tree, we cannot support arbitrarily large intervals in which the X coordinate must lie. With CHT, you have no restrictions on the coordinates of the lines and the query values for X.
 
 TODO: https://csacademy.com/contest/archive/task/squared-ends/statistics/
 
