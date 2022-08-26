@@ -1,6 +1,6 @@
-Suppose we have an array AA and we want to support the following two operations:
+Suppose we have an array `A` and we want to support the following two operations:
 
-* Update: change the value of an element A_i	
+* Update: change the value of an element `A_i`	
 * Query: find the value of a certain partial sum `A_1 + A_2 + ... + A_i` 
 
 ### Note
