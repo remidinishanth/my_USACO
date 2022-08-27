@@ -670,6 +670,7 @@ int main() {
 
     vector<int> cnt(200001), ans(Q);
     int sum = 0;
+  
     auto add = [&](int i) {
         if(cnt[A[i]]++ == 0) ++sum;
     };
@@ -684,10 +685,95 @@ int main() {
 
     mo.build(add, erase, out);
     for(auto &p: ans) cout << p << "\n";
-
     return 0;
 }  
 ```
+  
+</details>  
+
+<details>
+  <summary> Without using Mo's algorithm - using BIT/Fenwick tree </summary>
+  
+```cpp
+// Binary indexed tree supporting binary search.
+struct BIT {
+    int n;
+    vector<int> bit;
+    // BIT can be thought of as having entries f[1], ..., f[n]
+    // with f[1]=0,...,f[n]=0 initially
+    BIT(int n):n(n), bit(n+1) {}
+    // returns f[1] + ... + f[idx-1]
+    // precondition idx <= n+1
+    int read(int idx) {
+        idx--;
+        int res = 0;
+        while (idx > 0) {
+            res += bit[idx];
+            idx -= idx & -idx;
+        }
+        return res;
+    }
+    // returns f[idx1] + ... + f[idx2-1]
+    // precondition idx1 <= idx2 <= n+1
+    int read2(int idx1, int idx2) {
+        return read(idx2) - read(idx1);
+    }
+    // adds val to f[idx]
+    // precondition 1 <= idx <= n (there is no element 0!)
+    void update(int idx, int val) {
+        while (idx <= n) {
+            bit[idx] += val;
+            idx += idx & -idx;
+        }
+    }
+};
+
+int main() {
+    int N, Q; scanf("%d %d", &N, &Q);
+    vector< int > A(N); // 0-based indexing
+    for(auto &a: A) scanf("%d", &a);
+
+    // coordinate compression
+    map<int, int> M;
+    int element = 1;
+    for(auto &a: A){
+        if(M.find(a) == M.end()){
+            M[a] = element;
+            a = element++;
+        } else {
+            a = M[a];
+        }
+    }
+
+    // store all the queries together based on the left boundary
+    vector<vector< pair<int, int> >> Queries(N+1);
+    for(int i = 0; i < Q; i++) {
+        int a, b; scanf("%d %d", &a, &b);
+        Queries[a-1].push_back({b, i});
+    }
+
+    BIT bit(N + 10);
+    vector<int> ans(Q);
+    // store the running smallest_index of distinct elements
+    map<int, int> last_index; 
+
+    // process from the last index
+    for(int i=N-1;i>=0;i--){
+        if(last_index.find(A[i]) != last_index.end()){
+            bit.update(last_index[A[i]], -1);
+        }
+        last_index[A[i]] = i + 1;
+        bit.update(last_index[A[i]], 1);
+        
+        // answer all the queries whose left index is i
+        for(pair<int, int> query: Queries[i]){
+            ans[query.second] = bit.read2(i+1, query.first+1);
+        }
+    }
+    for(auto &p: ans) printf("%d\n", p);
+    return 0;
+}  
+``` 
   
 </details>  
 
