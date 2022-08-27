@@ -147,7 +147,7 @@ struct BIT {
                 tot += bit[idx+=pwr];
             }
         }
-        return idx+2;
+        return idx+2; // check whether it is idx + 1
     }
     // returns smallest positive idx such that read(idx) > target
     int upper_bound(int target) {
