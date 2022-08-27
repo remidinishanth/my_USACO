@@ -252,7 +252,7 @@ public:
         for(int i=0;i<V.size();i++){
             cur += V[i];
             auto it = S.lower_bound(cur-k);
-            if(it != S.end()) ans = max(ans, cur-*it); // check if sum <= k ?
+            if(it != S.end()) ans = max(ans, cur-*it);
             S.insert(cur);
         }
         return ans;
@@ -264,6 +264,40 @@ public:
             for(int k=j; k<m; k++){ // sum of matrix[i][j:m]
                 for(int i=0; i<n; i++) a[i] += matrix[i][k];
                 ans = max(ans, f(a, t));
+            }
+        }
+        return ans;
+    }
+};
+```
+
+Simplified without using external function
+
+```cpp
+class Solution {
+public:
+    int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
+        int rows = matrix.size(), cols = matrix[0].size();
+        int ans = INT_MIN;
+        for(int i=0;i<cols;i++){
+            vector<int> sums(rows);
+            for(int j=i;j<cols;j++){
+                // sum of cols from i to j over all rows
+                for(int k=0;k<rows;k++){
+                    sums[k] += matrix[k][j];
+                }
+                // Over the rows from colums [i:j]
+                // chose the min rectange
+                set<int> S = {0};
+                int pref_sum = 0;
+                for(int s: sums){
+                    pref_sum += s;
+                    auto it = S.lower_bound(pref_sum - k);
+                    if(it != S.end()){
+                        ans = max(ans, pref_sum - *it);
+                    }
+                    S.insert(pref_sum);
+                }
             }
         }
         return ans;
