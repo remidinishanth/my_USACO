@@ -243,6 +243,25 @@ int main()
 
 https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k
 
+Think how would you do in case if we want to find the sum no larger than k in case of array.
+
+Solution
+```cpp
+int f(vector<int> &V, int k){ // 1-D case
+set<int> S = {0};
+int ans = INT_MIN, cur = 0;
+for(int i=0;i<V.size();i++){
+    cur += V[i];
+    auto it = S.lower_bound(cur-k);
+    if(it != S.end()) ans = max(ans, cur-*it);
+    S.insert(cur);
+}
+return ans;
+}
+```
+
+Now choose all possible subarrays over the other dimension and use 1D solution
+
 ```cpp
 class Solution {
 public:
