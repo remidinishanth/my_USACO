@@ -4,9 +4,83 @@ Suppose we have an array `A` and we want to support the following two operations
 * Query: find the value of a certain partial sum `A_1 + A_2 + ... + A_i` 
 
 ### Note
-The Binary Indexed Tree, as presented by Peter Fenwick, cannot efficiently answer min/max kinds of queries, because, for determining the sum of 
+The Binary Indexed Tree, as presented by Peter Fenwick, **cannot efficiently answer min/max kinds of queries**, because, for determining the sum of 
 `A[i ... j]`, it needs to compute the difference between the sum of the first `j` elements and the sum of the first
 `i – 1` elements.
+
+```cpp
+// Binary indexed tree supporting binary search.
+struct BIT {
+    int n;
+    vector<int> bit;
+    // BIT can be thought of as having entries f[1], ..., f[n]
+    // with f[1]=0,...,f[n]=0 initially
+    BIT(int n):n(n), bit(n+1) {}
+    // returns f[1] + ... + f[idx-1]
+    // precondition idx <= n+1
+    int read(int idx) {
+        idx--;
+        int res = 0;
+        while (idx > 0) {
+            res += bit[idx];
+            idx -= idx & -idx;
+        }
+        return res;
+    }
+    // returns f[idx1] + ... + f[idx2-1]
+    // precondition idx1 <= idx2 <= n+1
+    int read2(int idx1, int idx2) {
+        return read(idx2) - read(idx1);
+    }
+    // adds val to f[idx]
+    // precondition 1 <= idx <= n (there is no element 0!)
+    void update(int idx, int val) {
+        while (idx <= n) {
+            bit[idx] += val;
+            idx += idx & -idx;
+        }
+    }
+    // returns smallest positive idx such that read(idx) >= target
+    int lower_bound(int target) {
+        if (target <= 0) return 1;
+        int pwr = 1; while (2*pwr <= n) pwr*=2;
+        int idx = 0; int tot = 0;
+        for (; pwr; pwr >>= 1) {
+            if (idx+pwr > n) continue;
+            if (tot + bit[idx+pwr] < target) {
+                tot += bit[idx+=pwr];
+            }
+        }
+	// here it is read(idx) >= target
+	// hence when querying directly use idx + 1 in code
+	// or use lower_bound(target) - 1
+        return idx+2;
+    }
+    // returns smallest positive idx such that read(idx) > target
+    int upper_bound(int target) {
+        if (target < 0) return 1;
+        int pwr = 1; while (2*pwr <= n) pwr*=2;
+        int idx = 0; int tot = 0;
+        for (; pwr; pwr >>= 1) {
+            if (idx+pwr > n) continue;
+            if (tot + bit[idx+pwr] <= target) {
+                tot += bit[idx+=pwr];
+            }
+        }
+        return idx+2;
+    }
+};
+```
+
+```
+lower_bound can be used as an ordered set/multiset on indices by using the tree as a 0/1 or frequency array
+```
+
+**Idea:** 
+* Let `idx` be an index of BIT. Let `r` be the position in `idx` of its last non-zero digit in  binary notation, i.e., r is the position of the least significant non-zero bit of idx.  
+* `bit[idx]` holds the sum of frequencies for indices `(idx - 2^r + 1)` through `idx`, inclusive
+
+source: https://github.com/t3nsor/codebook/blob/master/BIT.cpp
 	
 ### Explanation 
 A Fenwick tree or a binary indexed tree is a data structure that handles both of these efficiently. It should be noted that if we have such a data structure, we can also find the sum over an interval `[i, j]` by just calculating `sum(j) - sum(i-1)`.
@@ -35,7 +109,7 @@ int lsb(int pos) {
 
 `#define LSOne(S) (S&(-S))` is used to get the last set bit of `S`
 
-Update
+**Update**
 
 ```cpp
 void update(int pos, int val) {
@@ -46,7 +120,7 @@ void update(int pos, int val) {
 }
 ```
 
-Query
+**Query**
 
 ```cpp
 int query(int pos) {
@@ -103,71 +177,6 @@ struct binary_indexed_tree {
 ```
 
 source: https://codeforces.com/contest/1535/submission/118419611
-
-```cpp
-// Binary indexed tree supporting binary search.
-struct BIT {
-    int n;
-    vector<int> bit;
-    // BIT can be thought of as having entries f[1], ..., f[n]
-    // with f[1]=0,...,f[n]=0 initially
-    BIT(int n):n(n), bit(n+1) {}
-    // returns f[1] + ... + f[idx-1]
-    // precondition idx <= n+1
-    int read(int idx) {
-        idx--;
-        int res = 0;
-        while (idx > 0) {
-            res += bit[idx];
-            idx -= idx & -idx;
-        }
-        return res;
-    }
-    // returns f[idx1] + ... + f[idx2-1]
-    // precondition idx1 <= idx2 <= n+1
-    int read2(int idx1, int idx2) {
-        return read(idx2) - read(idx1);
-    }
-    // adds val to f[idx]
-    // precondition 1 <= idx <= n (there is no element 0!)
-    void update(int idx, int val) {
-        while (idx <= n) {
-            bit[idx] += val;
-            idx += idx & -idx;
-        }
-    }
-    // returns smallest positive idx such that read(idx) >= target
-    int lower_bound(int target) {
-        if (target <= 0) return 1;
-        int pwr = 1; while (2*pwr <= n) pwr*=2;
-        int idx = 0; int tot = 0;
-        for (; pwr; pwr >>= 1) {
-            if (idx+pwr > n) continue;
-            if (tot + bit[idx+pwr] < target) {
-                tot += bit[idx+=pwr];
-            }
-        }
-        return idx+2; // check whether it is idx + 1
-    }
-    // returns smallest positive idx such that read(idx) > target
-    int upper_bound(int target) {
-        if (target < 0) return 1;
-        int pwr = 1; while (2*pwr <= n) pwr*=2;
-        int idx = 0; int tot = 0;
-        for (; pwr; pwr >>= 1) {
-            if (idx+pwr > n) continue;
-            if (tot + bit[idx+pwr] <= target) {
-                tot += bit[idx+=pwr];
-            }
-        }
-        return idx+2;
-    }
-};
-```
-
-Idea: Let `idx` be an index of BIT. Let `r` be the position in `idx` of its last non-zero digit in  binary notation, i.e., r is the position of the least significant non-zero bit of idx.  `bit[idx]` holds the sum of frequencies for indices `(idx - 2^r + 1)` through `idx`, inclusive
-
-source: https://github.com/t3nsor/codebook/blob/master/BIT.cpp
 
 ```cpp
 template<typename T>
