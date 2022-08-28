@@ -1,3 +1,37 @@
+// Kahn's algorithm
+const int nax = 1e5 + 10;
+ 
+vector<int> adj[nax];
+vector<int> indeg(nax);
+ 
+ 
+int main() {
+    int n, m; scanf("%d %d", &n, &m);
+    for(int i=0;i<m;i++){
+        int a, b; scanf("%d %d", &a, &b);
+        a--; b--;
+        adj[a].push_back(b);
+        indeg[b]++;
+    }
+    queue<int> Q;
+    for(int i=0;i<n;i++){
+        if(indeg[i] == 0) Q.push(i);
+    }
+    vector<int> A;
+    while(!Q.empty()) {
+        int u = Q.front(); Q.pop();
+        A.push_back(u+1);
+        for(int v:adj[u]){
+            indeg[v]--;
+            if(indeg[v] == 0) Q.push(v);
+        }
+    }
+    if(A.size() != n) printf("IMPOSSIBLE");
+    else for(int a: A) printf("%d ", a);
+    printf("\n");
+    return 0;
+}
+
 // Kahn’s algorithm - It looks like a ‘modified BFS’. 
 	
 // For implementing topsort, We use an algorithm called Kahn's Algorithm. 
