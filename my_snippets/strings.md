@@ -180,3 +180,7 @@ vector<int> longestRepeating(string s, string queryCharacters, vector<int>& quer
 ```
 
 Similar idea to store segments or interval-sets https://codingcompetitions.withgoogle.com/kickstart/round/00000000008f49d7/0000000000bcf0fd#analysis
+
+Solution:
+<img width="1194" alt="image" src="https://user-images.githubusercontent.com/19663316/187626694-7bee0eb1-583a-4463-bbdc-981d4cef57f7.png">
+<img width="1194" alt="image" src="https://user-images.githubusercontent.com/19663316/187626722-42f23788-7b06-4e04-873b-8889d9b9e343.png">
