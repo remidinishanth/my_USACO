@@ -178,3 +178,5 @@ vector<int> longestRepeating(string s, string queryCharacters, vector<int>& quer
     return res;
 }
 ```
+
+Similar idea to store segments or interval-sets https://codingcompetitions.withgoogle.com/kickstart/round/00000000008f49d7/0000000000bcf0fd#analysis
