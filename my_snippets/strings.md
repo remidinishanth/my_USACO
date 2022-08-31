@@ -184,3 +184,96 @@ Similar idea to store segments or interval-sets https://codingcompetitions.withg
 Solution:
 <img width="1194" alt="image" src="https://user-images.githubusercontent.com/19663316/187626694-7bee0eb1-583a-4463-bbdc-981d4cef57f7.png">
 <img width="1194" alt="image" src="https://user-images.githubusercontent.com/19663316/187626722-42f23788-7b06-4e04-873b-8889d9b9e343.png">
+
+Complete Code:
+
+```python
+deltas = {
+    'N': (-1, 0),
+    'E': (0, 1),
+    'W': (0, -1),
+    'S': (1, 0)
+}
+reverse = {
+    'N': 'S', 'S': 'N', 'E': 'W', 'W': 'E'
+}
+
+def jump(jumps, i, row, col):
+    if jumps.get(i):
+        return jumps[i]
+    d_r, d_c = deltas[i]
+    return (row + d_r, col + d_c)
+
+def add_jump(jumps, i, row, col):
+    d_r, d_c = deltas[i]
+    jumps[i] = (row + d_r, col + d_c)
+    
+def end_position(N, R, C, Sr, Sc, instructions):
+    table = {}
+    table[(Sr, Sc)] = {}
+    cur_r = Sr
+    cur_c = Sc
+    
+    for i in instructions:
+        # from pprint import pprint
+        # print("DEBUG: ", i, cur_r, cur_c)
+        # pprint(table)
+        prev_r, prev_c = cur_r, cur_c
+        jumps_from_cur = table[(cur_r, cur_c)]
+        cur_r, cur_c = jump(table, i, cur_r, cur_c)
+        
+        while table.get((cur_r, cur_c)):
+            jumps_from_cur = table[(cur_r, cur_c)]
+            cur_r, cur_c = jump(jumps_from_cur, i, cur_r, cur_c)
+            
+        table[(cur_r, cur_c)] = {}
+        add_jump(table[(cur_r, cur_c)], reverse[i], prev_r, prev_c)
+        add_jump(table[(prev_r, prev_c)], i, cur_r, cur_c)
+
+    final_r, final_c = cur_r, cur_c
+    
+    return final_r, final_c    
+
+def main():
+    test_cases = int(input())
+    for test_case in range(1, test_cases + 1):
+        N, R, C, Sr, Sc = map(int, input().split())
+        instructions = input()
+        # print(N, R, C, Sr, Sc, instructions)
+        final_r, final_c = end_position(N, R, C, Sr, Sc, instructions)
+        print(f'Case #{test_case}: {final_r} {final_c}')
+
+if __name__ == '__main__':
+  main()
+```
+
+How it works with debug logs:
+
+```python
+# Input
+5 3 6 2 3
+EEWNS
+
+DEBUG:  E 2 3
+{(2, 3): {}}
+DEBUG:  E 2 4
+{(2, 3): {'E': (2, 5)}, (2, 4): {'W': (2, 2)}}
+DEBUG:  W 2 5
+{(2, 3): {'E': (2, 5)},
+ (2, 4): {'E': (2, 6), 'W': (2, 2)},
+ (2, 5): {'W': (2, 3)}}
+DEBUG:  N 2 2
+{(2, 2): {'E': (2, 6)},
+ (2, 3): {'E': (2, 5)},
+ (2, 4): {'E': (2, 6), 'W': (2, 2)},
+ (2, 5): {'W': (2, 1)}}
+DEBUG:  S 1 2
+{(1, 2): {'S': (3, 2)},
+ (2, 2): {'E': (2, 6), 'N': (0, 2)},
+ (2, 3): {'E': (2, 5)},
+ (2, 4): {'E': (2, 6), 'W': (2, 2)},
+ (2, 5): {'W': (2, 1)}}
+
+# Output
+Case #1: 3 2
+```
