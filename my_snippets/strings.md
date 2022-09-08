@@ -24,7 +24,7 @@ Function parameters:
 * `s` : The sub-string to be searched, given as C style string.
 * `pos` : The initial position from where the string search is to begin.
 
-Generally, the above mentioned algorithms use naive way of finding substrings which is `O(nm)`.
+Generally, the above mentioned algorithms use naive way of finding substrings which is `O(n * m)`.
 
 ### Preprocessing
 
