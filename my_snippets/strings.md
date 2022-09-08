@@ -32,8 +32,8 @@ Two different ways - Preprocess what you are searching for, or what you are sear
 
 Preprocess patterns
 * **1 pattern & 1 text** setup --> Z function, Prefix algorithm(KMP algorithm), Hashing
-* **1 pattern & many texts**  --> KMP automaton, process pattern and search in texts in real time( 1 char of text will take 1 unit of time to process, unlike amortized complexity). KMP can be generalized to 
-* **multiple pattern & multiple texts** --> Aho Corasick automaton
+* **1 pattern & many texts**  --> KMP automaton, process pattern and search in texts in real time( 1 char of text will take 1 unit of time to process, unlike amortized complexity). 
+* KMP can be generalized to **multiple pattern & multiple texts** --> Aho Corasick automaton
 * (multiple pattern & 1 text) --> Simple case of above setup
 
 In the following we first preprocess text
