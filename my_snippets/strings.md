@@ -102,7 +102,8 @@ We can see that whenever the above while executes, `R` value increased and it ca
 
 ### Prefix function (KMP algorithm)
 
-Def:
+![image](https://user-images.githubusercontent.com/19663316/189409540-0e1f96de-1d7a-4bfe-b299-cc43cdd5efa7.png)
+
 
 Two observations: https://cp-algorithms.com/string/prefix-function.html
 
