@@ -122,7 +122,9 @@ vector<int> prefix_function(string s) {
 }
 ```
 
-### Length of the longest substring of s consisting of only one repeating character 
+## Other string related problems
+
+#### Length of the longest substring of s consisting of only one repeating character 
 
 Given a string `s`, we need to perform queries of the form:
 
