@@ -47,3 +47,9 @@ If we plug in two different values of n = 0 and n =1, and solve for A and B, we 
 ![fibonacci](images/fibonacci_2.png)
 
 ((1 + √5)/2) ≈ 1.618 Golden ratio
+
+### Fibonacci number system
+
+https://www.johndcook.com/blog/2015/05/17/fibonacci-number-system/
+
+TODO: https://codeforces.com/contest/1720/problem/D2
