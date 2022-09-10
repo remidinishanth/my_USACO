@@ -13,6 +13,27 @@ TODO https://www.students.cs.ubc.ca/~cs-490/2017W2/lec06.pdf & DP optimizations 
 
 https://leetcode.com/problems/minimum-number-of-refueling-stops/
 
+### Best Time to Buy and Sell Stock at most k times
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+
+```cpp
+    int maxProfit(vector<int>& p, int res = 0) {
+      for (int i = 1; i < p.size(); ++i) res += max(0, p[i] - p[i - 1]);
+      return res;
+    }
+    int maxProfit(int k, vector<int>& prices) {
+      if (k >= prices.size() / 2) return maxProfit(prices);
+      vector<int> buys(k + 1, INT_MIN), sells(k + 1, 0);
+      for (auto p : prices)
+        for (auto i = 1; i <= k; ++i) {
+          buys[i] = max(buys[i], sells[i - 1] - p);
+          sells[i] = max(sells[i], buys[i] + p);  
+        }
+      return sells[k];
+    }
+```
+
 ## Expected Number DP
 
 ### J Sushi Atcoder
