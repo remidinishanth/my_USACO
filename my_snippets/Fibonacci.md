@@ -51,5 +51,3 @@ If we plug in two different values of n = 0 and n =1, and solve for A and B, we 
 ### Fibonacci number system
 
 https://www.johndcook.com/blog/2015/05/17/fibonacci-number-system/
-
-TODO: https://codeforces.com/contest/1720/problem/D2
