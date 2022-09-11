@@ -104,14 +104,8 @@ bool kuhn(vertex v) {
 }
 
 find_max_matching {
-    for (vertex v = {
-            1,
-            ..,
-            n
-        }) {
-        used = {
-            0
-        };
+    for (vertex v = {1, .., n}) {
+        used = {0};
         kuhn(v);
     }
 }
