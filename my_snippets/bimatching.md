@@ -10,6 +10,10 @@ Finding a matching in a bipartite graph can be treated as a network flow problem
 
 Kőnig's theorem states that, in bipartite graphs, the **maximum matching is equal in size to the minimum vertex cover**. Via this result, the minimum vertex cover, maximum independent set, and maximum vertex biclique problems may be solved in polynomial time for bipartite graphs.
 
+* Kuhn's algorithm is a direct application of Berge's lemma. It is essentially described as follows:
+
+  * First, we take an empty matching. Then, while the algorithm is able to find an augmenting path, we update the matching by alternating it along this path and repeat the process of finding the augmenting path. As soon as it is not possible to find such a path, we stop the process - the current matching is the maximum.
+
 ```cpp
 vi match, vis;
 
