@@ -71,6 +71,36 @@ int main() {
 }
 ```
 
+### Maximum Performance of a Team
+
+Optimization over two dimentions: The performance of a team is the sum of their engineers speeds multiplied by the minimum efficiency among their engineers. Here it is `sum(speed) * min(efficiency)`
+
+https://leetcode.com/contest/weekly-contest-180/problems/maximum-performance-of-a-team/
+
+```cpp
+class Solution {
+public:
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+        vector<pair<int, int>> V;
+        for(int i=0;i<speed.size();i++) V.push_back({efficiency[i], speed[i]});
+        sort(V.begin(), V.end());
+        long long ans = 0, speedSum = 0;
+        multiset<int> S;
+        for(int i=n-1;i>=0;i--){
+            speedSum += V[i].second;
+            S.insert(V[i].second);
+            if(S.size() > k){
+                speedSum -= *S.begin();
+                S.erase(S.begin());
+            }
+            ans = max(ans, V[i].first * speedSum);
+        }
+        int md = 1e9 + 7;
+        return ans % md;
+    }
+};
+```
+
 #### Coins AGC-18 C
 
 https://atcoder.jp/contests/agc018/tasks/agc018_c
