@@ -326,10 +326,7 @@ public:
 		return res;
 	}
 };
-```
-						      
-</details>
-						      
+```						      
 
 ### DISCUSSION
 
@@ -390,6 +387,7 @@ return true;
 * This acceleration is also applicable to maxflow problem with unit capacities. Run DFS series in a single phase 
 * without clearing used in between. And do not use "used" mark for source/sink.
 
+</details>														  
 
 Implementation Details:
 
