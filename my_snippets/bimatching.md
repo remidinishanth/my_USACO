@@ -3,15 +3,16 @@ TODO: https://codeforces.com/contest/1721/problem/F
 Check this out: https://codeforces.com/blog/entry/78255
 
 ```cpp
-vi match,vis;
+vi match, vis;
 
-int Aug(int v){ // return 1 if an augmenting path is found
-    if(vis[v]) return 0;
-    vis[v]=1;
-    for(int j=0;j<(int)Adj[v].size();j++){
-        int r=Adj[v][j];
-        if(match[r]==-1 || Aug(match[r])){
-            match[r]=v;return 1;
+int Aug(int v) { // return 1 if an augmenting path is found
+    if (vis[v]) return 0;
+    vis[v] = 1;
+    for (int j = 0; j < (int) Adj[v].size(); j++) {
+        int r = Adj[v][j];
+        if (match[r] == -1 || Aug(match[r])) {
+            match[r] = v;
+            return 1;
         }
     }
     return 0;
@@ -22,11 +23,11 @@ int Aug(int v){ // return 1 if an augmenting path is found
 
 // in main
 // build unweighted bipartite graph with directed edge left->right set
-int MCBM=0;
-match.assign(V,-1);
-for(int v=0;v<n;v++){
-    vis.assign(n,0);
-    MCBM+=Aug(v);
+int MCBM = 0;
+match.assign(V, -1);
+for (int v = 0; v < n; v++) {
+    vis.assign(n, 0);
+    MCBM += Aug(v);
 }
 ```
 
