@@ -45,6 +45,8 @@ for (int v = 0; v < n; v++) {
 
 * `O(VE)` as code runs `V` times and each DFS takes `O(E)` time
 
+* Hopcroft Karp’s algorithm can solve the MCBM problem in `O(√V E)`
+
 source: CP3 Augmenting Path Algorithm for Max Cardinality Bipartite Matching
 
 Also check implementation at https://cp-algorithms.com/graph/kuhn_maximum_bipartite_matching.html
@@ -52,8 +54,6 @@ Also check implementation at https://cp-algorithms.com/graph/kuhn_maximum_bipart
 <details>
 	<summary> Topcoder Solving Maximum Bipartite Matching Problem </summary>
 	
-### Hopcroft Karp’s algorithm can solve the MCBM problem in `O(√V E)`
-
 **NAME**
 Solving Maximum Bipartite Matching Problem
 	
