@@ -86,27 +86,29 @@ If it has, we will call dfs from TO’s neighbor on marked edge and return true 
 
 ```cpp
 // Pseudocode:
-bool kuhn(vertex v) 
-{
-        if (used[v]) return false;
-        used[v] = true;
- 
-        for(vertex q adjacent to v) 
-        {
-                if((q has no pair) or kuhn(pairs[q])) 
-                {
-                        pairs[q] = v;
-                        return true;
-                }   
+bool kuhn(vertex v) {
+    if (used[v]) return false;
+    used[v] = true;
+
+    for (vertex q adjacent to v) {
+        if ((q has no pair) or kuhn(pairs[q])) {
+            pairs[q] = v;
+            return true;
         }
+    }
 }
-find_max_matching 
-{
-        for(vertex v = {1,..,n}) 
-        {
-                used = {0};
-                kuhn(v);
-        }
+
+find_max_matching {
+    for (vertex v = {
+            1,
+            ..,
+            n
+        }) {
+        used = {
+            0
+        };
+        kuhn(v);
+    }
 }
 ```
 
@@ -330,7 +332,7 @@ public:
 };
 ```
 
-DISCUSSION
+### DISCUSSION
 
 Solving maximum bipartite problem can be useful to solve problems using Hungarian algorithm, minimum vertex cover, etc. 
 To tell the truth, while max - flow implementation is easier to understand and implement, 
