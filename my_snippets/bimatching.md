@@ -49,6 +49,9 @@ source: CP3 Augmenting Path Algorithm for Max Cardinality Bipartite Matching
 
 Also check implementation at https://cp-algorithms.com/graph/kuhn_maximum_bipartite_matching.html
 
+<details>
+	<summary> Topcoder Solving Maximum Bipartite Matching Problem </summary>
+	
 ### Hopcroft Karp’s algorithm can solve the MCBM problem in `O(√V E)`
 
 **NAME**
@@ -184,7 +187,6 @@ Improved implementation:
 
 ```cpp
 #include<vector>
-
 #include<utility>
 
 using namespace std;
@@ -244,7 +246,7 @@ class KuhnImplementation {
 };
 ```
 
-### Second way: Maximum flow algorithm.
+#### Second way: Maximum flow algorithm.
 
 
 Solving this problem using maximum flow algorithm is obvious. We will create two new vertices: S and T. 
@@ -325,6 +327,9 @@ public:
 	}
 };
 ```
+						      
+</details>
+						      
 
 ### DISCUSSION
 
