@@ -335,7 +335,7 @@ public:
 
 Solving maximum bipartite problem can be useful to solve problems using Hungarian algorithm, minimum vertex cover, etc. 
 To tell the truth, while max - flow implementation is easier to understand and implement, 
-Kuhn algorithm is more effective,especially improved implementation.
+Kuhn algorithm is more effective, especially improved implementation.
 
 Usage:
 if you use Kuhn algorithm
