@@ -312,6 +312,7 @@ template<class T> struct Seg { // comb(ID,b) = b
     //     int res = first_at_least(lo,val,2*ind,l,m); if (res != -1) return res;
     //     return first_at_least(lo,val,2*ind+1,m+1,r);
     // }
+    
     // Use randon values for lo and ind -> val to compare for max, l -> starting index(0 indexing)
     int first_at_least(int lo, int val, int ind, int l, int r) { // if seg stores max across range
         if (l == r && query(l, r) >= val) return l;
@@ -329,6 +330,17 @@ template<class T> struct Seg { // comb(ID,b) = b
 ```
 
 source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/SegTree%20(9.2).h
+
+Usage
+```cpp
+    // declaration and initialization
+    Seg<int> seg;
+    seg.init(nx);
+    // query
+    int val = seg.query(l, r) + 1;
+    // update
+    seg.upd(i, val);
+```
 
 ### Lazy Segment Tree Benq
 
