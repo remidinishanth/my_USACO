@@ -437,6 +437,8 @@ int match_pair[kMaxN];
 bool Match(int node) {
     visited[node] = true;
 
+    // find an arbitrary matching by some simple algorithm 
+    // (a simple heuristic algorithm) improve this matching
     for (auto itr : vertex[node]) {
         if (not matched[itr]) {
             matched[node] = true;
