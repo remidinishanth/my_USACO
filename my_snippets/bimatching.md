@@ -433,6 +433,7 @@ void Init() {
 bool visited[kMaxN], matched[kMaxN];
 int match_pair[kMaxN];
 
+// Kuhn's algorithm						
 bool Match(int node) {
     visited[node] = true;
 
@@ -495,6 +496,7 @@ int main() {
     bool ok = true;
     while (ok) {
         ok = false;
+	// check if there is any augmenting path
 
         for (int i = 0; i < (int)left_nodes.size(); i += 1) {
             visited[i] = false;
