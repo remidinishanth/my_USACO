@@ -541,18 +541,23 @@ int main() {
     vector<int> selected(n, 0);
     for (int i = 0; i < (int)left_nodes.size(); i += 1) {
         if (matched[i]) {
+	    // mark these candidates for vertex cover
+	    // we are unmarking some of the matched during BFS below
             selected[i] = true;
         } else {
+	    // un-matched vertices on the left
             unselected_q.push_back(i);
         }
     }
 
+    // fiind all the vertices reachable from unmatched vertices on left
     while (unselected_q.size()) {
         int node = unselected_q.back();
         unselected_q.pop_back();
 
         for (auto itr : vertex[node]) {
             if (not selected[itr]) {
+		// if the right vertex is not already choosen for vertex cover
                 int oth = match_pair[itr];
                 if (selected[oth]) {
                     unselected_q.push_back(oth);
