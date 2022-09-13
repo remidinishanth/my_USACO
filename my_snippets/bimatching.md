@@ -66,11 +66,12 @@ Also check implementation at https://cp-algorithms.com/graph/kuhn_maximum_bipart
   ![image](https://user-images.githubusercontent.com/19663316/189966603-ba45ace7-7a8d-4b2d-a072-ad5c8c99b44a.png)
   ![image](https://user-images.githubusercontent.com/19663316/189965224-cad4f2f2-c64d-4063-a477-f7928752d0ce.png)
   ![image](https://user-images.githubusercontent.com/19663316/189965860-64659df3-3484-416a-ae47-f2505b03286c.png)
-  S contains exactly one vertex for every edge belong to M, if the edge belongs to H, then we are taking the right vertices otherwise we are taking the left vertices. So the size of S and size of M should be equal.
+  S = (L - H) ∪ (R ∩ H) contains exactly one vertex for every edge belong to M, if the edge belongs to H, then we are taking the right vertices otherwise we are taking the left vertices. So the size of S and size of M should be equal.
   Now we to convince ourselves that S is indeed a vertex cover. There are 4 types of edges between L and R
-  * 
-
- 
+  * Edges going from (L ∩ H) to (R ∩ H) are covered by (R ∩ H)
+  * Edges going from (L - H) to (R - H) are covered. by (L - H)
+  * Edges going from (L - H) to (R ∩ H) are covered by both.
+  * There cannot be edges going from (L ∩ H) to (R - H) because otherwise H could be larger.
 
 
 <details>
