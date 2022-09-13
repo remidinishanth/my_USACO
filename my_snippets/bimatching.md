@@ -57,6 +57,19 @@ source: CP3 Augmenting Path Algorithm for Max Cardinality Bipartite Matching
 
 Also check implementation at https://cp-algorithms.com/graph/kuhn_maximum_bipartite_matching.html
 
+
+### Matching and Vertex cover
+![image](https://user-images.githubusercontent.com/19663316/189962387-fe4d35a1-38f2-4087-9db0-611cc851de10.png)
+
+* (1 ⇒ 2) Suppose not, then there exists an augmenting path, if we include this augmenting path, we get larger matching.
+* (2 ⇒ 3) Let H be the set of vertices reachable via an alternating path from unmatching vertices in L. All these paths must end in some unmatched vertices on the L(because there is no augmenting path).
+  ![image](https://user-images.githubusercontent.com/19663316/189966603-ba45ace7-7a8d-4b2d-a072-ad5c8c99b44a.png)
+  ![image](https://user-images.githubusercontent.com/19663316/189965224-cad4f2f2-c64d-4063-a477-f7928752d0ce.png)
+  ![image](https://user-images.githubusercontent.com/19663316/189965860-64659df3-3484-416a-ae47-f2505b03286c.png)
+
+ 
+
+
 <details>
 	<summary> Topcoder Solving Maximum Bipartite Matching Problem </summary>
 	
