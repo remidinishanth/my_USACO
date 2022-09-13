@@ -72,6 +72,7 @@ Also check implementation at https://cp-algorithms.com/graph/kuhn_maximum_bipart
   * Edges going from (L - H) to (R - H) are covered. by (L - H)
   * Edges going from (L - H) to (R ∩ H) are covered by both.
   * There cannot be edges going from (L ∩ H) to (R - H) because otherwise H could be larger.
+* (3 ⇒ 1) Suppose not, then there is an edge in matching which is not between any of the vertices in the vertex cover, then it cannot be a vertex cover. For every edge in matching it has to be covered by some vertex which is part of vertex cover, vertex cover is upper bound on any matching.
 
 
 <details>
