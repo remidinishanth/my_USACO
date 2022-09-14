@@ -1,5 +1,3 @@
-### TODO: https://www.youtube.com/watch?v=nCIG5SvC5Zs
-
 TODO: https://codeforces.com/contest/1721/problem/F
 
 Check this out: https://codeforces.com/blog/entry/78255
