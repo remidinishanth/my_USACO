@@ -47,3 +47,6 @@ int main(){
     cout << ans << endl;
 }
 ```
+
+
+Even Or XOR equal in array https://codeforces.com/contest/1722/problem/G
