@@ -65,6 +65,20 @@ int main() {
 
 source: https://codeforces.com/contest/706/submission/19798788
 
+#### Make sure you clear the array before using the trie again
+
+Something like 
+
+```cpp
+	while(m > 0) {
+		m--;
+		go[m][0] = go[m][1] = 0;
+		trieDp[m][0] = trieDp[m][1] = 0;
+	}
+```
+
+in the submission https://codeforces.com/contest/1720/submission/168841834
+
 #### Max XOR of Two Numbers using Trie
 
 TODO: https://threadsiiithyderabad.quora.com/Tutorial-on-Trie-and-example-problems
