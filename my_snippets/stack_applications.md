@@ -198,3 +198,5 @@ int main() {
 }
 ```
 
+### Lexographically smallest string using stack
+Ref: https://leetcode.com/contest/weekly-contest-314/problems/using-a-robot-to-print-the-lexicographically-smallest-string/ and https://www.geeksforgeeks.org/find-lexicographical-smallest-string-by-performing-the-given-operations-n-times/
