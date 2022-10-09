@@ -200,3 +200,36 @@ int main() {
 
 ### Lexographically smallest string using stack
 Ref: https://leetcode.com/contest/weekly-contest-314/problems/using-a-robot-to-print-the-lexicographically-smallest-string/ and https://www.geeksforgeeks.org/find-lexicographical-smallest-string-by-performing-the-given-operations-n-times/
+
+* Greedy Approach
+
+```cpp
+    string robotWithString(string s) {
+        int n = s.size();
+        string ans;
+        vector<char> V, last_min(n, s.back());
+        // V -> for stack simulation
+        // last_min[i] -> smallest char in the suffix[i:n]
+        for(int i=n-2;i>=0;i--){
+            last_min[i] = min(last_min[i+1], s[i]);
+        }
+        for(int i=0;i<n;i++){
+            char c = s[i];
+            while(!V.empty() && last_min[i] >= V.back()){
+                ans.push_back(V.back());
+                V.pop_back();
+            }
+            
+            if(last_min[i] == s[i]){
+               ans.push_back(s[i]); 
+            } else {
+                V.push_back(s[i]);
+            }
+        }
+        while(!V.empty()){
+            ans.push_back(V.back());
+            V.pop_back();
+        }
+        return ans;
+    }
+```
