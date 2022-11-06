@@ -13,6 +13,9 @@ TODO https://www.students.cs.ubc.ca/~cs-490/2017W2/lec06.pdf & DP optimizations 
 
 https://leetcode.com/problems/minimum-number-of-refueling-stops/
 
+### Brute forcing all possible things
+https://leetcode.com/problems/minimum-total-distance-traveled/solutions/2783305/python-dp-solution/
+
 ### Best Time to Buy and Sell Stock at most k times
 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
