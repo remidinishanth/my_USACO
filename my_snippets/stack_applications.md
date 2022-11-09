@@ -233,3 +233,22 @@ Ref: https://leetcode.com/contest/weekly-contest-314/problems/using-a-robot-to-p
         return ans;
     }
 ```
+
+
+## Simple stack application, stock prices
+
+The span of the stock's price today is defined as the maximum number of consecutive days (starting from today and going backward) for which the stock price was less than or equal to today's price.
+
+Ref: https://leetcode.com/problems/online-stock-span/description/
+
+```cpp
+int next(int price) {
+	int span = 1;
+	while(V.size() > 0 && V.back().first <= price){
+	    span += V.back().second;
+	    V.pop_back();
+	}
+	V.push_back({price, span});
+	return span;
+}
+```
