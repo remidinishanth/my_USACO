@@ -415,6 +415,11 @@ This makes the overall contribution of this position `0`. If `A_i` is odd, it co
 
 The overall contribution of this position is thus just `N−i`. This gives us the final solution: compute the XOR of `N−i` across all `i` such that `A_i` is odd; let this value be `X`. Player 1 wins if `X` is non-zero, and Player 2 wins otherwise.
 
+## Tweedledum-Tweedledee Strategy
+
+In some games, it is good idea to correspond every opponent’s move A with your move A, one-to-one, always perform the moves that mimics opponent’s, and win. This is the so-called Tweedledum-Tweedledee Strategy.
+
+Ref: https://atcoder.jp/contests/abc278/editorial/5243
 
 ## Young diagram
 
