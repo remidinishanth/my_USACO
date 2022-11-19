@@ -17,6 +17,7 @@
 * https://mzhang2021.github.io/cp-blog/berlekamp-massey/
 * CRT https://forthright48.com/chinese-remainder-theorem-part-2-non-coprime-moduli/
 * https://codeforces.com/blog/entry/95106
+* https://noshi91.github.io/algorithm-encyclopedia/#noredirect
 
 Topics from Harbour Space Advanced Data Structure Course
 
