@@ -45,12 +45,16 @@ int main() {
     for (int i = 0; i < m; i++) {
         std::cin >> box[i][1];
     }
-        
+    
+    // sort the boxes and choco in decreasing x order
     std::sort(choco.begin(), choco.end(), std::greater());
     std::sort(box.begin(), box.end(), std::greater());
     
     std::multiset<int> s;
     for (int i = 0, j = 0; i < n; i++) {
+        // all the chocos with x greater than choco[i] 
+        // have been allocated
+        
         // among all boxes that can fix choco[i]
         while (j < m && box[j][0] >= choco[i][0]) {
             s.insert(box[j][1]);
