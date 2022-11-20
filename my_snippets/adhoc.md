@@ -81,6 +81,8 @@ Optimization over two dimentions: The performance of a team is the sum of their 
 
 https://leetcode.com/contest/weekly-contest-180/problems/maximum-performance-of-a-team/
 
+Choose atmost k different engineers.
+
 ```cpp
 class Solution {
 public:
