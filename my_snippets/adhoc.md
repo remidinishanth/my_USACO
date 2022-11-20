@@ -81,7 +81,8 @@ Optimization over two dimentions: The performance of a team is the sum of their 
 
 https://leetcode.com/contest/weekly-contest-180/problems/maximum-performance-of-a-team/
 
-Choose atmost k different engineers.
+Choose atmost k different engineers. 
+* Once you fix the minimum efficiency, it is better to always choose k engineers if possible, because this way, sum of speeds increase.
 
 ```cpp
 class Solution {
