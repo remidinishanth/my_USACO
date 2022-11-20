@@ -136,6 +136,51 @@ Then the final answer will be: `ans = (max{y<=i<=n-z}(pre[i] + suf[i])) + sum`
 
 https://atcoder.jp/contests/agc018/submissions/1449715
 
+### B - Bracket Score 
+
+
+<img width="1130" alt="image" src="https://user-images.githubusercontent.com/19663316/202887168-13b0ceb7-a4fc-4669-88ad-bc08abf5eab1.png">
+
+Solution:
+
+<img width="1137" alt="image" src="https://user-images.githubusercontent.com/19663316/202887154-329dfd82-bcab-4710-8138-98312c5a8900.png">
+
+```cpp
+const int N = 200200;
+int n;
+ll z[N];
+vector<ll> a[2];
+ 
+ 
+int main()
+{
+	scanf("%d", &n);
+	ll ans = 0;
+	for (int i = 0; i < n; i++) {
+		scanf("%lld", &z[i]);
+		ans += z[i];
+	}
+	for (int i = 0; i < n; i++) {
+		ll x;
+		scanf("%lld", &x);
+		x -= z[i];
+		a[i & 1].push_back(x);
+	}
+	for (int i = 0; i < 2; i++)
+		sort(all(a[i]));
+	for (int i = n / 2 - 1; i >= 0; i--) {
+		ll x = a[0][i] + a[1][i];
+		if (x <= 0) break;
+		ans += x;
+	}
+	printf("%lld\n", ans);
+ 
+	return 0;
+}
+```
+
+source: https://atcoder.jp/contests/agc048/editorial/234, solution: Um_nik https://atcoder.jp/contests/agc048/submissions/17506481
+
 #### AGC-03 B
 
 Done https://atcoder.jp/contests/agc003/tasks/agc003_b Solution: https://img.atcoder.jp/data/agc/003/editorial.pdf
