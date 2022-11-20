@@ -51,7 +51,7 @@ int main() {
     
     std::multiset<int> s;
     for (int i = 0, j = 0; i < n; i++) {
-        // among all boxes that can fix box[i]
+        // among all boxes that can fix choco[i]
         while (j < m && box[j][0] >= choco[i][0]) {
             s.insert(box[j][1]);
             j++;
