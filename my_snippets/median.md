@@ -59,7 +59,7 @@ source: https://codeforces.com/contest/433/submission/6712939
 
 
 ## Count of Subarrays with Median
-TODO: https://leetcode.com/contest/weekly-contest-321/problems/count-subarrays-with-median-k/
+https://leetcode.com/contest/weekly-contest-321/problems/count-subarrays-with-median-k/
 
 Ref: https://stackoverflow.com/questions/73455237/find-the-number-of-subarrays-of-odd-lengths-that-have-a-median-equal-to-k
 
