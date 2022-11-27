@@ -60,3 +60,90 @@ source: https://codeforces.com/contest/433/submission/6712939
 
 ## Count of Subarrays with Median
 TODO: https://leetcode.com/contest/weekly-contest-321/problems/count-subarrays-with-median-k/
+
+Ref: https://stackoverflow.com/questions/73455237/find-the-number-of-subarrays-of-odd-lengths-that-have-a-median-equal-to-k
+
+However 'k' is index and 1 <= k <= n where n is length of array.
+
+We have to find how many subarrays have `arr[k]` as median, also subarray has to be odd length. This is the only hint we need.
+
+Since subarrays are odd length it can be `(arr[k])` or (1 element on left and right), (2 elements on left and right), so on...
+
+We can maintain smaller and bigger arrays of length n and populate them as follows:
+
+```
+ if(arr[i] < arr[k])
+   smaller[i] = 1;
+ else
+   smaller[i] = 0;
+```
+
+for bigger elements than arr[k]:
+
+```
+ if(arr[i] > arr[k])
+    bigger[i] = 1;
+ else
+    bigger[i] = 0;
+```
+
+This helps us to find in range `i...j` where `i <= j`, count of smaller and bigger elements with respect to `arr[k]`.
+
+For `arr[k]` to be median in the range `[i,j]`, The following condition has to hold.
+
+```
+  Prefix Sum(smaller[j] - smaller[i - 1]) = Prefix Sum(bigger[j] - bigger[i - 1])
+```  
+  
+In other words difference between a number of smaller and bigger elements in the range `[i, j]` is `0`.
+
+we create new array `d` of length `n`, such that
+
+```
+  d[i] = smaller[i] - bigger[i]
+```
+
+Now problem reduces to finding the number of subarrays having a sum of `0`;
+
+But not all subarrays having sum `0` are useful to us. We don't care about the subarrays that do not include `k`. So,
+
+```
+  ans = subarray_sum_zero(1, n, d) -  subarray_sum_zero(1, k - 1, d) - subarray_sum_zero(k + 1, n, d)
+```
+
+`subarray_sum_zero` function finds the number of subarrays in array `d`. You can find the subarray sum equals `k` using the map in linear time complexity.
+
+overall runtime complexity is `O(n)` and space complexity is `O(n)`. It should be able pass the tests `n = 1e5`.
+
+
+The following solution handles for even number too.
+```cpp
+class Solution {
+public:
+    vector<int> V;
+    long long subsum(int start, int end){
+        map<int, int> M;
+        int rSum = 0;
+        long long res = 0;
+        for(int i=start;i<end;i++){
+            rSum += V[i];
+            if(rSum == 0 || rSum == 1) res++;
+            res += M[rSum];
+            res += M[rSum - 1];
+            M[rSum]++;
+        }
+        return res;
+    }
+    
+    int countSubarrays(vector<int>& nums, int k) {
+        int n = nums.size(), id = -1;
+        vector<int> small(n), big(n);
+        V = vector<int>(n);
+        for(int i=0;i<n;i++){
+            V[i] = (nums[i] > k) - (nums[i] < k);
+            if(nums[i] == k) id = i;
+        }
+        return subsum(0, n) - subsum(0, id) - subsum(id+1, n);
+    }
+};
+```
