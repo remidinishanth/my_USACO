@@ -56,7 +56,9 @@ Do we really need to include it? The extended Euclid algorithm code is sufficien
 is the most common usage.
 
 
-Nice question:
+### Applications:
+
+https://leetcode.com/contest/biweekly-contest-96/problems/check-if-point-is-reachable/
 
 There exists an infinitely large grid. You are currently at point `(1, 1)`, and you need to reach the point `(targetX, targetY)` using a finite number of steps.
 
