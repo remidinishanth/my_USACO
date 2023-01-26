@@ -905,15 +905,15 @@ If the input graph has negative edge weight, typical Dijkstra’s implementation
 To solve the SSSP problem in the potential presence of negative weight cycle(s), the more
 generic (but slower) Bellman Ford’s algorithm must be used. This algorithm was invented
 by Richard Ernest Bellman (the pioneer of DP techniques) and Lester Randolph Ford, Jr
-(the same person who invented Ford Fulkerson’s method). The main idea
-of this algorithm is simple: Relax all E edges (in arbitrary order) V -1 times!
+(the same person who invented Ford Fulkerson’s method). 
+	
+> The main idea of this algorithm is simple: Relax all `E` edges (in arbitrary order) `V - 1` times!
 
-Initially dist[s] = 0, the base case. If we relax an edge s → u, then dist[u] will have
-the correct value. If we then relax an edge u → v, then dist[v] will also have the correct
-value. If we have relaxed all E edges V -1 times, then the shortest path from the source
-vertex to the furthest vertex from the source (which will be a simple path with V -1 edges)
-should have been correctly computed. The main part of Bellman Ford’s code is simpler than
-BFS and Dijkstra’s code:
+* Initially `dist[s] = 0`, the base case. If we relax an edge `s → u`, then `dist[u]` will have the correct value. 
+* If we then relax an edge `u → v`, then `dist[v]` will also have the correct value. 
+* If we have relaxed all `E` edges `V - 1` times, then the shortest path from the source vertex to the furthest vertex from the source (which will be a simple path with `V - 1` edges) should have been correctly computed. 
+	
+The main part of Bellman Ford’s code is simpler than BFS and Dijkstra’s code:
 
 ```cpp
   AdjList.assign(V, vii()); // assign blank vectors of pair<int, int>s to AdjList
