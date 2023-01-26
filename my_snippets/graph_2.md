@@ -1076,6 +1076,37 @@ int main() {
 	
 source: https://cp-algorithms.com/graph/finding-negative-cycle-in-graph.html
 </details>
+	
+<details>
+	<summary> Cheapest Flights Within K Stops </summary>
+
+**Problem:**	
+There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
+
+You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
+
+**Solution:**
+
+```cpp
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<int> dist(n, 1e8);
+        dist[src] = 0;
+        // k stops implies k + 1 eges
+        for(int i=0;i<k+1;i++){
+            vector<int> newdist(dist);
+            for(vector<int> flight: flights){
+                newdist[flight[1]] = min(newdist[flight[1]], dist[flight[0]] + flight[2]);
+            }
+            dist = newdist;
+        }
+        return dist[dst] >= 1e8 ? -1 : dist[dst];
+    }
+};
+```		
+
+</details>
 
 ## Floyd Warshall All pairs shortest Path
 
