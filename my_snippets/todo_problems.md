@@ -36,10 +36,8 @@ All the integers of nums are unique. nums is a **permutation.**
 
 ```cpp
 
-// left[i][a[j]] means the count of "until i, < a[j]"
+// left[i][a[j]]  means the count of "until i, < a[j]"
 // right[j][a[i]] means the count of "unitl j, > a[i]"
-
-// We can use DP to calculate left[i][a[j]] in increasing order of a[j]
 
 class Solution {
 public:
