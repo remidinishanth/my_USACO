@@ -32,7 +32,7 @@ Constraints:
 1 <= nums[i] <= nums.length
 ```
 
-All the integers of nums are unique. nums is a permutation.
+All the integers of nums are unique. nums is a **permutation.**
 
 ```cpp
 class Solution {
@@ -44,8 +44,11 @@ public:
         vector<vector<LL> > suf(n, vector<LL>(n));
         for(int i = n - 1; i >= 0; --i) {
             int v = nums[i] - 1;
+            // numbers less than nums[i]
             for(int j = 0; j <= v; ++j)
                 ++suf[i][j];
+            // add suf[i] to previous suf[i]
+            // used in next iteration
             if(i > 0)
                 suf[i - 1] = suf[i];
         }
