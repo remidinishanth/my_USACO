@@ -58,9 +58,11 @@ public:
             if(i > 0 && v + 1 < n)
                 for(int j = i + 1; j + 1 < n; ++j) {
                     int w = nums[j] - 1;
+                    // i < j and nums[i] > nums[j]
                     if(w > 0 && v > w)
                         ans += pre[w - 1] * suf[j + 1][v + 1];
                 }
+            // incrementing all numbers from nums[i] to n
             for(int j = v; j < n; ++j)
                 ++pre[j];
         }
