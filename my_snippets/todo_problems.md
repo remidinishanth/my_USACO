@@ -61,6 +61,7 @@ public:
         for (int i = 0; i < n; ++i) {
             for (int j = n-1; j > i; --j) {
                 if (a[i] <= a[j]) continue;
+                // i < j && a[i] > a[j] -- these are actual nums[k] < nums[j]
                 // left[i][a[j]] means the count of "until i, < a[j]"
                 // right[j][a[i]] means the count of "unitl j, > a[i]"
                 res += left[i][a[j]] * right[j][a[i]];
