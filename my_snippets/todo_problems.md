@@ -35,38 +35,40 @@ Constraints:
 All the integers of nums are unique. nums is a **permutation.**
 
 ```cpp
+
+// left[i][a[j]] means the count of "until i, < a[j]"
+// right[j][a[i]] means the count of "unitl j, > a[i]"
+
+// We can use DP to calculate left[i][a[j]] in increasing order of a[j]
+
 class Solution {
 public:
-    long long countQuadruplets(vector<int>& nums) {
-        typedef long long LL;
-        int n = nums.size();
-        vector<LL> pre(n);
-        vector<vector<LL> > suf(n, vector<LL>(n));
-        for(int i = n - 1; i >= 0; --i) {
-            int v = nums[i] - 1;
-            // numbers less than nums[i]
-            for(int j = 0; j <= v; ++j)
-                ++suf[i][j];
-            // add suf[i] to previous suf[i]
-            // used in next iteration
-            if(i > 0)
-                suf[i - 1] = suf[i];
+    long long countQuadruplets(vector<int>& a) {
+        long long res = 0;
+        int n = a.size();
+        vector<vector<int>> left(n, vector<int>(n+1, 0));
+        vector<vector<int>> right(n, vector<int>(n+1, 0));
+        for (int i = 1; i < n; ++i) {
+            // new array will based on the old array
+            left[i] = left[i-1];
+            // update all the elements greater than a[i-1]
+            for (int j = a[i-1] + 1; j <= n; ++j)
+                left[i][j]++;
         }
-        LL ans = 0;
-        for(int i = 0; i < n; ++i) {
-            int v = nums[i] - 1;
-            if(i > 0 && v + 1 < n)
-                for(int j = i + 1; j + 1 < n; ++j) {
-                    int w = nums[j] - 1;
-                    // i < j and nums[i] > nums[j]
-                    if(w > 0 && v > w)
-                        ans += pre[w - 1] * suf[j + 1][v + 1];
-                }
-            // incrementing all numbers from nums[i] to n
-            for(int j = v; j < n; ++j)
-                ++pre[j];
+        for (int i = n-2; i >= 0; --i) {
+            right[i] = right[i+1];
+            for (int j = 0; j < a[i+1]; ++j)
+                right[i][j]++;
         }
-        return ans;
+        for (int i = 0; i < n; ++i) {
+            for (int j = n-1; j > i; --j) {
+                if (a[i] <= a[j]) continue;
+                // left[i][a[j]] means the count of "until i, < a[j]"
+                // right[j][a[i]] means the count of "unitl j, > a[i]"
+                res += left[i][a[j]] * right[j][a[i]];
+            }
+        }
+        return res;
     }
 };
 ```
