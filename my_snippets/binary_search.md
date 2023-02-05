@@ -609,3 +609,36 @@ def findMedianSortedArrays(self, nums1, nums2):
     nextfew = sorted(a[i:i+2] + b[after-i:after-i+2])
     return (nextfew[0] + nextfew[1 - (m+n)%2]) / 2.0
 ```
+	
+### Leetcode 2560. House Robber IV
+	
+There are several consecutive houses along a street, each of which has some money inside. There is also a robber, who wants to steal money from the homes, but he refuses to steal from adjacent homes.
+
+The capability of the robber is the maximum amount of money he steals from one house of all the houses he robbed.
+
+You are given an integer array `nums` representing how much money is stashed in each house. More formally, the `i-th` house from the left has `nums[i]` dollars.
+
+You are also given an integer `k`, representing the minimum number of houses the robber will steal from. It is always possible to steal at least `k` houses.
+
+Return the minimum capability of the robber out of all the possible ways to steal **at least** `k` houses.
+	
+Ref: https://leetcode.com/contest/weekly-contest-331/problems/house-robber-iv/
+	
+```cpp
+    int minCapability(vector<int>& nums, int k) {
+        int lo = 0, hi = 1e9; 
+        while (lo < hi) {
+            int mid = lo + (hi - lo)/2; 
+            int count = 0, val = INT_MIN; 
+            for (int i = 0; i < nums.size(); ++i) {
+                if (nums[i] <= mid && val + 1 < i) {
+                    ++count; 
+                    val = i; 
+                }
+            }
+            if (count < k) lo = mid + 1; 
+            else hi = mid; 
+        }
+        return lo; 
+    }
+```
