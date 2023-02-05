@@ -4,7 +4,7 @@ known patterns or adapting one to the problem is encouraged so long as it doesn�
 fitting. If you are unable to find a natural fit, prefer thinking from scratch.
 the parts.
 * Text given in the bold is very important, make sure that you use all the information and constriants given in the problem statement.
-* If we are asked to maximize or minimize a value, think if we can make sure of binary search. Example: https://leetcode.com/problems/split-array-largest-sum/
+* If we are asked to **maximize or minimize a value**, think if we can make sure of binary search. Also think when we need to do solve in O(nlogn) then you need to either use sorting or binary search Example: https://leetcode.com/contest/weekly-contest-331/problems/house-robber-iv/ and https://leetcode.com/problems/split-array-largest-sum/
 	<details>
 	<summary>Example</summary>
 	
@@ -19,7 +19,7 @@ the parts.
 	If the minimum number of subarrays required is less than or equal to `m` then the value `X` could be the largest subarray sum.
 	</details>
 
-* If N is upto 10^12, then may be we will need to do prime factorization of N, Or use divisors of N and do something.
+* If N is upto `10^12`, then may be we will need to do prime factorization of N, Or use divisors of N and do something.
 * If you are asked to count/find something, check if finding the complement of it is easier.
 * Whenever you see, there is atleast `⌈N/2⌉` or `⌈N/3⌉` elements in the answer, see if you can use randomization. Say we need to have atleast `⌈N/2⌉` elements in the answer, if we choose a person at random, there is half probability that element is in the answer. So if we repeat this process say 30 times, then the probability of failure reduces to `(1/2)^30`. Hence this works most of the time.
   * Problem: https://codeforces.com/contest/1523/problem/D , Solution: https://codeforces.com/contest/1523/submission/117881477
