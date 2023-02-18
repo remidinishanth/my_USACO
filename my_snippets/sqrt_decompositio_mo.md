@@ -1047,7 +1047,8 @@ namespace MO {
                     int was = mnc; // snapshot
                     for (int i = br; i >= que.l;) add(i--, mnc);
                     ans[que.n] = mnc;
-                    mnc = was; // rollback
+                    // rollback
+                    mnc = was;
                     for (int i = que.l; i <= br; ) rem(i++);
                 }
             }
