@@ -384,6 +384,17 @@ L.upd(i,i,val); // update
 
 source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/LazySeg%20(15.2).h
 
+You can even do modular addition when we need to do flip operation in case of array with just 0 and 1's. Ref: https://leetcode.com/contest/biweekly-contest-98/problems/handling-sum-queries-after-update/, The only change will be in case of push operation.
+
+```cpp
+    void push(int ind, int L, int R) { // modify values for current node
+        if(lazy[ind] % 2)
+            seg[ind] = (R-L+1) - seg[ind];
+        if (L != R) for(int i=0; i<2;i++) lazy[2*ind+i] += lazy[ind]; // prop to children
+        lazy[ind] = 0; 
+    } // recalc values for current node
+```
+
 ### KTH - KACTL Notebook
 
 ```cpp
