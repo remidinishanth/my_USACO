@@ -1044,10 +1044,10 @@ namespace MO {
                     }
                 } else {
                     for (; rr < que.r; ) add(++rr, mnc);
-                    int was = mnc;
+                    int was = mnc; // snapshot
                     for (int i = br; i >= que.l;) add(i--, mnc);
                     ans[que.n] = mnc;
-                    mnc = was;
+                    mnc = was; // rollback
                     for (int i = que.l; i <= br; ) rem(i++);
                 }
             }
