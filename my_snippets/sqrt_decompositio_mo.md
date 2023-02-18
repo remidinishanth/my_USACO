@@ -788,6 +788,11 @@ The following solution uses `godgod_suc_pred`,
   
 Ref: https://codeforces.com/problemset/problem/765/F and https://codeforces.com/problemset/problem/1793/F
   
+In the following solution, instead of delete/remove, we've used rollback and snapshot as mentioned in https://codeforces.com/blog/entry/7383?#comment-161520
+
+<img width="771" alt="image" src="https://user-images.githubusercontent.com/19663316/219856919-fd0fef32-d6c3-4f87-9efd-7f28efa587b9.png">
+
+  
 ```cpp
 #pragma GCC optimize("Ofast")
 // #pragma GCC target("avx,avx2,fma")
