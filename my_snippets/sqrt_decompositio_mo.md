@@ -1029,7 +1029,7 @@ namespace MO {
             for (int rr = br, mnc = 1e9; q <= rg; ++q) {
                 const auto &que = qarr[q];
                 if (que.r <= br) {
-                    // lighter queries, within same box
+                    // lighter queries, within same block
                     int mn = 1e9;
                     for (int i = que.l; i <= que.r; ++i) {
                         kek.insert(m[i]);
