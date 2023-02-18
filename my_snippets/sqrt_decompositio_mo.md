@@ -783,6 +783,9 @@ int main() {
   
 Witn normal sets, it will give TLE. To pass time limit, you need super fast set for integers and super fast IO.  
   
+The following solution uses `godgod_suc_pred`,
+* It supports all `std::set` operations in `O(1)` on random queries / dense arrays, `O(log_64(N))` in worst case (sparce array).
+  
 ```cpp
 #pragma GCC optimize("Ofast")
 // #pragma GCC target("avx,avx2,fma")
@@ -962,8 +965,8 @@ public:
     uint inverse_lower_bound(uint x) const {return left_go(x, 1);}
     uint inverse_upper_bound(uint x) const {return left_go(x, 0);}
 };
-//Supports all std::set operations in O(1) on random queries / dense arrays, O(log_64(N)) in worst case (sparce array).
-//Count operation works in O(1) always.
+// Supports all std::set operations in O(1) on random queries / dense arrays, O(log_64(N)) in worst case (sparce array).
+// Count operation works in O(1) always.
 
 const int MAXN = 300000;
 const int MAXQ = 1000000;
