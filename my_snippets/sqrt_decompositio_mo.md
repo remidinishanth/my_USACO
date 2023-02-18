@@ -1016,8 +1016,10 @@ namespace MO {
         sort(qarr, qarr + qsz, [](const query & q1, const query & q2) {
             int bl1 = q1.l / BLOCK_SIZE;
             int bl2 = q2.l / BLOCK_SIZE;
+            // if it different blocks, order by l
             if (bl1 != bl2) return bl1 < bl2;
             //return (bool)((q1.r < q2.r) ^ (bl1 & 1));
+            // if in same block order by right end of query
             return q1.r < q2.r;
         });
         for (int q = 0; q < qsz;) {
@@ -1045,6 +1047,10 @@ namespace MO {
                         kek.erase(m[i]);
                     }
                 } else {
+                    // since these queries fall in different block,
+                    // because of our sort order, these will only run
+                    // after the above all (if conditions) cases in for loop
+
                     // insert till the right border
                     for (; rr < que.r; ) add(++rr, mnc);
                     int was = mnc; // snapshot
