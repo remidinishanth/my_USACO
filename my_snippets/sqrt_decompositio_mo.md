@@ -776,6 +776,291 @@ int main() {
 ``` 
   
 </details>  
+  
+### Make it faster for upto `10^6` queries
+
+#### Given an array of distinct integers, for each query `l, r`  you need to minimum difference between any two integers in the range `a[l] a[l+1] ... a[r]`
+  
+Witn normal sets, it will give TLE. To pass time limit, you need super fast set for integers and super fast IO.  
+  
+```cpp
+#pragma GCC optimize("Ofast")
+// #pragma GCC target("avx,avx2,fma")
+
+#include "bits/stdc++.h"
+
+//#define NDEBUG
+#define F first
+#define S second
+#define vec vector
+#define pb push_back
+#define pll pair<ll, ll>
+#define pdd pair<ld, ld>
+#define pii pair<int, int>
+#define all(m) m.begin(), m.end()
+#define rall(m) m.rbegin(), m.rend()
+#define uid uniform_int_distribution
+#define timeStamp() std::chrono::steady_clock::now()
+#define unify(m) sort(all(m)); m.erase(unique(all(m)), m.end());
+#define duration_micro(a) chrono::duration_cast<chrono::microseconds>(a).count()
+#define duration_milli(a) chrono::duration_cast<chrono::milliseconds>(a).count()
+#define fast cin.tie(0); cout.tie(0); cin.sync_with_stdio(0); cout.sync_with_stdio(0);
+using namespace std;
+using str = string;
+using ll = long long;
+using ld = long double;
+using uint = unsigned int;
+using ull = unsigned long long;
+mt19937 rnd(timeStamp().time_since_epoch().count());
+mt19937_64 rndll(timeStamp().time_since_epoch().count());
+template<typename T> constexpr inline int sign(T x) {return x < 0 ? -1 : x > 0 ? 1 : 0;}
+template<typename T, typename U> bool chmin(T& a, const U& b) {return (T)b < a ? a = b, 1 : 0;}
+template<typename T, typename U> bool chmax(T& a, const U& b) {return (T)b > a ? a = b, 1 : 0;}
+constexpr inline uint leq_pow2(const uint x) {return 1u << __lg(x);}
+constexpr inline ull leq_pow2ll(const ull x) {return 1ull << __lg(x);}
+constexpr inline uint geq_pow2(const uint x) {return x & (x - 1) ? 2u << __lg(x) : x;}
+constexpr inline ull geq_pow2ll(const ull x) {return x & (x - 1) ? 2ull << __lg(x) : x;}
+constexpr inline ll sqd(const pll p1, const pll p2) {return (p1.F - p2.F) * (p1.F - p2.F) + (p1.S - p2.S) * (p1.S - p2.S);}
+constexpr inline ll sqd(const ll x1, const ll y1, const ll x2, const ll y2) {return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);}
+struct custom_hash {static uint64_t xs(uint64_t x) {x += 0x9e3779b97f4a7c15; x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9; x = (x ^ (x >> 27)) * 0x94d049bb133111eb; return x ^ (x >> 31);} template<typename T> size_t operator()(T x) const {static const uint64_t C = timeStamp().time_since_epoch().count(); return xs(hash<T> {}(x) + C);}};
+template<typename K> using uset = unordered_set<K, custom_hash>;
+template<typename K, typename V> using umap = unordered_map<K, V, custom_hash>;
+template<typename T1, typename T2> ostream& operator<<(ostream& out, const pair<T1, T2>& x) {return out << x.F << ' ' << x.S;}
+template<typename T1, typename T2> istream& operator>>(istream& in, pair<T1, T2>& x) {return in >> x.F >> x.S;}
+template<typename T, size_t N> istream& operator>>(istream& in, array<T, N>& a) {for (auto &x : a) in >> x; return in;};
+template<typename T, size_t N> ostream& operator<<(ostream& out, const array<T, N>& a) {for (int q = 0; q < a.size(); ++q) {out << a[q]; if (q + 1 < a.size()) out << ' ';} return out;};
+template<typename T> istream& operator>>(istream& in, vector<T>& a) {for (auto &x : a) in >> x; return in;};
+template<typename T> ostream& operator<<(ostream& out, const vector<T>& a) {for (int q = 0; q < a.size(); ++q) {out << a[q]; if (q + 1 < a.size()) out << ' ';} return out;};
+
+static const auto IOSetup = [] {
+    std::cin.tie(nullptr)->sync_with_stdio(false);
+    // std::cout << std::setprecision(6) << std::fixed;
+    return nullptr;}();
+struct IOPre {static constexpr int TEN = 10, SZ = TEN * TEN * TEN * TEN;std::array<char, 4 * SZ> num;constexpr IOPre() : num{} {for (int i = 0; i < SZ; i++) {int n = i;for (int j = 3; j >= 0; j--) {num[i * 4 + j] = static_cast<char>(n % TEN + '0');n /= TEN;}}}};
+struct IO {
+#if !HAVE_DECL_FREAD_UNLOCKED
+#define fread_unlocked fread
+#endif
+#if !HAVE_DECL_FWRITE_UNLOCKED
+#define fwrite_unlocked fwrite
+#endif
+    static constexpr int SZ = 1 << 17, LEN = 32, TEN = 10, HUNDRED = TEN * TEN,THOUSAND = HUNDRED * TEN, TENTHOUSAND = THOUSAND * TEN,MAGIC_MULTIPLY = 205, MAGIC_SHIFT = 11, MASK = 15,TWELVE = 12, SIXTEEN = 16;static constexpr IOPre io_pre = {};std::array<char, SZ> input_buffer, output_buffer;int input_ptr_left, input_ptr_right, output_ptr_right;
+    IO(): input_buffer{},output_buffer{},input_ptr_left{},input_ptr_right{},output_ptr_right{} {}
+    IO(const IO&) = delete;IO(IO&&) = delete;IO& operator=(const IO&) = delete;IO& operator=(IO&&) = delete;
+    ~IO() { flush(); }
+    template <class T>struct is_char {static constexpr bool value = std::is_same_v<T, char>;};
+    template <class T>struct is_bool {static constexpr bool value = std::is_same_v<T, bool>;};
+    template <class T>struct is_string {static constexpr bool value =std::is_same_v<T, std::string> || std::is_same_v<T, const char*> ||std::is_same_v<T, char*> || std::is_same_v<std::decay_t<T>, char*>;;};
+    template <class T, class D = void>struct is_custom {static constexpr bool value = false;};
+    template <class T>struct is_custom<T, std::void_t<typename T::internal_value_type>> {static constexpr bool value = true;};
+    template <class T>struct is_default {static constexpr bool value = is_char<T>::value || is_bool<T>::value ||is_string<T>::value ||std::is_integral_v<T>;};
+    template <class T, class D = void>struct is_iterable {static constexpr bool value = false;};
+    template <class T>struct is_iterable <T, typename std::void_t<decltype(std::begin(std::declval<T>())) >> {static constexpr bool value = true;};
+    template <class T, class D = void, class E = void>struct is_applyable {static constexpr bool value = false;};
+    template <class T>struct is_applyable<T, std::void_t<typename std::tuple_size<T>::type>,std::void_t<decltype(std::get<0>(std::declval<T>()))>> {static constexpr bool value = true;};
+    template <class T>static constexpr bool needs_newline = (is_iterable<T>::value || is_applyable<T>::value) && (!is_default<T>::value);
+    template <typename T, typename U> struct any_needs_newline {static constexpr bool value = false;}; template <typename T>
+    struct any_needs_newline<T, std::index_sequence<>> {static constexpr bool value = false;};
+    template <typename T, std::size_t I, std::size_t... Is>struct any_needs_newline<T, std::index_sequence<I, Is...>> {static constexpr bool value = needs_newline<decltype(std::get<I>(std::declval<T>()))> || any_needs_newline<T, std::index_sequence<Is...>>::value;};
+    inline void load() {memmove(std::begin(input_buffer), std::begin(input_buffer) + input_ptr_left, input_ptr_right - input_ptr_left); input_ptr_right = input_ptr_right - input_ptr_left + static_cast<int>(fread_unlocked(std::begin(input_buffer) + input_ptr_right - input_ptr_left, 1, SZ - input_ptr_right + input_ptr_left, stdin)); input_ptr_left = 0;}
+    inline void read_char(char& c) {if (input_ptr_left + LEN > input_ptr_right) load(); c = input_buffer[input_ptr_left++];}
+    inline void read_string(std::string& x) {char c; while (read_char(c), c < '!') continue; x = c; while (read_char(c), c >= '!') x += c;}
+    template <class T> inline std::enable_if_t<std::is_integral_v<T>, void> read_int(T& x) {if (input_ptr_left + LEN > input_ptr_right) load(); char c = 0; do c = input_buffer[input_ptr_left++]; while (c < '-'); [[maybe_unused]] bool minus = false; if constexpr (std::is_signed<T>::value == true)if (c == '-') minus = true, c = input_buffer[input_ptr_left++]; x = 0; while (c >= '0')x = x * TEN + (c & MASK), c = input_buffer[input_ptr_left++]; if constexpr (std::is_signed<T>::value == true)if (minus) x = -x;}
+    inline void skip_space() {if (input_ptr_left + LEN > input_ptr_right) load(); while (input_buffer[input_ptr_left] <= ' ') input_ptr_left++;}
+    inline void flush() {fwrite_unlocked(std::begin(output_buffer), 1, output_ptr_right, stdout); output_ptr_right = 0;}
+    inline void write_char(char c) {if (output_ptr_right > SZ - LEN) flush(); output_buffer[output_ptr_right++] = c;}
+    inline void write_bool(bool b) {if (output_ptr_right > SZ - LEN) flush(); output_buffer[output_ptr_right++] = b ? '1' : '0';}
+    inline void write_string(const std::string& s) {for (auto x : s) write_char(x);}
+    inline void write_string(const char* s) {while (*s) write_char(*s++);}
+    inline void write_string(char* s) {while (*s) write_char(*s++);}
+    template <typename T>inline std::enable_if_t<std::is_integral_v<T>, void> write_int(T x) {if (output_ptr_right > SZ - LEN) flush(); if (!x) {output_buffer[output_ptr_right++] = '0'; return;} if constexpr (std::is_signed<T>::value == true)if (x < 0) output_buffer[output_ptr_right++] = '-', x = -x; int i = TWELVE; std::array<char, SIXTEEN> buf{}; while (x >= TENTHOUSAND) {memcpy(std::begin(buf) + i, std::begin(io_pre.num) + (x % TENTHOUSAND) * 4, 4); x /= TENTHOUSAND; i -= 4;} if (x < HUNDRED) {if (x < TEN) {output_buffer[output_ptr_right++] = static_cast<char>('0' + x);} else {std::uint32_t q = (static_cast<std::uint32_t>(x) * MAGIC_MULTIPLY) >> MAGIC_SHIFT; std::uint32_t r = static_cast<std::uint32_t>(x) - q * TEN; output_buffer[output_ptr_right] = static_cast<char>('0' + q); output_buffer[output_ptr_right + 1] = static_cast<char>('0' + r); output_ptr_right += 2;}} else {if (x < THOUSAND) {memcpy(std::begin(output_buffer) + output_ptr_right, std::begin(io_pre.num) + (x << 2) + 1, 3), output_ptr_right += 3;} else {memcpy(std::begin(output_buffer) + output_ptr_right, std::begin(io_pre.num) + (x << 2), 4), output_ptr_right += 4;}} memcpy(std::begin(output_buffer) + output_ptr_right, std::begin(buf) + i + 4, TWELVE - i); output_ptr_right += TWELVE - i;}
+    template <typename T_>IO& operator<<(T_&& x) {using T = typename std::remove_cv < typename std::remove_reference<T_>::type >::type; static_assert(is_custom<T>::value or is_default<T>::value or is_iterable<T>::value or is_applyable<T>::value); if constexpr (is_custom<T>::value) {write_int(x.get());} else if constexpr (is_default<T>::value) {if constexpr (is_bool<T>::value) {write_bool(x);} else if constexpr (is_string<T>::value) {write_string(x);} else if constexpr (is_char<T>::value) {write_char(x);} else if constexpr (std::is_integral_v<T>) {write_int(x);}} else if constexpr (is_iterable<T>::value) {using E = decltype(*std::begin(x)); constexpr char sep = needs_newline<E> ? '\n' : ' '; int i = 0; for (const auto& y : x) {if (i++) write_char(sep); operator<<(y);}} else if constexpr (is_applyable<T>::value) {constexpr char sep = (any_needs_newline < T, std::make_index_sequence<std::tuple_size_v<T> >>::value) ? '\n' : ' '; int i = 0; std::apply([this, &sep, &i](auto const & ... y) {(((i++ ? write_char(sep) : void()), this->operator<<(y)), ...);}, x);} return *this;}
+    template <typename T>IO& operator>>(T& x) {static_assert(is_custom<T>::value or is_default<T>::value or is_iterable<T>::value or is_applyable<T>::value); static_assert(!is_bool<T>::value); if constexpr (is_custom<T>::value) {typename T::internal_value_type y; read_int(y); x = y;} else if constexpr (is_default<T>::value) {if constexpr (is_string<T>::value) {read_string(x);} else if constexpr (is_char<T>::value) {read_char(x);} else if constexpr (std::is_integral_v<T>) {read_int(x);}} else if constexpr (is_iterable<T>::value) {for (auto& y : x) operator>>(y);} else if constexpr (is_applyable<T>::value) {std::apply([this](auto & ... y) { ((this->operator>>(y)), ...); }, x);} return *this;}
+    IO* tie(std::nullptr_t) { return this; }
+    void sync_with_stdio(bool) {}
+} io;
+#define cin io
+#define cout io
+
+constexpr ull lowest_bitsll[] = {0ull, 1ull, 3ull, 7ull, 15ull, 31ull, 63ull, 127ull, 255ull, 511ull, 1023ull, 2047ull, 4095ull, 8191ull, 16383ull, 32767ull, 65535ull, 131071ull, 262143ull, 524287ull, 1048575ull, 2097151ull, 4194303ull, 8388607ull, 16777215ull, 33554431ull, 67108863ull, 134217727ull, 268435455ull, 536870911ull, 1073741823ull, 2147483647ull, 4294967295ull, 8589934591ull, 17179869183ull, 34359738367ull, 68719476735ull, 137438953471ull, 274877906943ull, 549755813887ull, 1099511627775ull, 2199023255551ull, 4398046511103ull, 8796093022207ull, 17592186044415ull, 35184372088831ull, 70368744177663ull, 140737488355327ull, 281474976710655ull, 562949953421311ull, 1125899906842623ull, 2251799813685247ull, 4503599627370495ull, 9007199254740991ull, 18014398509481983ull, 36028797018963967ull, 72057594037927935ull, 144115188075855871ull, 288230376151711743ull, 576460752303423487ull, 1152921504606846975ull, 2305843009213693951ull, 4611686018427387903ull, 9223372036854775807ull, 18446744073709551615ull};
+const uint NO = 1 << 20; //This value will be returned in lower_bound functions, if no answer exists. Change, if need.
+template<uint MAXN>           //Can correctly work with numbers in range [0; MAXN]
+class godgod_suc_pred {
+    static const uint PREF = (MAXN <= 64 ? 0 :
+                              MAXN <= 4096 ? 1 :
+                              MAXN <= 262144 ? 1 + 64 :
+                              MAXN <= 16777216 ? 1 + 64 + 4096 :
+                              MAXN <= 1073741824 ? 1 + 64 + 4096 + 262144 : 227) + 1;
+    static const uint SZ = PREF + (MAXN + 63) / 64 + 1;
+    ull m[SZ] = {0};
+
+    inline uint left(uint v) const {return (v - 62) * 64;}
+    inline uint parent(uint v) const {return v / 64 + 62;}
+    inline void setbit(uint v) {m[v >> 6] |= 1ull << (v & 63);}
+    inline void resetbit(uint v) {m[v >> 6] &= ~(1ull << (v & 63));}
+    inline uint getbit(uint v) const {return m[v >> 6] >> (v & 63) & 1;}
+    inline ull childs_value(uint v) const {return m[left(v) >> 6];}
+
+    inline uint left_go(uint x, const uint c) const {
+        const ull rem = x & 63;
+        uint bt = PREF * 64 + x;
+        ull num = m[bt >> 6] & lowest_bitsll[rem + c];
+        if (num) return (x ^ rem) | __lg(num);
+        for (bt = parent(bt); bt > 62; bt = parent(bt)) {
+            const ull rem = bt & 63;
+            num = m[bt >> 6] & lowest_bitsll[rem];
+            if (num) {bt = (bt ^ rem) | __lg(num); break;}
+        }
+        if (bt == 62) return NO;
+        while (bt < PREF * 64) bt = left(bt) | __lg(m[bt - 62]);
+        return bt - PREF * 64;
+    }
+
+    inline uint right_go(uint x, const uint c) const {
+        const ull rem = x & 63;
+        uint bt = PREF * 64 + x;
+        ull num = m[bt >> 6] & ~lowest_bitsll[rem + c];
+        if (num) return (x ^ rem) | __builtin_ctzll(num);
+        for (bt = parent(bt); bt > 62; bt = parent(bt)) {
+            const ull rem = bt & 63;
+            num = m[bt >> 6] & ~lowest_bitsll[rem + 1];
+            if (num) {bt = (bt ^ rem) | __builtin_ctzll(num); break;}
+        }
+        if (bt == 62) return NO;
+        while (bt < PREF * 64) bt = left(bt) | __builtin_ctzll(m[bt - 62]);
+        return bt - PREF * 64;
+    }
+
+public:
+    godgod_suc_pred() {
+        assert(PREF != 228);
+        setbit(62);
+    }
+
+    bool empty() const {return getbit(63);}
+
+    void clear() {fill(m, m + SZ, 0); setbit(62);}
+
+    bool count(uint x) const {return m[PREF + (x >> 6)] >> (x & 63) & 1;}
+
+    void insert(uint x) {
+        for (uint v = PREF * 64 + x; !getbit(v); v = parent(v)) {
+            setbit(v);
+        }
+    }
+
+    void erase(uint x) {
+        if (!getbit(PREF * 64 + x)) return;
+        resetbit(PREF * 64 + x);
+        for (uint v = parent(PREF * 64 + x); v > 62 && !childs_value(v); v = parent(v)) {
+            resetbit(v);
+        }
+    }
+
+    uint lower_bound(uint x) const {return right_go(x, 0);}
+    uint upper_bound(uint x) const {return right_go(x, 1);}
+    uint inverse_lower_bound(uint x) const {return left_go(x, 1);}
+    uint inverse_upper_bound(uint x) const {return left_go(x, 0);}
+};
+//Supports all std::set operations in O(1) on random queries / dense arrays, O(log_64(N)) in worst case (sparce array).
+//Count operation works in O(1) always.
+
+const int MAXN = 300000;
+const int MAXQ = 1000000;
+int a, z;
+int m[MAXN];
+
+namespace MO {
+
+    //edit, if need
+    const int BLOCK_SIZE = (int)sqrt(MAXN);
+
+    struct query {
+        int l, r, n;
+        //add needed params
+    };
+
+    query qarr[MAXQ];
+    int qsz = 0;
+    int ans[MAXQ];
+    godgod_suc_pred<MAXN> kek;
+
+    inline void add_query(int l, int r) {
+        qarr[qsz]  = {l, r, qsz};
+        ++qsz;
+    }
+
+    inline void add(int ps, int& mn) {
+        kek.insert(m[ps]);
+        int ln = kek.inverse_upper_bound(m[ps]);
+        int rn = kek.upper_bound(m[ps]);
+        if (ln != NO) mn = min(mn, m[ps] - ln);
+        mn = min(mn, rn - m[ps]);
+    }
+
+    inline void rem(int ps) {
+        kek.erase(m[ps]);
+    }
+
+    void go() {
+        sort(qarr, qarr + qsz, [](const query & q1, const query & q2) {
+            int bl1 = q1.l / BLOCK_SIZE;
+            int bl2 = q2.l / BLOCK_SIZE;
+            if (bl1 != bl2) return bl1 < bl2;
+            //return (bool)((q1.r < q2.r) ^ (bl1 & 1));
+            return q1.r < q2.r;
+        });
+        for (int q = 0; q < qsz;) {
+            int rg = q;
+            for (; rg + 1 < qsz && qarr[rg + 1].l / BLOCK_SIZE == qarr[q].l / BLOCK_SIZE;) ++rg;
+            int bn = qarr[q].l / BLOCK_SIZE;
+            int br = (bn + 1) * BLOCK_SIZE - 1;
+            kek.clear();
+            for (int rr = br, mnc = 1e9; q <= rg; ++q) {
+                const auto &que = qarr[q];
+                if (que.r <= br) {
+                    int mn = 1e9;
+                    for (int i = que.l; i <= que.r; ++i) {
+                        kek.insert(m[i]);
+                        int ln = kek.inverse_upper_bound(m[i]);
+                        int rn = kek.upper_bound(m[i]);
+                        if (ln != NO) mn = min(mn, m[i] - ln);
+                        mn = min(mn, rn - m[i]);
+                    }
+                    ans[que.n] = mn;
+                    for (int i = que.l; i <= que.r; ++i) {
+                        kek.erase(m[i]);
+                    }
+                } else {
+                    for (; rr < que.r; ) add(++rr, mnc);
+                    int was = mnc;
+                    for (int i = br; i >= que.l;) add(i--, mnc);
+                    ans[que.n] = mnc;
+                    mnc = was;
+                    for (int i = que.l; i <= br; ) rem(i++);
+                }
+            }
+        }
+    }
+};
+
+int main() {
+    fast;
+    cin >> a >> z;
+    for (int q = 0; q < a; ++q) {
+        cin >> m[q];
+    }
+    for (int q = 0; q < z; ++q) {
+        int l, r; cin >> l >> r; --l, --r;
+        MO::add_query(l, r);
+    }
+    MO::go();
+    for (int q = 0; q < z; ++q) {
+        cout << MO::ans[q] << '\n';
+    }
+}
+```
+                              
 
 ## TODO: 
 
