@@ -1048,7 +1048,7 @@ namespace MO {
                     // insert till the right border
                     for (; rr < que.r; ) add(++rr, mnc);
                     int was = mnc; // snapshot
-                    // if left border is moved, insert till there, O(block size)
+                    // insert from [que.l to br], O(block size)
                     for (int i = br; i >= que.l;) add(i--, mnc);
                     ans[que.n] = mnc;
                     // rollback
