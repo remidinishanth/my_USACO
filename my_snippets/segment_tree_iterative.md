@@ -384,7 +384,7 @@ L.upd(i,i,val); // update
 
 source: https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/1D%20Range%20Queries%20(9.2)/LazySeg%20(15.2).h
 
-You can even do modular addition when we need to do flip operation in case of array with just 0 and 1's. Ref: https://leetcode.com/contest/biweekly-contest-98/problems/handling-sum-queries-after-update/, The only change will be in case of push operation.
+You can even do modular addition when we need to do flip operation in case of array with just 0 and 1's. Ref: https://leetcode.com/contest/biweekly-contest-98/problems/handling-sum-queries-after-update/, The only change will be in case of push operation. Inspired from https://www.geeksforgeeks.org/range-queries-to-count-1s-in-a-subarray-after-flip-operations/
 
 ```cpp
     void push(int ind, int L, int R) { // modify values for current node
