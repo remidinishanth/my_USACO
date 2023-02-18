@@ -45,7 +45,3 @@ Problems
 <img width="996" alt="image" src="https://user-images.githubusercontent.com/19663316/202861675-46689871-3cf8-4c0d-ac8b-1b5f9b2a8206.png">
 
 <img width="996" alt="image" src="https://user-images.githubusercontent.com/19663316/202861690-2df7a9c4-0e27-4f96-ae83-4f184ea02337.png">
-
-
-
-source: https://atcoder.jp/contests/abc278/submissions/36650055
