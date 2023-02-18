@@ -786,6 +786,8 @@ Witn normal sets, it will give TLE. To pass time limit, you need super fast set 
 The following solution uses `godgod_suc_pred`,
 * It supports all `std::set` operations in `O(1)` on random queries / dense arrays, `O(log_64(N))` in worst case (sparce array).
   
+Ref: https://codeforces.com/problemset/problem/765/F and https://codeforces.com/problemset/problem/1793/F
+  
 ```cpp
 #pragma GCC optimize("Ofast")
 // #pragma GCC target("avx,avx2,fma")
