@@ -1021,10 +1021,12 @@ namespace MO {
             return q1.r < q2.r;
         });
         for (int q = 0; q < qsz;) {
-            int rg = q;
+            int rg = q; // rg is the right most query whose left border is same as qarr[q].l
             for (; rg + 1 < qsz && qarr[rg + 1].l / BLOCK_SIZE == qarr[q].l / BLOCK_SIZE;) ++rg;
+
             int bn = qarr[q].l / BLOCK_SIZE;
             int br = (bn + 1) * BLOCK_SIZE - 1;
+            // initialize, mnc = 1e9 in for loop
             kek.clear();
             for (int rr = br, mnc = 1e9; q <= rg; ++q) {
                 const auto &que = qarr[q];
@@ -1043,8 +1045,10 @@ namespace MO {
                         kek.erase(m[i]);
                     }
                 } else {
+                    // insert till the right border
                     for (; rr < que.r; ) add(++rr, mnc);
                     int was = mnc; // snapshot
+                    // if left border is moved, insert till there, O(block size)
                     for (int i = br; i >= que.l;) add(i--, mnc);
                     ans[que.n] = mnc;
                     // rollback
