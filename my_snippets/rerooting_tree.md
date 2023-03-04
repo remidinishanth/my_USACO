@@ -1,3 +1,7 @@
+### TODO 
+
+Read https://codeforces.com/blog/entry/76150
+
 ### Codeforces
 
 https://codeforces.com/contest/1092/problem/F
