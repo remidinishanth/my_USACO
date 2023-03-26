@@ -64,3 +64,39 @@ class Solution:
 ### Planet Queries 2
 
 https://usaco.guide/problems/cses-1160-planets-queries-ii/solution
+
+### Find the largest cycle in graph with atmost one edge
+
+https://leetcode.com/problems/longest-cycle-in-a-graph/description/
+
+```cpp
+class Solution {
+public:
+    int longestCycle(vector<int>& edges) {
+        int n = edges.size();
+        int ans = -1;
+        vector<bool> visited(n);
+        for(int i=0;i<n;i++){
+            if(visited[i]) continue;
+            set<int> S; // to find nodes in the current cycle
+            int now = i;
+            while(!visited[now] && S.count(now) == 0){
+                visited[now] = true;
+                S.insert(now);
+                now = edges[now];
+                if(now == -1) break; // no outgoing edge
+            }
+            if(S.count(now) == 1){
+                int last = now;
+                int cnt = 1;
+                while(edges[now] != last){
+                    now = edges[now];
+                    cnt++;
+                }
+                ans = max(ans, cnt);
+            }
+        }
+        return ans;
+    }
+};
+```
