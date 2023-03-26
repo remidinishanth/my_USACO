@@ -100,3 +100,14 @@ public:
     }
 };
 ```
+
+We can also solve it by using Kahn's algorithm
+
+* In a directed acyclic graph, we can use Kahn's algorithm to get the topological ordering. 
+* Kahn’s algorithm works by keeping track of the number of incoming edges into each node (indegree). 
+* It works by repeatedly visiting the nodes with an indegree of zero and deleting all the edges associated with it leading to a decrement of indegree for the nodes whose incoming edges are deleted. 
+* This process continues until no element with zero indegree can be found.
+
+If all of the nodes are visited during Kahn's algorithm, the graph has no cycle.
+
+After completing Kahn's algorithm, we iterate over all the unvisited nodes to determine the length of the longest cycle. 
