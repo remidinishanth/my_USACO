@@ -84,6 +84,41 @@ Morris Traversal method traverses the binary tree (non-recursive, no stack, O(1)
 ![](images/morris_traversal.png)
 
 
+### Inorder Traversal without using list, just keeping previous node
+
+Finding minimum difference in BST
+
+https://leetcode.com/problems/minimum-absolute-difference-in-bst/editorial/
+
+```cpp
+class Solution {
+public:
+    int minDifference = INT_MAX;
+    // Initially, it will be null.
+    TreeNode* prevNode;
+        
+    void inorderTraversal(TreeNode* node) {
+        if (node == NULL) {
+            return;
+        }
+        
+        inorderTraversal(node->left);
+        // Find the difference with the previous value if it is there.
+        if (prevNode != NULL) {
+            minDifference = min(minDifference, node->val - prevNode->val);
+        }
+        prevNode = node;
+        inorderTraversal(node->right);
+    }
+    
+    int getMinimumDifference(TreeNode* root) {
+        inorderTraversal(root);
+        return minDifference;
+    }
+};
+```
+
+
 #### Algorithm
 
 1. If the left child of the current node is empty, output the current node and use its right child as the current node.
