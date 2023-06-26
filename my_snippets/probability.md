@@ -165,3 +165,7 @@ int main(){
 	cout << (dp[n][m][k]*fact[k]).val() << endl;
 }
 ```
+
+
+### Indicator variables to solve expected values
+![image](https://github.com/remidinishanth/my_USACO/assets/19663316/b0c3d7db-93de-4b10-8333-1f68ea1b5c99)
