@@ -169,3 +169,7 @@ int main(){
 
 ### Indicator variables to solve expected values
 ![image](https://github.com/remidinishanth/my_USACO/assets/19663316/b0c3d7db-93de-4b10-8333-1f68ea1b5c99)
+
+![image](https://github.com/remidinishanth/my_USACO/assets/19663316/cddca2d0-622e-4c91-b0a4-6eb6ddf847fd)
+
+![image](https://github.com/remidinishanth/my_USACO/assets/19663316/dcef0426-bcbf-474a-839a-c51b6a883a6b)
