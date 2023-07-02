@@ -99,8 +99,9 @@ Source: KACTL
  * Memory: O(N logN)
  * Time: O(1)
 
-
 ```cpp
+typedef vector<int> vi;
+
 template<class T> struct RMQ { // floor(log_2(x))
     int level(int x) { return 31-__builtin_clz(x); } 
     vector<T> v; vector<vi> jmp;
@@ -134,6 +135,13 @@ int main() {
     }
     return 0;
 }
+```
+
+Usage
+```cpp
+RMQ<int> mi;
+mi.init(nums);
+mx.query(l, i);
 ```
 
 source: <https://github.com/bqi343/USACO/blob/master/Implementations/content/data-structures/Static%20Range%20Queries%20(9.1)/RMQ%20(9.1).h>
