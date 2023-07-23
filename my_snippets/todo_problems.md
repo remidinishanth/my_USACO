@@ -15,6 +15,9 @@ Solution: ![image](https://user-images.githubusercontent.com/19663316/145713320-
 
 
 * https://leetcode.com/contest/weekly-contest-330/problems/count-increasing-quadruplets/
+
+* https://leetcode.com/problems/maximum-number-of-groups-with-increasing-length/description/
+
 ### 2552. Count Increasing Quadruplets
 
 Given a 0-indexed integer array nums of size n containing all numbers from 1 to n, return the number of increasing quadruplets.
