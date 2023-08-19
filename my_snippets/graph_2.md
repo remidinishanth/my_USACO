@@ -1381,6 +1381,11 @@ vector<edge> mst(int n, vector<edge> edges) {
     return res;
 }
 ```
+
+Refer to https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/description/ to understand more about critical edge trick.
+
+* To find if one edge is critical, delete that edge and re-run the MST algorithm and see if the weight of the new MST increases.
+* To find if one edge is non-critical (in any MST), include that edge to the accepted edge list and continue the MST algorithm, then see if the resulting MST has the same weight as the initial MST of the entire graph.
 				     
 ## Forest of Two trees
 				     
