@@ -111,3 +111,60 @@ We can also solve it by using Kahn's algorithm
 If all of the nodes are visited during Kahn's algorithm, the graph has no cycle.
 
 After completing Kahn's algorithm, we iterate over all the unvisited nodes to determine the length of the longest cycle. 
+
+### In functional graph, find number of nodes visited from each vertex
+
+#### Solution:
+
+For each node, check it's next nodes.
+
+* We push all nodes in a stack,
+until a node we have seen,
+and pop nodes from stack one by one and assign it's result.
+
+* If we meet a node j in seen set,
+it means we hit a cycle.
+
+* Calculate the position j in the stack,
+we can know the length k of cycle,
+then assign k to all nodes in the cycle.
+
+For other nodes in stack,
+we pop out one by one,
+and we can have `res[j] = res[edges[j]] + 1`
+
+Finally return res.
+
+No special skill,
+no count of degrees,
+no topo sort,
+no recursive dfs.
+
+```cpp
+    vector<int> countVisitedNodes(vector<int>& edges) {
+        int n = edges.size();
+        vector<int> res(n);
+        for (int i = 0, j = 0; i < n; j = ++i) {
+            set<int> seen;
+            vector<int> s;
+            while (!seen.count(j) && res[j] == 0) {
+                seen.insert(j);
+                s.push_back(j);
+                j = edges[j];
+            }
+            if (seen.count(j)) { // hit the cycle
+                int k = distance(find(s.begin(), s.end(), j), s.end());
+                for (j = 0; j < k; ++j) {
+                    res[s.back()] = k;
+                    s.pop_back();
+                }
+            }
+            while (!s.empty()) {
+                j = s.back();
+                s.pop_back();
+                res[j] = res[edges[j]] + 1;
+            }
+        }
+        return res;
+    }
+```
