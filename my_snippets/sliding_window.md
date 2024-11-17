@@ -23,3 +23,23 @@ public:
     }
 };
 ```
+
+This is more clear in terms of explanation
+```cpp
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n = nums.size();
+        int left = 0;
+        int sum = 0;
+        int ans = INT_MAX;
+        for(int i=0;i<n;i++){
+            sum += nums[i];
+            if(sum < target) continue;
+            while(sum - nums[left] >= target){
+                sum -= nums[left++];
+            }
+            ans = min(ans, i - left+1);
+        }
+        if(ans == INT_MAX) return 0;
+        return ans;
+    }
+```
