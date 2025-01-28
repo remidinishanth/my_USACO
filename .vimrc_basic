@@ -1,0 +1,63 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+call plug#begin()
+" griw, replace inner word, useful when you copy & replace
+Plug 'https://github.com/vim-scripts/ReplaceWithRegister'
+
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+
+Plug 'preservim/nerdtree'
+
+" Have the file system follow you around
+Plug 'airblade/vim-rooter'
+
+" Colorizer
+Plug 'morhetz/gruvbox'
+
+Plug 'yggdroot/indentline'  " Show indentation lines
+
+" Themes
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+call plug#end()
+
+" Try not to put settings you don't understand in your .vimrc
+
+set clipboard=unnamed " copy vim clipboard to system clipboard
+set backspace=indent,eol,start "to make backspace work as expected
+set nocompatible     " removes incompatibility with the original vi
+set expandtab        " convert tabs to spaces
+set shiftwidth=4     " no of spaces inserted for indentation
+set tabstop=4        " 1 tab = 4 spaces
+set softtabstop=4    " with <BS> pretend like tab is removed, even if spaces
+set smartindent      " does the right thing (mostly) in programs
+set autoindent       " copy the indentation from the previous line
+set cindent          " stricter rules for C programs
+set history=1000     " command history options
+set number           " turn absolute line numbers on
+set relativenumber   " turn relative line numbers on
+set ruler            " displays line, col number at bottom of window
+set noerrorbells     " no beep occurs when an error message is displayed
+set vb t_vb=         " no flash will ever occur vb is visualbell
+set mouse=a          " enable mouse in all modes
+set wildmenu         " visual autocomplete for command menu
+set nowrap           " disable soft wrap for lines
+set hlsearch         " highlight search results
+set incsearch        " incremental search
+set splitbelow       " split opens at bottom
+set splitright       " new vertical split opens right
+set signcolumn=yes   " always show signcolumns - used by ALE
+
+syntax enable        " keep your current color settings
+
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+colorscheme gruvbox
